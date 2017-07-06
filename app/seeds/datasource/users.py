@@ -1,0 +1,30 @@
+from faker import Factory
+
+fake = Factory.create('en_US')
+
+test_password = 'password123'
+
+users = [
+    {
+        'username': 'admin',
+        'roleid': 1
+    },
+    {
+        'username': 'usersales1',
+        'roleid': 2
+    },
+    {
+        'username': 'usersales2',
+        'roleid': 2
+    },
+    {
+        'username': 'usersales3',
+        'roleid': 2
+    }
+]
+
+for index, user in enumerate(users):
+    user['firstname'] = fake.first_name()
+    user['lastname'] = fake.last_name()
+    user['password'] = test_password
+    users[index] = user

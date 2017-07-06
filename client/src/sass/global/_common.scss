@@ -1,0 +1,65 @@
+/* Text Classes */
+.text-muted {
+  color: #777;
+}
+
+.white-bg {
+  background-color: #ffffff !important;
+}
+
+/* Text Positioning */
+.text-center {
+  text-align: center;
+}
+
+.full-height {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* Treasure Overlay Spinner */
+.treasure-overlay-spinner-container, .treasure-overlay-spinner {
+  /*
+  * Since z-index for md-dialog-container is 80
+  * so make spinner on top of it value is 81
+  */
+  z-index: 81;
+}
+
+.treasure-overlay-spinner-active .treasure-overlay-spinner {
+  border: 5px solid rgba($primary-color, 0.7);
+  border-top: 5px solid rgba($primary-color, 0.25);
+  border-right: 5px solid rgba($primary-color, .75);
+  border-bottom: 5px solid rgba($primary-color, .75);
+  border-left: 5px solid rgba($primary-color, .75);
+}
+
+/* Custom Scrollbar */
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.05);
+}

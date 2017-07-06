@@ -1,0 +1,62 @@
+.ng-inline-edit--validating .ng-inline-edit__input {
+  background: #fff;
+  opacity: .4;
+}
+.ng-inline-edit__inner-container{
+  width: 100%;
+}
+input.ng-inline-edit__input {
+  width: 100% !important;
+  vertical-align: bottom;
+  padding-top: 15px;
+}
+span.ng-inline-edit__text{
+  width: 100% !important;
+  display: inline-block !important;
+  max-width: 100% !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ng-inline-edit__button {
+  font-size: 0;
+  margin-left: 5px;
+  visibility: hidden;
+  opacity: .6;
+}
+
+.ng-inline-edit__button:hover {
+  opacity: 1;
+}
+
+.ng-inline-edit:hover .ng-inline-edit__button,
+.ng-inline-edit .ng-inline-edit__button--save,
+.ng-inline-edit .ng-inline-edit__button--cancel {
+  visibility: visible;
+}
+
+.ng-inline-edit__button:after {
+  font-family: FontAwesome;
+  color: #777;
+  font-size: 13px;
+  line-height: 24px;
+}
+
+.edit-buttons {
+  font-family: FontAwesome;
+  color: #777;
+  font-size: 13px;
+}
+
+.ng-inline-edit__button--edit:after {
+  content: "\f040";
+}
+
+.ng-inline-edit__button--save:after {
+  content: "\f00c";
+}
+
+.ng-inline-edit__button--cancel:after {
+  content: "\f00d";
+}

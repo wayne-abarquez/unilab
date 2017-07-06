@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="demoApp.authentication">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--Import Google Icon Font-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- CSS here -->
+    <link rel="stylesheet" href="css/vendor.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="css/app.min.css">
+</head>
+<body ng-cloak>
+{% raw %}
+
+<div class="full-height full-bg-image">
+    <div id="ui-login" class="login-frame" layout-fill flex layout="column">
+        <div layout="row" flex layout-padding layout-fill layout-align="center center">
+            <div flex="40" flex-lg="50" flex-md="70" flex-sm="100">
+                <md-card class="md-red-theme">
+                    <md-toolbar layout-align="center center">
+                        <!--
+                        <div flex="100" layout-align="center center">
+                            <img ng-src="/images/companylogo.png" class="login-company-logo" alt="">
+                        </div>
+                        -->
+
+                        <div class="padding-20 text-center">
+                            <!--<h1 class="md-headline">Solar Site Acquisition Repository</h1>-->
+                            <div class="login-avatar-container"><img class="avatar" src="/images/default-avatar.png"
+                                                                     alt=""/></div>
+                            <p>Please Sign in to continue</p>
+                        </div>
+                    </md-toolbar>
+
+                    <md-content class="md-padding" style="">
+                        {% endraw %}
+                        <form name="login" action="" method="POST" novalidate>
+                            {{ form.csrf_token }}
+
+                            <div class="login-errors">
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        <ul>
+                                            {% for message in messages %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+
+                            {% raw %}
+                            <md-input-container layout="row">
+                                <label for="username">Username</label>
+                                <input id="username" label="username" name="username" type="text" required/>
+
+                                <div ng-messages="login.email.$error" ng-if="login.email.$dirty">
+                                    <div ng-message when="required"><span>Please Enter Username</span></div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container layout="row">
+                                <label for="password">Password</label>
+                                <input id="password" label="password" name="password" type="password" required/>
+
+                                <div ng-messages for="login.password.$error" ng-if="login.password.$dirty">
+                                    <div ng-message when="required"><span>Please Enter Password</span></div>
+                                </div>
+                            </md-input-container>
+
+                            <div layout="row" layout-align="end end">
+                                <md-button class="md-raised md-primary signin-button" type="submit">Sign in</md-button>
+                            </div>
+                        </form>
+
+                    </md-content>
+                </md-card>
+                {% endraw %}
+                <footer>
+                    <a href="http://www.navagis.com">
+                        <img ng-src="/images/navagis_powered.png" target="_new" alt=""/>
+                    </a>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/vendor.min.js"></script>
+<script src="js/login.min.js"></script>
+</body>
+</html>

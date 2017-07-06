@@ -1,0 +1,94 @@
+.full-bg-image {
+  background-image: url('/images/login-bg.png');
+}
+
+#ui-login {
+  md-card {
+    max-width: 400px;
+    margin: auto;
+
+    .login-company-logo {
+      margin-top: 20px;
+      max-height: 60px;
+    }
+
+    .login-avatar-container {
+      text-align: center;
+    }
+
+    .signin-button {
+      width: 100%;
+    }
+  }
+  md-checkbox {
+    margin: 0;
+  }
+  img {
+    max-height: 80px;
+    width: auto;
+  }
+  md-toolbar {
+    background-color: white;
+
+    .md-headline {
+      padding-top: 15px;
+      color: #888;
+      font-size: 25px;
+      font-weight: 500;
+      margin: 0;
+    }
+    p {
+      color: rgba(#888, 0.5);
+      text-align: center;
+      font-weight: 300;
+      font-size: 16px;
+      margin-top: 5px;
+      margin-bottom: 0;
+    }
+  }
+
+  md-content {
+    padding-top: 0px;
+
+    form {
+      .login-errors {
+        ul {
+          padding: 0;
+          list-style-type: none;
+        }
+        color: red;
+        text-align: center;
+      }
+      label {
+        color: rgba(0, 0, 0, 0.4) !important;
+      }
+
+      md-input-container .md-input {
+        border-color: $input-border-color !important;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+    padding-top: 25px;
+    img {
+      height: 40px;
+      width: auto;
+    }
+  }
+}
+
+.round-avatar {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.avatar {
+  @extend .round-avatar;
+
+  max-height: 120px !important;
+  width: auto;
+  margin: 25px auto;
+}

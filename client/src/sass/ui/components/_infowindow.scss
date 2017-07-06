@@ -1,0 +1,91 @@
+$infowindow-bg: rgba($primary-color, 0.8);
+$white: whitesmoke;
+
+.marker_info {
+
+  .info {
+    background-color: $infowindow-bg;
+    width: 250px;
+    height: 140px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 9999999;
+    text-align: center;
+
+    p {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      //color: #FFFFFF;
+      //line-height: 5px;
+      //text-align: center;
+      //margin-bottom: 15px;
+      margin-top: 5px;
+      //margin-bottom: 0px;
+      //display: block;
+      color: rgba(255, 255, 255, 0.7);
+      //padding: 0px 30px;
+      font-size: 14px;
+    }
+
+    h4 {
+      width: 230px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      padding: 5px;
+      margin: 5px;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      color: #ffffff;
+
+      span {
+        width: 100px;
+        height: 1px;
+        background: rgba(#FFFFFF, 0.8);
+        display: block;
+        margin: 0px auto;
+      }
+    }
+
+    .arrow {
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      padding: 0px !important;
+      left: -28px;
+      top: 60px !important;
+      border: 14px solid rgba(255, 0, 0, 0);
+      top: 0px;
+      border-right-color: $infowindow-bg;
+    }
+
+    a.infowindow_btn {
+      background: $white;
+      padding: 10px 50px;
+      color: $infowindow-bg;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 4px;
+      display: block;
+      width: calc(40% - 10px);
+      text-align: center;
+      bottom: 10px;
+      left: 33px;
+      position: absolute;
+      transition: 0.3s;
+
+      &:hover {
+        background: darken($infowindow-bg, 20%); /* Old browsers */
+        color: $white;
+        box-shadow: none;
+        text-align: center;
+        text-decoration: none;
+      }
+
+    }
+
+  }
+
+}

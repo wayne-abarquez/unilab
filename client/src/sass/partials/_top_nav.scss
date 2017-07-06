@@ -1,0 +1,44 @@
+$nav_bg: white;
+$nav_height: 42px;
+$icon-color: lighten($primary-color, 5%);
+$grey-darken: #212121;
+
+#app-top-nav {
+  background-color: $nav_bg;
+  color: $icon-color;
+  min-height: $nav_height;
+  max-height: $nav_height;
+  z-index: 6;
+  border-bottom: 2px solid lighten($primary-color, 10%);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .26);
+
+  //padding: 0px;
+
+  button.menu {
+    margin: 0;
+    padding: 0;
+  }
+
+  .solar-title {
+    height: $nav_height;
+    // margin-left: 35px;
+    margin: 0;
+
+    img.company-logo {
+      height: 40px;
+      //margin: 0px;
+    }
+  }
+
+  md-icon {
+    color: $icon-color;
+  }
+
+  .powered-by {
+    img {
+      max-height: 35px;
+      margin: 0;
+    }
+  }
+}
+

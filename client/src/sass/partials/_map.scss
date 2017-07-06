@@ -1,0 +1,26 @@
+#map-canvas {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+#map-bottom-panel {
+  position: absolute;
+  bottom: 18px;
+  right: 45px;
+  z-index: 3;
+
+  .row {
+    margin: 0;
+
+    button {
+      margin: 5px;
+      padding: 2px;
+      span {
+        padding: 5px;
+      }
+    }
+  }
+}
