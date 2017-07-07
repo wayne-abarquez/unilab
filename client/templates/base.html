@@ -12,32 +12,34 @@
     <link rel="stylesheet" href="css/vendor.min.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="css/app.min.css">
+    <style>
+        .floating-panel {
+        position: absolute;
+        top: 100px;
+        left: 1%;
+        z-index: 5;
+        background-color: rgb(255,138,101);
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        }
+    </style>
 </head>
 <body layout="column" ng-controller="mainController as mainCtl" ng-cloak>
 <!-- Fixed Top Navbar -->
 <div ng-include="'partials/_top_nav.html'"></div>
 
 <!-- Your content goes here -->
-<div id="parent-container">
+<div flex layout="row">
 
-    {% include "partials/sidenavs/_main_menu.html" %}
+    {% include "partials/sidenavs/_main_menu.sidenav.html" %}
 
-    <md-content layout="row" id="base-container">
+    <md-content flex id="base-container">
+        <md-button class="md-raised floating-panel" ng-click="showDiv()"> Drop a Pin </md-button>
         {% block content %}{% endblock %}
-
-        <md-button class="md-fab md-primary md-mini"
-                   id="toggle-territory-details-btn"
-                   ng-click="mainCtl.showTerritoryPanelDetail()"
-                   ng-show="showTerritoryDetailBtn">
-            <md-icon>local_activity</md-icon>
-        </md-button>
-
-        <md-button
-                ng-hide="showBranchCompareTable"
-                ng-click="mainCtl.showBanchCompareTableAction()"
-                class="md-fab md-mini" id="show-compare-branches-btn"><md-icon>compare_arrows</md-icon></md-button>
-
-        {% include "partials/_legend.html" %}
     </md-content>
 </div>
 </body>
