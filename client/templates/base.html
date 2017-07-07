@@ -12,6 +12,21 @@
     <link rel="stylesheet" href="css/vendor.min.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="css/app.min.css">
+    <style>
+        .floating-panel {
+        position: absolute;
+        top: 100px;
+        left: 1%;
+        z-index: 5;
+        background-color: rgb(255,138,101);
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        }
+    </style>
 </head>
 <body layout="column" ng-controller="mainController as mainCtl" ng-cloak>
 <!-- Fixed Top Navbar -->
@@ -23,6 +38,7 @@
     {% include "partials/sidenavs/_main_menu.sidenav.html" %}
 
     <md-content flex id="base-container">
+        <md-button class="md-raised floating-panel" ng-click="showDiv()"> Drop a Pin </md-button>
         {% block content %}{% endblock %}
     </md-content>
 </div>

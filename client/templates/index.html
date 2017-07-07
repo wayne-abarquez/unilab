@@ -7,8 +7,23 @@
 
     <div id="index-container" ng-controller="indexController as indexCtl">
         <div ng-controller="gmapController as gmapCtl">
+             <!--<md-button class="md-primary md-raised edgePadding" ng-click="openOffscreen()" >
+        Open From Top Left - Close Slide Down
+      </md-button>-->
             <!-- map canvas dimensions will be computed during map initialization -->
             <div id="map-canvas"></div>
+
+    <div id="text"></div>                                  
+
+    <md-sidenav md-component-id="right"  class="md-sidenav-right">
+    <form>
+      <md-input-container>
+        <label for="testInput">Test input</label>
+        <input id="testInput" ng-model="data" md-autofocus type="text">
+      </md-input-container>
+    </form>
+  </md-sidenav>
+            
     {% endraw %}
         </div>
     {% raw %}

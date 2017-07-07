@@ -41,7 +41,7 @@
                     <md-content class="md-padding" style="">
                         {% endraw %}
                         <form name="login" action="" method="POST" novalidate>
-                            {{ form.csrf_token }}
+                            {{ form.csrf_token }}  
 
                             <div class="login-errors">
                                 {% with messages = get_flashed_messages() %}
