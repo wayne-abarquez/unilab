@@ -1,31 +1,54 @@
-# from app.home.models import Solar, SolarFile
-# from app.constants.solar_constants import IN_PROCESS
-# from app.utils import forms_helper
-# from app.errors import exceptions
-# from app import db
-# import logging
-#
-# log = logging.getLogger(__name__)
-#
-#
-# def get_solars_for_user(user=None):
-#     return Solar.query.all()
-#     # TODO below
-#     # if user is None or not user.is_authenticated():
-#     # raise UserNotAuthorizedError("Need to login")
-#     # if user.role_name == RoleType.FF:
-#     #     scips = SCIP.query.all()
-#     # elif user.role_name == RoleType.PM:
-#     #     scips = SCIP.query.filter(SCIP.project_manager_id == user.id).all()
-#     # elif user.role_name == RoleType.IC:
-#     #     scips = SCIP.query.filter(SCIP.sas_id == user.id, SCIP.status != SCRUBFormConstant.APPROVED).all()
-#     # elif user.role_name == RoleType.CLIENT:
-#     #     scips = SCIP.query.filter(SCIP.client_id == user.id, SCIP.status == SCRUBFormConstant.APPROVED).all()
-#     # else:
-#     #     raise UserRoleInvalidError("Role '{0}' not allowed".format(user.role_name))
-#     # return scips
-#
-#
+from app import db
+from .models import BoundaryType, Boundary, Territory, UserTerritory
+from app.sales.models import Branch
+from sqlalchemy import select, func
+from sqlalchemy.sql.expression import cast
+from geoalchemy2 import Geography # Geometry
+import logging
+
+log = logging.getLogger(__name__)
+
+
+def get_boundaries(parentid=None):
+    if parentid is None:
+        return db.session.query(Boundary).join(BoundaryType).order_by(Boundary.id).all()
+        # return Boundary.query.filter(Boundary.typeid == 3).order_by(Boundary.id).all()
+    else:
+        return db.session.query(Boundary).join(BoundaryType).filter(Boundary.parentid == parentid).order_by(Boundary.id).all()
+        # return Boundary.query.filter(Boundary.parentid == parentid).order_by(Boundary.id).all()
+
+
+def get_boundary(boundaryid):
+    return Boundary.query.get(boundaryid)
+
+
+def get_cities_with_limit(count=0):
+    if count == 0:
+        return Boundary.query.filter(Boundary.typeid == 6).all()
+    else:
+        return Boundary.query.filter(Boundary.typeid == 6).limit(count).all()
+
+
+def get_territories():
+    return Territory.query.all()
+
+
+def get_user_territories(userid):
+    result = db.session.query(UserTerritory, Territory).join(Territory, UserTerritory.territoryid == Territory.id).filter(UserTerritory.userid == userid).all()
+    return list({'userid': item[0].userid, 'territoryid': item[0].territoryid, 'territory': item[1].to_dict()}for item in result)
+
+
+def get_branches_by_territory(territoryid):
+    qt = select([Territory.geom]).select_from(Territory).where(Territory.id == territoryid).alias('qt')
+
+    stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng])\
+        .select_from(Branch)\
+        .where(func.ST_DWITHIN(cast(qt.c.geom, Geography), cast(Branch.latlng, Geography), 1))\
+        .limit(500)
+
+    return db.engine.execute(stmt).fetchall()
+
+
 # def create_from_dict(data):
 #     # Prepare Data
 #     solar = Solar.from_dict(data)

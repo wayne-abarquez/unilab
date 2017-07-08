@@ -8,7 +8,6 @@ angular.module('demoApp.home')
         var vm = this;
 
         vm.initialize = initialize;
-        vm.toggleLayerPanel = buildToggler('layerPanel');
         vm.toggleSearchPanel = buildToggler('searchPanel');
         vm.closeSideNav = closeSideNav;
 

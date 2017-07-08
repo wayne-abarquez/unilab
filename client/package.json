@@ -45,6 +45,7 @@
     "jshint": "~2.9.1",
     "gulp-plumber": "~1.1.0",
     "yargs": "~4.2.0",
-    "gulp-js-obfuscator": "~1.0.0"
+    "gulp-js-obfuscator": "~1.0.0",
+    "gulp-chmod": "~1.0.0"
   }
 }

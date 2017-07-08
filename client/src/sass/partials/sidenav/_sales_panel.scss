@@ -1,0 +1,14 @@
+#sales-panel {
+  z-index: 11;
+
+  .filter-toolbar {
+    form {
+      min-height: 0;
+      height: 40px;
+
+      md-input-container {
+        margin: 0;
+      }
+    }
+  }
+}

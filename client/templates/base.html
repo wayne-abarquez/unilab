@@ -18,11 +18,11 @@
 <div ng-include="'partials/_top_nav.html'"></div>
 
 <!-- Your content goes here -->
-<div flex layout="row">
+<div id="parent-container">
 
-    {% include "partials/sidenavs/_main_menu.sidenav.html" %}
+    {% include "partials/sidenavs/_main_menu.html" %}
 
-    <md-content flex id="base-container">
+    <md-content layout="row" id="base-container">
         {% block content %}{% endblock %}
     </md-content>
 </div>

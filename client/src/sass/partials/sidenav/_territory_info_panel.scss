@@ -1,0 +1,101 @@
+$list-item-height: 25px;
+
+#territory-info-panel {
+
+  md-backdrop.md-sidenav-backdrop {
+    display: none;
+  }
+
+  md-sidenav {
+    max-width: 15%;
+    overflow: hidden;
+
+    md-toolbar {
+      .md-toolbar-tools {
+        padding: 0 5px;
+
+        .territory-detail-header {
+          h4 {
+            font-size: 15px;
+          }
+
+          .md-icon-button {
+            margin: 0;
+          }
+
+          .territory-type {
+            font-size: 0.65rem;
+            margin-left: 28px;
+            color: lightgray;
+            text-transform: uppercase;
+          }
+        }
+
+      }
+    }
+
+    md-content {
+      margin: 0 8px 8px 8px;
+
+      md-list {
+        padding: 0;
+        margin-bottom: 10px;
+
+        .md-subheader {
+          .md-subheader-inner {
+            padding: 15px 0 5px 0;
+          }
+        }
+
+        md-list-item {
+          min-height: $list-item-height;
+          height: $list-item-height;
+
+          .md-button {
+            padding: 0 8px;
+            min-height: $list-item-height;
+
+            .md-list-item-inner {
+              min-height: $list-item-height;
+              height: $list-item-height;
+
+              > span:first-of-type {
+                font-size: 0.85rem;
+              }
+
+              .md-list-item-text {
+                height: 25px;
+                line-height: 2;
+                font-size: 12.5px;
+                text-transform: capitalize;
+              }
+            }
+          }
+        }
+      }
+
+      .branches-count {
+        margin: 8px 8px 8px 0;
+        cursor: pointer;
+        outline: none;
+
+        span:first-of-type {
+          font-size: 14px;
+          margin: 8px 0;
+          font-weight: 500;
+        }
+        span:last-of-type {
+          margin: 8px 0;
+        }
+      }
+
+      .branches-count {
+        span:first-of-type {
+          color: deepskyblue;
+        }
+      }
+
+    }
+  }
+
+}

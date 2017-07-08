@@ -1,0 +1,67 @@
+{% raw %}
+<section class="sidenav-container"
+         id="sales-panel"
+         ng-controller="salesPanelController as vm"
+         layout="row"
+         flex="20"
+         ng-cloak>
+
+    <md-sidenav class="md-sidenav-right md-sidenav"
+                md-component-id="salesPanelSidenav"
+                md-disable-backdrop
+                md-is-locked-open="$mdMedia('gt-xs')"
+                md-whiteframe="4"
+                flex>
+
+        <!-- PRIMARY TOOLBAR -->
+        <md-toolbar ng-if="!vm.showFilterPanel">
+            <div class="md-toolbar-tools">
+                <span>
+                    <h4>
+                        <md-icon>local_activity</md-icon>
+                        Territories
+                    </h4>
+                </span>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
+                    <md-icon>search</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- FILTER TOOLBAR -->
+        <md-toolbar class="md-default-white filter-toolbar" ng-if="vm.showFilterPanel">
+            <div class="md-toolbar-tools">
+                <form name="filter.form">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="text"
+                               placeholder="Search"
+                               ng-model="filter.query">
+                    </md-input-container>
+                </form>
+                <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
+                    <md-icon>clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- TERRITORIES -->
+        <md-content layout="column" flex>
+            <div id="territory-list-container">
+
+                <md-list>
+                    <md-list-item ng-repeat="item in vm.territories"
+                                  id="{{item.id}}"
+                                  ng-click="vm.showTerritoryDetails(item);$event.stopPropagation()">
+                        <div class="md-list-item-text" layout="row" flex>
+                            <span flex><md-icon>star</md-icon> {{ item.territory.code }}</span>
+                        </div>
+                    </md-list-item>
+                </md-list>
+
+            </div>
+        </md-content>
+
+    </md-sidenav>
+</section>
+{% endraw %}

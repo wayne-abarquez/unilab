@@ -54,14 +54,16 @@ import wtforms_json
 wtforms_json.init()
 
 # Import app/resources
-from .home.resources import *
-
-# Register Home Blueprint
-from .home import home as home_blueprint
-app.register_blueprint(home_blueprint)
+# from .home.resources import *
 
 # Register Auth Blueprint
 from .authentication import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 
+# Register Home Blueprint
+from .home import home as home_blueprint
+app.register_blueprint(home_blueprint)
 
+# Register Sales Blueprint
+from .sales import sales as sales_blueprint
+app.register_blueprint(sales_blueprint)

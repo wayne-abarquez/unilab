@@ -38,5 +38,8 @@ class User(BaseModel, UserMixin):
     def get_by_username(username):
         return User.query.filter_by(username=username).first()
 
+    def is_user_sales(self):
+        return self.roleid == 2
+
     def __repr__(self):
         return "<User '{}'>".format(self.username)
