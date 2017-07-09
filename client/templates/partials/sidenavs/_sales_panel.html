@@ -36,7 +36,7 @@
                     <md-input-container md-no-float class="md-block">
                         <input type="text"
                                placeholder="Search"
-                               ng-model="filter.query">
+                               ng-model="vm.filter.q">
                     </md-input-container>
                 </form>
                 <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
@@ -50,11 +50,15 @@
             <div id="territory-list-container">
 
                 <md-list>
-                    <md-list-item ng-repeat="item in vm.territories"
-                                  id="{{item.id}}"
+                    <md-list-item ng-repeat="item in vm.territories | filter: vm.filter.q"
+                                  id="territory-{{item.territoryid}}"
                                   ng-click="vm.showTerritoryDetails(item);$event.stopPropagation()">
                         <div class="md-list-item-text" layout="row" flex>
                             <span flex><md-icon>star</md-icon> {{ item.territory.code }}</span>
+                            <md-progress-circular
+                                    flex="10"
+                                    md-mode="indeterminate"
+                                    md-diameter="30px"></md-progress-circular>
                         </div>
                     </md-list-item>
                 </md-list>

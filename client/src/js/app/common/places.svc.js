@@ -10,7 +10,7 @@ angular.module('demoApp')
         var iconByplaceTypes = {
             'hospital': {
                 icon: 'hospital',
-                color: '#e74c3c'
+                color: '#f1c40f'
             },
             'airport': {
                 icon: 'airport',
@@ -54,7 +54,7 @@ angular.module('demoApp')
             },
             'establishment': {
                 icon: 'local-government',
-                color: '#7f8c8d'
+                color: '#1abc9c'
             }
         };
 
@@ -82,7 +82,7 @@ angular.module('demoApp')
 
             Place.get('', {types: 'hospital|clinic|schools|universities|shopping_mall', territoryid: territoryId})
                 .then(function(response){
-                    console.log('places: ',response);
+                    //console.log('places: ',response);
                     dfd.resolve(response.data);
                 }, function(error){
                     dfd.reject(error);
@@ -95,11 +95,7 @@ angular.module('demoApp')
             var marker,
                 placeType;
 
-            //service.selectedBoundary = selectedBoundary;
-            //service.selectedBoundary.places = data;
-            //$rootScope.$broadcast('boundary_selected', service.selectedBoundary);
-
-            if (!poiInfowindow) poiInfowindow = gmapServices.createInfoWindow('');
+             if (!poiInfowindow) poiInfowindow = gmapServices.createInfoWindow('');
 
             hidePOIs();
 
@@ -108,8 +104,7 @@ angular.module('demoApp')
             for (var poiType in data) {
                 data[poiType].forEach(function (item) {
                     placeType = getPlaceIcon(item.type);
-                    marker = gmapServices.createMarker(item.geometry.location);
-                    //marker = gmapServices.createMapIconLabel(item.geometry.location, placeType.icon || 'compass', placeType.color);
+                    marker = gmapServices.createMapIconLabel(item.geometry.location, placeType.icon || 'compass', placeType.color);
                     marker.name = item.name;
                     marker.type = item.type;
                     marker.content = '<b>' + item.name + '</b>';
@@ -159,7 +154,6 @@ angular.module('demoApp')
 
         function getPlaceIcon(placeType) {
             return iconByplaceTypes[placeType];
-            ;
         }
 
         return service;

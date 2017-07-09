@@ -1,75 +1,76 @@
 {% raw %}
-<md-sidenav class="md-sidenav-right md-sidenav sidenav-container"
-                id="boundaries-panel"
-                ng-controller="boundariesController as vm"
-                md-component-id="boundariesSidenav"
-                layout="row"
-                flex="20"
+<section class="sidenav-container"
+         id="admin-panel"
+         ng-controller="adminPanelController as vm"
+         layout="row"
+         flex="20"
+         ng-cloak>
+    <md-sidenav class="md-sidenav-right md-sidenav"
+                md-component-id="adminPanelSidenav"
                 md-disable-backdrop
                 md-is-locked-open="$mdMedia('gt-xs')"
                 md-whiteframe="4"
-                ng-cloak>
+                flex>
 
         <!-- PRIMARY TOOLBAR -->
-        <md-toolbar ng-class="{'md-default':  vm.showBoundariesPanel}">
+        <md-toolbar ng-class="{'md-default':  vm.showTerritoriesPanel}">
             <div class="md-toolbar-tools">
             <span>
                 <h4>
-                    <md-icon>{{ vm.showBoundariesPanel ? 'filter_list' : 'stars'}}</md-icon>
-                    {{ vm.showBoundariesPanel ? 'Boundaries' : 'Suggested Barangays' }}
+                    <md-icon>{{ vm.showTerritoriesPanel ? 'local_activity' : 'layers'}}</md-icon>
+                    {{ vm.showTerritoriesPanel ? 'Territories' : 'Boundaries' }}
                 </h4>
             </span>
                 <span flex></span>
 
-                <md-button class="md-icon-button" ng-click="vm.toggleBoundariesPanel()">
-                    <md-icon>{{ vm.showBoundariesPanel ? 'clear' : 'search'}}</md-icon>
+                <md-button class="md-icon-button" ng-click="vm.showTerritoriesPanel=!vm.showTerritoriesPanel">
+                    <md-icon>arrow_forward</md-icon>
                 </md-button>
-
             </div>
         </md-toolbar>
 
-        <!-- BARANGAY OF INTERESTS -->
-        <md-content layout="column" flex ng-hide="vm.showBoundariesPanel">
-            <div id="barangay-interest-container">
-
-                <md-list>
-                    <md-list-item ng-repeat="item in vm.favoriteBoundaries"
-                                  id="{{item.id}}"
-                                  ng-click="vm.showBoundary(item);$event.stopPropagation()">
-                        <div class="md-list-item-text" layout="row" flex>
-                            <span flex>{{ item.name }}<md-icon>star</md-icon> </span>
-                            <md-progress-circular
-                                    flex="10"
-                                    md-mode="indeterminate"
-                                    md-diameter="30px"></md-progress-circular>
-                        </div>
-                    </md-list-item>
-                </md-list>
-
-            </div>
+        <!-- TERRITORIES -->
+        <md-content id="admin-territories-section" layout="column" flex ng-show="vm.showTerritoriesPanel">
+            <form name="filter.form">
+                <md-input-container md-no-float class="md-block">
+                    <input type="text"
+                           placeholder="Search"
+                           ng-model="vm.filter.q">
+                </md-input-container>
+            </form>
+            <md-list>
+                <md-list-item ng-repeat="item in vm.territories | filter: vm.filter.q"
+                              id="territory-{{item.territoryid}}"
+                              ng-click="vm.showTerritory(item);$event.stopPropagation()">
+                    <div class="md-list-item-text" layout="row" flex>
+                        <span flex><md-icon>star</md-icon> {{ item.territory.code }}</span>
+                        <md-progress-circular
+                                flex="10"
+                                md-mode="indeterminate"
+                                md-diameter="30px"></md-progress-circular>
+                    </div>
+                </md-list-item>
+            </md-list>
         </md-content>
 
-        <!-- BOUNDARIES WITH FILTER -->
-        <md-content layout="column" flex ng-show="vm.showBoundariesPanel">
+        <!-- BOUNDARIES -->
+        <md-content layout="column" flex ng-hide="vm.showTerritoriesPanel">
 
-            <div flex="100" class="md-whiteframe-2dp" layout="column" layout-margin>
-                <md-subheader>Place Types</md-subheader>
-                <div flex-wrap class="place-type-item" ng-repeat="type in vm.placeTypes">
-                    <md-checkbox ng-model="type.model" ng-change="vm.toggleType(type.name)" aria-label="">
-                        {{ type.name }}
-                    </md-checkbox>
-                </div>
-            </div>
-
-            <div class="md-whiteframe-2dp" id="boundaries-container" layout-margin>
+            <div id="boundaries-container" layout-margin>
 
                 <md-subheader class="md-primary">Boundaries</md-subheader>
-
+                <form>
+                    <md-input-container md-no-float class="md-block">
+                        <input type="text"
+                               placeholder="Search"
+                               ng-model="vm.filterBoundaries">
+                    </md-input-container>
+                </form>
                 <v-accordion class="vAccordion--default" multiple
                              layout-margin>
                     <v-pane id="{{region.id}}"
                             ng-click="vm.expandCallback(region, $event)"
-                            ng-repeat="region in vm.boundaries"
+                            ng-repeat="region in vm.boundaries | filter: vm.filterBoundaries"
                             expanded="region.isExpanded">
                         <v-pane-header>
                             <div layout="row" flex>
@@ -87,7 +88,7 @@
                                          layout-margin>
                                 <v-pane id="{{province.id}}"
                                         ng-click="vm.expandCallback(province, $event)"
-                                        ng-repeat="province in region.children"
+                                        ng-repeat="province in region.children | filter: vm.filterBoundaries"
                                         expanded="province.isExpanded">
                                     <v-pane-header>
                                         <div layout="row" flex>
@@ -106,7 +107,7 @@
                                                      ng-if="province.children">
                                             <v-pane id="{{city.id}}"
                                                     ng-click="vm.expandCallback(city, $event)"
-                                                    ng-repeat="city in province.children"
+                                                    ng-repeat="city in province.children | filter: vm.filterBoundaries"
                                                     expanded="city.isExpanded">
                                                 <v-pane-header>
                                                     <div layout="row" flex>
@@ -146,10 +147,9 @@
                         </v-pane-content>
                     </v-pane>
                 </v-accordion>
-
             </div>
-
         </md-content>
 
-</md-sidenav>
+    </md-sidenav>
+</section>
 {% endraw %}

@@ -9,7 +9,9 @@
             'ngAnimate',
             'oitozero.ngSweetAlert',
             'ngFileUpload',
+            'md.data.table',
             'demoApp.home',
+            'demoApp.admin',
             'demoApp.sales'
         ])
 
@@ -30,11 +32,18 @@
             ;
         })
 
-        .config(function ($mdThemingProvider) {
-            $mdThemingProvider.theme('default')
-                .primaryPalette('red')
-                .accentPalette('pink');
+        .run(function(userSessionService, $rootScope){
+            userSessionService.userLogin()
+                .then(function (user) {
+                    $rootScope.currentUser = angular.copy(user);
+                });
         })
+
+        //.config(function ($mdThemingProvider) {
+        //    $mdThemingProvider.theme('default')
+        //        .primaryPalette('red')
+        //        .accentPalette('pink');
+        //})
     ;
 
 }());

@@ -34,7 +34,7 @@
         <!-- TERRITORIES -->
         <md-content layout="column" flex>
 
-            <md-list flex style="overflow-y: auto;">
+            <md-list flex style="overflow-y: auto;" ng-if="vm.territory.places">
                 <md-subheader class="md-no-sticky md-primary">POIs</md-subheader>
                 <md-list-item ng-repeat="(k, v) in vm.territory.places track by $index"
                               ng-click="vm.showPOIByType(k)">

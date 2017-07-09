@@ -2,21 +2,22 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .controller('indexController', ['$mdSidenav', indexController]);
+    .controller('indexController', ['gmapServices', '$mdSidenav', indexController]);
 
-    function indexController ($mdSidenav) {
+    function indexController (gmapServices, $mdSidenav) {
         var vm = this;
 
-        vm.initialize = initialize;
         vm.toggleSearchPanel = buildToggler('searchPanel');
         vm.closeSideNav = closeSideNav;
 
         vm.lastSideNavOpenId = '';
 
-        vm.initialize();
+        vm.showAddBranchModal = showAddBranchModal;
+
+        initialize();
 
         function initialize() {
-            console.log('initialize called');
+            gmapServices.createMap('map-canvas');
         }
 
         function buildToggler(navID) {
@@ -33,6 +34,10 @@ angular.module('demoApp.home')
 
         function closeSideNav(navID) {
             $mdSidenav(navID).close();
+        }
+
+        function showAddBranchModal () {
+
         }
     }
 }());

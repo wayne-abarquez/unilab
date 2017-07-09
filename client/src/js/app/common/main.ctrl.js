@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp')
-        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', mainController]);
+        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService', mainController]);
 
-    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService) {
+    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService) {
         var vm = this;
 
         $rootScope.appName = APP_NAME;
@@ -33,18 +33,67 @@
             }
         ];
 
+        var branchId,
+            branchMarker;
+
+        $rootScope.showBranchCompareTable = false;
+
         vm.toggleMainMenu = buildToggler('mainMenuSidenav');
         vm.onMenuItemClick = onMenuItemClick;
+        vm.showBanchCompareTableAction = showBanchCompareTableAction;
 
         initialize();
 
         function initialize () {
             // loads user details
-            userSessionService.userLogin()
-                .then(function(user){
-                   $rootScope.currentUser = angular.copy(user);
-                   vm.menu = getUserMenu(user);
-                });
+            //userSessionService.userLogin()
+            //    .then(function(user){
+            //       $rootScope.currentUser = angular.copy(user);
+            //       vm.menu = getUserMenu(user);
+            //    });
+            $rootScope.$watch('currentUser', function(newValue, oldValue){
+                if (!newValue) return;
+
+                vm.menu = getUserMenu(newValue);
+            });
+
+            // Compare Branch
+            $(document).on('click', '#compare-branch-btn', function () {
+                branchId = $(this).data('branch-id');
+                branchMarker = branchService.getBranchById(branchId);
+
+                if (branchMarker) {
+                    $rootScope.$broadcast('close-territory-info-panel');
+
+                    var restObj = branchService.getRestangularObj(branchMarker.branch.id);
+
+                    // get branch products
+                    restObj.getList('products')
+                        .then(function(response){
+                            branchMarker.branch.products = angular.copy(response.plain());
+                            $rootScope.$broadcast('new-compare-branch', branchMarker.branch);
+                        });
+                }
+            });
+
+            // Edit Branch
+            $(document).on('click', '#edit-branch-btn', function () {
+                branchId = $(this).data('branch-id');
+                console.log('edit branch with id = ' + branchId);
+                // TODO: show edit modal
+                branchMarker = branchService.getBranchById(branchId);
+                console.log('compare this branch: ', branchMarker);
+            });
+
+            // Delete Branch
+            $(document).on('click', '#delete-branch-btn', function () {
+                branchId = $(this).data('branch-id');
+
+                alertServices.showConfirm('Delete Branch', 'Are your sure you want to delete this branch?', function (isConfirm) {
+                    // TODO: ajax delete on confirm
+                    if (isConfirm) alert('branch deleted!');
+                })
+            });
         }
 
         function getUserMenu (user) {
@@ -72,6 +121,10 @@
             }
 
             window.location.href = item.link;
+        }
+
+        function showBanchCompareTableAction () {
+            $rootScope.showBranchCompareTable = true;
         }
     }
 }());

@@ -666,7 +666,7 @@
                 bounds.extend(path);
             });
 
-            service.map.panToBounds(bounds);
+            service.map.setCenter(bounds.getCenter());
         }
 
         function createPolyline(path, lineColor) {
@@ -916,6 +916,7 @@
         }
 
         function createMapIconLabel(latLng, type, color) {
+            console.log('createMapIconLabel: ',latLng, type, color);
             return new Marker({
                 map: service.map,
                 position: latLng,

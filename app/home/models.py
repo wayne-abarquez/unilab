@@ -14,6 +14,8 @@ class Boundary(BaseModel):
     geometry = db.Column(Geometry('GEOMETRY'))
     population = db.Column(db.Integer)
 
+    type = db.relationship(BoundaryType, foreign_keys=typeid)
+
 
 class Territory(BaseModel):
     code = db.Column(db.CHAR(5), nullable=False)
