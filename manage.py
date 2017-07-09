@@ -58,5 +58,17 @@ def create_territories():
     print "Created sample territories and assigned to random employees"
 
 
+@manager.command
+def create_products():
+    BaseSeeder.load_products()
+    print "Created sample products"
+
+
+@manager.command
+def restock_branches():
+    BaseSeeder.restock_branch()
+    print "Branches Restocked sample products"
+
+
 if __name__ == '__main__':
     manager.run()

@@ -17,7 +17,7 @@ angular.module('demoApp.sales')
             $rootScope.$on('territory_selected', function (e, data) {
                 vm.territory = angular.copy(data);
 
-                console.log('territory selected: ',vm.territory);
+                if (!vm.territory.places) return;
 
                 var allPlaces = [];
                 for (var k in vm.territory.places) {
@@ -26,6 +26,10 @@ angular.module('demoApp.sales')
                     });
                 }
                 vm.territory.places['all'] = allPlaces;
+            });
+
+            $rootScope.$on('close-territory-info-panel', function(){
+               close();
             });
         }
 

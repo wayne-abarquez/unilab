@@ -2,21 +2,9 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .controller('gmapController', ['gmapServices', gmapController]);
+    .controller('gmapController', [gmapController]);
 
-    function gmapController(gmapServices) {
-
-        var vm = this;
-
-        vm.initialize = initialize;
-
-        vm.initialize();
-
-        function initialize () {
-            gmapServices.createMap('map-canvas');
-
-            console.log('gmap controller initialized!');
-        }
+    function gmapController() {
 
         //function showSolarDetailInfowindow (_solar) {
         //    if(!(_solar && _solar.id)) return;

@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .factory('userSessionService', ['User', 'localStorageService', '$q', userSessionService]);
+    .factory('userSessionService', ['User', 'localStorageService', '$q', '$rootScope', userSessionService]);
 
-    function userSessionService (User, localStorageService, $q) {
+    function userSessionService (User, localStorageService, $q, $rootScope) {
         var service = {};
 
         // user details

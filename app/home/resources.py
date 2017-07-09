@@ -3,7 +3,7 @@ from app import rest_api
 from flask import request
 from .fields import *
 from app.sales.fields import branch_fields
-from .services import get_boundaries, get_user_territories, get_branches_by_territory
+from .services import get_boundaries, get_boundary, get_user_territories, get_branches_by_territory
 from app.utils.google_places_api import get_places_by_territory
 import logging
 
@@ -24,6 +24,18 @@ class BoundaryResource(Resource):
         return get_boundaries(parent_id)
 
 
+class BoundaryDetailResource(Resource):
+    """
+    Resource for getting Boundary details
+    """
+
+    @marshal_with(boundary_complete_fields)
+    def get(self, boundaryid):
+        """ GET /boundaries/<boundaryid> """
+
+        return get_boundary(boundaryid)
+
+
 class PlaceResource(Resource):
     """
     Resource for getting all Places
@@ -34,8 +46,6 @@ class PlaceResource(Resource):
         """ GET /places """
         types = request.args['types'] if 'types' in request.args else None
         territoryid = request.args['territoryid'] if 'territoryid' in request.args else None
-
-        print "territoryid: {0} types: {1}".format(territoryid, types)
 
         return {'data': get_places_by_territory(territoryid, types)}
 
@@ -72,6 +82,7 @@ class TerritoryBranchResource(Resource):
         return get_branches_by_territory(territoryid)
 
 rest_api.add_resource(BoundaryResource, '/api/boundaries')
+rest_api.add_resource(BoundaryDetailResource, '/api/boundaries/<int:boundaryid>')
 rest_api.add_resource(PlaceResource, '/api/places')
 rest_api.add_resource(UserTerritoryResource, '/api/users/<int:userid>/territories')
 rest_api.add_resource(TerritoryBranchResource, '/api/territories/<int:territoryid>/branches')

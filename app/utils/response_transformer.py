@@ -14,3 +14,11 @@ def convert_bounds_to_gmap_bounds_literal(bounds):
             'east': float(bounds_arr[2])
         }
     return None
+
+
+def to_dict(obj):
+    d = {}
+    for k, v in obj.__dict__.iteritems():
+        if not k.startswith('_'):
+            d[k] = v
+    return d

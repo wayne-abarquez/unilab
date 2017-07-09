@@ -24,6 +24,11 @@
 
     <md-content layout="row" id="base-container">
         {% block content %}{% endblock %}
+
+        <md-button
+                ng-hide="showBranchCompareTable"
+                ng-click="mainCtl.showBanchCompareTableAction()"
+                class="md-fab" id="show-compare-branches-btn"><md-icon>compare_arrows</md-icon></md-button>
     </md-content>
 </div>
 </body>

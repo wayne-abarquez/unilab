@@ -33,7 +33,7 @@ angular.module('demoApp.home')
             Territory.cast(territoryId)
                .getList('branches')
                     .then(function (response) {
-                        console.log('response: ', response.plain());
+                        //console.log('response: ', response.plain());
                         dfd.resolve(response.plain());
                     }, function (error) {
                         console.log('error: ', error);

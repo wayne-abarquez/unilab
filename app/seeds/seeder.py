@@ -1,8 +1,8 @@
 from app import db
 from app.authentication.models import Role, User
-from app.sales.models import Branch, BranchType, Merchant
+from app.sales.models import Branch, BranchType, Merchant, Product
 from app.home.models import Territory
-from app.seeds.datasource import roles, users, branches, merchants, employees, territories
+from app.seeds.datasource import roles, users, branches, merchants, employees, territories, products
 from datetime import datetime
 import time
 
@@ -104,3 +104,26 @@ class BaseSeeder:
 
         print("--- overall %s seconds ---" % (time.time() - overall_start_time))
 
+    @staticmethod
+    def load_products():
+        overall_start_time = time.time()
+
+        # truncate table
+        BaseSeeder.refresh_table('product')
+
+        data = products.generate_products()
+
+        db.session.bulk_insert_mappings(Product, data)
+        db.session.commit()
+
+        print("--- overall %s seconds ---" % (time.time() - overall_start_time))
+
+    @staticmethod
+    def restock_branch():
+        overall_start_time = time.time()
+
+        BaseSeeder.refresh_table('branch_product')
+
+        products.restock_branch()
+
+        print("--- overall %s seconds ---" % (time.time() - overall_start_time))

@@ -11,4 +11,20 @@
       }
     }
   }
+
+  #territory-list-container {
+    md-list {
+      overflow-y: auto;
+
+      md-list-item {
+        md-icon {
+          color: #9b59b6;
+        }
+
+        md-progress-circular {
+          display: none;
+        }
+      }
+    }
+  }
 }

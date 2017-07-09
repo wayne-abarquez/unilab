@@ -1,7 +1,8 @@
-from .models import Branch
+from .models import Branch, Product, BranchProduct
 from app.home.models import Boundary
 from sqlalchemy import select, func
 from sqlalchemy.sql.expression import cast
+from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
 from app import db
 
@@ -11,10 +12,17 @@ def get_branch_within_boundary(boundaryid):
 
     stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
         .select_from(Branch) \
-        .where(func.ST_DWITHIN(cast(qt.c.geom, Geography), cast(Branch.latlng, Geography), 1)) \
+        .where(func.ST_DWITHIN(cast(qt.c.geometry, Geography), cast(Branch.latlng, Geography), 1)) \
         .limit(500)
 
-    return db.engine.execute(stmt).fetchall()
+    result = db.engine.execute(stmt).fetchall()
+
+    modresult = []
+
+    for item in result:
+        modresult.append({'branchid': item.id, 'boundaryid': boundaryid, 'branch': item});
+
+    return modresult
 
 
 def get_branches_by_boundary(boundaryid=None):
@@ -25,7 +33,10 @@ def get_branches_by_boundary(boundaryid=None):
 
 
 def get_branches_with_limit(count=5):
-    return Branch.query.limit(count).all()
+    if count == 0:
+        return Branch.query.all()
+    else:
+        return Branch.query.limit(count).all()
 
 
 def get_branches_id_with_limit(count=0):
@@ -37,3 +48,24 @@ def get_branches_id_with_limit(count=0):
 
 def get_branches():
     return get_branches_by_boundary()
+
+
+def get_products():
+    return Product.query.all()
+
+
+def get_products_by_branch(branchid):
+    result = db.session.query(BranchProduct, Product) \
+        .join(Product, BranchProduct.productid == Product.id) \
+        .filter(BranchProduct.branchid == branchid) \
+        .all()
+
+    rp = []
+
+    for tp in result:
+        itm = to_dict(tp[0])
+        itm.update({'product': to_dict(tp[1])})
+        rp.append(itm)
+
+    return rp
+
