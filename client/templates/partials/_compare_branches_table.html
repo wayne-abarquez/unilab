@@ -19,7 +19,7 @@
             <tbody md-body>
                 <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
                     <td md-cell ng-repeat="value in values track by $index">
-                        <span>{{ value }} - {{ $rowIndex }}- {{ $index }}</span>
+                        <span>{{ value }}</span>
                         <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index])" ng-if="$rowIndex == 1"><md-icon>close</md-icon></md-button>
                     </td>
                 </tr>
