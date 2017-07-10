@@ -1,0 +1,31 @@
+{% raw %}
+<md-card id="compare-branch-table-container"
+         ng-controller="compareBranchesTableController as vm"
+         ng-show="showBranchCompareTable">
+
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span class="text-muted">Branch SKU Comparison</span>
+            <div flex></div>
+            <md-button class="md-icon-button" ng-click="vm.close()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-table-container>
+
+        <table md-table>
+            <tbody md-body>
+                <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
+                    <td md-cell ng-repeat="value in values track by $index">
+                        <span>{{ value }}</span>
+                        <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index])" ng-if="$rowIndex == 1"><md-icon>close</md-icon></md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+</md-card>
+{% endraw %}

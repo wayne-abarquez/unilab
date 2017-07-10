@@ -12,34 +12,49 @@
     <link rel="stylesheet" href="css/vendor.min.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="css/app.min.css">
-    <style>
-        .floating-panel {
-        position: absolute;
-        top: 100px;
-        left: 1%;
-        z-index: 5;
-        background-color: rgb(255,138,101);
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-        }
-    </style>
+    <!--<script src="js/search.js"></script>-->
+
+    <script
+			  src="https://code.jquery.com/jquery-2.2.4.min.js"
+			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous"></script>
+
 </head>
+<style>
+    /*
+Optional adjustments for md-autocomplete in mobile screens
+*/
+
+#place-autocomplete > md-autocomplete md-input-container {
+  margin-top: -10px;
+}
+
+
+/*Media query for tablets and above */
+
+@media screen and (min-width: 480px) {
+  #place-autocomplete > md-autocomplete md-input-container {
+    padding-bottom: 0;
+  }
+}
+    </style>
+
 <body layout="column" ng-controller="mainController as mainCtl" ng-cloak>
 <!-- Fixed Top Navbar -->
 <div ng-include="'partials/_top_nav.html'"></div>
 
 <!-- Your content goes here -->
-<div flex layout="row">
+<div id="parent-container">
 
-    {% include "partials/sidenavs/_main_menu.sidenav.html" %}
+    {% include "partials/sidenavs/_main_menu.html" %}
 
-    <md-content flex id="base-container">
-        <md-button class="md-raised floating-panel" ng-click="showDiv()"> Drop a Pin </md-button>
+    <md-content layout="row" id="base-container">
         {% block content %}{% endblock %}
+
+        <md-button
+                ng-hide="showBranchCompareTable"
+                ng-click="mainCtl.showBanchCompareTableAction()"
+                class="md-fab" id="show-compare-branches-btn"><md-icon>compare_arrows</md-icon></md-button>
     </md-content>
 </div>
 </body>
