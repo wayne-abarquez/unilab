@@ -8,6 +8,7 @@
         var vm = this;
 
         $rootScope.appName = APP_NAME;
+        $rootScope.showLegend = false;
 
         /* Side Nav Menus */
         vm.menu = [];
@@ -20,9 +21,21 @@
                 can: ['ADMIN', 'SALES']
             },
             {
-                link: '/admin',
-                title: 'Admin',
-                icon: 'contacts',
+                link: '/channeldiversification',
+                title: 'Channel Diversification',
+                icon: 'track_changes',
+                can: ['ADMIN', 'SALES']
+            },
+            {
+                link: '/frauddetect',
+                title: 'Fraud Detection',
+                icon: 'fingerprint',
+                can: ['ADMIN']
+            },
+            {
+                link: '/productsaturation',
+                title: 'Product Saturation',
+                icon: 'assessment',
                 can: ['ADMIN']
             },
             {
@@ -41,19 +54,14 @@
         vm.toggleMainMenu = buildToggler('mainMenuSidenav');
         vm.onMenuItemClick = onMenuItemClick;
         vm.showBanchCompareTableAction = showBanchCompareTableAction;
+        vm.showTerritoryPanelDetail = showTerritoryPanelDetail;
 
         initialize();
 
         function initialize () {
             // loads user details
-            //userSessionService.userLogin()
-            //    .then(function(user){
-            //       $rootScope.currentUser = angular.copy(user);
-            //       vm.menu = getUserMenu(user);
-            //    });
             $rootScope.$watch('currentUser', function(newValue, oldValue){
                 if (!newValue) return;
-
                 vm.menu = getUserMenu(newValue);
             });
 
@@ -96,6 +104,14 @@
                     if (isConfirm) alert('branch deleted!');
                 })
             });
+
+            $rootScope.$on('modal-opened', function() {
+                $rootScope.hasOpenedModal = true;
+            });
+
+            $rootScope.$on('modal-closed', function () {
+                $rootScope.hasOpenedModal = false;
+            });
         }
 
         function getUserMenu (user) {
@@ -127,6 +143,15 @@
 
         function showBanchCompareTableAction () {
             $rootScope.showBranchCompareTable = true;
+        }
+
+        function showTerritoryPanelDetail() {
+            $mdSidenav('territoryInfoPanelSidenav')
+                .open()
+                .then(function () {
+                    $rootScope.showTerritoryDetailBtn = false;
+                    $rootScope.showGRDPPanel = true;
+                });
         }
     }
 }());

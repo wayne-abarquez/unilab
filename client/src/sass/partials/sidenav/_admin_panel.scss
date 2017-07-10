@@ -55,12 +55,6 @@ $list-item-height-2: 38px;
     overflow: hidden;
 
     > div:first-of-type {
-      //overflow-y: auto;
-      //max-height: 30%;
-
-      .place-type-item {
-        margin: 0 15px;
-      }
 
       .md-subheader {
         margin: 0;
@@ -70,20 +64,26 @@ $list-item-height-2: 38px;
         }
       }
 
-      md-checkbox {
-        margin-bottom: 0;
-
-        .md-label {
-          text-transform: capitalize;
-        }
-      }
+      //md-checkbox {
+      //  margin-bottom: 0;
+      //
+      //  .md-label {
+      //    text-transform: capitalize;
+      //  }
+      //}
     }
 
     #boundaries-container {
-      //max-height: 70%;
-      //min-height: 70%;
-      //overflow-y: auto;
       height: 100%;
+
+      md-switch {
+        padding: 0;
+        margin: 0;
+      }
+
+      .places-type-container {
+        margin: 5px 0;
+      }
 
       form {
         margin: 0;
@@ -120,6 +120,18 @@ $list-item-height-2: 38px;
       overflow-y: auto;
       margin: 5px 0 0;
 
+      v-pane {
+        v-pane-header {
+          md-checkbox {
+            margin: 0;
+
+            .md-label {
+              line-height: 1.5;
+            }
+          }
+        }
+      }
+
       md-list {
         padding: 0;
 
@@ -145,38 +157,30 @@ $list-item-height-2: 38px;
         }
       }
     }
-  }
 
-}
 
-$checkbox-size: 18px;
-
-md-checkbox {
-  margin: 5px;
-  cursor: pointer;
-  padding-left: 15px;
-  padding-right: 0;
-  line-height: 10px;
-  min-width: $checkbox-size;
-  min-height: $checkbox-size;
-
-  .md-label {
-    line-height: 1.25;
-    margin-left: 10px;
-    font-size: 14px;
-  }
-
-  .md-container {
-    width: $checkbox-size;
-    height: $checkbox-size;
-
-    .md-icon {
-      width: $checkbox-size;
-      height: $checkbox-size;
-
-      &::after {
-        left: 6px !important;
+    v-accordion.region-accordion {
+      max-height: 55%;
+      > v-pane {
+        > v-pane-header {
+          font-size: 0.85rem;
+        }
       }
     }
+
+    //v-accordion.province-accordion {
+    //  > v-pane {
+    //    > v-pane-header {
+    //      //font-weight: 600;
+    //      font-size: 0.85rem;
+    //    }
+    //  }
+    //}
+
+    //v-accordion.city-accordion {
+    //
+    //}
+
   }
+
 }

@@ -1,0 +1,37 @@
+$checkbox-size: 14px;
+
+md-checkbox {
+  margin: 5px;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 0;
+  line-height: 5px;
+  min-width: $checkbox-size !important;;
+  min-height: $checkbox-size !important;;
+
+  .md-label {
+    line-height: 1;
+    margin-left: 5px;
+    font-size: 10px;
+  }
+
+  .md-container {
+    width: $checkbox-size !important;;
+    height: $checkbox-size !important;;
+
+    .md-icon {
+      width: $checkbox-size !important;
+      height: $checkbox-size !important;;
+
+      &::after {
+        left: 4px !important;
+        width: 6px;
+        height: 9px;
+      }
+    }
+  }
+
+  &:last-of-type {
+    margin: 5px;
+  }
+}

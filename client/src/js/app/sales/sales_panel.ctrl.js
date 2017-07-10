@@ -2,12 +2,17 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('salesPanelController', ['$q', '$rootScope', '$timeout', 'userTerritoriesService', 'gmapServices', 'branchService', '$mdSidenav', 'placesService', salesPanelController]);
+    .controller('salesPanelController', ['$q', '$scope', '$rootScope', 'userTerritoriesService', 'gmapServices', 'branchService', '$mdSidenav', 'placesService', '$timeout', 'alertServices', salesPanelController]);
 
-    function salesPanelController ($q, $rootScope, $timeout, userTerritoriesService, gmapServices, branchService, $mdSidenav, placesService) {
+    function salesPanelController ($q, $scope, $rootScope, userTerritoriesService, gmapServices, branchService, $mdSidenav, placesService, $timeout, alertServices) {
         var vm = this;
 
         var polygonTerritory;
+
+        var foundTypeIndex,
+            isSelected;
+
+        var selectedTypes = [];
 
         vm.territories = [];
 
@@ -17,17 +22,51 @@ angular.module('demoApp.sales')
 
         vm.toggleToolbarPanel = toggleToolbarPanel;
         vm.showTerritoryDetails = showTerritoryDetails;
+        vm.toggleType = toggleType;
 
         initialize();
 
         function initialize () {
-            $rootScope.$watch('currentUser', function (newValue, oldValue) {
+            $rootScope.$watch('currentUser', function (newValue) {
                 if (!newValue) return;
 
                 userTerritoriesService.getTerritories()
                     .then(function (territories) {
                         vm.territories = angular.copy(territories);
                     });
+            });
+
+            var rawTypes = placesService.getPlaceTypes().map(function (type) {
+                foundTypeIndex = placesService.defaultPlaceTypes.indexOf(type);
+                isSelected = false;
+
+                // initially select default place type
+                if (foundTypeIndex !== -1) {
+                    selectedTypes.push(type);
+                    isSelected = true;
+                }
+
+                return {
+                    name: type,
+                    model: isSelected
+                }
+            });
+
+            vm.placeTypes = _.groupBy(rawTypes, function(item, index){
+               return index % 2;
+            });
+
+            $scope.$watch(function () {
+                return vm.loadPois;
+            }, function (newValue, oldValue) {
+                if (newValue === oldValue) return;
+
+                if (newValue) {
+                    placesService.showVisiblePOIs();
+                    return;
+                }
+
+                placesService.hidePOIs();
             });
         }
 
@@ -42,6 +81,20 @@ angular.module('demoApp.sales')
                 return;
             }
             polygonTerritory = gmapServices.createPolygon(latLngArray, '#3f51b5');
+            polygonTerritory.setVisible(false);
+        }
+
+        function toggleType(type) {
+            var arr = vm.placeTypes['0'].concat(vm.placeTypes['1']);
+            var val = _.findWhere(arr, {name: type});
+
+            var index = selectedTypes.indexOf(val.name);
+
+            if (val.model && index === -1) {
+                selectedTypes.push(val.name)
+            } else if (index !== -1) {
+                selectedTypes.splice(index, 1);
+            }
         }
 
         function showTerritoryDetails (item) {
@@ -49,35 +102,50 @@ angular.module('demoApp.sales')
 
             $rootScope.selectedTerritory = item;
 
+            branchService.hideMarkers();
+            placesService.hidePOIs();
+
             showPolygonTerritory(item.territory.geom);
 
             gmapServices.setZoomIfGreater(12);
             gmapServices.panToPolygon(polygonTerritory);
 
+            var promises = [];
+
             // load places
-            // TODO: uncomment this after working on other features to avoid gmap credits toll
-            var dfd1 = placesService.loadPOIs(item.territoryid)
-                        .then(function(response){
+            if (vm.loadPois) {
+                console.log('selected place types: ', selectedTypes);
+                promises.push(
+                    placesService.loadPOIs(item.territoryid, selectedTypes)
+                        .then(function (response) {
                             placesService.showPOIs(response);
                             $rootScope.selectedTerritory.places = response;
-                        });
+                        })
+                );
+            }
 
-            var dfd2 = userTerritoriesService.getTerritoryBranches(item.territoryid)
-                .then(function (response) {
-                    $rootScope.selectedTerritory.branches = response;
-                    branchService.loadMarkers(response);
-                });
+            promises.push(
+                userTerritoriesService.getTerritoryBranches(item.territoryid)
+                    .then(function (response) {
+                        $rootScope.selectedTerritory.branches = response;
 
-            $q.all([dfd1, dfd2])
-                .then(function(){
-                    $mdSidenav('territoryInfoPanelSidenav').open();
-                    $rootScope.$broadcast('territory_selected', $rootScope.selectedTerritory);
-                })
+                        if (!response.length) {
+                            alertServices.showBottomLeftToast('This territory doesnt have branch yet.');
+                        } else {
+                            branchService.loadMarkers(response);
+                        }
+
+                        $mdSidenav('territoryInfoPanelSidenav').open();
+                        $rootScope.$broadcast('territory_selected', $rootScope.selectedTerritory);
+                    })
+            );
+
+            $q.all([promises])
                 .finally(function(){
-                    $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
+                    $timeout(function () {
+                        $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
+                    }, 1000);
                 });
-
-
         }
 
 

@@ -13,6 +13,14 @@
   }
 
   #territory-list-container {
+    .md-subheader {
+      margin: 10px 10px 0 10px;
+
+      .md-subheader-inner {
+        padding: 5px 0;
+      }
+    }
+
     md-list {
       overflow-y: auto;
 
@@ -27,4 +35,16 @@
       }
     }
   }
+}
+
+.places-type-container {
+  .place-type-item {
+    margin: 5px;
+  }
+}
+
+#new-sales-transaction-btn {
+  position: absolute;
+  bottom: 18px;
+  right: calc(20% + 40px);
 }

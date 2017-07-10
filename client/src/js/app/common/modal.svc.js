@@ -7,14 +7,12 @@
     function modalServices($q, $mdDialog, $mdMedia, $rootScope) {
         var service = {};
 
-        //var customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+        var customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
-        //var addProjectModal,
-        //    projectDetailModal
-        //;
+        var newTransactionModal;
 
         /* Service Functions */
-        //service.showAddProject = showAddProject;
+        service.showNewTransactionForm = showNewTransactionForm;
         //service.showProjectDetail = showProjectDetail;
         service.hideResolveModal = hideResolveModal;
         service.closeModal = closeModal;
@@ -39,24 +37,23 @@
             return dfd.promise;
         }
 
-        //function showAddProject(ev, _position) {
-        //    var opts = {
-        //        controller: 'addProjectController',
-        //        controllerAs: 'vm',
-        //        templateUrl: '/partials/modals/_add-project.tmpl.html',
-        //        parent: angular.element(document.querySelector('#admin-container')),
-        //        targetEvent: ev,
-        //        hasBackdrop: false,
-        //        locals: {position: _position},
-        //        fullscreen: $mdMedia('xs'),
-        //        onComplete: function (scope, element, options) {
-        //            $('.md-scroll-mask').css('z-index', '-1');
-        //        }
-        //    };
-        //
-        //    return showModal(addProjectModal, opts);
-        //}
-        //
+        function showNewTransactionForm(ev) {
+            var opts = {
+                controller: 'newTransactionController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_new_transaction.html',
+                parent: angular.element(document.querySelector('#index-container')),
+                targetEvent: ev,
+                hasBackdrop: false,
+                fullscreen: customFullscreen,
+                onComplete: function (scope, element, options) {
+                    $('.md-scroll-mask').css('z-index', '-1');
+                }
+            };
+
+            return showModal(newTransactionModal, opts);
+        }
+
         //function showProjectDetail(proj) {
         //    var opts = {
         //        controller: 'projectDetailsController',
@@ -74,11 +71,13 @@
         //}
 
         function hideResolveModal(response) {
+            $rootScope.$broadcast("modal-closed");
             $mdDialog.hide(response);
         }
 
         // Close Modal
         function closeModal() {
+            $rootScope.$broadcast("modal-closed");
             $mdDialog.cancel();
         }
 

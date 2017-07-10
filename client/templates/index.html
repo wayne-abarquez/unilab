@@ -6,20 +6,21 @@
                 src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places"></script>
 
     <div id="index-container" layout="row" ng-controller="indexController as indexCtl">
-            <!-- map canvas dimensions will be computed during map initialization -->
-            <div id="map-canvas" flex-gt-xs="80" flex="100"></div>
+        <!-- map canvas dimensions will be computed during map initialization -->
+        <div id="map-canvas" flex-gt-xs="{{ hasOpenedModal ? 100 : 80 }}" flex="100"></div>
     {% endraw %}
         {% include "partials/sidenavs/_admin_panel.html" %}
+        {% include "partials/sidenavs/_territory_info_panel.html" %}
         {% include "partials/_compare_branches_table.html" %}
     </div>
 
     <md-fab-speed-dial md-direction="left"
+                       id="admin-options-btn"
                        class="md-scale md-hover-full"
                        md-open="fab.isOpen"
-                       ng-mouseenter="fab.isOpen=true" ng-mouseleave="fab.isOpen=false"
-                       style="position:absolute;bottom: 18px; right: calc(20% + 35px);">
+                       ng-mouseenter="fab.isOpen=true" ng-mouseleave="fab.isOpen=false">
         <md-fab-trigger>
-            <md-button class="md-fab md-mini md-warn">
+            <md-button class="md-fab md-mini md-primary">
                 <md-icon>menu</md-icon>
             </md-button>
         </md-fab-trigger>

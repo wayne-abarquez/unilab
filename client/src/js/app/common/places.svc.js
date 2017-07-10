@@ -2,87 +2,57 @@
 'use strict';
 
 angular.module('demoApp')
-    .factory('placesService', ['Place', '$q', 'gmapServices', placesService]);
+    .factory('placesService', ['Place', '$rootScope', '$q', 'gmapServices', placesService]);
 
-    function placesService (Place, $q, gmapServices) {
+    function placesService (Place, $rootScope, $q, gmapServices) {
         var service = {};
+
+        var placeTypesDelimiter = '|';
 
         var iconByplaceTypes = {
             'hospital': {
                 icon: 'hospital',
-                color: '#f1c40f'
+                color: '#E91E63'
             },
-            'airport': {
-                icon: 'airport',
-                color: '#3498db'
-            },
-            'bank': {
-                icon: 'bank',
-                color: '#f1c40f'
-            },
-            'lodging': {
-                icon: 'lodging',
-                color: '#16a085'
-            },
-            'school': {
-                icon: 'school',
-                color: '#7f8c8d'
-            },
-            'restaurant': {
-                icon: 'restaurant',
-                color: '#e67e22'
+            'pharmacy': {
+                icon: 'health',
+                color: '#9b59b6'
             },
             'shopping_mall': {
                 icon: 'department-store',
                 color: '#9b59b6'
             },
-            'park': {
-                icon: 'park',
-                color: '#2ecc71'
+            'school': {
+                icon: 'school',
+                color: '#7f8c8d'
             },
-            'church': {
-                icon: 'church',
-                color: '#27ae60'
-            },
-            'museum': {
-                icon: 'museum',
-                color: '#95a5a6'
-            },
-            'cafe': {
-                icon: 'cafe',
+            'convenience_store': {
+                icon: 'convenience-store',
                 color: '#f39c12'
-            },
-            'establishment': {
-                icon: 'local-government',
-                color: '#1abc9c'
             }
         };
 
         service.defaultPlaceTypes = [
             'hospital',
-            'airport',
-            'bank',
-            'lodging',
-            'school',
-            'restaurant',
-            'shopping_mall'
+            'pharmacy'
         ];
 
         var poiMarkers = [],
             poiInfowindow;
 
-        service.loadPOIs = loadPOIs;
+        service.loadPOIs = loadPOIs; // load within territory
+        service.loadPOIsWithinBoundary = loadPOIsWithinBoundary;
         service.showPOIs = showPOIs;
         service.showPOIByType = showPOIByType;
+        service.showVisiblePOIs = showVisiblePOIs;
         service.hidePOIs = hidePOIs;
         service.getPlaceTypes = getPlaceTypes;
 
-        function loadPOIs (territoryId) {
+        function loadPOIs (territoryId, typesArray) {
             var dfd = $q.defer();
 
-            Place.get('', {types: 'hospital|clinic|schools|universities|shopping_mall', territoryid: territoryId})
+            Place.get('', {types: typesArray.join(placeTypesDelimiter), territoryid: territoryId})
                 .then(function(response){
-                    //console.log('places: ',response);
                     dfd.resolve(response.data);
                 }, function(error){
                     dfd.reject(error);
@@ -91,7 +61,21 @@ angular.module('demoApp')
             return dfd.promise;
         }
 
-        function showPOIs(data) {
+        function loadPOIsWithinBoundary(boundaryId, typesArray) {
+            var dfd = $q.defer();
+
+            Place.get('', {types: typesArray.join(placeTypesDelimiter), boundaryid: boundaryId})
+                .then(function (response) {
+                    console.log('places: ',response);
+                    dfd.resolve(response.data);
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function showPOIs(list) {
             var marker,
                 placeType;
 
@@ -101,8 +85,8 @@ angular.module('demoApp')
 
             poiMarkers = [];
 
-            for (var poiType in data) {
-                data[poiType].forEach(function (item) {
+            for (var poiType in list) {
+                list[poiType].forEach(function (item) {
                     placeType = getPlaceIcon(item.type);
                     marker = gmapServices.createMapIconLabel(item.geometry.location, placeType.icon || 'compass', placeType.color);
                     marker.name = item.name;
@@ -118,29 +102,46 @@ angular.module('demoApp')
                     poiMarkers.push(marker);
                 });
             }
+
+            $rootScope.$broadcast('compile-map-legend', {type: 'places', data: getMapLegendData(list)});
+        }
+
+        function getMapLegendData(list) {
+            return Object.keys(list).map(function(type){
+                return {
+                    name: type.capitalize(),
+                    iconPlace: getPlaceIcon(type)
+                };
+            });
         }
 
         function showPOIByType(type) {
             if (type == 'all') {
                 poiMarkers.forEach(function (marker) {
-                    if (!marker.getVisible()) marker.setVisible(true);
+                    if (!marker.getMap()) marker.setMap(gmapServices.map);
                 });
                 return;
             }
 
             poiMarkers.forEach(function (marker) {
                 if (type != marker.type) {
-                    marker.setVisible(false);
+                    marker.setMap(null);
                     return;
                 }
 
-                if (!marker.getVisible()) marker.setVisible(true);
+                if (!marker.getMap()) marker.setMap(gmapServices.map);
             })
+        }
+
+        function showVisiblePOIs () {
+            poiMarkers.forEach(function (marker) {
+                if (marker && !marker.getMap()) marker.setMap(gmapServices.map);
+            });
         }
 
         function hidePOIs() {
             poiMarkers.forEach(function (marker) {
-                if (marker && marker.getVisible()) marker.setVisible(false);
+                if (marker && marker.getMap()) marker.setMap(null);
             });
         }
 

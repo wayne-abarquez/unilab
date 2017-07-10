@@ -1,0 +1,18 @@
+{% raw %}
+<md-card id="map-legend" ng-controller="mapLegendController as vm" ng-show="showLegend" flex layout-padding ng-cloak>
+    <div ng-repeat="(group, data) in vm.legendData">
+        <md-subheader class="md-primary">{{ group }}</md-subheader>
+        <ul>
+            <li ng-repeat="item in data" layout="row">
+                <span class="name">{{ item.name }}</span>
+                <span flex></span>
+                <span>
+                    <img ng-src="{{item.iconUrl}}" alt="" ng-if="item.iconUrl">
+                    <span ng-if="item.iconPlace" class="map-icon map-icon-{{item.iconPlace.icon}}" ng-style="{'color': item.iconPlace.color}"></span>
+                </span>
+            </li>
+        </ul>
+        <md-divider></md-divider>
+    </div>
+</md-card>
+{% endraw %}

@@ -7,15 +7,15 @@
 
     <div id="index-container" layout="row" ng-controller="salesPageController as salesPgCtl">
 
-        <md-button class="md-fab md-primary"
-                   id="toggle-territory-details-btn"
-                   ng-click="salesPgCtl.showTerritoryPanelDetail()"
-                   ng-show="showTerritoryDetailBtn">
-            <md-icon>local_activity</md-icon>
+        <md-button class="md-fab"
+                   id="new-sales-transaction-btn"
+                   ng-click="salesPgCtl.showNewTransactionForm($event)">
+            <md-tooltip direction="top">New Transaction</md-tooltip>
+            <md-icon>card_travel</md-icon>
         </md-button>
 
             <!-- map canvas dimensions will be computed during map initialization -->
-            <div id="map-canvas" flex-gt-xs="80" flex="100"></div>
+            <div id="map-canvas" flex-gt-xs="{{ hasOpenedModal ? 100 : 80 }}" flex="100"></div>
     {% endraw %}
         {% include "partials/sidenavs/_sales_panel.html" %}
         {% include "partials/sidenavs/_territory_info_panel.html" %}

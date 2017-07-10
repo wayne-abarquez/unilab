@@ -24,8 +24,16 @@ md-menu-content {
 
 #show-compare-branches-btn {
   position: absolute;
-  bottom: 15px;
+  //bottom: 15px;
+  //left: 5px;
+  top: 50px;
   left: 5px;
+}
+
+#admin-options-btn {
+  position: absolute;
+  bottom: 18px;
+  right: calc(20% + 40px);
 }
 
 //#save-location-btn {

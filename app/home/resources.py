@@ -4,7 +4,7 @@ from flask import request
 from .fields import *
 from app.sales.fields import branch_fields
 from .services import get_boundaries, get_boundary, get_user_territories, get_branches_by_territory
-from app.utils.google_places_api import get_places_by_territory
+from app.utils.google_places_api import get_places_by_territory, get_places_by_boundary
 import logging
 
 log = logging.getLogger(__name__)
@@ -46,8 +46,13 @@ class PlaceResource(Resource):
         """ GET /places """
         types = request.args['types'] if 'types' in request.args else None
         territoryid = request.args['territoryid'] if 'territoryid' in request.args else None
+        boundaryid = request.args['boundaryid'] if 'boundaryid' in request.args else None
 
-        return {'data': get_places_by_territory(territoryid, types)}
+        if territoryid is not None:
+            return {'data': get_places_by_territory(territoryid, types)}
+
+        if boundaryid is not None:
+            return {'data': get_places_by_boundary(boundaryid, types)}
 
 
 class UserTerritoryResource(Resource):

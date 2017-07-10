@@ -1,0 +1,58 @@
+<md-dialog class="stick-right-modal md-whiteframe-3dp" flex="100">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>New Sales Transaction</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+
+        <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding flex>
+            <div layout="row" flex>
+                <md-input-container flex>
+                    <label>Name</label>
+                    <input ng-model="vm.transaction.name">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Transaction Type</label>
+                    <md-select ng-model="vm.transaction.type">
+                        <md-option ng-repeat="type in vm.transactionTypes" value="{{type}}">
+                            {{ type | uppercase }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div flex>
+                <md-input-container class="md-block">
+                    <label>Address</label>
+                    <input ng-model="vm.transaction.address">
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-content layout-padding style="overflow:hidden;">
+            <div>
+                <form name="vm.form">
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Cost</label>
+                            <input type="number" ng-model="vm.transaction.cost">
+                        </md-input-container>
+                        <md-datepicker ng-model="vm.transaction.date" md-placeholder="Enter date"></md-datepicker>
+                    </div>
+
+                    <md-input-container class="md-block">
+                        <label>Remarks</label>
+                        <textarea ng-model="vm.transaction.remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                    </md-input-container>
+                </form>
+            </div>
+        </md-content>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        <md-button class="md-raised" ng-click="vm.close()">Cancel</md-button>
+    </md-dialog-actions>
+</md-dialog>
