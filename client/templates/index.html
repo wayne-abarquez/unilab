@@ -5,14 +5,28 @@
     <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places"></script>
 
+ <div id="searchbar" style="display:none;">
+    <form name="colorForm">
+  <md-input-container>
+    <label>Search Address</label>
+    <input name="address" ng-model="address" required>
+    <div ng-messages="colorForm.address.$error">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+    </form>
+</div>
+
+
     <div id="index-container" layout="row" ng-controller="indexController as indexCtl">
             <!-- map canvas dimensions will be computed during map initialization -->
             <div id="map-canvas" flex-gt-xs="80" flex="100"></div>
     {% endraw %}
+        
         {% include "partials/sidenavs/_admin_panel.html" %}
         {% include "partials/_compare_branches_table.html" %}
     </div>
-
+    
     <md-fab-speed-dial md-direction="left"
                        class="md-scale md-hover-full"
                        md-open="fab.isOpen"
@@ -25,7 +39,7 @@
         </md-fab-trigger>
 
         <md-fab-actions>
-            <md-button class="md-fab md-raised md-mini" ng-click="indexCtl.showAddBranchModal()">
+            <md-button id="addBranch" class="md-fab md-raised md-mini" ng-click="indexCtl.showAddBranchModal()">
                 <md-tooltip md-direction="top">New Branch</md-tooltip>
                 <md-icon>business</md-icon>
             </md-button>
@@ -35,7 +49,13 @@
             </md-button>
         </md-fab-actions>
     </md-fab-speed-dial>
-
+    
     <script src="js/vendor.min.js"></script>
     <script src="js/app.min.js"></script>
+
+     <script>
+     $("#addBranch").click(function(){
+         console.log("entered");
+     });
+     </script>
 {% endblock %}

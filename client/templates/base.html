@@ -12,7 +12,33 @@
     <link rel="stylesheet" href="css/vendor.min.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="css/app.min.css">
+    <!--<script src="js/search.js"></script>-->
+
+    <script
+			  src="https://code.jquery.com/jquery-2.2.4.min.js"
+			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous"></script>
+
 </head>
+<style>
+    /*
+Optional adjustments for md-autocomplete in mobile screens
+*/
+
+#place-autocomplete > md-autocomplete md-input-container {
+  margin-top: -10px;
+}
+
+
+/*Media query for tablets and above */
+
+@media screen and (min-width: 480px) {
+  #place-autocomplete > md-autocomplete md-input-container {
+    padding-bottom: 0;
+  }
+}
+    </style>
+
 <body layout="column" ng-controller="mainController as mainCtl" ng-cloak>
 <!-- Fixed Top Navbar -->
 <div ng-include="'partials/_top_nav.html'"></div>
