@@ -8,6 +8,7 @@ angular.module('demoApp')
         var vm = this;
 
         vm.legendData = {};
+        vm.close = close;
 
         initialize();
 
@@ -17,6 +18,10 @@ angular.module('demoApp')
 
                 if (!$rootScope.showLegend) $rootScope.showLegend = true;
             });
+        }
+
+        function close () {
+            $rootScope.showLegend = false;
         }
 
     }

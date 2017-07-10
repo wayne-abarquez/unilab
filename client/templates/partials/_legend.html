@@ -1,5 +1,6 @@
 {% raw %}
 <md-card id="map-legend" ng-controller="mapLegendController as vm" ng-show="showLegend" flex layout-padding ng-cloak>
+    <md-icon class="close-btn-icon" ng-click="vm.close()">close</md-icon>
     <div ng-repeat="(group, data) in vm.legendData">
         <md-subheader class="md-primary">{{ group }}</md-subheader>
         <ul>

@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('newTransactionController', ['modalServices', newTransactionController]);
+    .controller('newTransactionController', ['modalServices', 'alertServices', newTransactionController]);
 
-    function newTransactionController (modalServices) {
+    function newTransactionController (modalServices, alertServices) {
         var vm = this;
 
         vm.transactionTypes = [
@@ -26,7 +26,8 @@ angular.module('demoApp.sales')
         }
 
         function save () {
-
+            alertServices.showSuccess('Transaction saved.');
+            modalServices.hideResolveModal();
         }
 
         function close () {

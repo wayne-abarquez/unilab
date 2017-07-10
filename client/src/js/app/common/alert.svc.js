@@ -12,6 +12,7 @@
         service.showNoDataAvailablePrompt = showNoDataAvailablePrompt;
         //service.showFilterSelectionEmpty = showFilterSelectionEmpty;
         service.showConfirm = showConfirm;
+        service.showSuccess = showSuccess;
 
         function showToast(message, position) {
             $mdToast.show(
@@ -35,6 +36,10 @@
                 title: message,
                 type: type
             });
+        }
+
+        function showSuccess(message) {
+            showMessage(message, 'success');
         }
 
         function showNoDataAvailablePrompt(entityName) {
