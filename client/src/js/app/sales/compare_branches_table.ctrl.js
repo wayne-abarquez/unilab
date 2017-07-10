@@ -34,8 +34,6 @@ angular.module('demoApp.sales')
                 branchService.resetMarkersColor();
             });
 
-            //$rootScope.$watch('showBranchCompareTable')
-
             $rootScope.$on('new-compare-branch', function (e, branch) {
 
                 if (_.findWhere(vm.branchCompareList, {id: branch.id})) return;
@@ -43,10 +41,7 @@ angular.module('demoApp.sales')
                 vm.branchCompareList.push(transform(branch));
 
                 compileList();
-
                 highlightComparedBranches();
-
-                console.log('list: ', vm.list);
             });
 
             $rootScope.$watch('showBranchCompareTable', function (newValue, oldValue) {
@@ -56,32 +51,20 @@ angular.module('demoApp.sales')
                 else branchService.resetMarkersColor();
             });
 
+            $(document).on('mouseover', '#compare-branch-table-container table.md-table tr:nth-child(2) td', function () {
+                var index = $(this).index();
+                $("#compare-branch-table-container table.md-table tr").find("td:nth-child(" + (index + 1) + ")").addClass("current-col");
+            });
 
-            //$('table#compare-branch-table td').hover(function () {
-            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').addClass('hightlightColumn');
-            //}, function () {
-            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').removeClass('hightlightColumn');
-            //});
-            //
-            //$('table#compare-branch-table td').hover(function () {
-            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').addClass('hover');
-            //    $('table#compare-branch-table th:nth-child(' + ($(this).index() + 1) + ')').addClass('hover');
-            //}, function () {
-            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').removeClass('hover');
-            //    $('table#compare-branch-table th').removeClass('hover');
-            //});
-
-            //$rootScope.$on('branch-infowindow-closed', function(e, obj) {
-            //    console.log('branch-infowindow-closed ',obj);
-            //    removeBranch({id: obj.id});
-            //});
+            $(document).on('mouseout', '#compare-branch-table-container table.md-table tr:nth-child(2) td', function () {
+                var index = $(this).index();
+                $("#compare-branch-table-container table.md-table tr").find("td:nth-child(" + (index + 1) + ")").removeClass("current-col");
+            });
         }
 
         function highlightComparedBranches () {
             var ids = _.pluck(vm.branchCompareList, 'id');
-
             branchService.highlightMarkers(ids);
-            //console.log('highlight these ids: ', ids);
         }
 
         function transform (obj) {
@@ -117,7 +100,7 @@ angular.module('demoApp.sales')
             var index = _.findIndex(vm.branchCompareList, {id: branchId});
 
             if (index > -1) {
-                branchService.unHighlistMarker(branchId);
+                branchService.unHighlightMarker(branchId);
 
                 vm.branchCompareList.splice(index, 1);
 
@@ -128,7 +111,6 @@ angular.module('demoApp.sales')
                 $scope.$apply(function(){
                     return vm.list;
                 });
-                //branchService.closeInfoWindowById(branch.id);
             }
         }
 

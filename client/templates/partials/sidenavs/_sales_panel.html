@@ -4,6 +4,7 @@
          ng-controller="salesPanelController as vm"
          layout="row"
          flex="20"
+         ng-hide="hasOpenedModal"
          ng-cloak>
 
     <md-sidenav class="md-sidenav-right md-sidenav"
@@ -48,6 +49,25 @@
         <!-- TERRITORIES -->
         <md-content layout="column" flex>
             <div id="territory-list-container">
+
+                <md-switch ng-model="vm.loadPois">Show POIs</md-switch>
+
+                <md-subheader ng-if="vm.loadPois">Place types</md-subheader>
+
+                <div ng-if="vm.loadPois" class="md-whiteframe-2dp places-type-container" layout="row" layout-margin>
+                    <div flex-wrap layout="column" class="place-type-item">
+                        <md-checkbox ng-model="type.model" ng-change="vm.toggleType(type.name)"
+                                     ng-repeat="type in vm.placeTypes[0]">
+                            {{ type.name | underscoreless | uppercase }}
+                        </md-checkbox>
+                    </div>
+                    <div flex-wrap layout="column" class="place-type-item">
+                        <md-checkbox ng-model="type.model" ng-change="vm.toggleType(type.name)"
+                                     ng-repeat="type in vm.placeTypes[1]">
+                            {{ type.name | underscoreless | uppercase }}
+                        </md-checkbox>
+                    </div>
+                </div>
 
                 <md-list>
                     <md-list-item ng-repeat="item in vm.territories | filter: vm.filter.q"

@@ -15,11 +15,14 @@
 
     <md-table-container>
 
-        <table id="compare-branch-table" md-table>
+        <table md-table>
             <tbody md-body>
                 <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
-                    <td md-cell ng-repeat="value in values track by $index">
-                        <span ng-mouseover="vm.hoverIn(vm.list['id'][$index])" ng-mouseleave="vm.hoverOut(vm.list['id'][$index])">{{ value }}</span>
+                    <td md-cell ng-repeat="value in values track by $index"
+                        ng-mouseover="vm.hoverIn(vm.list['id'][$index])"
+                        ng-mouseleave="vm.hoverOut(vm.list['id'][$index])"
+                        data-branch-id="{{ vm.list['id'][$index] }}">
+                        <span>{{ value }}</span>
                         <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index])" ng-if="$rowIndex == 1"><md-icon>close</md-icon></md-button>
                     </td>
                 </tr>

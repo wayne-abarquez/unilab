@@ -1,5 +1,5 @@
 from app import app, db
-from app.home.models import Territory
+from app.home.models import Territory, Boundary
 from sqlalchemy import func, select
 from app.utils.gis_json_fields import PointToLatLng
 import json
@@ -9,18 +9,11 @@ from geoalchemy2.shape import to_shape
 
 
 place_types_category = [
-    'establishment',
-    'restaurant',
     'hospital',
-    'airport',
-    'bank',
-    'church',
-    'school',
+    'pharmacy',
     'shopping_mall',
-    'museum',
-    'park',
-    'lodging',
-    'cafe'
+    'school',
+    'convenience_store'
 ]
 
 
@@ -116,8 +109,46 @@ def get_territory_center_and_radius(territoryid):
     }
 
 
+def get_boundary_center_and_radius(boundaryid):
+    stmt = select([(func.ST_Centroid(Boundary.geometry)).label('center'),
+                   (func.ST_Perimeter(func.ST_Buffer(Boundary.geometry, (
+                       func.ST_Perimeter(Boundary.geometry) / (func.pi() * 2) / 1.5)), False) / (
+                        func.pi() * 2)).label(
+                       'radius'),
+                   Boundary.geometry.label('geom')
+                   ]) \
+        .select_from(Boundary) \
+        .where(Boundary.id == boundaryid)
+
+    result = db.session.execute(stmt).fetchone()
+
+    if result is None:
+        return result
+
+    return {
+        'center': PointToLatLng().format(result[0]),
+        'radius': result[1],
+        'geom': result[2]
+    }
+
+
 def get_places_by_territory(territoryid, place_types):
     data = get_territory_center_and_radius(territoryid)
+
+    results = []
+
+    place_types_list = place_types.split('|')
+
+    for placetype in place_types_list:
+        results += get_poi_by_within_radius(data['center'], data['radius'], [], placetype)
+
+    filtered = filter_pois(data['geom'], results, place_types_list)
+
+    return filtered
+
+
+def get_places_by_boundary(boundaryid, place_types):
+    data = get_boundary_center_and_radius(boundaryid)
 
     results = []
 

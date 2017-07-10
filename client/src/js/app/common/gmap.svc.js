@@ -93,6 +93,7 @@
         service.resetPolygonFill = resetPolygonFill;
         service.fillPolygon = fillPolygon;
         service.panToPolygon = panToPolygon;
+        service.panToMarker = panToMarker;
         service.createPolyline = createPolyline;
         service.createDashedPolyline = createDashedPolyline;
         service.updatePolyline = updatePolyline;
@@ -669,6 +670,12 @@
             service.map.setCenter(bounds.getCenter());
         }
 
+        function panToMarker(marker) {
+            if (!service.map || !marker) return;
+
+            service.map.panTo(marker.getPosition());
+        }
+
         function createPolyline(path, lineColor) {
             if (!service.apiAvailable()) return null;
             var polylineOptions = {
@@ -916,7 +923,6 @@
         }
 
         function createMapIconLabel(latLng, type, color) {
-            console.log('createMapIconLabel: ',latLng, type, color);
             return new Marker({
                 map: service.map,
                 position: latLng,

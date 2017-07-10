@@ -39,12 +39,24 @@
                 });
         })
 
-        //.config(function ($mdThemingProvider) {
+        .filter('underscoreless', function () {
+            return function (input) {
+                return input.replace(/_/g, ' ');
+            };
+        })
+        .config(function ($mdThemingProvider) {
         //    $mdThemingProvider.theme('default')
         //        .primaryPalette('red')
         //        .accentPalette('pink');
-        //})
+            $mdThemingProvider.theme('docs-dark', 'default')
+                .primaryPalette('yellow')
+                .dark();
+        })
     ;
 
 }());
+
+String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
 

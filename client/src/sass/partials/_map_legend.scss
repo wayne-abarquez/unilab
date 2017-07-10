@@ -1,0 +1,35 @@
+#map-legend {
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  min-width: 100px;
+  min-height: 100px;
+
+  > div {
+    padding: 0;
+
+      .md-subheader {
+        .md-subheader-inner {
+          padding: 5px 0;
+          text-transform: capitalize;
+          font-weight: 600;
+        }
+      }
+
+      ul {
+        margin:0;
+        padding:0;
+        list-style-type: none;
+
+        li {
+          .name {
+            font-size: 0.75rem;
+          }
+
+          img {
+            width: 20px;
+          }
+        }
+      }
+  }
+}

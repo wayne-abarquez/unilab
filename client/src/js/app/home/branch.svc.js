@@ -28,7 +28,7 @@ angular.module('demoApp.home')
         service.getRestangularObj = getRestangularObj;
         service.highlightMarkers = highlightMarkers;
         service.resetMarkersColor = resetMarkersColor;
-        service.unHighlistMarker = unHighlistMarker;
+        service.unHighlightMarker = unHighlightMarker;
         service.animateMarker = animateMarker;
         service.clearAnimationMarker = clearAnimationMarker;
         //service.closeInfoWindowById = closeInfoWindowById;
@@ -43,12 +43,13 @@ angular.module('demoApp.home')
             var marker;
 
             hideMarkers();
+
             branchMarkers = [];
 
             if (!branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
             list.forEach(function (item) {
-                marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type));
+                marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type), {zIndex: 1});
 
                 //marker.infowindow = gmapServices.createInfoWindow('');
                 //marker.infowindow.branchId = item.id;
@@ -83,6 +84,19 @@ angular.module('demoApp.home')
                 //});
 
                 branchMarkers.push(marker);
+            });
+
+            $rootScope.$broadcast('compile-map-legend', {type: 'branches', data: getMapLegendData(list)});
+        }
+
+        function getMapLegendData (list) {
+            return _.pluck(_.uniq(list, function(item){
+                return item.type;
+            }), 'type').map(function(type){
+                return {
+                    name: type,
+                    iconUrl: getBranchIconByType(type)
+                };
             });
         }
 
@@ -134,7 +148,6 @@ angular.module('demoApp.home')
                 item.setIcon(icon);
 
                 if (isFound) item.setZIndex(2);
-                else item.setZIndex(1);
             });
         }
 
@@ -148,23 +161,30 @@ angular.module('demoApp.home')
             });
         }
 
-        function unHighlistMarker (branchId) {
+        function unHighlightMarker (branchId) {
             var found = getBranchById(branchId);
 
             if (!found) return;
 
             found.setIcon(getBranchIconByType());
-            item.setZIndex(1);
+            found.setZIndex(1);
+            found.setAnimation(null);
         }
 
         function animateMarker (branchId) {
             var found = getBranchById(branchId);
 
+            if (!found) return;
+
+            //gmapServices.panToMarker(found);
             found.setAnimation(google.maps.Animation.BOUNCE);
         }
 
         function clearAnimationMarker (branchId) {
             var found = getBranchById(branchId);
+
+            if (!found) return;
+
             found.setAnimation(null);
         }
 

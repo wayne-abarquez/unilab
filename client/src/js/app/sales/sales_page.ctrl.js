@@ -2,12 +2,12 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('salesPageController', ['gmapServices', '$rootScope', '$mdSidenav', salesPageController]);
+    .controller('salesPageController', ['gmapServices', 'modalServices', salesPageController]);
 
-    function salesPageController (gmapServices, $rootScope, $mdSidenav) {
+    function salesPageController (gmapServices, modalServices) {
         var vm = this;
 
-        vm.showTerritoryPanelDetail = showTerritoryPanelDetail;
+        vm.showNewTransactionForm = showNewTransactionForm;
 
         initialize();
 
@@ -15,14 +15,8 @@ angular.module('demoApp.sales')
             gmapServices.createMap('map-canvas');
         }
 
-        function showTerritoryPanelDetail () {
-            $mdSidenav('territoryInfoPanelSidenav')
-                .open()
-                .then(function () {
-                    $rootScope.showTerritoryDetailBtn = false;
-                    $rootScope.showGRDPPanel = true;
-                });
+        function showNewTransactionForm (event) {
+            modalServices.showNewTransactionForm(event)
         }
-
     }
 }());

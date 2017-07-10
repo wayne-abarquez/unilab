@@ -10,6 +10,10 @@
   md-toolbar {
     min-height: 38px;
     height: 38px;
+
+    .md-toolbar-tools {
+      padding: 0 15px !important;
+    }
   }
 
   .md-table {
@@ -38,14 +42,15 @@
           font-size: 0.85rem;
         }
       }
+      tr {
+        td {
+          padding: 0 15px !important;
+        }
+      }
     }
   }
+}
 
-  //#compare-branch-table {
-  //  .hover, .hightlightColumn {
-  //    background-color: #fff !important;
-  //    color: #1e8ae4 !important;
-  //    cursor: pointer !important;
-  //  }
-  //}
+.current-col {
+  background-color: rgba(30, 138, 228, 0.15) !important;
 }
