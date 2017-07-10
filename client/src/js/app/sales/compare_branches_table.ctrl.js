@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('compareBranchesTableController', ['$rootScope', '$scope', compareBranchesTableController]);
+    .controller('compareBranchesTableController', ['$rootScope', '$scope', 'branchService', compareBranchesTableController]);
 
-    function compareBranchesTableController ($rootScope, $scope) {
+    function compareBranchesTableController ($rootScope, $scope, branchService) {
         var vm = this;
 
         vm.branchCompareList = [];
@@ -12,6 +12,8 @@ angular.module('demoApp.sales')
         vm.currentIndex = 0;
 
         vm.removeBranch = removeBranch;
+        vm.hoverIn = hoverIn;
+        vm.hoverOut = hoverOut;
         vm.close = close;
 
         initialize();
@@ -29,7 +31,10 @@ angular.module('demoApp.sales')
 
                 $rootScope.showBranchCompareTable = false;
                 $('#show-compare-branches-btn').hide();
+                branchService.resetMarkersColor();
             });
+
+            //$rootScope.$watch('showBranchCompareTable')
 
             $rootScope.$on('new-compare-branch', function (e, branch) {
 
@@ -39,13 +44,44 @@ angular.module('demoApp.sales')
 
                 compileList();
 
+                highlightComparedBranches();
+
                 console.log('list: ', vm.list);
             });
+
+            $rootScope.$watch('showBranchCompareTable', function (newValue, oldValue) {
+                if (newValue === oldValue) return;
+
+                if (newValue) highlightComparedBranches();
+                else branchService.resetMarkersColor();
+            });
+
+
+            //$('table#compare-branch-table td').hover(function () {
+            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').addClass('hightlightColumn');
+            //}, function () {
+            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').removeClass('hightlightColumn');
+            //});
+            //
+            //$('table#compare-branch-table td').hover(function () {
+            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').addClass('hover');
+            //    $('table#compare-branch-table th:nth-child(' + ($(this).index() + 1) + ')').addClass('hover');
+            //}, function () {
+            //    $('table#compare-branch-table td:nth-child(' + ($(this).index() + 1) + ')').removeClass('hover');
+            //    $('table#compare-branch-table th').removeClass('hover');
+            //});
 
             //$rootScope.$on('branch-infowindow-closed', function(e, obj) {
             //    console.log('branch-infowindow-closed ',obj);
             //    removeBranch({id: obj.id});
             //});
+        }
+
+        function highlightComparedBranches () {
+            var ids = _.pluck(vm.branchCompareList, 'id');
+
+            branchService.highlightMarkers(ids);
+            //console.log('highlight these ids: ', ids);
         }
 
         function transform (obj) {
@@ -78,11 +114,13 @@ angular.module('demoApp.sales')
         }
 
         function removeBranch(branchId) {
-            console.log('removeBranch: ',branchId);
             var index = _.findIndex(vm.branchCompareList, {id: branchId});
-            console.log('removeBranch: ',index);
+
             if (index > -1) {
+                branchService.unHighlistMarker(branchId);
+
                 vm.branchCompareList.splice(index, 1);
+
                 compileList();
 
                 if($scope.$$phase) return;
@@ -94,9 +132,19 @@ angular.module('demoApp.sales')
             }
         }
 
+        function hoverIn (branchId) {
+            branchService.animateMarker(branchId);
+        }
+
+        function hoverOut (branchId) {
+            branchService.clearAnimationMarker(branchId);
+        }
+
         function close () {
             $rootScope.showBranchCompareTable = false;
         }
+
+
 
     }
 }());

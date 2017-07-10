@@ -56,11 +56,11 @@ angular.module('demoApp.sales')
 
             // load places
             // TODO: uncomment this after working on other features to avoid gmap credits toll
-            var dfd1 = placesService.loadPOIs(item.territoryid)
-                        .then(function(response){
-                            placesService.showPOIs(response);
-                            $rootScope.selectedTerritory.places = response;
-                        });
+            //var dfd1 = placesService.loadPOIs(item.territoryid)
+            //            .then(function(response){
+            //                placesService.showPOIs(response);
+            //                $rootScope.selectedTerritory.places = response;
+            //            });
 
             var dfd2 = userTerritoriesService.getTerritoryBranches(item.territoryid)
                 .then(function (response) {
@@ -68,7 +68,7 @@ angular.module('demoApp.sales')
                     branchService.loadMarkers(response);
                 });
 
-            $q.all([dfd1, dfd2])
+            $q.all([dfd2])
                 .then(function(){
                     $mdSidenav('territoryInfoPanelSidenav').open();
                     $rootScope.$broadcast('territory_selected', $rootScope.selectedTerritory);
