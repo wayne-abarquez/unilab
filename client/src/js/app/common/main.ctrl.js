@@ -64,6 +64,7 @@
 
                 if (branchMarker) {
                     $rootScope.$broadcast('close-territory-info-panel');
+                    $rootScope.showBranchCompareTable = true;
 
                     var restObj = branchService.getRestangularObj(branchMarker.branch.id);
 
@@ -72,6 +73,7 @@
                         .then(function(response){
                             branchMarker.branch.products = angular.copy(response.plain());
                             $rootScope.$broadcast('new-compare-branch', branchMarker.branch);
+                            branchService.dismissInfowindow();
                         });
                 }
             });

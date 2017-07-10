@@ -16,16 +16,27 @@ angular.module('demoApp.home')
             'gt': 'branch-blue.png'
         };
 
+        var iconBaseUrl = '/images/markers/';
+        var unhighlightIcon = 'branch-default.png';
+
         service.loadMarkers = loadMarkers;
         service.showMarkers = showMarkers;
         service.hideMarkers = hideMarkers;
         service.toggleMarkers = toggle;
+        service.dismissInfowindow = dismissInfowindow;
         service.getBranchById = getBranchById;
         service.getRestangularObj = getRestangularObj;
+        service.highlightMarkers = highlightMarkers;
+        service.resetMarkersColor = resetMarkersColor;
+        service.unHighlistMarker = unHighlistMarker;
+        service.animateMarker = animateMarker;
+        service.clearAnimationMarker = clearAnimationMarker;
         //service.closeInfoWindowById = closeInfoWindowById;
 
         function getBranchIconByType (type) {
-            return '/images/markers/' + branchIcons[type.toLowerCase()];
+            if (!type) return iconBaseUrl + unhighlightIcon;
+
+            return iconBaseUrl + branchIcons[type.toLowerCase()];
         }
 
         function loadMarkers (list) {
@@ -97,12 +108,64 @@ angular.module('demoApp.home')
             }
         }
 
+        function dismissInfowindow () {
+            if (branchInfowindow) branchInfowindow.close();
+        }
+
         function getBranchById (branchId) {
             return _.findWhere(branchMarkers, {id: branchId});
         }
 
         function getRestangularObj(branchId) {
             return Branch.cast(branchId);
+        }
+
+        function highlightMarkers (branchIds) {
+            var icon,
+                isFound;
+
+            branchMarkers.forEach(function(item){
+                isFound = branchIds.indexOf(item.id) > -1;
+
+                icon = branchIds.indexOf(item.id) > -1
+                       ? getBranchIconByType(item.branch.type)
+                       : getBranchIconByType();
+
+                item.setIcon(icon);
+
+                if (isFound) item.setZIndex(2);
+                else item.setZIndex(1);
+            });
+        }
+
+        function resetMarkersColor () {
+            var icon;
+
+            branchMarkers.forEach(function (item) {
+                icon = getBranchIconByType(item.branch.type)
+                item.setIcon(icon);
+                item.setZIndex(1);
+            });
+        }
+
+        function unHighlistMarker (branchId) {
+            var found = getBranchById(branchId);
+
+            if (!found) return;
+
+            found.setIcon(getBranchIconByType());
+            item.setZIndex(1);
+        }
+
+        function animateMarker (branchId) {
+            var found = getBranchById(branchId);
+
+            found.setAnimation(google.maps.Animation.BOUNCE);
+        }
+
+        function clearAnimationMarker (branchId) {
+            var found = getBranchById(branchId);
+            found.setAnimation(null);
         }
 
         //function closeInfoWindowById(branchId) {
