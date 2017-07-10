@@ -11,7 +11,7 @@
         service.showTopRightToast = showTopRightToast;
         service.showNoDataAvailablePrompt = showNoDataAvailablePrompt;
         //service.showFilterSelectionEmpty = showFilterSelectionEmpty;
-        //service.showQueryIsEmpty = showQueryIsEmpty;
+        service.showConfirm = showConfirm;
 
         function showToast(message, position) {
             $mdToast.show(
@@ -40,6 +40,21 @@
         function showNoDataAvailablePrompt(entityName) {
             service.showBottomLeftToast('No ' + entityName + ' data available for this area.');
         }
+
+        function showConfirm (title, message, callbackOnConfirm) {
+            SweetAlert.swal({
+                    title: title,
+                    text: message,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: true
+                },
+                callbackOnConfirm);
+        }
+
+
 
         //function showFilterSelectionEmpty() {
         //    showMessage('Please select filter type.', 'warning');

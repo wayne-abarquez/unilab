@@ -17,7 +17,9 @@ gulp.task('sass', function () {
 gulp.task('vendor-css', function () {
    return gulp.src([
        paths.bower + 'angular-material/angular-material.min.css',
-       paths.bower + 'sweetalert/dist/sweetalert.css'
+       paths.bower + 'sweetalert/dist/sweetalert.css',
+       paths.bower + 'map-icons/dist/css/map-icons.min.css',
+       paths.bower + 'angular-material-data-table/dist/md-data-table.min.css'
    ])
        .pipe($.concatCss('vendor.min.css'))
        .pipe($.csso())

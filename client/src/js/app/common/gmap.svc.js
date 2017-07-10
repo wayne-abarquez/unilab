@@ -23,7 +23,7 @@
 
         service.defaultZoom = service.ZOOM_OUT_LEVEL;
 
-        service.defaultLatLng = new google.maps.LatLng(10.8774711, 123.4557964);
+        service.defaultLatLng = new google.maps.LatLng(10.3194669, 123.9136565);
 
         // Cluster Objects
         // for Different Layers
@@ -118,6 +118,7 @@
         service.initializeAutocomplete = initializeAutocomplete;
         service.containsLocation = containsLocation;
         service.triggerEvent = triggerEvent;
+        service.createMapIconLabel = createMapIconLabel;
 
         function apiAvailable() {
             return typeof window.google === 'object';
@@ -136,7 +137,7 @@
                 center: service.defaultLatLng,
                 mapTypeId: google.maps.MapTypeId.MAP,
                 mapTypeControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_TOP
+                    position: google.maps.ControlPosition.RIGHT_TOP
                 },
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -144,7 +145,8 @@
                 panControl: false
             };
 
-            $(myMapId).height($(window).height() - (42));
+            //$(myMapId).height($(window).height() - (42));
+            $(myMapId).height($(window).height());
 
             service.map = new google.maps.Map(document.getElementById(mapIdLoc), mapOptions);
 
@@ -308,10 +310,9 @@
         }
 
         function createMarker(_position, _color) {
-            _color = _color || service.MARKER_ICONS.RED;
             var marker = service.initMarker(_position, _color);
 
-            service.markers.push(marker);
+            //service.markers.push(marker);
 
             return marker;
         }
@@ -333,10 +334,7 @@
                 strokeWeight: 1
             };
 
-            var marker = service.initMarker(_position, icon);
-            service.markers.push(marker);
-
-            return marker;
+            return service.initMarker(_position, icon);
         }
 
         function panTo(_position) {
@@ -587,6 +585,19 @@
             return new google.maps.Circle(circleOptions);
         }
 
+        function createCircle(centerLatLng, radiusParam, color) {
+            return new google.maps.Circle({
+                strokeColor: color || '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: color || '#FF0000',
+                fillOpacity: 0.35,
+                map: service.map,
+                center: centerLatLng,
+                radius: radiusParam
+            });
+        }
+
         function updateCircle(circle, latitude, longitude, radius) {
             if (circle) {
                 circle.setCenter({lat: latitude, lng: longitude});
@@ -655,7 +666,7 @@
                 bounds.extend(path);
             });
 
-            service.panTo(bounds.getCenter());
+            service.map.setCenter(bounds.getCenter());
         }
 
         function createPolyline(path, lineColor) {
@@ -902,6 +913,29 @@
 
         function triggerEvent(obj, event) {
             google.maps.event.trigger(obj, 'click');
+        }
+
+        function createMapIconLabel(latLng, type, color) {
+            console.log('createMapIconLabel: ',latLng, type, color);
+            return new Marker({
+                map: service.map,
+                position: latLng,
+                icon: {
+                    anchor: new google.maps.Point(-6, -10),
+                    path: MAP_PIN,
+                    fillColor: color || '#2ecc71',
+                    fillOpacity: 1,
+                    strokeColor: color ? '' : '#27ae60',
+                    strokeWeight: color ? 0 : 1
+                },
+                map_icon_label: '<span class="map-icon map-icon-' + type + '"></span>'
+            });
+        }
+
+        service.createFacilityMarker = createFacilityMarker;
+
+        function createFacilityMarker(latLng) {
+            return service.initMarker(latLng, 'resources/images/markers/wifi.png');
         }
 
         return service;

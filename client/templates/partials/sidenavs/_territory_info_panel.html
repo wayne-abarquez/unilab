@@ -1,0 +1,63 @@
+{% raw %}
+<section class="sidenav-container"
+         id="territory-info-panel"
+         ng-controller="territoryInfoPanelController as vm"
+         layout="row"
+         flex
+         ng-cloak>
+
+    <md-sidenav class="md-sidenav-left md-sidenav"
+                md-component-id="territoryInfoPanelSidenav"
+                md-disable-backdrop
+                md-whiteframe="4"
+                flex>
+
+        <md-toolbar class="md-default-white">
+            <div class="md-toolbar-tools">
+
+                <div layout="column" class="territory-detail-header">
+                    <h4>
+                        <md-icon>place</md-icon>
+                        {{ vm.territory.territory.code}}
+                    </h4>
+                    <span class="territory-type">{{ vm.territory.territory.type }}</span>
+                </div>
+
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="vm.close()">
+                    <md-icon>arrow_backward</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- TERRITORIES -->
+        <md-content layout="column" flex>
+
+            <md-list flex style="overflow-y: auto;" ng-if="vm.territory.places">
+                <md-subheader class="md-no-sticky md-primary">POIs</md-subheader>
+                <md-list-item ng-repeat="(k, v) in vm.territory.places track by $index"
+                              ng-click="vm.showPOIByType(k)">
+                    <div class="md-list-item-text" layout="row">
+                        <span>{{ k }}</span>
+                    </div>
+                    <span flex></span>
+                    <span><b>{{ v.length }}</b></span>
+                </md-list-item>
+            </md-list>
+
+            <md-divider></md-divider>
+
+            <div layout="row" flex class="branches-count" ng-click="vm.toggleBranches()">
+                <span>Branches</span>
+                <span flex></span>
+                <span><b>{{vm.territory.branches.length}}</b></span>
+            </div>
+
+            <!-- TODO: show below current user transactions within this territory -->
+
+        </md-content>
+
+    </md-sidenav>
+</section>
+{% endraw %}

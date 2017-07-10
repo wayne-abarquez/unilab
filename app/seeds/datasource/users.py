@@ -24,7 +24,7 @@ users = [
 ]
 
 for index, user in enumerate(users):
-    user['firstname'] = fake.first_name()
-    user['lastname'] = fake.last_name()
+    user['firstname'] = fake.first_name().lower()
+    user['lastname'] = fake.last_name().lower()
     user['password'] = test_password
     users[index] = user

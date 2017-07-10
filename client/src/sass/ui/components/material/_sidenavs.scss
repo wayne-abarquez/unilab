@@ -1,0 +1,31 @@
+.md-sidenav {
+
+  md-toolbar {
+    .md-toolbar-tools {
+      button.no-space-right {
+        padding-right: 0;
+        margin-right: 0;
+      }
+
+      h4 {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  md-toolbar.md-default {
+    background-color: rgba(0, 0, 0, 0.45);
+    color: white;
+    md-icon {
+      color: white;
+    }
+  }
+
+  md-toolbar.md-default-white {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.45);
+    md-icon {
+      color: rgba(0, 0, 0, 0.45);
+    }
+  }
+}

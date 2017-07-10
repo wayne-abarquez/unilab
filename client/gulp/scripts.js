@@ -12,6 +12,8 @@ gulp.task('vendor-scripts', function () {
         paths.bower + 'jquery/dist/jquery.min.js',
         paths.bower + 'underscore/underscore-min.js',
         paths.bower + 'angular/angular.min.js',
+        paths.bower + 'restangular/dist/restangular.min.js',
+        paths.bower + 'angular-local-storage/dist/angular-local-storage.min.js',
         paths.bower + 'angular-animate/angular-animate.min.js',
         paths.bower + 'angular-aria/angular-aria.min.js',
         paths.bower + 'angular-cookies/angular-cookies.min.js',
@@ -19,7 +21,10 @@ gulp.task('vendor-scripts', function () {
         paths.bower + 'angular-material/angular-material.js',
         paths.bower + 'sweetalert/dist/sweetalert.min.js',
         paths.bower + 'ngSweetAlert/SweetAlert.min.js',
-        paths.bower + 'v-accordion/dist/v-accordion.min.js'
+        paths.bower + 'v-accordion/dist/v-accordion.min.js',
+        paths.bower + 'ng-file-upload/ng-file-upload.min.js',
+        paths.bower + 'map-icons/dist/js/map-icons.js',
+        paths.bower + 'angular-material-data-table/dist/md-data-table.min.js'
     ])
         .pipe($.plumber())
         .pipe($.concat('vendor.min.js'))
@@ -43,6 +48,7 @@ gulp.task('app-scripts', function () {
         .pipe($.concat('app.min.js'))
         .pipe($.if(args.production, $.uglify()))
         .pipe($.if(args.production, $.jsObfuscator()))
+        .pipe($.chmod(774))
         .pipe(gulp.dest(paths.destJs))
         .pipe($.size());
 });

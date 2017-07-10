@@ -2,6 +2,16 @@ from flask.ext.restful import fields
 from geoalchemy2.shape import to_shape
 
 
+class GeomHelpers:
+    """
+    Convert PostGIS Geometry helpers
+    """
+
+    @staticmethod
+    def to_string(value):
+        return str(to_shape(value))
+
+
 class PointToLatLng(fields.Raw):
     """
     Convert PostGIS POINT Geometry to {lat=pt.y,lng=pt.x}
@@ -44,8 +54,11 @@ class PolygonToLatLng(fields.Raw):
     """
 
     def format(self, value):
-        polygon = to_shape(value)
-        return [dict(lat=point[1], lng=point[0]) for point in polygon.exterior.coords]
+        try:
+            polygon = to_shape(value)
+            return [dict(lat=point[1], lng=point[0]) for point in polygon.exterior.coords]
+        except AttributeError:
+            return []
 
 
 class LinestringToLatLng(fields.Raw):

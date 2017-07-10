@@ -3,19 +3,19 @@
 var gulp = require('gulp'),
     paths = gulp.paths;
 
-var browserSync = require('browser-sync'),
+var //browserSync = require('browser-sync'),
     runSequence = require('run-sequence');
 
-browserSync({
-    notify: true,
-    proxy: "127.0.0.1:91"
-});
+//browserSync({
+//    notify: true,
+//    proxy: "127.0.0.1:80"
+//});
 
 gulp.task('watch', function(event) {
     // Watch HTML Files
     gulp.watch(paths.templates + '**/*.html',
         function (event) {
-            browserSync.reload(event.path);
+            //browserSync.reload(event.path);
         });
 
     // Watch App JS Files
@@ -24,7 +24,13 @@ gulp.task('watch', function(event) {
         paths.srcJs + 'app/**/*.js'
     ], function (event) {
         runSequence('app-scripts', function () {
-            browserSync.reload(event.path);
+            //browserSync.reload(event.path);
+        });
+    });
+
+    gulp.watch(paths.bower + '**/*.js', function (event) {
+        runSequence('vendor-scripts', function () {
+            //browserSync.reload(event.path);
         });
     });
 
@@ -32,7 +38,7 @@ gulp.task('watch', function(event) {
     gulp.watch(paths.srcSass + '**/*.scss',
         function (event) {
             runSequence('sass', function () {
-                browserSync.reload(event.path);
+                //browserSync.reload(event.path);
             });
         });
 });

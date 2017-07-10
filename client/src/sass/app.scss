@@ -10,7 +10,11 @@
 
   // Partials
   "partials/_top_nav",
-  "partials/_main_menu_sidenav",
+  "partials/sidenav/_main_menu",
+  "partials/sidenav/_sales_panel",
+  "partials/sidenav/_admin_panel",
+  "partials/sidenav/_territory_info_panel",
+  "partials/_compare_branch_table",
 
   // Pages
   "pages/_base",
@@ -18,6 +22,7 @@
   "pages/_login",
 
   // Libraries Overrides
-  "libs/_v-accordion"
+  "libs/_v-accordion",
+  "libs/_map-icon"
 
 ;

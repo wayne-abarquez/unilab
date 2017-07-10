@@ -1,0 +1,182 @@
+$list-item-height: 25px;
+$list-item-height-2: 38px;
+
+#admin-panel {
+
+  form {
+    height: 30px;
+
+    md-input-container {
+      margin: 0;
+      height: 30px;
+    }
+  }
+
+  #admin-territories-section {
+    md-list {
+      overflow-y: auto;
+
+      md-list-item {
+        md-icon {
+          color: #9b59b6;
+        }
+
+        md-progress-circular {
+          display: none;
+        }
+      }
+    }
+
+  }
+
+  md-toolbar {
+    .md-toolbar-tools {
+      button.no-space-right {
+        padding-right: 0;
+        margin-right: 0;
+      }
+
+      h4 {
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  md-toolbar.md-default {
+    background-color: rgba(0, 0, 0, 0.45);
+    color: white;
+    md-icon {
+      color: white;
+    }
+  }
+
+  md-content {
+    max-height: 100%;
+    overflow: hidden;
+
+    > div:first-of-type {
+      //overflow-y: auto;
+      //max-height: 30%;
+
+      .place-type-item {
+        margin: 0 15px;
+      }
+
+      .md-subheader {
+        margin: 0;
+
+        .md-subheader-inner {
+          padding: 8px 0;
+        }
+      }
+
+      md-checkbox {
+        margin-bottom: 0;
+
+        .md-label {
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    #boundaries-container {
+      //max-height: 70%;
+      //min-height: 70%;
+      //overflow-y: auto;
+      height: 100%;
+
+      form {
+        margin: 0;
+      }
+
+      v-pane-header {
+        > div {
+          > div {
+            justify-content: space-between;
+          }
+        }
+        md-progress-circular {
+          display: none;
+        }
+      }
+
+      md-list-item {
+        justify-content: space-between;
+
+        md-progress-circular {
+          display: none;
+        }
+      }
+
+      .md-subheader {
+        .md-subheader-inner {
+          padding: 8px 0;
+        }
+      }
+    }
+
+    v-accordion {
+      max-height: 100%;
+      overflow-y: auto;
+      margin: 5px 0 0;
+
+      md-list {
+        padding: 0;
+
+        md-list-item {
+          min-height: $list-item-height;
+          height: $list-item-height;
+
+          .md-button {
+            padding: 0 8px;
+            min-height: $list-item-height;
+
+            .md-list-item-inner {
+              min-height: $list-item-height;
+              height: $list-item-height;
+
+              .md-list-item-text {
+                height: 25px;
+                line-height: 2;
+                font-size: 12.5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+$checkbox-size: 18px;
+
+md-checkbox {
+  margin: 5px;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 0;
+  line-height: 10px;
+  min-width: $checkbox-size;
+  min-height: $checkbox-size;
+
+  .md-label {
+    line-height: 1.25;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+
+  .md-container {
+    width: $checkbox-size;
+    height: $checkbox-size;
+
+    .md-icon {
+      width: $checkbox-size;
+      height: $checkbox-size;
+
+      &::after {
+        left: 6px !important;
+      }
+    }
+  }
+}
