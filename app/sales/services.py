@@ -1,11 +1,13 @@
 from app import db
-from .models import Branch, BranchStatus, Product, BranchProduct
+from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary
 from sqlalchemy import select, func
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
 from app.utils import forms_helper
+from random import randint
+from .exceptions import BranchNotFoundError
 
 
 def get_branch_within_boundary(boundaryid):
@@ -72,7 +74,6 @@ def get_products_by_branch(branchid):
 
 
 def create_branch(data):
-    print "create branch: {0}".format(data)
     # Prepare Data
     branch = Branch.from_dict(data)
     branch.status = BranchStatus.ACTIVE
@@ -83,3 +84,43 @@ def create_branch(data):
     db.session.commit()
 
     return branch
+
+
+def delete_branch(branchid):
+    # Prepare Data
+    branch = Branch.query.get(branchid)
+    if branch is None:
+        raise BranchNotFoundError("Branch id={0} not found".format(branchid))
+
+    db.session.delete(branch)
+    db.session.commit()
+
+
+def create_merchant(data):
+    # Prepare Data
+    merchant = Merchant.from_dict(data)
+    merchant.latlng = forms_helper.parse_coordinates(data['latlng'])
+    merchant.specialty = MERCHANT_SPECIALTIES[randint(0, len(MERCHANT_SPECIALTIES) - 1)]
+
+    # Persist
+    db.session.add(merchant)
+    db.session.commit()
+
+    return merchant
+
+
+def get_sales_transactions():
+    return Transaction.query.all()
+
+
+def create_sales_transaction(data):
+    # Prepare Data
+    transaction = Transaction.from_dict(data)
+    transaction.start_point_latlng = forms_helper.parse_coordinates(data['start_point_latlng'])
+    transaction.end_point_latlng = forms_helper.parse_coordinates(data['end_point_latlng'])
+
+    # Persist
+    db.session.add(transaction)
+    db.session.commit()
+
+    return transaction

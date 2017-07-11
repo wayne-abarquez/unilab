@@ -17,7 +17,7 @@ angular.module('demoApp')
 
         // ex param. vm.form.$error
         function showFormErrors(formError) {
-            angular.forEach(vm.form.$error, function (field) {
+            angular.forEach(formError, function (field) {
                 angular.forEach(field, function (errorField) {
                     errorField.$setTouched();
                 })

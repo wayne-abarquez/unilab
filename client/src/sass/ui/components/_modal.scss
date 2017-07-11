@@ -76,7 +76,18 @@
     }
 
     .main-form {
-      overflow: hidden;
+      overflow-x: hidden;
+    }
+
+    .point-buttons-container {
+      button {
+        height: 35px;
+        width: 35px;
+        min-height: 0;
+        min-width: 0;
+        padding: 5px;
+        line-height: 1;
+      }
     }
   }
 

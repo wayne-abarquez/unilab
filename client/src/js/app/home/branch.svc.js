@@ -32,6 +32,7 @@ angular.module('demoApp.home')
         service.unHighlightMarker = unHighlightMarker;
         service.animateMarker = animateMarker;
         service.clearAnimationMarker = clearAnimationMarker;
+        service.deleteBranch = deleteBranch;
         //service.closeInfoWindowById = closeInfoWindowById;
 
         function saveBranch (data, id) {
@@ -212,10 +213,37 @@ angular.module('demoApp.home')
             found.setAnimation(null);
         }
 
-        //function closeInfoWindowById(branchId) {
-        //    var found = getBranchById(branchId);
-        //    if (found) found.infowindow.close();
-        //}
+        function deleteBranch(branchId) {
+            var dfd = $q.defer();
+
+            var restObj = getRestangularObj(branchId);
+
+            restObj.remove()
+                .then(function (response) {
+
+                    dismissInfowindow();
+
+                    var index = _.findIndex(branchMarkers, {id: branchId});
+
+                    if (index > -1) {
+                        if (branchMarkers[index] && branchMarkers[index].getMap()) {
+                            branchMarkers[index].setVisible(false);
+                            gmapServices.clearInstanceListeners(branchMarkers[index]);
+                            branchMarkers[index].setMap(null);
+                            branchMarkers[index] = null;
+                            console.log('clearing branch marker');
+                        }
+                        branchMarkers.splice(index, 1);
+                    }
+
+                    dfd.resolve(response);
+                }, function (error) {
+                    console.log('error: ', error);
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
 
         return service;
     }

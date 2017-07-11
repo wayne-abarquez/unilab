@@ -48,6 +48,28 @@ branch_create_fields = dict(
     branch=fields.Nested(branch_fields, allow_null=False)
 )
 
+sales_transaction_fields = dict(
+    id=fields.Integer,
+    merchantid=fields.Integer,
+    userid=fields.Integer,
+    type=fields.String,
+    description=fields.String,
+    transaction_date=fields.DateTime('iso8601'),
+    cost=fields.Float,
+    address=fields.String,
+    start_point_latlng=PointToLatLng(attribute='start_point_latlng'),
+    end_point_latlng=PointToLatLng(attribute='end_point_latlng'),
+    travel_time_in_minutes=fields.Float,
+    average_travel_time_in_minutes=fields.Float,
+    remarks=fields.String
+)
+
+sales_transaction_create_fields = dict(
+    status=fields.String,
+    message=fields.String,
+    sales_transaction=fields.Nested(sales_transaction_fields, allow_null=False)
+)
+
 branch_complete_fields = copy(branch_fields)
 branch_complete_fields['average_monthly_income'] = fields.Float
 branch_complete_fields['average_patrons'] = fields.Float

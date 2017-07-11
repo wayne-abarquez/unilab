@@ -47,6 +47,8 @@ class BranchProduct(BaseModel):
     unit_of_measure = db.Column(db.String(50))
     date_released = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+    branch = db.relationship(Branch, backref=db.backref('products', cascade="all, delete-orphan"), lazy='joined')
+
 
 class Merchant(BaseModel):
     name = db.Column(db.String(200))
@@ -59,10 +61,14 @@ MERCHANT_SPECIALTIES = ['pediatrics', 'general practice', 'family medicine']
 
 
 class TransactionType:
-    COVERAGE = 'COVERAGE'
-    FLEET = 'FLEET'
-    CS3 = 'CS3'
-    ONESS = '1SS'
+    CLIENT_VISIT = 'CLIENT VISIT'
+    GAS = 'GAS'
+    FLIGHT = 'FLIGHT'
+    tuple_options = (
+        (CLIENT_VISIT, CLIENT_VISIT),
+        (GAS, GAS),
+        (FLIGHT, FLIGHT)
+    )
 
 
 class Transaction(BaseModel):
@@ -74,6 +80,7 @@ class Transaction(BaseModel):
     cost = db.Column(db.Numeric)
     address = db.Column(db.String(500))
     start_point_latlng = db.Column(Geometry('POINT'))
+    end_point_latlng = db.Column(Geometry('POINT'))
     travel_time_in_minutes = db.Column(db.Float)
     average_travel_time_in_minutes = db.Column(db.Float)
     remarks = db.Column(db.Text)

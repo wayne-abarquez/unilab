@@ -2,10 +2,12 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .factory('userTerritoriesService', ['$q', '$rootScope', 'userSessionService', 'Territory', userTerritoriesService]);
+    .factory('userTerritoriesService', ['$q', 'userSessionService', 'Territory', userTerritoriesService]);
 
-    function userTerritoriesService ($q, $rootScope, userSessionService, Territory) {
+    function userTerritoriesService ($q, userSessionService, Territory) {
         var service = {};
+
+        var abort;
 
         service.getTerritories = getTerritories;
         service.getTerritoryBranches = getTerritoryBranches;
@@ -17,7 +19,6 @@ angular.module('demoApp.home')
 
             currentUser.getList('territories')
                 .then(function(response){
-                    //console.log('get user territories: ',response.plain());
                     dfd.resolve(response.plain());
                 }, function(error){
                     console.log('get user territories error: ', error);
@@ -30,10 +31,14 @@ angular.module('demoApp.home')
         function getTerritoryBranches (territoryId) {
            var dfd = $q.defer();
 
+            if (abort) abort.resolve();
+
+            abort = $q.defer();
+
             Territory.cast(territoryId)
+               .withHttpConfig({timeout: abort})
                .getList('branches')
                     .then(function (response) {
-                        //console.log('response: ', response.plain());
                         dfd.resolve(response.plain());
                     }, function (error) {
                         console.log('error: ', error);

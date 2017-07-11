@@ -111,7 +111,7 @@ angular.module('demoApp.sales')
             branchService.saveBranch(formData)
                 .then(function(response){
                     //console.log('save branch: ',response);
-                    alertServices.showSuccess('Transaction saved.');
+                    alertServices.showSuccess('New Branch saved.');
                     modalServices.hideResolveModal(response);
                 },function(error){
                     console.log('save branch error: ', error);

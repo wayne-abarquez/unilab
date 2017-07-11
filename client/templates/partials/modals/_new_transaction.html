@@ -6,50 +6,109 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
+        <form name="vm.form">
+            <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding flex>
 
-        <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding flex>
-            <div layout="row" flex>
-                <md-input-container flex>
-                    <label>Name</label>
-                    <input ng-model="vm.transaction.name">
-                </md-input-container>
-
-                <md-input-container flex>
-                    <label>Transaction Type</label>
-                    <md-select ng-model="vm.transaction.type">
-                        <md-option ng-repeat="type in vm.transactionTypes" value="{{type}}">
-                            {{ type | uppercase }}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-            <div flex>
-                <md-input-container class="md-block">
-                    <label>Address</label>
-                    <input ng-model="vm.transaction.address">
-                </md-input-container>
-            </div>
-        </md-content>
-
-        <md-content class="main-form" layout-padding>
-            <div>
-                <form name="vm.form">
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>Cost</label>
-                            <input type="number" ng-model="vm.transaction.cost">
-                        </md-input-container>
-                        <md-datepicker ng-model="vm.transaction.date" md-placeholder="Enter date"></md-datepicker>
-                    </div>
-
-                    <md-input-container class="md-block">
-                        <label>Remarks</label>
-                        <textarea ng-model="vm.transaction.remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <div layout="row" flex>
+                    <md-input-container flex>
+                        <label>Merchant Name</label>
+                        <input ng-model="vm.transaction.name" required>
+                        <div ng-messages="vm.form.name.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
                     </md-input-container>
-                </form>
-            </div>
-        </md-content>
 
+                    <md-input-container flex>
+                        <label>Transaction Type</label>
+                        <md-select ng-model="vm.transaction.type" required>
+                            <md-option ng-repeat="type in vm.transactionTypes" value="{{type}}">
+                                {{ type | uppercase }}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="vm.form.type.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-content>
+
+            <md-content class="main-form" layout-padding>
+                <div class="point-buttons-container" layout-gt-sm="row" flex>
+                    <md-input-container flex>
+                        <label>Starting Point</label>
+                        <input name="start_point_address" ng-model="vm.transaction.start_point_address" type="text" id="filter-starting-address-input" required>
+                        <div ng-messages="vm.form.start_point_address.$error">
+                            <div ng-message="required">Please set starting point..</div>
+                        </div>
+                    </md-input-container>
+                    <!--
+                    <md-button class="md-md-raised" ng-click="vm.setStartingPoint()">
+                        <md-tooltip md-direction="left">Set exact location</md-tooltip>
+                        <md-icon>place</md-icon>
+                    </md-button>
+                    -->
+                </div>
+
+                <div class="point-buttons-container" layout-gt-sm="row" flex>
+                    <md-input-container flex>
+                        <label>Destination</label>
+                        <input name="end_point_address" ng-model="vm.transaction.end_point_address" type="text" id="filter-destination-address-input" required>
+                        <div ng-messages="vm.form.end_point_address.$error">
+                            <div ng-message="required">Please set destination.</div>
+                        </div>
+                    </md-input-container>
+                    <!--
+                    <md-button class="md-md-raised" ng-click="vm.setDestinationPoint()">
+                        <md-tooltip md-direction="left">Set exact location</md-tooltip>
+                        <md-icon>place</md-icon>
+                    </md-button>
+                    -->
+                </div>
+
+                <div layout-gt-sm="row" flex>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Cost</label>
+                        <input type="number" ng-model="vm.transaction.cost" required>
+                        <div ng-messages="vm.form.cost.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="date-picker-field-group" flex-gt-xs>
+                        <label>Transaction Date</label>
+                        <md-datepicker layout-margin
+                                       name="transaction_date"
+                                       ng-model="vm.transaction.transaction_date"
+                                       md-placeholder="Select date"
+                                       md-max-date="vm.maxDate"
+                                       required></md-datepicker>
+                        <div class="error-container"
+                             ng-show="vm.form.transaction_date.$touched && !vm.transaction.transaction_date">
+                            <div>This is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <md-input-container class="md-block" flex>
+                    <label>Address</label>
+                    <input type="text" name="address" ng-model="vm.transaction.address" required>
+                    <div ng-messages="vm.form.address.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Description</label>
+                        <textarea ng-model="vm.transaction.description" md-maxlength="50" rows="5"
+                                  md-select-on-focus></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Remarks</label>
+                    <textarea ng-model="vm.transaction.remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </md-content>
+        </form>
     </md-dialog-content>
     <md-dialog-actions>
         <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>

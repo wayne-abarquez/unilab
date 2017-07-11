@@ -13,16 +13,16 @@ angular.module('demoApp.admin')
             foundTypeIndex,
             isSelected;
 
+        var promises = [];
+        var aborts = {};
+
         vm.boundaries = [];
         vm.territories = [];
         vm.showTerritoriesPanel = false;
 
-        var lastSelectedObj;
-
         vm.expandCallback = expandCallback;
         vm.showBoundary = showBoundary;
         vm.showTerritory = showTerritory;
-        //vm.boundaryCheckboxChange = boundaryCheckboxChange;
         vm.toggleType = toggleType;
 
         initialize();
@@ -94,12 +94,9 @@ angular.module('demoApp.admin')
                     fillColor: color,
                     strokeColor: color,
                 });
-                console.log('set poly options color: ', color);
             } else {
                 polygonObj = gmapServices.createPolygon(latLngArray, color);
             }
-
-            console.log('showPolygon: ',polygonObj);
         }
 
         function toggleType(type) {
@@ -117,7 +114,15 @@ angular.module('demoApp.admin')
 
         function showBoundary(boundary, isParent) {
             var item = boundariesService.getRestangularObj(boundary.id);
-            console.log('show boundary: ',boundary);
+
+            for (var k in aborts) {
+                if (aborts[k]) aborts[k].resolve();
+            }
+
+            aborts = {
+                detail: $q.defer(),
+                branches: $q.defer()
+            };
 
             if (boundary.typeid == 6) {
                 $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'block'});
@@ -125,78 +130,61 @@ angular.module('demoApp.admin')
                 $('md-list-item#' + item.id.toString() + ' md-progress-circular').show();
             }
 
-
-            //if (lastSelectedObj
-            //    && boundary.typeid == 6
-            //    && lastSelectedObj.hasOwnProperty('model')
-            //    && lastSelectedObj.id != boundary.id) {
-            //    console.log('lastSelectedObj: ', lastSelectedObj);
-            //    lastSelectedObj.model = false;
-            //    lastSelectedObj.isExpanded = false;
-            //}
-            //
-            //if (boundary.typeid == 6) lastSelectedObj = boundary;
-
             branchService.hideMarkers();
             placesService.hidePOIs();
 
-            //var promises = [];
+            promises.push(
+                item.withHttpConfig({timeout: aborts.detail.promise})
+                    .get()
+                    .then(function (response) {
+                        var resp = response.plain();
 
-            item.get()
-                .then(function (response) {
-                    var resp = response.plain();
+                        showPolygon(resp.geometry);
+                        gmapServices.setZoomIfGreater(12);
+                        gmapServices.panToPolygon(polygonObj);
+                    })
+            );
 
-                    console.log('show boundary from admin: ', resp);
+            // load branches
+            promises.push(
+                item.withHttpConfig({timeout: aborts.branches.promise})
+                    .getList('branches')
+                    .then(function (response) {
+                        var resp = response.plain();
 
-                    showPolygon(resp.geometry);
-                    gmapServices.setZoomIfGreater(12);
-                    gmapServices.panToPolygon(polygonObj);
+                        if (!resp.length) {
+                            alertServices.showBottomLeftToast(boundary.name.capitalize() + ' doesnt have branch yet.');
+                            return;
+                        }
 
-                    if (!resp.geometry.length) {
+                        branchService.loadMarkers(resp.map(function (item) {
+                            return item.branch;
+                        }));
+                    })
+                    .finally(function () {
                         $timeout(function () {
-                            if (boundary.typeid === 6) $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'none'});
+                            if (boundary.typeid == 6) $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'none'});
                             else $('md-list-item#' + item.id.toString() + ' md-progress-circular').hide();
                         }, 500);
-                        return;
-                    }
+                    })
+            );
 
-                    // load branches
-                    item.getList('branches')
+            // load places
+            if (vm.loadPois && !isParent) {
+                promises.push(
+                    placesService.loadPOIsWithinBoundary(boundary.id, selectedTypes)
                         .then(function (response) {
-                            var resp = response.plain();
-
-                            if (!resp.length) {
-                                alertServices.showBottomLeftToast('This territory doesnt have branch yet.');
-                                return;
-                            }
-
-                            branchService.loadMarkers(resp.map(function (item) {
-                                return item.branch;
-                            }));
-
-                            console.log('get list markers from admin: ',resp);
+                            placesService.showPOIs(response);
                         })
-                        .finally(function(){
-                            $timeout(function () {
-                                if (boundary.typeid === 6) $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'none'});
-                                else $('md-list-item#' + item.id.toString() + ' md-progress-circular').hide();
-                            }, 500);
-                        });
+                );
+            }
 
-                    // load places
-                    if (vm.loadPois && !isParent && resp.geometry.length) {
-                            placesService.loadPOIsWithinBoundary(boundary.id, selectedTypes)
-                                .then(function (response) {
-                                    placesService.showPOIs(response);
-                                });
-                    }
-                });
-
-            //$q.all([promises])
-            //    .finally(function () {
+            //$q.all(promises)
+            //    .finally(function(){
             //        $timeout(function () {
-            //            $('md-list-item#' + item.id.toString() + ' md-progress-circular').hide();
-            //        }, 1000);
+            //            if (boundary.typeid == 6) $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'none'});
+            //            else $('md-list-item#' + item.id.toString() + ' md-progress-circular').hide();
+            //        }, 500);
             //    });
         }
 
@@ -220,7 +208,7 @@ angular.module('demoApp.admin')
                     }, function (error) { console.log('failed to load: ', error); })
                     .finally(function () {
                         if (item.typeid == 6) {
-                            showBoundary(item);
+                            showBoundary(item, true);
                         } else {
                             $('v-pane#' + item.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'none'});
                         }
@@ -279,25 +267,6 @@ angular.module('demoApp.admin')
                     })
             );
         }
-
-        //function hideMapObjects() {
-        //    branchService.hideMarkers();
-        //    placesService.hidePOIs();
-        //
-        //    if (polygonObj && polygonObj.getMap()) {
-        //        polygonObj.setMap(null);
-        //    }
-        //}
-
-        //function boundaryCheckboxChange (city) {
-        //    if (city.model) {
-        //        showBoundary(city, true);
-        //        return;
-        //    }
-        //
-        //    // hide poly
-        //    hideMapObjects();
-        //}
 
     }
 }());
