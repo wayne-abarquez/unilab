@@ -17,6 +17,7 @@
 
         .constant('APP_NAME', 'UNILAB')
         .constant('BASE_URL', window.location.origin)
+        .constant('MARKER_BASE_URL', '/images/markers/')
 
         .config(['RestangularProvider', function (RestangularProvider) {
             //set the base url for api calls on our RESTful services

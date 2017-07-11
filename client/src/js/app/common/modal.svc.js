@@ -9,10 +9,13 @@
 
         var customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
-        var newTransactionModal;
+        var newTransactionModal,
+            mapPlotOptionsModal;
 
         /* Service Functions */
+        service.showNewBranchForm = showNewBranchForm;
         service.showNewTransactionForm = showNewTransactionForm;
+        service.showMapPlotOptions = showMapPlotOptions;
         //service.showProjectDetail = showProjectDetail;
         service.hideResolveModal = hideResolveModal;
         service.closeModal = closeModal;
@@ -37,12 +40,13 @@
             return dfd.promise;
         }
 
-        function showNewTransactionForm(ev) {
+        function showNewBranchForm(ev, params) {
             var opts = {
-                controller: 'newTransactionController',
+                controller: 'newBranchController',
                 controllerAs: 'vm',
-                templateUrl: '/partials/modals/_new_transaction.html',
+                templateUrl: '/partials/modals/_new_branch.html',
                 parent: angular.element(document.querySelector('#index-container')),
+                locals: {param: params},
                 targetEvent: ev,
                 hasBackdrop: false,
                 fullscreen: customFullscreen,
@@ -52,6 +56,39 @@
             };
 
             return showModal(newTransactionModal, opts);
+        }
+
+        function showNewTransactionForm(ev, params) {
+            var opts = {
+                controller: 'newTransactionController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_new_transaction.html',
+                parent: angular.element(document.querySelector('#index-container')),
+                locals: {param: params},
+                targetEvent: ev,
+                hasBackdrop: false,
+                fullscreen: customFullscreen,
+                onComplete: function (scope, element, options) {
+                    $('.md-scroll-mask').css('z-index', '-1');
+                }
+            };
+
+            return showModal(newTransactionModal, opts);
+        }
+
+        function showMapPlotOptions () {
+            var opts = {
+                controller: 'mapPlotOptionsController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_map_plot_options.html',
+                parent: angular.element(document.querySelector('body')),
+                fullscreen: customFullscreen,
+                onComplete: function (scope, element, options) {
+                    $('.md-scroll-mask').css('z-index', '-1');
+                }
+            };
+
+            return showModal(mapPlotOptionsModal, opts);
         }
 
         //function showProjectDetail(proj) {

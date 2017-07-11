@@ -13,22 +13,24 @@
         //service.showFilterSelectionEmpty = showFilterSelectionEmpty;
         service.showConfirm = showConfirm;
         service.showSuccess = showSuccess;
+        service.showInfo = showInfo;
+        service.showError = showError;
 
-        function showToast(message, position) {
+        function showToast(message, position, delay) {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
                     .position(position)
-                    .hideDelay(2000)
+                    .hideDelay(delay || 2000)
             );
         }
 
-        function showBottomLeftToast(message) {
-            showToast(message, 'bottom left');
+        function showBottomLeftToast(message, delay) {
+            showToast(message, 'bottom left', delay);
         }
 
-        function showTopRightToast(message) {
-            showToast(message, 'top right');
+        function showTopRightToast(message, delay) {
+            showToast(message, 'top right', delay);
         }
 
         function showMessage(message, type) {
@@ -40,6 +42,10 @@
 
         function showSuccess(message) {
             showMessage(message, 'success');
+        }
+
+        function showError(message) {
+            showMessage(message, 'error');
         }
 
         function showNoDataAvailablePrompt(entityName) {
@@ -59,6 +65,9 @@
                 callbackOnConfirm);
         }
 
+        function showInfo(message) {
+            showMessage(message, 'info');
+        }
 
 
         //function showFilterSelectionEmpty() {

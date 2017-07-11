@@ -1,0 +1,91 @@
+<md-dialog class="stick-right-modal md-whiteframe-3dp" flex="100">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>New Branch</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <form name="vm.form">
+            <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding flex>
+                    <div layout="row" flex>
+                        <md-input-container flex>
+                            <label>Name</label>
+                            <input type="text" name="name" ng-model="vm.branch.name" required>
+                            <div ng-messages="vm.form.name.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Branch Type</label>
+                            <md-select name="type" ng-model="vm.branch.type" required>
+                                <md-option ng-repeat="type in vm.branchTypes" value="{{type}}">
+                                    {{ type | uppercase }}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="vm.form.type.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <md-button class="md-block md-raised set-location-btn" ng-click="vm.setLocation()">
+                        Set Location
+                        <md-icon>pin_drop</md-icon>
+                    </md-button>
+            </md-content>
+
+            <md-content class="main-form" layout-padding>
+                <div layout-gt-sm="row" flex>
+                    <md-input-container class="md-block" flex>
+                        <label>Address</label>
+                        <input type="text" name="address" ng-model="vm.branch.address" required>
+                        <div ng-messages="vm.form.address.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="date-picker-field-group" flex-gt-xs>
+                        <label>Operation Started</label>
+                        <md-datepicker layout-margin
+                            name="operation_started_date"
+                            ng-model="vm.branch.operation_started_date"
+                            md-placeholder="Select date"
+                            md-max-date="vm.maxDate"
+                            required></md-datepicker>
+                        <div class="error-container"
+                             ng-show="vm.form.operation_started_date.$touched && !vm.branch.operation_started_date">
+                            <div>This is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Average Monthly Income</label>
+                        <input type="number" name="average_monthly_income" ng-model="vm.branch.average_monthly_income">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Average Patrons</label>
+                        <input type="number" name="average_patrons" ng-model="vm.branch.average_patrons">
+                    </md-input-container>
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Remarks</label>
+                    <textarea ng-model="vm.branch.remarks" name="remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </md-content>
+        </form>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        <md-button class="md-raised" ng-click="vm.close()">Cancel</md-button>
+    </md-dialog-actions>
+
+</md-dialog>

@@ -42,6 +42,12 @@ branch_product_fields = dict(
     date_released=fields.DateTime('iso8601')
 )
 
+branch_create_fields = dict(
+    status=fields.String,
+    message=fields.String,
+    branch=fields.Nested(branch_fields, allow_null=False)
+)
+
 branch_complete_fields = copy(branch_fields)
 branch_complete_fields['average_monthly_income'] = fields.Float
 branch_complete_fields['average_patrons'] = fields.Float

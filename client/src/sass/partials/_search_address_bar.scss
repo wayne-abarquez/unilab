@@ -1,0 +1,71 @@
+#address-bar-container {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 23%);
+  width: 23%;
+  height: 50px;
+
+  @media screen and (max-width: 456px) {
+    bottom: calc(5% - 10px);
+    left: 0;
+    top: auto;
+    width: calc(85% + 10px);
+  }
+
+  .address-bar-inner-container {
+    padding: 0 5px;
+    height: 50px;
+
+    .toggle-layers-container {
+      display: inline-block;
+      padding: 5px;
+
+      button.gps-btn {
+        margin: 0;
+      }
+
+    }
+
+    & > button.md-button {
+      margin: 5px 10px 5px 6px !important;
+    }
+
+    md-input-container {
+      display: inline-block !important;
+      height: 50px;
+      margin: 0;
+      padding: 0;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        border-left: 1px solid #ddd;
+        height: 28px;
+      }
+
+      input {
+        color: #000000;
+        transition: all 0.218s;
+        font-weight: 400;
+        opacity: 1;
+        text-align: left;
+        left: 0px;
+        line-height: 24px;
+        padding: 0 0 0 20px;
+        height: 50px;
+        border-bottom: none;
+
+        &::placeholder {
+          color: silver;
+        }
+      }
+
+      div.md-errors-spacer {
+        display: none;
+      }
+    }
+
+  }
+
+}
