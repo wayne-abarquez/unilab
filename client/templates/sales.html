@@ -7,13 +7,21 @@
 
     <div id="index-container" layout="row" ng-controller="salesPageController as salesPgCtl">
 
-        <md-button class="md-fab"
+        <!--<md-button class="md-fab"
                    id="new-sales-transaction-btn"
                    ng-click="salesPgCtl.showNewTransactionForm($event)">
             <md-tooltip direction="top">New Transaction</md-tooltip>
             <md-icon>card_travel</md-icon>
-        </md-button>
-
+        </md-button>-->
+           
+            <form name="searchform">
+                    <md-input-container id="new-sales-transaction-btn" ng-keyup="$event.keyCode == 13 && salesPgCtl.showNewTransactionForm($event)">
+                        <input type="text"
+                               placeholder="Search for Address"
+                               ng-model="vm.filter.q">
+                    </md-input-container>
+                </form>
+            
             <!-- map canvas dimensions will be computed during map initialization -->
             <div id="map-canvas" flex-gt-xs="{{ hasOpenedModal ? 100 : 80 }}" flex="100"></div>
     {% endraw %}

@@ -13,6 +13,12 @@ angular.module('demoApp.sales')
             'flight'
         ];
 
+         vm.branchTypes = [
+            'MDC',
+            'LKA',
+            'GT'
+        ];
+
         vm.form = {};
         vm.transaction = {};
 

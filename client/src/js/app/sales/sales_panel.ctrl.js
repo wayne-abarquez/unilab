@@ -5,6 +5,8 @@ angular.module('demoApp.sales')
     .controller('salesPanelController', ['$q', '$scope', '$rootScope', 'userTerritoriesService', 'gmapServices', 'branchService', '$mdSidenav', 'placesService', '$timeout', 'alertServices', salesPanelController]);
 
     function salesPanelController ($q, $scope, $rootScope, userTerritoriesService, gmapServices, branchService, $mdSidenav, placesService, $timeout, alertServices) {
+        
+        
         var vm = this;
 
         var polygonTerritory;

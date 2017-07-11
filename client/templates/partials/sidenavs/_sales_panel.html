@@ -50,7 +50,36 @@
         <md-content layout="column" flex>
             <div id="territory-list-container">
 
-                <md-switch ng-model="vm.loadPois">Show POIs</md-switch>
+                <div layout="row">
+                    <div flex="60">
+                        <md-switch ng-model="vm.loadPois">Show POIs</md-switch>
+                    </div>
+                    <div flex="60">
+                        <md-switch ng-model="vm.loadBranches">Show Branches</md-switch>
+                    </div>
+                </div>
+
+
+                <!--For Branches-->
+
+                <md-subheader ng-if="vm.loadBranches">Branches</md-subheader>
+
+                <div ng-if="vm.loadBranches" class="md-whiteframe-2dp places-type-container" layout="row" layout-margin>
+                    <div flex-wrap layout="column" class="place-type-item">
+                        <md-checkbox ng-repeat="type in records">
+                            {{ type.Name | underscoreless | uppercase }}
+                        </md-checkbox>
+                    </div>
+                    <!--<div flex-wrap layout="column" class="place-type-item">
+                        <md-checkbox ng-model="type.model" ng-change="vm.toggleType(type.name)"
+                                     ng-repeat="type in vm.placeTypes[1]">
+                            {{ type.name | underscoreless | uppercase }}
+                        </md-checkbox>
+                    </div>-->
+                </div>
+
+
+                <!--For POIS -->
 
                 <md-subheader ng-if="vm.loadPois">Place types</md-subheader>
 

@@ -50,15 +50,31 @@ angular.module('demoApp')
 
         function loadPOIs (territoryId, typesArray) {
             var dfd = $q.defer();
-
+            alert("dfs");
             Place.get('', {types: typesArray.join(placeTypesDelimiter), territoryid: territoryId})
                 .then(function(response){
                     dfd.resolve(response.data);
                 }, function(error){
                     dfd.reject(error);
                 });
-
+            console.log(dfd.promise);   
             return dfd.promise;
+            
+        }
+
+        function loadBranches (territoryId, typesArray) {
+            
+            var dfd = $q.defer();
+            alert("dfs");
+            Place.get('', {types: typesArray.join(placeTypesDelimiter), territoryid: territoryId})
+                .then(function(response){
+                    dfd.resolve(response.data);
+                }, function(error){
+                    dfd.reject(error);
+                });
+            console.log(dfd.promise);   
+            return dfd.promise;
+            
         }
 
         function loadPOIsWithinBoundary(boundaryId, typesArray) {
