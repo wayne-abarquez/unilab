@@ -12,6 +12,10 @@
 //  }
 //}
 
+#map-plot-options-modal {
+  min-height: 15vh;
+}
+
 #index-container {
   .md-dialog-container {
     right: 0;
@@ -32,6 +36,50 @@
   flex: 1 1 100%;
   left: 0;
 
+  form {
+    .set-location-btn {
+      margin: 0;
+      min-height: 0;
+      line-height: 1;
+      height: 35px;
+    }
+
+    .date-picker-field-group {
+      padding-left: 2rem;
+
+      label {
+        font-size: 0.8rem;
+        color: rgba(0, 0, 0, 0.54);
+      }
+
+      md-datepicker {
+        .md-datepicker-button {
+          padding: 0;
+          height: 30px;
+          min-height: 0;
+        }
+        .md-datepicker-input-container {
+          margin: 0;
+        }
+      }
+
+      .error-container {
+        > div {
+          color: rgb(221, 44, 0);
+          font-size: 12px;
+          line-height: 14px;
+          overflow: hidden;
+          margin-top: 0;
+          padding-top: 5px;
+        }
+      }
+    }
+
+    .main-form {
+      overflow: hidden;
+    }
+  }
+
   md-dialog-content, md-tabs, form {
     height: 100%;
   }
@@ -42,30 +90,6 @@
   md-tab-content {
     padding-top: 0;
   }
-
-  //md-content {
-  //  height: 80%;
-  //  min-height: 80%;
-  //
-  //  form {
-  //    padding: 0 20px 0 20px;
-  //
-  //    .form-sub-header {
-  //      margin-top: 0px;
-  //      margin-bottom: 0px;
-  //      font-weight: 600;
-  //    }
-  //    .location-details {
-  //      padding-top: 5px;
-  //      padding-bottom: 0px;
-  //      font-size: 13px;
-  //    }
-  //    md-input-container {
-  //      margin-top: 15px;
-  //      margin-bottom: 0px;
-  //    }
-  //  }
-  //}
 
   md-dialog-actions {
     border-top-color: rgba(0, 0, 0, 0.05) !important;

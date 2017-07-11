@@ -1,0 +1,10 @@
+<md-dialog id="map-plot-options-modal" layout-align="center center" class="md-whiteframe-3dp" flex-gt-lg="30">
+
+    <div layout="row">
+        <md-button class="md-raised" ng-class="{'md-primary': $index % 2 == 0, 'md-warn': $index % 2 == 1}"
+                   ng-repeat="opt in vm.options track by $index"
+                   ng-click="vm.selectOption(opt)">{{ opt.name }}</md-button>
+
+        <md-button ng-click="vm.cancel()">Cancel</md-button>
+    </div>
+</md-dialog>

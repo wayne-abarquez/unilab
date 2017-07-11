@@ -12,12 +12,14 @@
         {% include "partials/sidenavs/_admin_panel.html" %}
         {% include "partials/sidenavs/_territory_info_panel.html" %}
         {% include "partials/_compare_branches_table.html" %}
+        {% include "partials/_search_address_bar.html" %}
     </div>
 
     <md-fab-speed-dial md-direction="left"
                        id="admin-options-btn"
                        class="md-scale md-hover-full"
                        md-open="fab.isOpen"
+                       ng-hide="hasOpenedModal"
                        ng-mouseenter="fab.isOpen=true" ng-mouseleave="fab.isOpen=false">
         <md-fab-trigger>
             <md-button class="md-fab md-mini md-primary">

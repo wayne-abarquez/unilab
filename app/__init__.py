@@ -53,9 +53,6 @@ import wtforms_json
 
 wtforms_json.init()
 
-# Import app/resources
-# from .home.resources import *
-
 # Register Auth Blueprint
 from .authentication import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)

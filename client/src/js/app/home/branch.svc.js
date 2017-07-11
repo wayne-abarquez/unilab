@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .factory('branchService', ['Branch', 'gmapServices', '$rootScope', branchService]);
+    .factory('branchService', ['MARKER_BASE_URL', '$q', 'Branch', 'gmapServices', '$rootScope', branchService]);
 
-    function branchService (Branch, gmapServices, $rootScope) {
+    function branchService (MARKER_BASE_URL, $q, Branch, gmapServices, $rootScope) {
         var service = {};
 
         var branchMarkers = [],
@@ -16,9 +16,10 @@ angular.module('demoApp.home')
             'gt': 'branch-blue.png'
         };
 
-        var iconBaseUrl = '/images/markers/';
+        var iconBaseUrl = MARKER_BASE_URL;
         var unhighlightIcon = 'branch-default.png';
 
+        service.saveBranch = saveBranch;
         service.loadMarkers = loadMarkers;
         service.showMarkers = showMarkers;
         service.hideMarkers = hideMarkers;
@@ -32,6 +33,29 @@ angular.module('demoApp.home')
         service.animateMarker = animateMarker;
         service.clearAnimationMarker = clearAnimationMarker;
         //service.closeInfoWindowById = closeInfoWindowById;
+
+        function saveBranch (data, id) {
+            var dfd = $q.defer();
+
+            if (id) { // update
+                var restObj = Branch.cast(id);
+                restObj.customPUT(data)
+                    .then(function (response) {
+                        dfd.resolve(response.plain());
+                    }, function (error) {
+                        dfd.reject(error);
+                    });
+            } else { // insert
+                Branch.post(data)
+                    .then(function(response){
+                        dfd.resolve(response.plain());
+                    }, function(error){
+                        dfd.reject(error);
+                    });
+            }
+
+            return dfd.promise;
+        }
 
         function getBranchIconByType (type) {
             if (!type) return iconBaseUrl + unhighlightIcon;

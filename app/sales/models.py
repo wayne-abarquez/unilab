@@ -8,6 +8,16 @@ class BranchType:
     MDC = 'MDC'
     LKA = 'LKA'
     GT = 'GT'
+    tuple_options = [
+        (MDC, MDC),
+        (LKA, LKA),
+        (GT, GT)
+    ]
+
+
+class BranchStatus:
+    ACTIVE = 'ACTIVE'
+    INACTIVE = 'INACTIVE'
 
 
 class Branch(BaseModel):

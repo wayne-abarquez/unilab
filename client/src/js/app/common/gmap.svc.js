@@ -39,6 +39,7 @@
          */
         service.apiAvailable = apiAvailable;
         service.createMap = createMap;
+        service.initializeGeocoder = initializeGeocoder;
         service.createInfoBox = createInfoBox;
         service.openInfoBox = openInfoBox;
         service.closeInfoBox = closeInfoBox;
@@ -152,7 +153,7 @@
             service.map = new google.maps.Map(document.getElementById(mapIdLoc), mapOptions);
 
             // initialize geocoder
-            //service.geocoder = new google.maps.Geocoder();
+            //initializeGeocoder();
 
             // handle window resize event
             google.maps.event.addDomListener(window, 'resize', function () {
@@ -163,6 +164,10 @@
             });
 
             return service.map;
+        }
+
+        function initializeGeocoder () {
+            service.geocoder = new google.maps.Geocoder();
         }
 
         function createInfoBox(template) {
@@ -742,18 +747,15 @@
         }
 
         function clearInstanceListeners(instance) {
-            if (service.apiAvailable())
-                google.maps.event.clearInstanceListeners(instance);
+            if (service.apiAvailable()) google.maps.event.clearInstanceListeners(instance);
         }
 
         function clearListeners(instance, eventName) {
-            if (service.apiAvailable())
-                google.maps.event.clearListeners(instance, eventName);
+            if (service.apiAvailable()) google.maps.event.clearListeners(instance, eventName);
         }
 
         function removeListener(listener) {
-            if (service.apiAvailable())
-                google.maps.event.removeListener(listener);
+            if (service.apiAvailable()) google.maps.event.removeListener(listener);
         }
 
         function trigger(instance, eventName, args) {
@@ -769,7 +771,9 @@
         }
 
         function reverseGeocode(latLng) {
-            if (!service.geocoder) return;
+            if (!service.geocoder) {
+                initializeGeocoder();
+            }
 
             var dfd = $q.defer();
 
@@ -901,11 +905,13 @@
             service.map.overlayMapTypes.setAt(index, null);
         }
 
-        function initializeAutocomplete(elementId) {
+        function initializeAutocomplete(elementId, opts) {
             var input = document.getElementById(elementId);
-            var autocomplete = new google.maps.places.Autocomplete(input, {
+            var mergeOpts = angular.merge({
                 types: ["geocode"]
-            });
+            }, opts)
+
+            var autocomplete = new google.maps.places.Autocomplete(input, mergeOpts);
 
             autocomplete.bindTo('bounds', service.map);
 

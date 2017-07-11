@@ -1,0 +1,38 @@
+{% raw %}
+<md-card id="address-bar-container" ng-controller="searchAddressBarController as filterCtl">
+    <div class="address-bar-inner-container" layout="row" flex>
+
+        <div class="toggle-layers-container">
+            <md-button class="md-icon-button md-no-focus gps-btn"
+                       ng-click="filterCtl.getGPSLocation()"
+                       md-no-ink>
+                <md-icon>my_location</md-icon>
+            </md-button>
+        </div>
+
+        <md-input-container md-no-float class="md-block" flex="100">
+            <input id="filter-location-input"
+                   type="text"
+                   ng-model="filterCtl.query"
+                   placeholder="Search Location">
+        </md-input-container>
+
+        <span flex></span>
+
+        <!-- search bar -->
+        <md-button class="md-icon-button"
+                   ng-hide="filterCtl.query"
+                   md-no-ink>
+            <md-icon>search</md-icon>
+        </md-button>
+
+        <!-- Clear search bar -->
+        <md-button class="md-icon-button"
+                   ng-click="filterCtl.query=''"
+                   ng-show="filterCtl.query"
+                   md-no-ink>
+            <md-icon>clear</md-icon>
+        </md-button>
+    </div>
+</md-card>
+{% endraw %}

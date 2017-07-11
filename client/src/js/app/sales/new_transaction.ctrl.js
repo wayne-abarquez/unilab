@@ -2,16 +2,12 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('newTransactionController', ['modalServices', 'alertServices', newTransactionController]);
+    .controller('newTransactionController', ['SALES_TRANSACTION_TYPES', 'modalServices', 'alertServices', newTransactionController]);
 
-    function newTransactionController (modalServices, alertServices) {
+    function newTransactionController (SALES_TRANSACTION_TYPES, modalServices, alertServices) {
         var vm = this;
 
-        vm.transactionTypes = [
-            'client visit',
-            'gas',
-            'flight'
-        ];
+        vm.transactionTypes = SALES_TRANSACTION_TYPES;
 
         vm.form = {};
         vm.transaction = {};

@@ -1,10 +1,11 @@
-from .models import Branch, Product, BranchProduct
+from app import db
+from .models import Branch, BranchStatus, Product, BranchProduct
 from app.home.models import Boundary
 from sqlalchemy import select, func
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
-from app import db
+from app.utils import forms_helper
 
 
 def get_branch_within_boundary(boundaryid):
@@ -69,3 +70,16 @@ def get_products_by_branch(branchid):
 
     return rp
 
+
+def create_branch(data):
+    print "create branch: {0}".format(data)
+    # Prepare Data
+    branch = Branch.from_dict(data)
+    branch.status = BranchStatus.ACTIVE
+    branch.latlng = forms_helper.parse_coordinates(data['latlng'])
+
+    # Persist
+    db.session.add(branch)
+    db.session.commit()
+
+    return branch
