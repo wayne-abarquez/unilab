@@ -63,26 +63,11 @@ def get_branches_by_territory(territoryid):
     stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng, Branch.status]) \
         .select_from(Branch) \
         .where(func.ST_DWITHIN(cast(qt.c.geom, Geography), cast(Branch.latlng, Geography), 1)) \
-        .limit(500)
+        # .limit(500)
 
     return db.engine.execute(stmt).fetchall()
 
-# def create_from_dict(data):
-#     # Prepare Data
-#     solar = Solar.from_dict(data)
-#     solar.status = IN_PROCESS
-#     solar.coordinates = forms_helper.parse_coordinates(data['coordinates'])
-#     if 'area' in data:
-#         solar.area = forms_helper.parse_area(data['area'])
-#         log.debug("solar has area: {0}".format(solar.area))
-#
-#     # Persist
-#     db.session.add(solar)
-#     db.session.commit()
-#
-#     return solar
-#
-#
+
 # def get_detail(solar_id):
 #     return Solar.query.get(solar_id)
 #

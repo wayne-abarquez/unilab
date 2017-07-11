@@ -14,7 +14,7 @@ def get_branch_within_boundary(boundaryid):
     stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
         .select_from(Branch) \
         .where(func.ST_DWITHIN(cast(qt.c.geometry, Geography), cast(Branch.latlng, Geography), 1)) \
-        .limit(500)
+        # .limit(500)
 
     result = db.engine.execute(stmt).fetchall()
 

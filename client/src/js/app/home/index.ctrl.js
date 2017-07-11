@@ -24,7 +24,6 @@ angular.module('demoApp.home')
                    .then(function(selectedOption){
                        $injector.get('modalServices')[selectedOption.action](e, params)
                            .finally(function(){
-                               console.log('finally call ', selectedOption.action);
                                $rootScope.$broadcast('clear-search-address-bar');
                            });
                    });

@@ -58,7 +58,8 @@ $list-item-height-2: 38px;
   md-content {
     //max-height: 100%;
     //overflow: hidden;
-    height: 100%;
+    //height: 100%;
+    height: calc(100% - 65px);
 
     > div:first-of-type {
 
@@ -85,6 +86,7 @@ $list-item-height-2: 38px;
 
     #boundaries-container {
       height: 100%;
+      display: block;
 
       md-switch {
         padding: 0;
@@ -126,6 +128,7 @@ $list-item-height-2: 38px;
     }
 
     v-accordion {
+      display: block;
       max-height: 100%;
       overflow-y: auto;
       margin: 5px 0 0;
@@ -172,7 +175,8 @@ $list-item-height-2: 38px;
     v-accordion.region-accordion {
       display: block;
       height: 100%;
-      overflow: hidden;
+      overflow-y: auto;
+      //overflow: hidden;
 
       > v-pane {
         > v-pane-header {

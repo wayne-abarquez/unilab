@@ -17,7 +17,7 @@
             autocomplete = gmapServices.initializeAutocomplete('filter-location-input', {
                 componentRestrictions: {country: 'ph'}
             });
-            
+
             autocomplete.addListener('place_changed', placeChangeCallback);
 
             $rootScope.$on('clear-search-address-bar', function(e){
