@@ -33,12 +33,15 @@ angular.module('demoApp')
         };
 
         service.defaultPlaceTypes = [
-            'hospital',
-            'pharmacy'
+            //'hospital',
+            //'pharmacy'
         ];
 
         var poiMarkers = [],
             poiInfowindow;
+
+        var abort1,
+            abort2;
 
         service.loadPOIs = loadPOIs; // load within territory
         service.loadPOIsWithinBoundary = loadPOIsWithinBoundary;
@@ -51,7 +54,12 @@ angular.module('demoApp')
         function loadPOIs (territoryId, typesArray) {
             var dfd = $q.defer();
 
-            Place.get('', {types: typesArray.join(placeTypesDelimiter), territoryid: territoryId})
+            if (abort1) abort1.resolve();
+
+            abort1 = $q.defer();
+
+            Place.withHttpConfig({timeout: abort1.promise})
+                .get('', {types: typesArray.join(placeTypesDelimiter), territoryid: territoryId})
                 .then(function(response){
                     dfd.resolve(response.data);
                 }, function(error){
@@ -64,7 +72,12 @@ angular.module('demoApp')
         function loadPOIsWithinBoundary(boundaryId, typesArray) {
             var dfd = $q.defer();
 
-            Place.get('', {types: typesArray.join(placeTypesDelimiter), boundaryid: boundaryId})
+            if (abort2) abort2.resolve();
+
+            abort2 = $q.defer();
+
+            Place.withHttpConfig({timeout: abort2.promise})
+                .get('', {types: typesArray.join(placeTypesDelimiter), boundaryid: boundaryId})
                 .then(function (response) {
                     console.log('places: ',response);
                     dfd.resolve(response.data);

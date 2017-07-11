@@ -1,0 +1,2 @@
+class BranchNotFoundError(ValueError):
+    pass

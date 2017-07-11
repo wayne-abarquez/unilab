@@ -11,6 +11,13 @@
         service.showCurrentLocation = showCurrentLocation;
         service.showDraggableLocation = showDraggableLocation;
 
+        function transformResponse (response) {
+            return {
+                lat: response.coords.latitude,
+                lng: response.coords.longitude
+            };
+        }
+
         function getCurrentLocation () {
             if (!navigator.geolocation) {
                 console.log('Browser doesnt support Geolocation');
@@ -20,8 +27,7 @@
             var dfd = $q.defer();
 
             navigator.geolocation.getCurrentPosition(function (response) {
-                console.log('get current position: ', response);
-                dfd.resolve(response);
+                dfd.resolve(transformResponse(response));
             }, function (error){
                 console.log('get current position error: ', error);
                 dfd.reject(error);
@@ -52,7 +58,6 @@
                 latLng = gmapServices.map.getCenter();
 
             var marker = gmapServices.showCurrentLocation(latLng, draggable);
-            //gmapServices.panToOffsetLeft(latLng);
 
             return marker;
         }

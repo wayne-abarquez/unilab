@@ -55,6 +55,7 @@
         vm.onMenuItemClick = onMenuItemClick;
         vm.showBanchCompareTableAction = showBanchCompareTableAction;
         vm.showTerritoryPanelDetail = showTerritoryPanelDetail;
+        vm.showLegendPanel = showLegendPanel;
 
         initialize();
 
@@ -92,7 +93,6 @@
                 console.log('edit branch with id = ' + branchId);
                 // TODO: show edit modal
                 branchMarker = branchService.getBranchById(branchId);
-                console.log('compare this branch: ', branchMarker);
             });
 
             // Delete Branch
@@ -100,8 +100,12 @@
                 branchId = $(this).data('branch-id');
 
                 alertServices.showConfirm('Delete Branch', 'Are your sure you want to delete this branch?', function (isConfirm) {
-                    // TODO: ajax delete on confirm
-                    if (isConfirm) alert('branch deleted!');
+                    if (isConfirm) {
+                        branchService.deleteBranch(branchId)
+                            .then(function(response){
+                                alertServices.showSuccess('Branch successfully deleted.');
+                            });
+                    }
                 })
             });
 
@@ -152,6 +156,10 @@
                     $rootScope.showTerritoryDetailBtn = false;
                     $rootScope.showGRDPPanel = true;
                 });
+        }
+
+        function showLegendPanel() {
+            $rootScope.showLegend = true;
         }
     }
 }());
