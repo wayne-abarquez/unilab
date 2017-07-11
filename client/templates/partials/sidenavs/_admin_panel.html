@@ -131,7 +131,8 @@
                                                     expanded="city.isExpanded">
                                                 <v-pane-header>
                                                     <div layout="row" flex>
-                                                        <md-checkbox ng-model="city.model" ng-change="vm.boundaryCheckboxChange(city.model,city.id)" flex>{{ city.name | uppercase }} </md-checkbox>
+                                                        <span flex>{{ city.name }}</span>
+                                                        <!--<md-checkbox ng-model="city.model" ng-change="vm.boundaryCheckboxChange(city)" flex>{{ city.name | uppercase }} </md-checkbox>-->
                                                         <md-progress-circular
                                                                 flex="10"
                                                                 md-mode="indeterminate"

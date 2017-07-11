@@ -76,10 +76,16 @@ angular.module('demoApp.sales')
         }
 
         function showPolygonTerritory(latLngArray) {
+            if (!latLngArray.length) {
+                alertServices.showError('Cannot load polygon, data error.');
+                return;
+            }
+
             if (polygonTerritory) {
                 polygonTerritory.setPath(latLngArray);
                 return;
             }
+
             polygonTerritory = gmapServices.createPolygon(latLngArray, '#3f51b5');
             polygonTerritory.setVisible(false);
         }
@@ -135,17 +141,21 @@ angular.module('demoApp.sales')
                             branchService.loadMarkers(response);
                         }
 
+                        $timeout(function () {
+                            $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
+                        }, 500);
+
                         $mdSidenav('territoryInfoPanelSidenav').open();
                         $rootScope.$broadcast('territory_selected', $rootScope.selectedTerritory);
                     })
             );
 
-            $q.all([promises])
-                .finally(function(){
-                    $timeout(function () {
-                        $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
-                    }, 1000);
-                });
+            //$q.all([promises])
+            //    .finally(function(){
+            //        $timeout(function () {
+            //            $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
+            //        }, 1000);
+            //    });
         }
 
 
