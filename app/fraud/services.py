@@ -1,17 +1,18 @@
 from app import app, db
 from openpyxl import load_workbook
-from sqlalchemy import Column, String, Integer, MetaData, Table, ForeignKey  # ,create_engine
+from sqlalchemy import Column, String, Integer, MetaData, Table, ForeignKey
 from app.sales.models import Transaction
 from app.authentication.models import User
 from unicodedata import normalize
-from app.sales.services import create_transaction
+from app.sales.services import create_transaction, create_merchant
 import re
+from datetime import datetime
 import logging
 
 log = logging.getLogger(__name__)
 
-engine = db.get_engine(app)
-# engine = create_engine('sqlite://')  # memory-only database
+engine = db.engine
+# engine = db.get_engine(app)
 
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 
@@ -26,12 +27,20 @@ def slugify(text, delim=u'_'):
     return unicode(delim.join(result))
 
 
+def clean_date(datestr):
+    dateext = datestr[2:24]
+    return datetime.strptime(dateext, "%m/%d/%Y-%I:%M:%S %p")
+
+
 def create_table_name(name, prefix='transaction'):
     return prefix + '_' + name.lower()
 
+
 user_id_columns = ['emp id', 'employeeid', 'employee id', 'empid', 'payee id']
 latlng_columns = ['latitude', 'longitude']
-except_columns = user_id_columns + latlng_columns
+merchant_columns = ['mdname', 'specialty description', 'clinic address']
+
+except_columns = user_id_columns + latlng_columns + merchant_columns
 
 
 def upload_fraud_data(file):
@@ -65,6 +74,7 @@ def upload_fraud_data(file):
             col = slugify(cell.value)
             tablecolumns_index[str(cell.value)] = col
             tablecolumns.append(col)
+
         # create the table
         if is_table_non_transaction:
             table = Table(table_name, metadata,
@@ -86,6 +96,7 @@ def upload_fraud_data(file):
             dct = {}
             latlng = {}
             userid = None
+            merchant_data = {}
 
             if len([c for c in row if c.value is not None]) == 0:
                 continue
@@ -113,21 +124,38 @@ def upload_fraud_data(file):
                             latlng['lat'] = cell.value
                         elif 'longitude' in key:
                             latlng['lng'] = cell.value
+                    elif len([s for s in merchant_columns if s in key]) > 0:
+                        if "mdname" in key:
+                            merchant_data['name'] = cell.value
+                        elif "specialty description" in key:
+                            merchant_data['specialty'] = cell.value.upper()
+                        elif "clinic address" in key:
+                            merchant_data['address'] = cell.value
                 except Exception as error:
-                    print "ERROR: {0}".format(error)
+                        print "ERROR: {0}".format(error)
 
             # print "DATA TYPES: {0}".format(data_types)
 
             try:
-                # insert to transaction table
                 if userid is not None and latlng['lat'] is not None \
                         and latlng['lng'] is not None and not is_table_non_transaction:
+                    # save merchant
+                    merchantid = None
+                    if bool(merchant_data):
+                        merchant_data['latlng'] = latlng
+                        # app.logger.info("CREATE MERCHANT: {0}".format(merchant_data))
+                        merchant = create_merchant(merchant_data)
+                        merchantid = merchant.id
 
-                    transaction = create_transaction(userid, latlng)
-                    # app.logger.info("create_transaction userid={0} latlng={1}".format(userid, latlng))
+                    address = merchant_data['address'] if 'address' in merchant_data else None
+                    transaction_date = clean_date(dct['visit_date']) if 'visit_date' in dct else None
+
+                    transaction = create_transaction(userid, latlng, sheet.upper(), merchantid, address, transaction_date)
+
                     if transaction is not None and transaction.id is not None:
                         dct['transactionid'] = transaction.id
                         values.append(dct)
+
                 elif is_table_non_transaction:
                     values.append(dct)
             except:
@@ -140,35 +168,6 @@ def upload_fraud_data(file):
         except Exception as err:
             app.logger.info("ERROR INSERTING: {0}".format(err))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # print tablecolumns_index
-        # print "No of Columns: {0}".format(len(tablecolumns))
-        # for k,v in enumerate(tablecolumns):
-        #     print "{0} : {1}".format(k,v)
-
-
-# insert data into the table
-# table.insert().values(**rows).execute()
-
-# for row in ws.iter_rows():
-#     print row
 
 # def make_table(table_name, fields):
 #     metadata = MetaData

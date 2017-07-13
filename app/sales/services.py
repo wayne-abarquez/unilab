@@ -1,13 +1,18 @@
-from app import db
+from app import db, app
 from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary
 from sqlalchemy import select, func, desc
 from sqlalchemy.sql.expression import cast
+# from sqlalchemy.exc import IntegrityError
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
 from app.utils import forms_helper
 from random import randint
 from .exceptions import BranchNotFoundError
+from datetime import datetime
+import logging
+
+log = logging.getLogger(__name__)
 
 
 def get_branch_within_boundary(boundaryid):
@@ -97,10 +102,17 @@ def delete_branch(branchid):
 
 
 def create_merchant(data):
+    found = Merchant.query.filter(Merchant.name == data['name'], Merchant.address == data['address']).first()
+
+    if found is not None:
+        return found
+
     # Prepare Data
     merchant = Merchant.from_dict(data)
     merchant.latlng = forms_helper.parse_coordinates(data['latlng'])
-    merchant.specialty = MERCHANT_SPECIALTIES[randint(0, len(MERCHANT_SPECIALTIES) - 1)]
+
+    if 'specialty' not in data:
+        merchant.specialty = MERCHANT_SPECIALTIES[randint(0, len(MERCHANT_SPECIALTIES) - 1)]
 
     # Persist
     db.session.add(merchant)
@@ -113,9 +125,16 @@ def get_sales_transactions():
     return Transaction.query.all()
 
 
-def create_transaction(userid, endpoint_latlng):
-    transaction = Transaction(userid=userid)
+def create_transaction(userid, endpoint_latlng, type, merchantid=None, address=None, transaction_date=datetime.now()):
+    transaction = Transaction(userid=userid, type=type, transaction_date=transaction_date)
     transaction.end_point_latlng = forms_helper.parse_coordinates(endpoint_latlng)
+
+    if address is not None:
+        transaction.address = address
+
+    if merchantid is not None:
+        transaction.merchantid = merchantid
+
     db.session.add(transaction)
     db.session.commit()
 
