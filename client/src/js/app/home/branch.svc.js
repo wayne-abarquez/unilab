@@ -33,7 +33,36 @@ angular.module('demoApp.home')
         service.animateMarker = animateMarker;
         service.clearAnimationMarker = clearAnimationMarker;
         service.deleteBranch = deleteBranch;
+        service.newBranch = newBranch;
         //service.closeInfoWindowById = closeInfoWindowById;
+
+        // add to markers
+        function newBranch (item) {
+            var marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type), {zIndex: 1});
+
+            marker.content = '<div>';
+            marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
+            marker.content += '<h4 class="no-margin text-muted padding-left-5">' + item.type + '</h4>';
+
+            marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
+
+            if ($rootScope.currentUser.role === 'ADMIN') {
+                marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Edit</button>';
+                marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Delete</button>';
+            }
+
+            marker.content += '</div>';
+
+            marker.branch = angular.copy(item);
+            marker.id = item.id;
+
+            gmapServices.addListener(marker, 'click', function () {
+                branchInfowindow.open(gmapServices.map, this);
+                branchInfowindow.setContent(this.content);
+            });
+
+            branchMarkers.push(marker);
+        }
 
         function saveBranch (data, id) {
             var dfd = $q.defer();
@@ -49,7 +78,10 @@ angular.module('demoApp.home')
             } else { // insert
                 Branch.post(data)
                     .then(function(response){
-                        dfd.resolve(response.plain());
+                        var resp = response.plain();
+                        console.log('post branch ', resp);
+                        newBranch(resp.branch);
+                        dfd.resolve(resp);
                     }, function(error){
                         dfd.reject(error);
                     });
@@ -65,7 +97,6 @@ angular.module('demoApp.home')
         }
 
         function loadMarkers (list) {
-            var marker;
 
             hideMarkers();
 
@@ -74,44 +105,12 @@ angular.module('demoApp.home')
             if (!branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
             list.forEach(function (item) {
-                marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type), {zIndex: 1});
-
-                //marker.infowindow = gmapServices.createInfoWindow('');
-                //marker.infowindow.branchId = item.id;
-
-                marker.content = '<div>';
-                marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
-                marker.content += '<h4 class="no-margin text-muted padding-left-5">' + item.type + '</h4>';
-
-                marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
-
-                if ($rootScope.currentUser.role === 'ADMIN') {
-                    marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Edit</button>';
-                    marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Delete</button>';
-                }
-
-                marker.content += '</div>';
-
-                marker.branch = angular.copy(item);
-                marker.id = item.id;
-
-                gmapServices.addListener(marker, 'click', function () {
-                    //this.infowindow.open(gmapServices.map, this);
-                    //this.infowindow.setContent(this.content);
-                    branchInfowindow.open(gmapServices.map, this);
-                    branchInfowindow.setContent(this.content);
-                });
-
-                //google.maps.event.addListener(marker.infowindow, 'closeclick', function () {
-                //    console.log('infowindow close.!');
-                //    // if current branch was added as compare then remove it on the table when infowindow closed
-                //    $rootScope.$broadcast('branch-infowindow-closed', {id: this.branchId});
-                //});
-
-                branchMarkers.push(marker);
+                newBranch(item);
             });
 
             $rootScope.$broadcast('compile-map-legend', {type: 'branches', data: getMapLegendData(list)});
+
+            console.log('branch markers loaded');
         }
 
         function getMapLegendData (list) {

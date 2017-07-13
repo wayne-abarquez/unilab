@@ -61,6 +61,7 @@ sales_transaction_fields = dict(
     end_point_latlng=PointToLatLng(attribute='end_point_latlng'),
     travel_time_in_minutes=fields.Float,
     average_travel_time_in_minutes=fields.Float,
+    merchant=fields.Nested(merchant_fields),
     remarks=fields.String
 )
 

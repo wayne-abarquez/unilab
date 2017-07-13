@@ -113,6 +113,8 @@ angular.module('demoApp.admin')
         }
 
         function showBoundary(boundary, isParent) {
+            $rootScope.$broadcast('clear-compare-branches');
+
             var item = boundariesService.getRestangularObj(boundary.id);
 
             for (var k in aborts) {
@@ -223,6 +225,8 @@ angular.module('demoApp.admin')
         }
 
         function showTerritory (item) {
+            $rootScope.$broadcast('clear-compare-branches');
+
             $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').show();
 
             branchService.hideMarkers();
@@ -250,7 +254,7 @@ angular.module('demoApp.admin')
             promises.push(
                 userTerritoriesService.getTerritoryBranches(item.territoryid)
                     .then(function (response) {
-
+                        //console.log('territory branches: ',response);
                         if (!response.length) {
                             alertServices.showBottomLeftToast('This territory doesnt have branch yet.');
                         } else {

@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .controller('salesPanelController', ['$q', '$scope', '$rootScope', 'userTerritoriesService', 'gmapServices', 'branchService', '$mdSidenav', 'placesService', '$timeout', 'alertServices', salesPanelController]);
+    .controller('salesPanelController', ['$q', '$scope', '$rootScope', 'userTerritoriesService', 'gmapServices', 'branchService', '$mdSidenav', 'placesService', '$timeout', 'alertServices', 'salesTransactionService', salesPanelController]);
 
-    function salesPanelController ($q, $scope, $rootScope, userTerritoriesService, gmapServices, branchService, $mdSidenav, placesService, $timeout, alertServices) {
+    function salesPanelController ($q, $scope, $rootScope, userTerritoriesService, gmapServices, branchService, $mdSidenav, placesService, $timeout, alertServices, salesTransactionService) {
         var vm = this;
 
         var polygonTerritory;
@@ -12,17 +12,23 @@ angular.module('demoApp.sales')
         var foundTypeIndex,
             isSelected;
 
+        vm.toggleTransactions = false;
+
         var selectedTypes = [];
 
         vm.territories = [];
 
         vm.filter = {
-            q: ''
+            q: '',
+            qt: ''
         };
 
         vm.toggleToolbarPanel = toggleToolbarPanel;
         vm.showTerritoryDetails = showTerritoryDetails;
         vm.toggleType = toggleType;
+        vm.toggleTransactionsDisplay = toggleTransactionsDisplay;
+        vm.showTransaction = showTransaction;
+
 
         initialize();
 
@@ -33,6 +39,12 @@ angular.module('demoApp.sales')
                 userTerritoriesService.getTerritories()
                     .then(function (territories) {
                         vm.territories = angular.copy(territories);
+                    });
+
+                salesTransactionService.getUserTransactions()
+                    .then(function(transactions){
+                        console.log('transactions: ',transactions);
+                        vm.transactions = salesTransactionService.initMarkers(transactions);
                     });
             });
 
@@ -72,7 +84,7 @@ angular.module('demoApp.sales')
 
         function toggleToolbarPanel () {
             vm.filter.q = '';
-            vm.showFilterPanel = !vm.showFilterPanel;
+            vm.showSalesTransactionsList = !vm.showSalesTransactionsList;
         }
 
         function showPolygonTerritory(latLngArray) {
@@ -103,7 +115,20 @@ angular.module('demoApp.sales')
             }
         }
 
+        function toggleTransactionsDisplay (flag) {
+            if (flag) {
+                // show transaction markers
+                salesTransactionService.showMarkers();
+            } else {
+                // hide
+                salesTransactionService.hideMarkers();
+                gmapServices.hideDirectionsRenderer();
+            }
+        }
+
         function showTerritoryDetails (item) {
+            $rootScope.$broadcast('clear-compare-branches');
+
             $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').show();
 
             $rootScope.selectedTerritory = item;
@@ -156,6 +181,10 @@ angular.module('demoApp.sales')
             //            $('md-list-item#territory-' + item.territoryid + ' .md-list-item-text md-progress-circular').hide();
             //        }, 1000);
             //    });
+        }
+
+        function showTransaction (item) {
+            salesTransactionService.showTransactionOnMap(item);
         }
 
 

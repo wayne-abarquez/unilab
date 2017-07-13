@@ -15,7 +15,7 @@ class Config(object):
     WTF_CSRF_SECRET_KEY = project_name
     LOG_FILENAME = '/var/www/' + project_name + '/logs/app.log'
     STATIC_FOLDER = '/var/www/' + project_name + '/client/static'
-    UPLOADS_FOLDER = '/var/www/' + project_name + '/client/static/uploads'
+    UPLOAD_FOLDER = '/var/www/' + project_name + '/client/static/uploads'
     REAL_PATH = '/var/www/solar/client/static/downloads'
     TEMPLATES_FOLDER = '/var/www/' + project_name + '/client/templates'
     TMP_DIR = '/var/www/' + project_name + '/tmp'

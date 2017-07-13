@@ -12,12 +12,50 @@
     }
   }
 
+  .sales-transaction-content {
+    form {
+      md-input-container {
+        margin: 0;
+        height: 30px;
+      }
+    }
+
+    md-list {
+      md-list-item {
+        button {
+          padding: 0 0.5rem;
+
+          .md-list-item-text {
+            width: 100%;
+
+            h3 {
+              font-weight:600;
+            }
+            p {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
   #territory-list-container {
     .md-subheader {
       margin: 10px 10px 0 10px;
 
       .md-subheader-inner {
         padding: 5px 0;
+      }
+    }
+
+    .filter-territory-form {
+      md-input-container {
+        margin: 0;
+        height: 30px;
       }
     }
 

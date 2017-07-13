@@ -57,7 +57,7 @@ class Merchant(BaseModel):
     latlng = db.Column(Geometry('POINT'), nullable=False)
 
 
-MERCHANT_SPECIALTIES = ['pediatrics', 'general practice', 'family medicine']
+MERCHANT_SPECIALTIES = ['PEDIATRICS', 'GENERAL PRACTICE', 'FAMILY MEDICINE']
 
 
 class TransactionType:
@@ -72,15 +72,17 @@ class TransactionType:
 
 
 class Transaction(BaseModel):
-    merchantid = db.Column(db.Integer, db.ForeignKey('merchant.id'), nullable=False)
+    merchantid = db.Column(db.Integer, db.ForeignKey('merchant.id'))
     userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     type = db.Column(db.String(20))
     description = db.Column(db.Text)
     transaction_date = db.Column(db.DateTime)
     cost = db.Column(db.Numeric)
     address = db.Column(db.String(500))
-    start_point_latlng = db.Column(Geometry('POINT'))
+    start_point_latlng = db.Column(Geometry('POINT'), nullable=True)
     end_point_latlng = db.Column(Geometry('POINT'))
     travel_time_in_minutes = db.Column(db.Float)
     average_travel_time_in_minutes = db.Column(db.Float)
     remarks = db.Column(db.Text)
+
+    merchant = db.relationship(Merchant, lazy='joined')

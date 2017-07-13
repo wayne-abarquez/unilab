@@ -12,7 +12,8 @@ boundary_fields = dict(
     typeid=fields.Integer,
     parentid=fields.Integer,
     type=fields.Nested(boundary_type_fields),
-    name=fields.String
+    name=fields.String,
+    has_data=fields.Boolean
 )
 
 territory_fields = dict(

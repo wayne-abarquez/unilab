@@ -78,6 +78,7 @@
                     </div>
                 </div>
 
+
                 <md-subheader class="md-primary">Boundaries</md-subheader>
                 <form>
                     <md-input-container md-no-float class="md-block">
@@ -86,11 +87,13 @@
                                ng-model="vm.filterBoundaries">
                     </md-input-container>
                 </form>
+
                 <v-accordion class="vAccordion--default region-accordion" multiple
                              layout-margin>
                     <v-pane id="{{region.id}}"
                             ng-click="vm.expandCallback(region, $event)"
                             ng-repeat="region in vm.boundaries | filter: vm.filterBoundaries"
+                            ng-class="{'has-data': region.has_data}"
                             expanded="region.isExpanded">
                         <v-pane-header>
                             <div layout="row" flex>
@@ -109,6 +112,7 @@
                                 <v-pane id="{{province.id}}"
                                         ng-click="vm.expandCallback(province, $event)"
                                         ng-repeat="province in region.children | filter: vm.filterBoundaries"
+                                        ng-class="{'has-data': province.has_data}"
                                         expanded="province.isExpanded">
                                     <v-pane-header>
                                         <div layout="row" flex>
@@ -128,6 +132,7 @@
                                             <v-pane id="{{city.id}}"
                                                     ng-click="vm.expandCallback(city, $event)"
                                                     ng-repeat="city in province.children | filter: vm.filterBoundaries"
+                                                    ng-class="{'has-data': city.has_data}"
                                                     expanded="city.isExpanded">
                                                 <v-pane-header>
                                                     <div layout="row" flex>
@@ -144,6 +149,7 @@
 
                                                     <md-list ng-if="city.children">
                                                         <md-list-item ng-repeat="brgy in city.children"
+                                                                      ng-class="{'has-data': brgy.has_data}"
                                                                       id="{{brgy.id}}"
                                                                       ng-click="vm.showBoundary(brgy);$event.stopPropagation()">
                                                             <div class="md-list-item-text" layout="row" flex>

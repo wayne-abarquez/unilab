@@ -54,13 +54,17 @@ import wtforms_json
 wtforms_json.init()
 
 # Register Auth Blueprint
-from .authentication import auth as auth_blueprint
-app.register_blueprint(auth_blueprint)
+from .authentication import auth as auth_bp
+app.register_blueprint(auth_bp)
 
 # Register Home Blueprint
-from .home import home as home_blueprint
-app.register_blueprint(home_blueprint)
+from .home import home as hme_bp
+app.register_blueprint(hme_bp)
 
 # Register Sales Blueprint
-from .sales import sales as sales_blueprint
-app.register_blueprint(sales_blueprint)
+from .sales import sales as sls_bp
+app.register_blueprint(sls_bp)
+
+# Register Fraud Detection Blueprint
+from .fraud import fraud as fr_bp
+app.register_blueprint(fr_bp)

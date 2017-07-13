@@ -4,7 +4,7 @@ from app.fields import success_fields
 from .forms import AddBranchForm, AddSalesTransactionForm
 from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
-    get_sales_transactions, create_sales_transaction, create_merchant, delete_branch
+    get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions
 from flask import request
 from flask_login import current_user
 import logging
@@ -127,8 +127,20 @@ class SalesTransactionResource(Resource):
             abort(400, message="Invalid Parameters", errors=form.errors)
 
 
+class UserSalesTransactionResource(Resource):
+    """
+    Resource for getting all Sales Transactions for a User
+    """
+
+    @marshal_with(sales_transaction_fields)
+    def get(self, userid):
+        """ GET /users/<userid>/salestransactions"""
+        return get_user_sales_transactions(userid)
+
+
 rest_api.add_resource(BranchResource, '/api/branches')
 rest_api.add_resource(BranchDetailResource, '/api/branches/<int:branchid>')
 rest_api.add_resource(BranchProductResource, '/api/branches/<int:branchid>/products')
 rest_api.add_resource(BoundaryBranchResource, '/api/boundaries/<int:boundaryid>/branches')
 rest_api.add_resource(SalesTransactionResource, '/api/salestransactions')
+rest_api.add_resource(UserSalesTransactionResource, '/api/users/<int:userid>/salestransactions')

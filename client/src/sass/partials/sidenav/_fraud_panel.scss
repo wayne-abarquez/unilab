@@ -1,0 +1,26 @@
+#fraud-panel {
+
+  .main-toolbar {
+    .sidenav-primary-button {
+      md-progress-circular {
+        margin-top: -6px;
+        margin-left: 3px;
+      }
+    }
+  }
+
+  .fraud-list-content {
+
+    form.filter-form {
+      md-input-container {
+        margin: 0 !important;
+        height: 30px;
+      }
+    }
+
+
+
+
+  }
+
+}

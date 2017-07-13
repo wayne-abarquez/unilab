@@ -24,7 +24,11 @@ gulp.task('vendor-scripts', function () {
         paths.bower + 'v-accordion/dist/v-accordion.min.js',
         paths.bower + 'ng-file-upload/ng-file-upload.min.js',
         paths.bower + 'map-icons/dist/js/map-icons.js',
-        paths.bower + 'angular-material-data-table/dist/md-data-table.min.js'
+        paths.bower + 'angular-material-data-table/dist/md-data-table.min.js',
+        paths.bower + 'moment/min/moment.min.js',
+        paths.bower + 'angular-moment/angular-moment.min.js',
+        paths.bower + 'smDateTimeRangePicker/src/picker.js',
+        paths.bower + 'PACE/pace.min.js'
     ])
         .pipe($.plumber())
         .pipe($.concat('vendor.min.js'))

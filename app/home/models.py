@@ -13,6 +13,7 @@ class Boundary(BaseModel):
     name = db.Column(db.String(500), nullable=False)
     geometry = db.Column(Geometry('GEOMETRY'))
     population = db.Column(db.Integer)
+    has_data = db.Column(db.Boolean, default=False)
 
     type = db.relationship(BoundaryType, foreign_keys=typeid)
 

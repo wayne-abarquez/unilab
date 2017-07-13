@@ -15,7 +15,7 @@
                 flex>
 
         <!-- PRIMARY TOOLBAR -->
-        <md-toolbar ng-if="!vm.showFilterPanel">
+        <md-toolbar ng-if="!vm.showSalesTransactionsList">
             <div class="md-toolbar-tools">
                 <span>
                     <h4>
@@ -25,29 +25,67 @@
                 </span>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
-                    <md-icon>search</md-icon>
+                    <md-icon>arrow_forward</md-icon>
                 </md-button>
             </div>
         </md-toolbar>
 
-        <!-- FILTER TOOLBAR -->
-        <md-toolbar class="md-default-white filter-toolbar" ng-if="vm.showFilterPanel">
+        <!-- SALES TRANSACTIONS TOOLBAR -->
+        <md-toolbar class="md-warn filter-toolbar" ng-if="vm.showSalesTransactionsList">
             <div class="md-toolbar-tools">
-                <form name="filter.form">
+                <span>
+                    <h4>
+                        <md-icon>business_center</md-icon>
+                        Sales Transactions
+                    </h4>
+                </span>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
+                    <md-icon>arrow_forward</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- SALES TRANSACTIONS -->
+        <md-content class="sales-transaction-content" layout="column" flex ng-show="vm.showSalesTransactionsList">
+            <div>
+                <md-switch ng-model="vm.toggleTransactions" ng-change="vm.toggleTransactionsDisplay(vm.toggleTransactions)">Show on map</md-switch>
+
+                <form class="filter-territory-form">
                     <md-input-container md-no-float class="md-block">
                         <input type="text"
                                placeholder="Search"
-                               ng-model="vm.filter.q">
+                               ng-model="vm.filter.qt">
                     </md-input-container>
                 </form>
-                <md-button class="md-icon-button" ng-click="vm.toggleToolbarPanel()">
-                    <md-icon>clear</md-icon>
-                </md-button>
+
+                <md-list>
+                    <md-list-item ng-repeat="item in vm.transactions | filter: vm.filter.qt"
+                                  class="md-3-line"
+                                  id="transaction-{{item.id}}"
+                                  ng-click="vm.showTransaction(item);$event.stopPropagation()">
+                        <div class="md-list-item-text" layout="column">
+                            <div flex layout="row">
+                                <h3>{{ item.merchant.name }}</h3>
+                                <span flex></span>
+                                <md-icon flex="10">
+                                    <md-tooltip md-direction="top">{{ item.type }}</md-tooltip>
+                                    {{ item.icon }}
+                                </md-icon>
+                            </div>
+                            <h4 am-time-ago="item.transaction_date | amParse:'YYYY.MM.DD HH:mm:ss'"></h4>
+                            <p>
+                                <md-tooltip md-direction="top">{{ item.address }}</md-tooltip>
+                                {{ item.address }}
+                            </p>
+                        </div>
+                    </md-list-item>
+                </md-list>
             </div>
-        </md-toolbar>
+        </md-content>
 
         <!-- TERRITORIES -->
-        <md-content layout="column" flex>
+        <md-content layout="column" flex ng-hide="vm.showSalesTransactionsList">
             <div id="territory-list-container">
 
                 <md-switch ng-model="vm.loadPois">Show POIs</md-switch>
@@ -68,6 +106,14 @@
                         </md-checkbox>
                     </div>
                 </div>
+
+                <form class="filter-territory-form">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="text"
+                               placeholder="Search"
+                               ng-model="vm.filter.q">
+                    </md-input-container>
+                </form>
 
                 <md-list>
                     <md-list-item ng-repeat="item in vm.territories | filter: vm.filter.q"

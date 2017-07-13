@@ -2,13 +2,16 @@
     'use strict';
 
     angular.module('demoApp')
-        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService', mainController]);
+        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService',  'DEMO_MODE_MESSAGE','$http', mainController]);
 
-    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService) {
+    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService, DEMO_MODE_MESSAGE, $http) {
         var vm = this;
 
         $rootScope.appName = APP_NAME;
+
         $rootScope.showLegend = false;
+        $rootScope.showTerritoryDetailBtn = false;
+        $rootScope.showBranchCompareTable = false;
 
         /* Side Nav Menus */
         vm.menu = [];
@@ -142,7 +145,8 @@
                 userSessionService.userLogout();
             }
 
-            window.location.href = item.link;
+            isURLExist(item.link);
+            //window.location.href = item.link;
         }
 
         function showBanchCompareTableAction () {
@@ -160,6 +164,17 @@
 
         function showLegendPanel() {
             $rootScope.showLegend = true;
+        }
+
+        function isURLExist (urlparam) {
+            $http({
+                method: "GET",
+                url: urlparam
+            }).then(function() {
+                window.location.href = urlparam;
+            }, function (error) {
+                alertServices.showInfo(DEMO_MODE_MESSAGE);
+            });
         }
     }
 }());
