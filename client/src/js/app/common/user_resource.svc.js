@@ -10,7 +10,12 @@ angular.module('demoApp')
         var transactionTypes = {
             'CLIENT VISIT': 'store',
             'GAS': 'local_gas_station',
-            'FLIGHT': 'flight_takeoff'
+            'FLIGHT': 'flight_takeoff',
+            'COVERAGE': 'flag',
+            '1SS': 'local_atm',
+            'C3S': 'crdit_card',
+            'IIDACS': 'finance',
+            'FLEET': 'local_taxi'
         };
 
         service.getUserTransactions = getUserTransactions;

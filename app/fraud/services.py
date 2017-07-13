@@ -46,6 +46,8 @@ except_columns = user_id_columns + latlng_columns + merchant_columns
 def upload_fraud_data(file):
     wb = load_workbook(file, read_only=True)
 
+    result = {}
+
     for sheet in wb.get_sheet_names():
         ws = wb.get_sheet_by_name(sheet)
 
@@ -91,6 +93,8 @@ def upload_fraud_data(file):
             table.create()
 
         values = []
+
+        transaction_ids = []
 
         for row in rows:
             dct = {}
@@ -155,6 +159,7 @@ def upload_fraud_data(file):
                     if transaction is not None and transaction.id is not None:
                         dct['transactionid'] = transaction.id
                         values.append(dct)
+                        transaction_ids.append(transaction.id)
 
                 elif is_table_non_transaction:
                     values.append(dct)
@@ -163,10 +168,14 @@ def upload_fraud_data(file):
 
         try:
             app.logger.info("INSERTING DATA TO {0}".format(table_name))
-            engine.execute(table.insert().values(values))
+            returning_column = table.c.id if is_table_non_transaction else table.c.transactionid
+            res = engine.execute(table.insert().values(values).returning(returning_column))
+            result[sheet.lower()] = map(lambda itm : itm[0], res)
             app.logger.info("FINISH!")
         except Exception as err:
             app.logger.info("ERROR INSERTING: {0}".format(err))
+
+    return result
 
 
 # def make_table(table_name, fields):

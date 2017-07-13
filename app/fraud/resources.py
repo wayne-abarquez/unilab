@@ -1,6 +1,6 @@
 from flask.ext.restful import Resource, abort, marshal
 from flask import request
-from app.fields import success_fields
+from app.fields import success_with_result_fields
 from app import rest_api
 from .services import upload_fraud_data
 from app.resources import UploadResource
@@ -27,8 +27,8 @@ class FraudUploadResource(UploadResource):
         # TODO: Delete previous associated file before saving new one for good housekeeping
 
         if uploaded_file and self.allowed_excel_file(uploaded_file.filename):
-            upload_fraud_data(uploaded_file)
-            return marshal(dict(status=200, message="OK"), success_fields)
+            result = upload_fraud_data(uploaded_file)
+            return marshal(dict(status=200, message="OK", result=result), success_with_result_fields)
         else:
             abort(400, message="Invalid parameters")
             # abort(401, message="Requires user to login")

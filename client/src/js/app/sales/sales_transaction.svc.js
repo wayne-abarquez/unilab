@@ -20,6 +20,27 @@ angular.module('demoApp.sales')
                 icon: 'airport',
                 color: '#3498db'
 
+            },
+
+            'COVERAGE': {
+                icon: 'embassy',
+                color: '#3498db'
+            },
+            '1SS': {
+                icon: 'atm',
+                color: '#3498db'
+            },
+            'C3S': {
+                icon: 'bank',
+                color: '#3498db'
+            },
+            'IIDACS': {
+                icon: 'finance',
+                color: '#3498db'
+            },
+            'FLEET': {
+                icon: 'taxi-stand',
+                color: '#3498db'
             }
         };
 

@@ -1,0 +1,24 @@
+2017-07-14 04:36:13,232 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_coverage
+2017-07-14 04:36:13,800 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:36:14,409 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_1ss
+2017-07-14 04:36:14,500 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:36:15,223 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_c3s
+2017-07-14 04:36:15,276 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:36:15,368 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_iidacs
+2017-07-14 04:36:15,399 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:36:15,499 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_leaves
+2017-07-14 04:36:15,543 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:36:15,759 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_fleet
+2017-07-14 04:36:15,874 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:47,932 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_coverage
+2017-07-14 04:42:48,969 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:50,594 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_1ss
+2017-07-14 04:42:50,653 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:51,347 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_c3s
+2017-07-14 04:42:51,398 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:51,501 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_iidacs
+2017-07-14 04:42:51,506 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:51,604 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_leaves
+2017-07-14 04:42:51,608 INFO - services.py upload_fraud_data: FINISH!
+2017-07-14 04:42:51,802 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_fleet
+2017-07-14 04:42:51,843 INFO - services.py upload_fraud_data: FINISH!
