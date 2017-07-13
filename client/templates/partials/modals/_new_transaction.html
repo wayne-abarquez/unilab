@@ -41,12 +41,6 @@
                             <div ng-message="required">Please set starting point..</div>
                         </div>
                     </md-input-container>
-                    <!--
-                    <md-button class="md-md-raised" ng-click="vm.setStartingPoint()">
-                        <md-tooltip md-direction="left">Set exact location</md-tooltip>
-                        <md-icon>place</md-icon>
-                    </md-button>
-                    -->
                 </div>
 
                 <div class="point-buttons-container" layout-gt-sm="row" flex>
@@ -57,12 +51,6 @@
                             <div ng-message="required">Please set destination.</div>
                         </div>
                     </md-input-container>
-                    <!--
-                    <md-button class="md-md-raised" ng-click="vm.setDestinationPoint()">
-                        <md-tooltip md-direction="left">Set exact location</md-tooltip>
-                        <md-icon>place</md-icon>
-                    </md-button>
-                    -->
                 </div>
 
                 <div layout-gt-sm="row" flex>
@@ -74,6 +62,20 @@
                         </div>
                     </md-input-container>
 
+                    <sm-date-time-picker
+                            fname="field"
+                            label="Transaction date"
+                            ng-model="vm.transaction.transaction_date"
+                            flex="50"
+                            flex-sm="100"
+                            flex-xs="100"
+                            is-required="true"
+                            format="YYYY-MM-DD HH:mm:ss"
+                            mode="date-time"
+                            max-date="vm.maxDate"
+                            week-start-day="Monday">
+                    </sm-date-time-picker>
+                    <!--
                     <div class="date-picker-field-group" flex-gt-xs>
                         <label>Transaction Date</label>
                         <md-datepicker layout-margin
@@ -87,6 +89,7 @@
                             <div>This is required.</div>
                         </div>
                     </div>
+                    -->
                 </div>
 
                 <md-input-container class="md-block" flex>
@@ -99,13 +102,12 @@
 
                 <md-input-container class="md-block">
                     <label>Description</label>
-                        <textarea ng-model="vm.transaction.description" md-maxlength="50" rows="5"
-                                  md-select-on-focus></textarea>
+                        <textarea ng-model="vm.transaction.description" md-maxlength="50" rows="3"></textarea>
                 </md-input-container>
 
                 <md-input-container class="md-block">
                     <label>Remarks</label>
-                    <textarea ng-model="vm.transaction.remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                    <textarea ng-model="vm.transaction.remarks" md-maxlength="150" rows="3"></textarea>
                 </md-input-container>
             </md-content>
         </form>

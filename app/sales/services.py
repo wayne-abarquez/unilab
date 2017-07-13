@@ -1,7 +1,7 @@
 from app import db
 from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary
-from sqlalchemy import select, func
+from sqlalchemy import select, func, desc
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
@@ -113,6 +113,15 @@ def get_sales_transactions():
     return Transaction.query.all()
 
 
+def create_transaction(userid, endpoint_latlng):
+    transaction = Transaction(userid=userid)
+    transaction.end_point_latlng = forms_helper.parse_coordinates(endpoint_latlng)
+    db.session.add(transaction)
+    db.session.commit()
+
+    return transaction
+
+
 def create_sales_transaction(data):
     # Prepare Data
     transaction = Transaction.from_dict(data)
@@ -124,3 +133,10 @@ def create_sales_transaction(data):
     db.session.commit()
 
     return transaction
+
+
+def get_user_sales_transactions(userid):
+    return Transaction.query\
+        .filter(Transaction.userid == userid)\
+        .order_by(desc(Transaction.transaction_date))\
+        .all()

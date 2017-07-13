@@ -1,0 +1,69 @@
+{% raw %}
+<section class="sidenav-container"
+         id="fraud-panel"
+         ng-controller="fraudPanelController as vm"
+         layout="row"
+         flex="20"
+         ng-hide="hasOpenedModal"
+         ng-cloak>
+
+    <md-sidenav class="md-sidenav-right md-sidenav"
+                md-component-id="fraudPanelSidenav"
+                md-disable-backdrop
+                md-is-locked-open="$mdMedia('gt-xs')"
+                md-whiteframe="4"
+                flex>
+
+        <!-- PRIMARY TOOLBAR -->
+        <md-toolbar class="main-toolbar">
+            <div class="md-toolbar-tools">
+                <span>
+                    <h4>
+                        <md-icon>assignment_late</md-icon>
+                        Fraudulent
+                    </h4>
+                </span>
+                <span flex></span>
+                <md-button ng-disabled="!vm.uploadHasResponse"
+                           class="md-fab sidenav-primary-button"
+                           type="file"
+                           ngf-pattern="'.xlsx,.xls'"
+                           ngf-select="vm.uploadFraudData($file, $invalidFiles)">
+                    <md-progress-circular md-mode="indeterminate" ng-hide="vm.uploadHasResponse"></md-progress-circular>
+                    <md-tooltip ng-show="vm.uploadHasResponse" md-direction="top">Upload User Transactions
+                    </md-tooltip>
+                    <md-icon ng-show="vm.uploadHasResponse">file_upload</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- FRAUD LIST -->
+        <md-content class="fraud-list-content" layout="column" flex>
+            <div>
+                <form class="filter-form">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="text"
+                               placeholder="Search"
+                               ng-model="vm.filter.q">
+                    </md-input-container>
+                </form>
+
+                <md-list>
+                    <md-list-item ng-repeat="item in vm.frauds | filter: vm.filter.q"
+                                  class="md-3-line"
+                                  id="fraud-{{item.id}}"
+                                  ng-click="vm.showFraudDetail(item);$event.stopPropagation()">
+                        <md-icon class="md-avatar-icon text-error">warning</md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ item.user.lastname }}, {{ item.user.firstname }}</h3>
+                            <h4 am-time-ago="item.transaction_date | amParse:'YYYY.MM.DD HH:mm:ss'"></h4>
+                            <p>{{ item.type }}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-content>
+
+    </md-sidenav>
+</section>
+{% endraw %}

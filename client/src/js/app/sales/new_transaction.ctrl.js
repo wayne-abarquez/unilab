@@ -36,9 +36,6 @@ angular.module('demoApp.sales')
             }
         };
 
-        var directionsService,
-            directionsDisplay;
-
         vm.transactionTypes = SALES_TRANSACTION_TYPES;
         vm.maxDate = new Date();
 
@@ -63,18 +60,12 @@ angular.module('demoApp.sales')
                 createDestinationPointMarker(result.geometry.location);
             }
 
-            directionsService = new google.maps.DirectionsService;
-            directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
-            directionsDisplay.setMap(gmapServices.map);
+            gmapServices.initializeDirectionsService();
+            gmapServices.initializeDirectionsRenderer({draggable: true});
 
             $timeout(function(){
                 initializeAutocompletes();
             }, 1000);
-
-            //$rootScope.$on('search-address-return-result', function (e, params) {
-            //    vm.transaction.address = params.result.formatted_address;
-            //    setPlotMarkerLocation(params.result.geometry.location);
-            //});
 
             $scope.$watch(function(){
                 return vm.transaction.start_point_latlng;
@@ -102,6 +93,12 @@ angular.module('demoApp.sales')
         }
 
         function cleanUp() {
+            vm.transaction = null;
+
+            gmapServices.directionsService = null;
+            gmapServices.directionsDisplay.setMap(null);
+            gmapServices.directionsDisplay = null;
+
             for (var k in markers) {
                 if (markers[k].marker && markers[k].marker.getMap()) {
                     markers[k].marker.setMap(null);
@@ -111,20 +108,19 @@ angular.module('demoApp.sales')
                     gmapServices.removeListener(markers[k].dragendListener);
                 }
             }
-            directionsDisplay.setMap(null);
-            directionsService = null;
-            directionsDisplay = null;
         }
 
         function calculateAndDisplayRoute(originLatlng, destinationLatLng) {
-            directionsService.route({
+            if (!gmapServices.directionsService || !gmapServices.directionsDisplay) return;
+
+            gmapServices.directionsService.route({
                 origin: originLatlng,
                 destination: destinationLatLng,
                 travelMode: 'DRIVING'
             }, function (response, status) {
                 console.log('calculateAndDisplayRoute response: ', response);
                 if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
+                    gmapServices.directionsDisplay.setDirections(response);
                 } else {
                     alertServices.showError('Directions request failed due to ' + status);
                 }
@@ -222,10 +218,7 @@ angular.module('demoApp.sales')
         }
 
         function getFormData() {
-            var date = vm.transaction.transaction_date.toISOString();
-
             var formData = angular.copy(vm.transaction);
-            formData.transaction_date = date;
 
             formData.start_point_latlng = markers.start.marker.getPosition().toJSON();
             formData.end_point_latlng = markers.end.marker.getPosition().toJSON();
@@ -254,11 +247,10 @@ angular.module('demoApp.sales')
             // process send to backend
             salesTransactionService.saveTransaction(formData)
                 .then(function (response) {
-                    console.log('save sales transaction: ',response);
+                    //console.log('save sales transaction: ',response);
                     alertServices.showSuccess('Transaction saved.');
                     modalServices.hideResolveModal(response);
                 }, function (error) {
-                    console.log('save sales transaction error: ', error);
                     // show errors
                     alertServices.showError(formHelperService.getFormattedErrors(error.data));
                 })

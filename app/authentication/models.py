@@ -38,7 +38,10 @@ class User(BaseModel, UserMixin):
     def get_by_username(username):
         return User.query.filter_by(username=username).first()
 
-    def is_user_sales(self):
+    def is_admin(self):
+        return self.roleid == 1
+
+    def is_sales(self):
         return self.roleid == 2
 
     def __repr__(self):

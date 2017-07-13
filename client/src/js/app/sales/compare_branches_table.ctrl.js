@@ -20,6 +20,10 @@ angular.module('demoApp.sales')
 
         function initialize() {
 
+            $rootScope.$on('clear-compare-branches', function (e) {
+                clearCompareBranch();
+            });
+
             $scope.$watchCollection(function () {
                 return vm.branchCompareList;
             }, function (newCollection) {
@@ -112,6 +116,18 @@ angular.module('demoApp.sales')
                     return vm.list;
                 });
             }
+        }
+
+        function clearCompareBranch () {
+            vm.branchCompareList = [];
+
+            if ($scope.$$phase) return;
+
+            $scope.$apply(function () {
+                vm.list = [];
+            });
+
+            close();
         }
 
         function hoverIn (branchId) {

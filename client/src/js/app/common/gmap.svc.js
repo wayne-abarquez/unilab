@@ -34,12 +34,18 @@
         service.lastInfoboxOpen = null;
         service.infoboxes = [];
 
+        service.directionsService = null;
+        service.directionsDisplay = null;
+
         /**
          * Service Functions
          */
         service.apiAvailable = apiAvailable;
         service.createMap = createMap;
         service.initializeGeocoder = initializeGeocoder;
+        service.initializeDirectionsService = initializeDirectionsService;
+        service.initializeDirectionsRenderer = initializeDirectionsRenderer;
+        service.hideDirectionsRenderer = hideDirectionsRenderer;
         service.createInfoBox = createInfoBox;
         service.openInfoBox = openInfoBox;
         service.closeInfoBox = closeInfoBox;
@@ -168,6 +174,28 @@
 
         function initializeGeocoder () {
             service.geocoder = new google.maps.Geocoder();
+        }
+
+        function initializeDirectionsService (opts) {
+            if (!service.directionsService) service.directionsService = new google.maps.DirectionsService(opts);
+
+            return service.directionsService;
+        }
+
+        function initializeDirectionsRenderer (opts) {
+            if (!service.directionsDisplay) {
+                service.directionsDisplay = new google.maps.DirectionsRenderer(opts);
+            }
+
+            if (!service.directionsDisplay.getMap()) {
+                service.directionsDisplay.setMap(service.map);
+            }
+
+            return service.directionsDisplay;
+        }
+
+        function hideDirectionsRenderer () {
+            if (service.directionsDisplay) service.directionsDisplay.setMap(null);
         }
 
         function createInfoBox(template) {

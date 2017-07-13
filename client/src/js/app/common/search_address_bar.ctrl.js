@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp')
-        .controller('searchAddressBarController', ['$rootScope', 'gmapServices', 'alertServices', 'locationService', searchAddressBarController]);
+        .controller('searchAddressBarController', ['$rootScope', 'gmapServices', 'alertServices', 'DEMO_MODE_MESSAGE', searchAddressBarController]);
 
-    function searchAddressBarController($rootScope, gmapServices, alertServices, locationService) {
+    function searchAddressBarController($rootScope, gmapServices, alertServices, DEMO_MODE_MESSAGE) {
         var vm = this;
 
         var autocomplete = null;
@@ -45,15 +45,16 @@
         }
 
         function getGPSLocation () {
-            locationService.getCurrentLocation()
-                .then(function(latlng){
-                    gmapServices.reverseGeocode(latlng)
-                        .then(function (result) {
-                            if (result.length) $rootScope.$broadcast('search-address-return-result', {result: result[0]});
-                        });
-                }, function (error){
-                    alertServices.showError(error.message);
-                });
+            alertServices.showInfo(DEMO_MODE_MESSAGE);
+            //locationService.getCurrentLocation()
+            //    .then(function(latlng){
+            //        gmapServices.reverseGeocode(latlng)
+            //            .then(function (result) {
+            //                if (result.length) $rootScope.$broadcast('search-address-return-result', {result: result[0]});
+            //            });
+            //    }, function (error){
+            //        alertServices.showError(error.message);
+            //    });
         }
 
     }

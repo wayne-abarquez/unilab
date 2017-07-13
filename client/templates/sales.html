@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    {% if client_id %}
+    {% if gmap_api_key %}
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{gmap_api_key}}&libraries=geometry,places"></script>
     {% else %}
@@ -11,6 +11,22 @@
     {% endif %}
 
     {% raw %}
+
+    <md-button class="md-fab md-primary md-mini"
+               id="toggle-territory-details-btn"
+               ng-click="mainCtl.showTerritoryPanelDetail()"
+               ng-show="showTerritoryDetailBtn">
+        <md-icon>local_activity</md-icon>
+    </md-button>
+
+    <md-button
+            ng-hide="showBranchCompareTable"
+            ng-click="mainCtl.showBanchCompareTableAction()"
+            class="md-fab md-mini" id="show-compare-branches-btn">
+        <md-icon>compare_arrows</md-icon>
+    </md-button>
+
+
     <div id="index-container" layout="row" ng-controller="salesPageController as salesPgCtl">
 
         <!--
