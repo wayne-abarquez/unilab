@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices) {
         var vm = this;
 
         vm.uploadHasResponse = true;
@@ -19,20 +19,24 @@ angular.module('demoApp.fraud')
 
         }
 
-        function uploadFraudData(file, errFiles) {
+        function uploadFraudData(file, errFiles, event) {
+            event.stopPropagation();
+
             console.log('uploadFraudData',file,errFiles);
 
-            if (errFiles.length) {
+            if (!file || errFiles.length) {
                 alertServices.showError('File is invalid.\nAccepts excel file only.\n .xlsx, .xls');
                 return;
             }
 
             vm.uploadHasResponse = false;
-
             fraudService.uploadEmployeeData(file)
                 .then(function (response) {
                     console.log('successfully uploaded employee data: ', response);
-                    alertServices.showSuccess('Data uploaded.');
+                    alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
+                    $timeout(function(){
+                        modalServices.showFraudResult();
+                    }, 1000);
                 }, function (error) {
                     console.log('error on uploading employee data: ', error);
                 })
