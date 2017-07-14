@@ -101,12 +101,12 @@ $list-item-height-2: 38px;
         margin: 0;
       }
 
-      v-pane.has-data, md-list.has-data {
+      v-pane.has-data, md-list-item.has-data {
         > v-pane-header {
           background-color: rgba(30, 138, 228, 0.15);
         }
 
-        > .md-list-item-text {
+        > button {
           background-color: rgba(30, 138, 228, 0.15);
         }
       }
