@@ -60,7 +60,7 @@
                 </form>
 
                 <md-list>
-                    <md-list-item ng-repeat="item in vm.transactions | filter: vm.filter.qt"
+                    <md-list-item ng-repeat="item in vm.transactions | filter: {merchant: {name: vm.filter.qt}}"
                                   class="md-3-line"
                                   id="transaction-{{item.id}}"
                                   ng-click="vm.showTransaction(item);$event.stopPropagation()">
@@ -68,9 +68,32 @@
                             <div flex layout="row">
                                 <h3>{{ item.merchant.name }}</h3>
                                 <span flex></span>
-                                <md-icon flex="10">
+                                <md-icon flex="10" ng-style="{'color': item.icon.color}">
+                                    <md-tooltip md-direction="left">{{ item.type }}</md-tooltip>
+                                    {{ item.icon.icon }}
+                                </md-icon>
+                            </div>
+                            <h4>{{ item.transaction_date | date: "MMM d, yyyy h:mm a"}}</h4>
+                            <p>
+                                <md-tooltip md-direction="left">{{ item.address }}</md-tooltip>
+                                {{ item.address }}
+                            </p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+
+                <!--
+                <md-virtual-repeat-container id="vertical-container">
+                    <div md-virtual-repeat="item in vm.dynamicTransactions"
+                                  md-on-demand
+                                  id="transaction-{{item.id}}"
+                                  ng-click="vm.showTransaction(item);$event.stopPropagation()">
+                            <div flex layout="row">
+                                <h3>{{ item.merchant.name }}</h3>
+                                <span flex></span>
+                                <md-icon flex="10" ng-style="{'color': item.icon.color}">
                                     <md-tooltip md-direction="top">{{ item.type }}</md-tooltip>
-                                    {{ item.icon }}
+                                    {{ item.icon.icon }}
                                 </md-icon>
                             </div>
                             <h4 am-time-ago="item.transaction_date | amParse:'YYYY.MM.DD HH:mm:ss'"></h4>
@@ -79,8 +102,9 @@
                                 {{ item.address }}
                             </p>
                         </div>
-                    </md-list-item>
-                </md-list>
+                    </div>
+                </md-virtual-repeat-container>
+                                -->
             </div>
         </md-content>
 

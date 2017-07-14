@@ -154,8 +154,31 @@ def create_sales_transaction(data):
     return transaction
 
 
-def get_user_sales_transactions(userid):
-    return Transaction.query\
-        .filter(Transaction.userid == userid)\
-        .order_by(desc(Transaction.transaction_date))\
+def get_user_sales_transactions(userid, limit=None):
+    order_types = ['COVERAGE', '1SS', 'CS3', 'FLEET', 'IIDACS', 'CLIENT VISIT', 'GAS', 'FLIGHT']
+    type_list = ["type='" + type + "'" for type in order_types]
+
+    # return Transaction.query \
+    #     .filter(Transaction.userid == userid) \
+    #     .order_by(desc("(" + ",".join(type_list) + ")"), Transaction.transaction_date) \
+    #     .limit(page_size) \
+    #     .offset((page_no*page_size) - page_size) \
+    #     .all()
+    if limit is not None:
+        return Transaction.query \
+            .filter(Transaction.userid == userid) \
+            .order_by(desc("(" + ",".join(type_list) + ")"), Transaction.transaction_date) \
+            .limit(limit) \
+            .all()
+
+    return Transaction.query \
+        .filter(Transaction.userid == userid) \
+        .order_by(desc("(" + ",".join(type_list) + ")"), Transaction.transaction_date) \
         .all()
+
+# .order_by("position(type::text in '"+",".join(order_types)+"'") \
+
+    # return Transaction.query\
+    #     .filter(Transaction.userid == userid) \
+    #     .order_by(desc(Transaction.transaction_date)) \
+    #     .all()

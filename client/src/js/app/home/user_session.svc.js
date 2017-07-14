@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .factory('userSessionService', ['User', 'localStorageService', '$q', '$rootScope', userSessionService]);
+    .factory('userSessionService', ['User', 'localStorageService', '$q', userSessionService]);
 
-    function userSessionService (User, localStorageService, $q, $rootScope) {
+    function userSessionService (User, localStorageService, $q) {
         var service = {};
 
         // user details
@@ -47,7 +47,7 @@ angular.module('demoApp.home')
 
             var userObj = localStorageService.get(USER);
 
-            return isRestangular ?
+            return isRestangular && userObj ?
                             User.cast(userObj.id)
                             : userObj;
         }
