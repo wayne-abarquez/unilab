@@ -72,3 +72,5 @@
 2017-07-14 15:35:54,155 INFO - run.py <module>: Starting app
 2017-07-14 15:40:25,857 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-07-14 15:40:26,149 INFO - run.py <module>: Starting app
+2017-07-14 16:21:56,099 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-14 16:21:56,385 INFO - run.py <module>: Starting app
