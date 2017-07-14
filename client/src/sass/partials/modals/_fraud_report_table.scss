@@ -1,0 +1,25 @@
+#fraud-report-table-modal {
+  md-toolbar {
+    padding: 0.25rem 0;
+
+    .md-toolbar-tools {
+      .fraud-report-table-header {
+        > div {
+          span {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+
+  md-dialog-content {
+    width: 100%;
+
+  }
+
+  md-dialog-actions {
+    width: 100%;
+    padding-right: 2rem;
+  }
+}

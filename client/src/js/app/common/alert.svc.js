@@ -33,11 +33,17 @@
             showToast(message, 'top right', delay);
         }
 
-        function showMessage(message, type) {
-            SweetAlert.swal({
+        function showMessage(message, type, isAutoClose) {
+            var opts = {
                 title: message,
                 type: type
-            });
+            };
+
+            if (isAutoClose) {
+                angular.merge(opts, {timer: 1500, showConfirmButton: false});
+            }
+
+            SweetAlert.swal(opts);
         }
 
         function showSuccess(message) {
@@ -65,8 +71,8 @@
                 callbackOnConfirm);
         }
 
-        function showInfo(message) {
-            showMessage(message, 'info');
+        function showInfo(message, isAutoClose) {
+            showMessage(message, 'info', isAutoClose);
         }
 
 

@@ -3,7 +3,6 @@ from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECI
 from app.home.models import Boundary
 from sqlalchemy import select, func, desc
 from sqlalchemy.sql.expression import cast
-# from sqlalchemy.exc import IntegrityError
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
 from app.utils import forms_helper
@@ -21,6 +20,9 @@ def get_branch_within_boundary(boundaryid):
     stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
         .select_from(Branch) \
         .where(func.ST_DWITHIN(cast(qt.c.geometry, Geography), cast(Branch.latlng, Geography), 1)) \
+        # stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
+    #     .select_from(Branch) \
+    #     .where(func.ST_DWITHIN(cast(qt.c.geometry, Geography), cast(Branch.latlng, Geography), 1)) \
         # .limit(500)
 
     result = db.engine.execute(stmt).fetchall()
@@ -48,10 +50,10 @@ def get_branches_with_limit(count=5):
 
 
 def get_branches_id_with_limit(count=0):
-    if count == 0: # get all
+    if count == 0:  # get all
         return map(lambda idtup: idtup[0], db.session.query(Branch.id).all())
     else:
-        return map(lambda idtup : idtup[0], db.session.query(Branch.id).limit(count).all())
+        return map(lambda idtup: idtup[0], db.session.query(Branch.id).limit(count).all())
 
 
 def get_branches():
@@ -178,7 +180,7 @@ def get_user_sales_transactions(userid, limit=None):
 
 # .order_by("position(type::text in '"+",".join(order_types)+"'") \
 
-    # return Transaction.query\
-    #     .filter(Transaction.userid == userid) \
-    #     .order_by(desc(Transaction.transaction_date)) \
-    #     .all()
+# return Transaction.query\
+#     .filter(Transaction.userid == userid) \
+#     .order_by(desc(Transaction.transaction_date)) \
+#     .all()

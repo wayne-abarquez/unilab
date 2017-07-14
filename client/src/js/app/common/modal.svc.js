@@ -10,12 +10,14 @@
         var customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
         var newTransactionModal,
-            mapPlotOptionsModal;
+            mapPlotOptionsModal,
+            fraudTableModal;
 
         /* Service Functions */
         service.showNewBranchForm = showNewBranchForm;
         service.showNewTransactionForm = showNewTransactionForm;
         service.showMapPlotOptions = showMapPlotOptions;
+        service.showFraudResult = showFraudResult;
         //service.showProjectDetail = showProjectDetail;
         service.hideResolveModal = hideResolveModal;
         service.closeModal = closeModal;
@@ -89,6 +91,23 @@
             };
 
             return showModal(mapPlotOptionsModal, opts);
+        }
+
+        function showFraudResult (ev, data) {
+            var opts = {
+                controller: 'fraudReportTableController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_fraud_report_table.html',
+                parent: angular.element(document.querySelector('#fraud-container')),
+                locals: {data: data},
+                targetEvent: ev,
+                fullscreen: $mdMedia('lg'),
+                onComplete: function (scope, element, options) {
+                    $('.md-scroll-mask').css('z-index', '-1');
+                }
+            };
+
+            return showModal(fraudTableModal, opts);
         }
 
         //function showProjectDetail(proj) {

@@ -1,0 +1,50 @@
+<md-dialog id="fraud-report-table-modal" layout-align="center center" class="md-whiteframe-3dp" flex="80">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <div class="fraud-report-table-header" layout="column" flex>
+                <div layout="row">
+                    <span flex="25">Employee ID</span>
+                    <span>1111</span>
+                </div>
+                <div layout="row">
+                    <span flex="25">Employee Name</span>
+                    <span>DELA CRUZ,JUAN</span>
+                </div>
+                <div layout="row">
+                    <span>Coverage vs. Fleet vs. C3S vs. 1SS vs. IIDACS</span>
+                </div>
+            </div>
+
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.close()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content flex>
+        <div class="md-dialog-content">
+
+            <md-tabs md-border-bottom>
+
+                <md-tab label="Consolidated Data">
+                    <md-content class="md-padding" id="consolidate-container">
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Exceptions">
+                    <md-content class="md-padding" id="exceptions-container">
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="end center" flex>
+        <md-button ng-click="vm.viewOnMap()" md-autofocus>
+            View on Map
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

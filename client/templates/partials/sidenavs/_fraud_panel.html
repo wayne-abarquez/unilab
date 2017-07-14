@@ -28,7 +28,7 @@
                            class="md-fab sidenav-primary-button"
                            type="file"
                            ngf-pattern="'.xlsx,.xls'"
-                           ngf-select="vm.uploadFraudData($file, $invalidFiles)">
+                           ngf-select="vm.uploadFraudData($file, $invalidFiles, $event)">
                     <md-progress-circular md-mode="indeterminate" ng-hide="vm.uploadHasResponse"></md-progress-circular>
                     <md-tooltip ng-show="vm.uploadHasResponse" md-direction="top">Upload User Transactions
                     </md-tooltip>
