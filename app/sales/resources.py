@@ -134,8 +134,10 @@ class UserSalesTransactionResource(Resource):
 
     @marshal_with(sales_transaction_fields)
     def get(self, userid):
+        # page_no = request.args['page_no'] if 'page_no' in request.args else None
+        # page_size = request.args['page_size'] if 'page_size' in request.args else None
         """ GET /users/<userid>/salestransactions"""
-        return get_user_sales_transactions(userid)
+        return get_user_sales_transactions(userid, 300)
 
 
 rest_api.add_resource(BranchResource, '/api/branches')

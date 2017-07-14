@@ -2,49 +2,56 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .factory('salesTransactionService', ['SalesTransaction', 'userResourcesService', '$q', 'gmapServices', salesTransactionService]);
+    .factory('salesTransactionService', ['SalesTransaction', 'userSessionService', '$q', 'gmapServices', salesTransactionService]);
 
-    function salesTransactionService (SalesTransaction, userResourcesService, $q, gmapServices) {
+    function salesTransactionService (SalesTransaction, userSessionService, $q, gmapServices) {
         var service = {};
 
-        var markerIconByType = {
+        var transactionTypes = {
             'CLIENT VISIT': {
-                icon: 'insurance-agency',
-                color: '#e67e22'
+                markerIcon: 'insurance-agency',
+                color: '#f39c12',
+                icon: 'store'
             },
             'GAS': {
-                icon: 'gas-station',
-                color: '#e74c3c'
+                markerIcon: 'gas-station',
+                color: '#e67e22',
+                icon: 'local_gas_station'
             },
             'FLIGHT': {
-                icon: 'airport',
-                color: '#3498db'
-
+                markerIcon: 'airport',
+                color: '#16a085',
+                icon: 'flight_takeoff'
             },
 
             'COVERAGE': {
-                icon: 'embassy',
-                color: '#3498db'
+                markerIcon: 'embassy',
+                color: '#e67e22',
+                icon: 'flag'
             },
             '1SS': {
-                icon: 'atm',
-                color: '#3498db'
+                markerIcon: 'atm',
+                color: '#3498db',
+                icon: 'local_atm'
             },
             'C3S': {
-                icon: 'bank',
-                color: '#3498db'
+                markerIcon: 'bank',
+                color: '#9b59b6'
             },
             'IIDACS': {
-                icon: 'finance',
-                color: '#3498db'
+                markerIcon: 'finance',
+                color: '#3498db',
+                icon: 'finance'
             },
             'FLEET': {
-                icon: 'taxi-stand',
-                color: '#3498db'
+                markerIcon: 'taxi-stand',
+                color: '#e74c3c',
+                icon: 'local_taxi'
             }
         };
 
         var marker,
+            transactionMarkerItem = null,
             transactionMarkers = [];
 
         service.saveTransaction = saveTransaction;
@@ -55,6 +62,8 @@ angular.module('demoApp.sales')
         service.hideMarkers = hideMarkers;
 
         function showMarkers () {
+            transactionMarkerItem.setMap(null);
+
             transactionMarkers.forEach(function(item){
                if (item.marker && !item.marker.getMap()) {
                    item.marker.setMap(gmapServices.map);
@@ -72,9 +81,17 @@ angular.module('demoApp.sales')
 
         var icon;
 
+        function getIconByType (type) {
+            var type = transactionTypes[type.toUpperCase()];
+
+            return type
+                    ? type
+                    : transactionTypes[Object.keys(transactionTypes)[0]];
+        }
+
         function createMarker (latlng, type) {
-            icon = markerIconByType[type.toUpperCase()];
-            marker = gmapServices.createMapIconLabel(latlng, icon.icon, icon.color);
+            icon = getIconByType(type);
+            marker = gmapServices.createMapIconLabel(latlng, icon.markerIcon, icon.color);
             marker.setMap(null);
             return marker;
         }
@@ -120,8 +137,26 @@ angular.module('demoApp.sales')
             return dfd.promise;
         }
 
-        function getUserTransactions () {
-            return userResourcesService.getUserTransactions();
+        function getUserTransactions(pageNo, pageSize) {
+            var dfd = $q.defer();
+
+            var user = userSessionService.getUserInfo(true);
+
+            if (user) {
+                user.getList('salestransactions', {page_no: pageNo, page_size: pageSize})
+                    .then(function (response) {
+                        dfd.resolve(response.plain().map(function (item) {
+                            item.icon = transactionTypes[item.type.toUpperCase()];
+                            return item;
+                        }));
+                    }, function (error) {
+                        dfd.reject(error);
+                    });
+            } else {
+                dfd.reject();
+            }
+
+            return dfd.promise;
         }
 
         function calculateAndDisplayRoute(originLatlng, destinationLatLng) {
@@ -140,16 +175,26 @@ angular.module('demoApp.sales')
 
 
         function showTransactionOnMap (transaction) {
-            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+            if (transaction.start_point_latlng && gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
 
-            if ( !_.isEmpty(transaction.start_point_latlng) && !_.isEmpty(transaction.end_point_latlng)) {
+            if (transaction.start_point_latlng && transaction.end_point_latlng) {
                 // show directions
                 gmapServices.initializeDirectionsService();
                 gmapServices.initializeDirectionsRenderer({draggable: false});
 
                 calculateAndDisplayRoute(transaction.start_point_latlng, transaction.end_point_latlng);
-            } else if (_.isEmpty(transaction.start_point_latlng) && !_.isEmpty(transaction.end_point_latlng)) {
+            } else if (!transaction.start_point_latlng && transaction.end_point_latlng) {
                 // show marker
+                if (transactionMarkerItem) {
+                    transactionMarkerItem.setMap(null);
+                    transactionMarkerItem = null;
+                }
+
+                transactionMarkerItem = createMarker(transaction.end_point_latlng, transaction.type);
+                transactionMarkerItem.setMap(gmapServices.map);
+
+                gmapServices.setZoomIfGreater(15);
+                gmapServices.panTo(transaction.end_point_latlng);
             }
         }
 
