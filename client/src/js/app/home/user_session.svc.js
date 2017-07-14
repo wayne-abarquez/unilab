@@ -8,11 +8,28 @@ angular.module('demoApp.home')
         var service = {};
 
         // user details
-        var USER = 'USER';
+        var USER = 'USER',
+            FRAUD_DATA = 'FRAUD_DATA'
 
         service.userLogin = userLogin;
         service.userLogout = userLogout;
         service.getUserInfo = getUserInfo;
+        service.saveFraudData = saveFraudData;
+        service.getFraudData = getFraudData;
+
+
+        function saveFraudData (data) {
+            if (!localStorageService.isSupported) return;
+
+            localStorageService.set(FRAUD_DATA, data);
+        }
+
+        function getFraudData () {
+            if (!localStorageService.isSupported) return;
+
+            return localStorageService.get(FRAUD_DATA);
+        }
+
 
         function userLogin () {
             if (!localStorageService.isSupported) return;
