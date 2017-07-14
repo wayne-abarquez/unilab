@@ -22,10 +22,9 @@
         </div>
     </md-toolbar>
 
-    <md-dialog-content flex>
-        <div class="md-dialog-content">
+    <md-dialog-content layout="column" flex="100">
 
-            <md-tabs md-border-bottom>
+            <md-tabs layout-fill md-border-bottom>
 
                 <md-tab label="Consolidated Data">
                     <md-content class="md-padding" id="consolidate-container">
@@ -38,12 +37,13 @@
                 </md-tab>
             </md-tabs>
 
-        </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row" layout-align="end center" flex>
         <md-button ng-click="vm.viewOnMap()" md-autofocus>
-            View on Map
+            <md-progress-circular md-mode="indeterminate" ng-show="vm.showOnMapIsLoading"></md-progress-circular>
+            <span ng-hide="vm.showOnMapIsLoading">View on Map</span>
+
         </md-button>
     </md-dialog-actions>
 

@@ -35,7 +35,10 @@ angular.module('demoApp.fraud')
                     console.log('successfully uploaded employee data: ', response);
                     alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
                     $timeout(function(){
-                        modalServices.showFraudResult();
+                        modalServices.showFraudResult()
+                            .then(function(datalist){
+                               vm.frauds = fraudService.showFraudDataOnMap(datalist);
+                            });
                     }, 1000);
                 }, function (error) {
                     console.log('error on uploading employee data: ', error);
@@ -48,7 +51,7 @@ angular.module('demoApp.fraud')
         }
 
         function showFraudDetail(item) {
-            console.log('showFraudDetail', item);
+            fraudService.showMarker(item.id);
         }
     }
 }());

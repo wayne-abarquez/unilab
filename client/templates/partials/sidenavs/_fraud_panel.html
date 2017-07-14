@@ -49,15 +49,15 @@
                 </form>
 
                 <md-list>
-                    <md-list-item ng-repeat="item in vm.frauds | filter: vm.filter.q"
+                    <md-list-item ng-repeat="item in vm.frauds | filter: {data: {merchant_name: vm.filter.q}}"
                                   class="md-3-line"
                                   id="fraud-{{item.id}}"
                                   ng-click="vm.showFraudDetail(item);$event.stopPropagation()">
                         <md-icon class="md-avatar-icon text-error">warning</md-icon>
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{ item.user.lastname }}, {{ item.user.firstname }}</h3>
-                            <h4 am-time-ago="item.transaction_date | amParse:'YYYY.MM.DD HH:mm:ss'"></h4>
-                            <p>{{ item.type }}</p>
+                            <h3>{{ item.data.merchant_name}}</h3>
+                            <h4>{{ item.data.merchant_address }}</h4>
+                            <p>{{ item.data.type }}</p>
                         </div>
                     </md-list-item>
                 </md-list>

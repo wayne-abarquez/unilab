@@ -113,6 +113,8 @@
         service.removeListener = removeListener;
         service.trigger = trigger;
         service.showCurrentLocation = showCurrentLocation;
+        service.geocode = geocode;
+
         service.reverseGeocode = reverseGeocode;
         service.loadKMLByURL = loadKMLByURL;
         service.initMapClusterer = initMapClusterer;
@@ -302,9 +304,14 @@
             return new google.maps.LatLng(latitude, longitude);
         }
 
-        function createInfoWindow(content) {
+        function createInfoWindow(content, additionalOptions) {
             if (!service.apiAvailable()) return null;
-            return new google.maps.InfoWindow({content: content});
+
+            var opt = {content: content};
+
+            if (additionalOptions) angular.merge(opt, additionalOptions);
+
+            return new google.maps.InfoWindow(opt);
         }
 
         function createCanvasInfoWindow() {
@@ -798,6 +805,31 @@
             return service.createCustomMarker(_latLng, icon, {draggable: isDraggable});
         }
 
+        function geocode(address) {
+            if (!service.geocoder) {
+                initializeGeocoder();
+            }
+
+            var dfd = $q.defer();
+
+            service.geocoder.geocode({
+                'address': address,
+                componentRestrictions: {
+                    country: 'PH'
+                }
+            }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    dfd.resolve(results);
+                } else {
+                    var error = "Geocoder failed due to: " + status;
+                    $log.error(error);
+                    dfd.reject(error);
+                }
+            });
+
+            return dfd.promise;
+        }
+
         function reverseGeocode(latLng) {
             if (!service.geocoder) {
                 initializeGeocoder();
@@ -805,7 +837,9 @@
 
             var dfd = $q.defer();
 
-            service.geocoder.geocode({'latLng': latLng}, function (results, status) {
+            service.geocoder.geocode({
+                'latLng': latLng
+            }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     dfd.resolve(results);
                 } else {
