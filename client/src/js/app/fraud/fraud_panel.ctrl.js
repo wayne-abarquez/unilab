@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService) {
         var vm = this;
 
         vm.uploadHasResponse = true;
@@ -16,7 +16,11 @@ angular.module('demoApp.fraud')
         initialize();
 
         function initialize () {
-
+            var fraudData = userSessionService.getFraudData();
+            console.log('fraudData: ', fraudData);
+            if (fraudData) {
+                vm.frauds = fraudService.showFraudDataOnMap(fraudData);
+            }
         }
 
         function uploadFraudData(file, errFiles, event) {

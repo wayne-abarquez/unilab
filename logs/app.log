@@ -106,3 +106,5 @@
 2017-07-17 11:22:02,643 INFO - services.py upload_fraud_data: FINISH!
 2017-07-17 11:22:03,105 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_fleet
 2017-07-17 11:22:03,203 INFO - services.py upload_fraud_data: FINISH!
+2017-07-17 11:24:48,809 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-17 11:24:50,692 INFO - run.py <module>: Starting app
