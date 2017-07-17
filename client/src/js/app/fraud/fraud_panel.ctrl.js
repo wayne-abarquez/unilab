@@ -30,24 +30,30 @@ angular.module('demoApp.fraud')
             }
 
             vm.uploadHasResponse = false;
-            fraudService.uploadEmployeeData(file)
-                .then(function (response) {
-                    console.log('successfully uploaded employee data: ', response);
-                    alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
-                    $timeout(function(){
-                        modalServices.showFraudResult()
-                            .then(function(datalist){
-                               vm.frauds = fraudService.showFraudDataOnMap(datalist);
-                            });
-                    }, 1000);
-                }, function (error) {
-                    console.log('error on uploading employee data: ', error);
-                })
-                .finally(function () {
-                    $timeout(function () {
-                        vm.uploadHasResponse = true;
-                    }, 1000);
-                });
+            //fraudService.uploadEmployeeData(file)
+            //    .then(function (response) {
+            //        console.log('successfully uploaded employee data: ', response);
+            $timeout(function(){
+
+                vm.uploadHasResponse = true;
+
+                alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
+                $timeout(function () {
+                    modalServices.showFraudResult()
+                        .then(function (datalist) {
+                            vm.frauds = fraudService.showFraudDataOnMap(datalist);
+                        });
+                }, 1500);
+            }, 3000);
+
+                //}, function (error) {
+                //    console.log('error on uploading employee data: ', error);
+                //})
+                //.finally(function () {
+                //    $timeout(function () {
+                //        vm.uploadHasResponse = true;
+                //    }, 1000);
+                //});
         }
 
         function showFraudDetail(item) {
