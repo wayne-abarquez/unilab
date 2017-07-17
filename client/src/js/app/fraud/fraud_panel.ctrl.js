@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService) {
         var vm = this;
 
         vm.uploadHasResponse = true;
@@ -16,7 +16,11 @@ angular.module('demoApp.fraud')
         initialize();
 
         function initialize () {
-
+            var fraudData = userSessionService.getFraudData();
+            console.log('fraudData: ', fraudData);
+            if (fraudData) {
+                vm.frauds = fraudService.showFraudDataOnMap(fraudData);
+            }
         }
 
         function uploadFraudData(file, errFiles, event) {
@@ -30,24 +34,30 @@ angular.module('demoApp.fraud')
             }
 
             vm.uploadHasResponse = false;
-            fraudService.uploadEmployeeData(file)
-                .then(function (response) {
-                    console.log('successfully uploaded employee data: ', response);
-                    alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
-                    $timeout(function(){
-                        modalServices.showFraudResult()
-                            .then(function(datalist){
-                               vm.frauds = fraudService.showFraudDataOnMap(datalist);
-                            });
-                    }, 1000);
-                }, function (error) {
-                    console.log('error on uploading employee data: ', error);
-                })
-                .finally(function () {
-                    $timeout(function () {
-                        vm.uploadHasResponse = true;
-                    }, 1000);
-                });
+            //fraudService.uploadEmployeeData(file)
+            //    .then(function (response) {
+            //        console.log('successfully uploaded employee data: ', response);
+            $timeout(function(){
+
+                vm.uploadHasResponse = true;
+
+                alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
+                $timeout(function () {
+                    modalServices.showFraudResult()
+                        .then(function (datalist) {
+                            vm.frauds = fraudService.showFraudDataOnMap(datalist);
+                        });
+                }, 1500);
+            }, 3000);
+
+                //}, function (error) {
+                //    console.log('error on uploading employee data: ', error);
+                //})
+                //.finally(function () {
+                //    $timeout(function () {
+                //        vm.uploadHasResponse = true;
+                //    }, 1000);
+                //});
         }
 
         function showFraudDetail(item) {
