@@ -1,0 +1,66 @@
+{% raw %}
+<section class="sidenav-container"
+         id="product-saturation-panel"
+         ng-controller="productSatPanelController as vm"
+         layout="row"
+         flex="20"
+         ng-hide="hasOpenedModal"
+         ng-cloak>
+
+    <md-sidenav class="md-sidenav-right md-sidenav"
+                md-component-id="productSatPanelSidenav"
+                md-disable-backdrop
+                md-is-locked-open="$mdMedia('gt-xs')"
+                md-whiteframe="4"
+                flex>
+
+        <!-- PRIMARY TOOLBAR -->
+        <md-toolbar class="main-toolbar">
+            <div class="md-toolbar-tools">
+                <span>
+                    <h4>
+                        <md-icon>assessment</md-icon>
+                        Product Saturation
+                    </h4>
+                </span>
+                <span flex></span>
+
+                <md-button ng-click="vm.newProduct($event)"
+                           class="md-fab sidenav-primary-button">
+                    <md-tooltip md-direction="top">Add New Product</md-tooltip>
+                    <md-icon>add</md-icon>
+                </md-button>
+
+            </div>
+        </md-toolbar>
+
+        <!-- Branch Product List -->
+        <md-content class="fraud-list-content" layout="column" flex>
+            <div>
+                <form class="filter-form">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="text"
+                               placeholder="Search"
+                               ng-model="vm.filter.q">
+                    </md-input-container>
+                </form>
+
+                <md-list>
+                    <md-list-item ng-repeat="item in vm.frauds | filter: {data: {merchant_name: vm.filter.q}}"
+                                  class="md-3-line"
+                                  id="fraud-{{item.id}}"
+                                  ng-click="vm.showFraudDetail(item);$event.stopPropagation()">
+                        <md-icon class="md-avatar-icon text-error">warning</md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ item.data.merchant_name}}</h3>
+                            <h4>{{ item.data.merchant_address }}</h4>
+                            <p>{{ item.data.type }}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-content>
+
+    </md-sidenav>
+</section>
+{% endraw %}

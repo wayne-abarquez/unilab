@@ -11,13 +11,15 @@
 
         var newTransactionModal,
             mapPlotOptionsModal,
-            fraudTableModal;
+            fraudTableModal,
+            newProductModal;
 
         /* Service Functions */
         service.showNewBranchForm = showNewBranchForm;
         service.showNewTransactionForm = showNewTransactionForm;
         service.showMapPlotOptions = showMapPlotOptions;
         service.showFraudResult = showFraudResult;
+        service.showNewProductForm  = showNewProductForm;
         //service.showProjectDetail = showProjectDetail;
         service.hideResolveModal = hideResolveModal;
         service.closeModal = closeModal;
@@ -101,30 +103,31 @@
                 parent: angular.element(document.querySelector('#fraud-container')),
                 locals: {data: data},
                 targetEvent: ev,
-                fullscreen: $mdMedia('lg'),
-                onComplete: function (scope, element, options) {
-                    $('.md-scroll-mask').css('z-index', '-1');
-                }
+                fullscreen: $mdMedia('lg')
+                //onComplete: function (scope, element, options) {
+                //    $('.md-scroll-mask').css('z-index', '-1');
+                //}
             };
 
             return showModal(fraudTableModal, opts);
         }
 
-        //function showProjectDetail(proj) {
-        //    var opts = {
-        //        controller: 'projectDetailsController',
-        //        controllerAs: 'vm',
-        //        templateUrl: '/partials/modals/_view-project.tmpl.html',
-        //        parent: angular.element(document.querySelector('#admin-container')),
-        //        hasBackdrop: false,
-        //        locals: {project: proj},
-        //        fullscreen: $mdMedia('xs'),
-        //        onComplete: function (scope, element, options) {
-        //            $('.md-scroll-mask').css('z-index', '-1');
-        //        }
-        //    };
-        //    return showModal(projectDetailModal, opts);
-        //}
+        function showNewProductForm(ev) {
+            var opts = {
+                controller: 'newProductController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_new_product.html',
+                parent: angular.element(document.querySelector('#product-saturation-container')),
+                targetEvent: ev,
+                hasBackdrop: true,
+                fullscreen: customFullscreen
+                //onComplete: function (scope, element, options) {
+                //    $('.md-scroll-mask').css('z-index', '-1');
+                //}
+            };
+
+            return showModal(newProductModal, opts);
+        }
 
         function hideResolveModal(response) {
             $rootScope.$broadcast("modal-closed");

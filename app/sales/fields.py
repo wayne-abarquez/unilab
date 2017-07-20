@@ -32,6 +32,12 @@ product_fields = dict(
     remarks=fields.String
 )
 
+product_create_fields = dict(
+    status=fields.String,
+    message=fields.String,
+    product=fields.Nested(product_fields, allow_null=False)
+)
+
 branch_product_fields = dict(
     id=fields.Integer,
     branchid=fields.Integer,

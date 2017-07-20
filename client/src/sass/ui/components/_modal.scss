@@ -27,6 +27,16 @@
   }
 }
 
+.error-container {
+  > div {
+    color: rgb(221, 44, 0);
+    font-size: 12px;
+    line-height: 14px;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 5px;
+  }
+}
 
 .stick-right-modal {
   top: 0px;

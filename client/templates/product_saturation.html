@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% raw %}
+    <div id="product-saturation-container" layout="row" ng-controller="productSaturationPageController as psPageCtl">
+        <!-- map canvas dimensions will be computed during map initialization -->
+        <div id="map-canvas" flex-gt-xs="{{ hasOpenedModal ? 100 : 80 }}" flex="100"></div>
+    {% endraw %}
+        {% include "partials/sidenavs/_product_saturation_panel.html" %}
+    </div>
+
+    <script src="js/vendor.min.js"></script>
+    <script src="js/app.min.js"></script>
+{% endblock %}

@@ -19,7 +19,8 @@ google.load('visualization', '1', {
             'demoApp.home',
             'demoApp.admin',
             'demoApp.sales',
-            'demoApp.fraud'
+            'demoApp.fraud',
+            'demoApp.productSaturation'
         ])
 
         .constant('APP_NAME', 'UNILAB')
