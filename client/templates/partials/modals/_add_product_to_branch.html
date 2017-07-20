@@ -4,22 +4,54 @@
         <div class="md-toolbar-tools">
             <h2>Add Product</h2>
             <span flex></span>
-            <h3>{{ vm.branch.name }}</h3>
+            <p>{{ vm.branch.name }}</p>
         </div>
     </md-toolbar>
 
     <md-dialog-content>
-        <md-content layout-padding>
 
-            <md-input-container flex>
+        <div layout="row" flex="100" layout-padding>
+            <md-input-container md-no-float flex="70" layout-margin>
+                <input type="text"
+                       placeholder="Filter by"
+                       ng-change="vm.filterChanged()"
+                       ng-model="vm.filter.q"/>
+            </md-input-container>
+
+            <md-input-container flex style="height:30px;margin:0.5rem;">
                 <md-select ng-model="vm.filterType">
                     <md-option ng-repeat="type in vm.productTypes" value="{{ type }}">
                         {{ type | uppercase }}
                     </md-option>
                 </md-select>
             </md-input-container>
+        </div>
 
-        </md-content>
+
+        <table md-table>
+            <thead>
+                <tr>
+                    <th ng-repeat="data in vm.tableHeading">{{data | uppercase}}</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row ng-repeat="item in vm.products track by $index"
+                ng-class="{'added': item.added}"
+                data-product-id="{{ item.id }}">
+                <td md-cell>{{item.name}}</td>
+                <td md-cell>{{ item.type }}</td>
+                <td md-cell>{{ item.cost | currency:"PHP ":2}}</td>
+                <td md-cell>{{ item.remarks }}</td>
+                <td md-cell>
+                    <md-button class="md-icon-button" ng-click="vm.addProduct(item)">
+                        <md-icon ng-if="!item.added">add_shopping_cart</md-icon>
+                        <md-icon ng-if="item.added">remove_shopping_cart</md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
     </md-dialog-content>
 
     <md-dialog-actions>

@@ -9,8 +9,22 @@ angular.module('demoApp.productSaturation')
 
         service.products = [];
 
+        service.getProducts = getProducts;
         service.getProductTypes = getProductTypes;
         service.saveProduct = saveProduct;
+
+        function getProducts () {
+            var dfd = $q.defer();
+
+            Product.getList()
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
 
         function getProductTypes () {
             var dfd = $q.defer();
