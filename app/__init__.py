@@ -68,3 +68,7 @@ app.register_blueprint(sls_bp)
 # Register Fraud Detection Blueprint
 from .fraud import fraud as fr_bp
 app.register_blueprint(fr_bp)
+
+# Register Product Saturation Blueprint
+from .product_saturation import product_saturation as ps_bp
+app.register_blueprint(ps_bp)

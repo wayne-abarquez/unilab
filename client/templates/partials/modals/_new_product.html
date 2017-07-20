@@ -1,0 +1,76 @@
+<md-dialog class="md-whiteframe-3dp" flex="50">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>New Product</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <form name="vm.form">
+            <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding flex>
+                    <div layout="row" flex>
+                        <md-input-container flex>
+                            <label>Name</label>
+                            <input type="text" name="name" ng-model="vm.product.name" required>
+                            <div ng-messages="vm.form.name.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Type</label>
+                            <md-select name="type" ng-model="vm.product.type" required>
+                                <md-option ng-repeat="type in vm.productTypes" value="{{type}}">
+                                    {{ type | uppercase }}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="vm.form.type.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+            </md-content>
+
+            <md-content class="main-form" layout-padding>
+                <div layout-gt-sm="row" flex>
+                    <md-input-container class="md-block" flex>
+                        <label>Cost</label>
+                        <input type="number" name="cost" ng-model="vm.product.cost" required>
+                        <div ng-messages="vm.form.cost.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="date-picker-field-group" flex-gt-xs>
+                        <sm-date-time-picker
+                                fname="field"
+                                label="Date Ordered"
+                                ng-model="vm.product.date_released"
+                                flex="50"
+                                flex-sm="100"
+                                flex-xs="100"
+                                is-required="true"
+                                format="YYYY-MM-DD HH:mm:ss"
+                                mode="date-time"
+                                max-date="vm.maxDate"
+                                week-start-day="Monday">
+                        </sm-date-time-picker>
+                    </div>
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Remarks</label>
+                    <textarea ng-model="vm.product.remarks" name="remarks" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </md-content>
+        </form>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        <md-button class="md-raised" ng-click="vm.close()">Cancel</md-button>
+    </md-dialog-actions>
+
+</md-dialog>

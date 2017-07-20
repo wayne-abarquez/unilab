@@ -11,8 +11,14 @@ angular.module('demoApp')
         service.showFormErrors = showFormErrors;
         service.getFormattedErrors = getFormattedErrors;
 
-        function getDateFormatted(date) {
-            return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+        function getDateFormatted(date, withTime) {
+            var dateStr = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+            //if (withTime) {
+            //
+            //}
+
+            return dateStr;
         }
 
         // ex param. vm.form.$error

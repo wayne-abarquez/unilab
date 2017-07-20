@@ -1,4 +1,4 @@
-from app import db, app
+from app import db
 from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary
 from sqlalchemy import select, func, desc
