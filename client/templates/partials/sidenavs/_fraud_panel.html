@@ -24,6 +24,14 @@
                     </h4>
                 </span>
                 <span flex></span>
+
+                <md-button ng-click="vm.showFraudTransactions()"
+                           class="md-fab sidenav-primary-button">
+                    <md-tooltip ng-show="vm.uploadHasResponse" md-direction="top">Show Fraud Transactions</md-tooltip>
+                    <md-icon>assignment_late</md-icon>
+                </md-button>
+
+                <!--
                 <md-button ng-disabled="!vm.uploadHasResponse"
                            class="md-fab sidenav-primary-button"
                            type="file"
@@ -34,6 +42,7 @@
                     </md-tooltip>
                     <md-icon ng-show="vm.uploadHasResponse">file_upload</md-icon>
                 </md-button>
+                -->
             </div>
         </md-toolbar>
 

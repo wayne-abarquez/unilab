@@ -108,3 +108,61 @@
 2017-07-17 11:22:03,203 INFO - services.py upload_fraud_data: FINISH!
 2017-07-17 11:24:48,809 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-07-17 11:24:50,692 INFO - run.py <module>: Starting app
+2017-07-19 15:31:45,966 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:31:48,027 INFO - run.py <module>: Starting app
+2017-07-19 15:37:17,459 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:37:17,898 INFO - run.py <module>: Starting app
+2017-07-19 15:37:52,845 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:37:53,147 INFO - run.py <module>: Starting app
+2017-07-19 15:40:17,484 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:40:17,759 INFO - run.py <module>: Starting app
+2017-07-19 15:41:17,531 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:41:17,809 INFO - run.py <module>: Starting app
+2017-07-19 15:43:23,941 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:43:24,219 INFO - run.py <module>: Starting app
+2017-07-19 15:44:34,624 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:44:35,211 INFO - run.py <module>: Starting app
+2017-07-19 15:44:52,174 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:44:52,510 INFO - run.py <module>: Starting app
+2017-07-19 15:45:19,815 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:45:20,192 INFO - run.py <module>: Starting app
+2017-07-19 15:45:54,521 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:45:54,931 INFO - run.py <module>: Starting app
+2017-07-19 15:46:12,910 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:46:13,188 INFO - run.py <module>: Starting app
+2017-07-19 15:46:35,944 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:46:36,724 INFO - run.py <module>: Starting app
+2017-07-19 15:47:11,070 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:47:11,342 INFO - run.py <module>: Starting app
+2017-07-19 15:50:17,575 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:50:17,855 INFO - run.py <module>: Starting app
+2017-07-19 15:50:58,621 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:50:58,886 INFO - run.py <module>: Starting app
+2017-07-19 15:52:13,968 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:52:14,245 INFO - run.py <module>: Starting app
+2017-07-19 15:52:39,538 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:52:39,795 INFO - run.py <module>: Starting app
+2017-07-19 15:53:27,235 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:53:27,549 INFO - run.py <module>: Starting app
+2017-07-19 15:55:57,483 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:55:57,762 INFO - run.py <module>: Starting app
+2017-07-19 15:57:30,915 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:57:31,190 INFO - run.py <module>: Starting app
+2017-07-19 15:58:28,175 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 15:58:28,451 INFO - run.py <module>: Starting app
+2017-07-19 16:00:44,129 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:03:06,746 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:03:07,021 INFO - run.py <module>: Starting app
+2017-07-19 16:04:09,046 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:04:09,346 INFO - run.py <module>: Starting app
+2017-07-19 16:05:37,722 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:05:37,993 INFO - run.py <module>: Starting app
+2017-07-19 16:06:56,542 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:06:56,809 INFO - run.py <module>: Starting app
+2017-07-19 16:07:32,198 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:07:32,484 INFO - run.py <module>: Starting app
+2017-07-19 16:07:47,666 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-19 16:07:47,950 INFO - run.py <module>: Starting app
+2017-07-20 10:45:15,146 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-20 10:45:27,859 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-20 10:45:29,624 INFO - run.py <module>: Starting app
