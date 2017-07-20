@@ -20,7 +20,7 @@ angular.module('demoApp.fraud')
         initialize();
 
         function initialize () {
-            console.log('fraudReportTableController data: ',data);
+            //console.log('fraudReportTableController data: ',data);
 
             drawConsolidateData();
             drawExceptions();
@@ -55,7 +55,7 @@ angular.module('demoApp.fraud')
                     interval = null;
                     dfd.resolve(list);
                 }
-            }, 100);
+            }, 250);
 
 
             return dfd.promise;
@@ -140,20 +140,19 @@ angular.module('demoApp.fraud')
                 var data = handleQueryResponse(response, 'exceptions-container');
                 exceptionColumns = getColumnNames(data.Mf);
                 exceptionData = extractData(data.Nf);
-
-                console.log('exception data: ',exceptionData);
+                //console.log('exception data: ',exceptionData);
             });
         }
 
         function handleQueryResponse(response, elementId) {
-            console.log('handleQueryResponse '+elementId,response);
+            //console.log('handleQueryResponse '+elementId,response);
             if (response.isError()) {
                 alert('There was a problem with your query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
                 return;
             }
 
             var data = response.getDataTable();
-            console.log('data table: ',data);
+            //console.log('data table: ',data);
 
             visualization = new google.visualization.Table(document.getElementById(elementId));
             visualization.draw(data, {

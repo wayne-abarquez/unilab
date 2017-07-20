@@ -12,15 +12,24 @@ angular.module('demoApp.fraud')
 
         vm.uploadFraudData = uploadFraudData;
         vm.showFraudDetail = showFraudDetail;
+        vm.showFraudTransactions = showFraudTransactions;
 
         initialize();
 
         function initialize () {
             var fraudData = userSessionService.getFraudData();
-            console.log('fraudData: ', fraudData);
+            //console.log('fraudData: ', fraudData);
+
             if (fraudData) {
                 vm.frauds = fraudService.showFraudDataOnMap(fraudData);
             }
+        }
+
+        function showFraudTransactions () {
+            modalServices.showFraudResult()
+                .then(function (datalist) {
+                    vm.frauds = fraudService.showFraudDataOnMap(datalist);
+                });
         }
 
         function uploadFraudData(file, errFiles, event) {
