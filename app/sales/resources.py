@@ -4,7 +4,8 @@ from app.fields import success_fields
 from .forms import AddBranchForm, AddSalesTransactionForm
 from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
-    get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions
+    get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
+    get_branches_by_filter
 from flask import request
 from flask_login import current_user
 import logging
@@ -20,6 +21,18 @@ class BranchResource(Resource):
     @marshal_with(branch_fields)
     def get(self):
         """ GET /branches"""
+
+        name = request.args['name'] if 'name' in request.args else None
+        boundary_name = request.args['boundary_name'] if 'boundary_name' in request.args else None
+        territory = request.args['boundary_name'] if 'boundary_name' in request.args else None
+
+        if 'name' in request.args:
+            return get_branches_by_filter(request.args['name'], 'name')
+        elif 'boundary_name' in request.args:
+            return get_branches_by_filter(request.args['boundary_name'], 'boundary_name')
+        elif 'territory' in request.args:
+            return get_branches_by_filter(request.args['territory'], 'territory')
+
         bounds = request.args['bounds'] if 'bounds' in request.args else None
 
         return get_branches_by_boundary(bounds)

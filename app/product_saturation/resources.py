@@ -1,9 +1,9 @@
 from flask.ext.restful import Resource, abort, marshal_with, marshal
 from .fields import product_type_fields
-from app.sales.fields import product_create_fields
+from app.sales.fields import product_create_fields, product_fields
 from app import rest_api
 from flask import request
-from .services import get_product_distinct_types, create_product
+from .services import get_product_distinct_types, create_product, get_products
 import logging
 
 log = logging.getLogger(__name__)
@@ -23,6 +23,10 @@ class ProductResource(Resource):
     """
     Resource for getting all Product
     """
+
+    @marshal_with(product_fields)
+    def get(self):
+        return get_products()
 
     def post(self):
         form_data = request.json

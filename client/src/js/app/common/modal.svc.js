@@ -12,7 +12,8 @@
         var newTransactionModal,
             mapPlotOptionsModal,
             fraudTableModal,
-            newProductModal;
+            newProductModal,
+            addProductToBranchModal;
 
         /* Service Functions */
         service.showNewBranchForm = showNewBranchForm;
@@ -20,7 +21,7 @@
         service.showMapPlotOptions = showMapPlotOptions;
         service.showFraudResult = showFraudResult;
         service.showNewProductForm  = showNewProductForm;
-        //service.showProjectDetail = showProjectDetail;
+        service.showAddProductToBranch = showAddProductToBranch;
         service.hideResolveModal = hideResolveModal;
         service.closeModal = closeModal;
 
@@ -121,12 +122,23 @@
                 targetEvent: ev,
                 hasBackdrop: true,
                 fullscreen: customFullscreen
-                //onComplete: function (scope, element, options) {
-                //    $('.md-scroll-mask').css('z-index', '-1');
-                //}
             };
 
             return showModal(newProductModal, opts);
+        }
+
+        function showAddProductToBranch (branch) {
+            var opts = {
+                controller: 'addProductToBranchController',
+                controllerAs: 'vm',
+                templateUrl: '/partials/modals/_add_product_to_branch.html',
+                parent: angular.element(document.querySelector('#product-saturation-container')),
+                locals: {branch: branch},
+                hasBackdrop: true,
+                fullscreen: customFullscreen
+            };
+
+            return showModal(addProductToBranchModal, opts);
         }
 
         function hideResolveModal(response) {

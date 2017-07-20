@@ -12,9 +12,18 @@
   .fraud-list-content {
 
     form.filter-form {
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem 0.25rem;
+
       md-input-container {
         margin: 0 !important;
         height: 30px;
+      }
+
+      md-select {
+        margin: 0;
+        padding-top: 0.15rem;
       }
     }
 

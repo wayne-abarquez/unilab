@@ -77,3 +77,11 @@ md-menu-content {
 .virtualRepeatdemoDeferredLoading .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
   padding-left: 16px;
 }
+
+.added {
+  background-color: rgba(0, 0, 0, 0.1);
+
+  td {
+    color: rgba(0, 0, 0, 0.1);
+  }
+}

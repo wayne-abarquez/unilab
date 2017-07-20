@@ -34,10 +34,18 @@ angular.module('demoApp.home')
         service.clearAnimationMarker = clearAnimationMarker;
         service.deleteBranch = deleteBranch;
         service.newBranch = newBranch;
-        //service.closeInfoWindowById = closeInfoWindowById;
+        service.triggerClickBranch = triggerClickBranch;
+
+        function triggerClickBranch (branchId) {
+            var marker = getBranchById(branchId);
+
+            if (!marker) return;
+
+            gmapServices.trigger(marker, 'click');
+        }
 
         // add to markers
-        function newBranch (item) {
+        function newBranch (item, isProductSaturation) {
             var marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type), {zIndex: 1});
 
             marker.content = '<div>';
@@ -47,8 +55,13 @@ angular.module('demoApp.home')
             marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
 
             if ($rootScope.currentUser.role === 'ADMIN') {
-                marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Edit</button>';
-                marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Delete</button>';
+                marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Edit</button>';
+
+                if (isProductSaturation) {
+                    marker.content += '<button id="add-product-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-accent">Add Product</button>';
+                }
+
+                marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
             }
 
             marker.content += '</div>';
@@ -96,7 +109,7 @@ angular.module('demoApp.home')
             return iconBaseUrl + branchIcons[type.toLowerCase()];
         }
 
-        function loadMarkers (list) {
+        function loadMarkers (list, isProductSaturation) {
 
             hideMarkers();
 
@@ -105,12 +118,10 @@ angular.module('demoApp.home')
             if (!branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
             list.forEach(function (item) {
-                newBranch(item);
+                newBranch(item, isProductSaturation);
             });
 
             $rootScope.$broadcast('compile-map-legend', {type: 'branches', data: getMapLegendData(list)});
-
-            console.log('branch markers loaded');
         }
 
         function getMapLegendData (list) {
@@ -134,6 +145,8 @@ angular.module('demoApp.home')
             branchMarkers.forEach(function (marker) {
                 if (marker && marker.getVisible()) marker.setVisible(false);
             });
+
+            if (branchInfowindow) branchInfowindow.close();
         }
 
         function toggle () {

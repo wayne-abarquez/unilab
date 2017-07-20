@@ -15,3 +15,7 @@ def create_product(data):
     db.session.commit()
 
     return obj
+
+
+def get_products():
+    return Product.query.all()
