@@ -37,6 +37,7 @@ class Product(BaseModel):
     type = db.Column(db.String(50))
     cost = db.Column(db.Numeric)
     remarks = db.Column(db.Text)
+    unit_of_measure = db.Column(db.String(50), default='PCS')
     date_released = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 
@@ -44,7 +45,6 @@ class BranchProduct(BaseModel):
     branchid = db.Column(db.Integer, db.ForeignKey('branch.id'), nullable=False)
     productid = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     qty_released = db.Column(db.Float)
-    unit_of_measure = db.Column(db.String(50))
     date_released = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     branch = db.relationship(Branch, backref=db.backref('products', cascade="all, delete-orphan"), lazy='joined')

@@ -5,7 +5,7 @@ from .forms import AddBranchForm, AddSalesTransactionForm
 from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
-    get_branches_by_filter
+    get_branches_by_filter, add_products_to_branch
 from flask import request
 from flask_login import current_user
 import logging
@@ -76,15 +76,23 @@ class BranchProductResource(Resource):
     Resource for getting all products for Branch
     """
 
+    def post(self, branchid):
+        form_data = request.json
+
+        log.debug("Add Products to Branch id = {0}".format(branchid, form_data))
+
+        if 'products' in form_data and 'date_released' in form_data:
+            add_products_to_branch(branchid, form_data)
+            return marshal(dict(status=200, message="OK"), success_fields)
+        else:
+            abort(400, message="Invalid Parameters")
+
     @marshal_with(branch_product_fields)
     def get(self, branchid):
         """ GET /branches/<branchid>/products """
         # TODO check authenticated user
         # TODO: Handle logins for 401s and get_solars_for_user
-        # log.debug("Boundary id = {0} Branches = {1}".format(boundaryid, branches))
         prods = get_products_by_branch(branchid)
-
-        print prods
 
         return prods
 

@@ -29,6 +29,7 @@ product_fields = dict(
     name=fields.String,
     type=fields.String,
     cost=fields.Float,
+    unit_of_measure=fields.String,
     remarks=fields.String
 )
 
