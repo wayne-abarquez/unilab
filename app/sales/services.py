@@ -204,3 +204,15 @@ def get_user_sales_transactions(userid, limit=None):
 #     .filter(Transaction.userid == userid) \
 #     .order_by(desc(Transaction.transaction_date)) \
 #     .all()
+
+
+def add_products_to_branch(branchid, data):
+    products = []
+    date_released = data['date_released']
+
+    for productid in data['products']:
+        datadict = {'branchid': branchid, 'productid': productid, 'date_released': date_released}
+        products.append(BranchProduct.from_dict(datadict))
+
+    db.session.add_all(products)
+    db.session.commit()

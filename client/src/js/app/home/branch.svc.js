@@ -52,16 +52,17 @@ angular.module('demoApp.home')
             marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
             marker.content += '<h4 class="no-margin text-muted padding-left-5">' + item.type + '</h4>';
 
-            marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
+            if (!isProductSaturation) marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
 
             if ($rootScope.currentUser.role === 'ADMIN') {
-                marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Edit</button>';
-
                 if (isProductSaturation) {
                     marker.content += '<button id="add-product-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-accent">Add Product</button>';
                 }
 
-                marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
+                if (!isProductSaturation) {
+                    marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Edit</button>';
+                    marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
+                }
             }
 
             marker.content += '</div>';

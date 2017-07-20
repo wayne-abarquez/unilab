@@ -2,18 +2,19 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('addProductToBranchController', ['branch', 'productSatService', 'modalServices', 'alertServices', addProductToBranchController]);
+    .controller('addProductToBranchController', ['branch', 'productSatService', 'modalServices', 'alertServices', 'Branch', 'formHelperService', addProductToBranchController]);
 
-    function addProductToBranchController (branch, productSatService, modalServices, alertServices) {
+    function addProductToBranchController (branch, productSatService, modalServices, alertServices, Branch, formHelperService) {
         var vm = this;
 
-        vm.tableHeading = ['name', 'type', 'cost', 'remarks'];
+        var branchRest;
 
+        vm.tableHeading = ['name', 'type', 'cost'];
+
+        vm.deliveryDate = null;
         vm.selectedProduct = [];
 
         vm.branch = {};
-
-        vm.productTypes = [''];
 
         vm.products = [];
 
@@ -26,18 +27,23 @@ angular.module('demoApp.productSaturation')
         function initialize () {
             vm.branch = angular.copy(branch);
 
-
-            productSatService.getProductTypes()
-                .then(function(types){
-                    vm.productTypes = vm.productTypes.concat(types);
-                });
-
             productSatService.getProducts()
                 .then(function(list){
-                    vm.products = angular.copy(list.map(function(item){
-                        item.added = false;
-                        return item;
-                    }));
+
+                    branchRest = Branch.cast(branch.id);
+
+                    branchRest.getList('products')
+                        .then(function (response) {
+                            var resp = response.plain();
+                            var productIds = _.pluck(resp, 'productid');
+
+                            vm.products = angular.copy(list.map(function (item) {
+                                item.added = productIds.indexOf(item.id) > -1;
+                                return item;
+                            }));
+
+                        });
+
                 });
         }
 
@@ -45,7 +51,8 @@ angular.module('demoApp.productSaturation')
             var index = vm.selectedProduct.indexOf(item.id);
 
             if (index > -1) {
-                vm.selectedProduct.splice(index, 1);
+                //vm.selectedProduct.splice(index, 1);
+                //item.added = false;
                 return;
             }
 
@@ -54,6 +61,19 @@ angular.module('demoApp.productSaturation')
         }
 
         function save() {
+            var data = {
+                'date_released': formHelperService.getDateFormatted(vm.deliveryDate),
+                'products': vm.selectedProduct
+            };
+
+            console.log('save: ',data);
+
+            branchRest.all('products').post(data)
+                .then(function(response){
+                    console.log('save products branch: ',response.plain());
+                    alertServices.showSuccess('Products added to Branch.');
+                    modalServices.hideResolveModal(response.plain());
+                });
         }
 
         function close() {

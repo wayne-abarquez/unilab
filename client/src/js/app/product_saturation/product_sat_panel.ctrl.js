@@ -108,7 +108,6 @@ angular.module('demoApp.productSaturation')
                 .withHttpConfig({timeout: aborts.promise})
                 .getList({name: vm.filter.q})
                 .then(function(response){
-                    console.log('response: ',response);
                     loadBranchList(response.plain());
                 })
                 .finally(function(){

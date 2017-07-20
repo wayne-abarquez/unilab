@@ -1,29 +1,24 @@
-<md-dialog class="md-whiteframe-3dp" flex="50">
+<md-dialog class="md-whiteframe-3dp" flex="50" style="max-height: 75%; overflow-x: hidden;">
 
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add Product</h2>
+            <div layout="column">
+                <h2>Add Product</h2>
+                <p style="margin: 0;font-size: 1rem;color: rgba(255,255,255,0.5);">{{ vm.branch.name }}</p>
+            </div>
             <span flex></span>
-            <p>{{ vm.branch.name }}</p>
+            <md-datepicker ng-model="vm.deliveryDate" md-placeholder="Delivery date" style="background-color: transparent;"></md-datepicker>
         </div>
     </md-toolbar>
 
     <md-dialog-content>
 
-        <div layout="row" flex="100" layout-padding>
-            <md-input-container md-no-float flex="70" layout-margin>
+        <div layout="row" flex="100" style="margin: 1rem 0;">
+            <md-input-container md-no-float flex layout-margin style="height:30px;">
                 <input type="text"
                        placeholder="Filter by"
                        ng-change="vm.filterChanged()"
                        ng-model="vm.filter.q"/>
-            </md-input-container>
-
-            <md-input-container flex style="height:30px;margin:0.5rem;">
-                <md-select ng-model="vm.filterType">
-                    <md-option ng-repeat="type in vm.productTypes" value="{{ type }}">
-                        {{ type | uppercase }}
-                    </md-option>
-                </md-select>
             </md-input-container>
         </div>
 
@@ -32,16 +27,16 @@
             <thead>
                 <tr>
                     <th ng-repeat="data in vm.tableHeading">{{data | uppercase}}</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody md-body>
-            <tr md-row ng-repeat="item in vm.products track by $index"
+            <tr md-row ng-repeat="item in vm.products | filter: {name: vm.filter.q}"
                 ng-class="{'added': item.added}"
                 data-product-id="{{ item.id }}">
                 <td md-cell>{{item.name}}</td>
-                <td md-cell>{{ item.type }}</td>
-                <td md-cell>{{ item.cost | currency:"PHP ":2}}</td>
-                <td md-cell>{{ item.remarks }}</td>
+                <td md-cell>{{ item.type | uppercase }}</td>
+                <td md-cell width="20%">{{ item.cost | currency:"PHP ":2}}</td>
                 <td md-cell>
                     <md-button class="md-icon-button" ng-click="vm.addProduct(item)">
                         <md-icon ng-if="!item.added">add_shopping_cart</md-icon>
@@ -55,7 +50,7 @@
     </md-dialog-content>
 
     <md-dialog-actions>
-        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="!vm.selectedProduct.length || !vm.deliveryDate">Save</md-button>
         <md-button class="md-raised" ng-click="vm.close()">Cancel</md-button>
     </md-dialog-actions>
 
