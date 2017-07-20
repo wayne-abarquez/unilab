@@ -36,25 +36,33 @@
 
         <!-- Branch Product List -->
         <md-content class="fraud-list-content" layout="column" flex>
-            <div>
-                <form class="filter-form">
-                    <md-input-container md-no-float class="md-block">
+            <div layout="column" layout-align="start center">
+                <form class="filter-form" layout="row" flex="100">
+                    <md-input-container md-no-float flex="50">
                         <input type="text"
-                               placeholder="Search"
-                               ng-model="vm.filter.q">
+                               placeholder="Filter by"
+                               ng-change="vm.filterChanged()"
+                               ng-model="vm.filter.q" />
                     </md-input-container>
+                    <md-select ng-model="vm.filter.selectedType" ng-change="vm.filterTypeChanged()" flex>
+                        <md-option ng-repeat="filter in vm.filter.types"
+                                  ng-value="filter.name">
+                            {{filter.name | uppercase}}
+                        </md-option>
+                    </md-select>
                 </form>
 
-                <md-list>
-                    <md-list-item ng-repeat="item in vm.frauds | filter: {data: {merchant_name: vm.filter.q}}"
-                                  class="md-3-line"
-                                  id="fraud-{{item.id}}"
-                                  ng-click="vm.showFraudDetail(item);$event.stopPropagation()">
-                        <md-icon class="md-avatar-icon text-error">warning</md-icon>
+                <md-progress-circular ng-hide="vm.dataIsLoaded" md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+
+                <md-list ng-show="vm.dataIsLoaded">
+                    <md-list-item ng-repeat="item in vm.list"
+                                  class="md-2-line"
+                                  id="{{item.id}}"
+                                  ng-click="vm.showBranch(item.id);$event.stopPropagation()">
+                        <md-icon class="md-avatar-icon text-info">home</md-icon>
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{ item.data.merchant_name}}</h3>
-                            <h4>{{ item.data.merchant_address }}</h4>
-                            <p>{{ item.data.type }}</p>
+                            <h4 flex>{{item.name}}</h4>
+                            <p>{{item.type}}</p>
                         </div>
                     </md-list-item>
                 </md-list>

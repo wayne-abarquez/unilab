@@ -1,0 +1,30 @@
+<md-dialog class="md-whiteframe-3dp" flex="50">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add Product</h2>
+            <span flex></span>
+            <h3>{{ vm.branch.name }}</h3>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <md-content layout-padding>
+
+            <md-input-container flex>
+                <md-select ng-model="vm.filterType">
+                    <md-option ng-repeat="type in vm.productTypes" value="{{ type }}">
+                        {{ type | uppercase }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+        </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+        <md-button class="md-raised" ng-click="vm.close()">Cancel</md-button>
+    </md-dialog-actions>
+
+</md-dialog>
