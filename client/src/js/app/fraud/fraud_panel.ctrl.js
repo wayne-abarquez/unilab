@@ -23,6 +23,10 @@ angular.module('demoApp.fraud')
             if (fraudData) {
                 vm.frauds = fraudService.showFraudDataOnMap(fraudData);
             }
+
+            $timeout(function(){
+                showFraudTransactions();
+            },0);
         }
 
         function showFraudTransactions () {
