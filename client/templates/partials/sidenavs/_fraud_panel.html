@@ -25,11 +25,35 @@
                 </span>
                 <span flex></span>
 
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
+                        <md-icon md-menu-origin>more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="vm.showFraudTransactions()">
+                                <md-icon>assignment_late</md-icon>
+                                Fraud Transaction Report
+                            </md-button>
+                        </md-menu-item>
+
+                        <md-menu-item>
+                            <md-button type="file"
+                                       ngf-pattern="'.xlsx,.xls'"
+                                       ngf-select="vm.uploadFraudData($file, $invalidFiles, $event)">
+                                <md-icon>file_upload</md-icon>
+                                Upload User Transactions
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <!--
                 <md-button ng-click="vm.showFraudTransactions()"
                            class="md-fab sidenav-primary-button">
                     <md-tooltip ng-show="vm.uploadHasResponse" md-direction="top">Show Fraud Transactions</md-tooltip>
                     <md-icon>assignment_late</md-icon>
                 </md-button>
+                -->
 
                 <!--
                 <md-button ng-disabled="!vm.uploadHasResponse"
@@ -48,15 +72,29 @@
 
         <!-- FRAUD LIST -->
         <md-content class="fraud-list-content" layout="column" flex>
-            <div>
-                <form class="filter-form">
+            <div layout="column" layout-align="start center">
+                <form class="filter-form" flex="100">
                     <md-input-container md-no-float class="md-block">
-                        <input type="text"
-                               placeholder="Search"
-                               ng-model="vm.filter.q">
+                        <input type="text" placeholder="Select Date here" ng-model="vm.selectedDate.formatted" ng-click="vm.pickDateRange($event, true)">
                     </md-input-container>
                 </form>
 
+                <md-progress-circular ng-hide="vm.dataIsLoaded" md-mode="indeterminate"
+                                      md-diameter="96"></md-progress-circular>
+
+                <md-list class="transaction-list" ng-show="vm.dataIsLoaded">
+                    <md-list-item ng-repeat="item in vm.transactions"
+                                  class="md-3-line"
+                                  ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
+                        <md-icon class="md-avatar-icon text-info">{{item.icon.icon}}</md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ item.merchant.name}}</h3>
+                            <span>{{ item.type }}</span>
+                            <p>{{item.transaction_date | date : "MMM d, yyyy hh:mm a" }}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <!--
                 <md-list>
                     <md-list-item ng-repeat="item in vm.frauds | filter: {data: {merchant_name: vm.filter.q}}"
                                   class="md-3-line"
@@ -70,6 +108,7 @@
                         </div>
                     </md-list-item>
                 </md-list>
+                -->
             </div>
         </md-content>
 

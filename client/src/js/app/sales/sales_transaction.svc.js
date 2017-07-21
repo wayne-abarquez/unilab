@@ -36,7 +36,8 @@ angular.module('demoApp.sales')
             },
             'C3S': {
                 markerIcon: 'bank',
-                color: '#9b59b6'
+                color: '#9b59b6',
+                icon: 'account_balance'
             },
             'IIDACS': {
                 markerIcon: 'finance',
@@ -52,6 +53,7 @@ angular.module('demoApp.sales')
 
         var marker,
             transactionMarkerItem = null,
+            infowindow = null,
             transactionMarkers = [];
 
         service.saveTransaction = saveTransaction;
@@ -60,6 +62,8 @@ angular.module('demoApp.sales')
         service.initMarkers = initMarkers;
         service.showMarkers = showMarkers;
         service.hideMarkers = hideMarkers;
+        service.getIconByType = getIconByType;
+        service.showMarkerById = showMarkerById;
 
         function showMarkers () {
             transactionMarkerItem.setMap(null);
@@ -89,22 +93,54 @@ angular.module('demoApp.sales')
                     : transactionTypes[Object.keys(transactionTypes)[0]];
         }
 
-        function createMarker (latlng, type) {
+        function createMarker (latlng, type, isFromFraud) {
             icon = getIconByType(type);
             marker = gmapServices.createMapIconLabel(latlng, icon.markerIcon, icon.color);
-            marker.setMap(null);
+            if (!isFromFraud) marker.setMap(null);
             return marker;
         }
 
-        function addTransaction (item) {
+        function createContentForInfowindow (item, marker) {
+            marker.content = '<div>';
+            marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.type + '</b></h3>';
+            marker.content += '<h4 class="no-margin padding-left-5"><b>' + item.merchant.name + '</b></h4>';
+            marker.content += '<p class="no-margin text-muted padding-left-5">' + item.merchant.address + '</p>';
+            marker.content += '<p class="no-margin padding-left-5">' + item.merchant.specialty + '</p>';
+
+
+            marker.content += '<button id="mark-fraud-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-warn">Fraud</button>';
+            marker.content += '<button id="mark-cleared-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-default">Cleared</button>';
+            marker.content += '<button id="mark-investigate-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-accent">Investigate</button>';
+
+            marker.content += '</div>';
+
+            gmapServices.addListener(marker, 'click', function () {
+                infowindow.open(gmapServices.map, this);
+                infowindow.setContent(this.content);
+            });
+        }
+
+        function addTransaction (item, isFromFraud) {
             var obj = angular.copy(item);
-            obj.marker = createMarker(item.end_point_latlng, item.type);
+
+            if (item.end_point_latlng) {
+                obj.marker = createMarker(item.end_point_latlng, item.type, isFromFraud);
+            } else if(item.start_point_latlng) {
+                obj.marker = createMarker(item.start_point_latlng, item.type, isFromFraud);
+            }
+
+            if (obj.marker) {
+                createContentForInfowindow(item, obj.marker);
+            }
+
             return obj;
         }
 
-        function initMarkers (list) {
+        function initMarkers (list, isFromFraud) {
+            if (!infowindow) infowindow = gmapServices.createInfoWindow('');
+
             transactionMarkers = list.map(function(item){
-                return addTransaction(item);
+                return addTransaction(item, isFromFraud);
             });
 
             return transactionMarkers;
@@ -195,6 +231,19 @@ angular.module('demoApp.sales')
 
                 gmapServices.setZoomIfGreater(15);
                 gmapServices.panTo(transaction.end_point_latlng);
+            }
+        }
+
+        function showMarkerById(id) {
+            var found = _.findWhere(transactionMarkers, {id: id});
+            if (found && found.marker) {
+                if (!found.marker.getMap()) found.marker.setMap(gmapServices.map);
+
+                gmapServices.setZoomIfGreater(18);
+                gmapServices.panToMarker(found.marker);
+
+                // show infowindow
+                gmapServices.triggerEvent(found.marker, 'click');
             }
         }
 

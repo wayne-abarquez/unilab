@@ -20,7 +20,8 @@ gulp.task('vendor-css', function () {
        paths.bower + 'sweetalert/dist/sweetalert.css',
        paths.bower + 'map-icons/dist/css/map-icons.min.css',
        paths.bower + 'angular-material-data-table/dist/md-data-table.min.css',
-       paths.bower + 'smDateTimeRangePicker/src/picker.css'
+       paths.bower + 'smDateTimeRangePicker/src/picker.css',
+       paths.bower + 'md-date-range-picker/dist/md-date-range-picker.min.css'
    ])
        .pipe($.concatCss('vendor.min.css'))
        .pipe($.csso())

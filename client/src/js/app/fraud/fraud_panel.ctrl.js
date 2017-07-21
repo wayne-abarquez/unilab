@@ -2,10 +2,35 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService) {
         var vm = this;
+
+        vm.dataIsLoaded = true;
+
+        vm.transactions = [];
+
+        vm.maxDate = new Date();
+
+        vm.selectedDate = {
+            formatted: '',
+            start: null,
+            end: null
+        };
+
+        vm.selectedRange = {
+            selectedTemplate: 'TW',
+            selectedTemplateName: 'This Week',
+            dateStart: null,
+            dateEnd: null,
+            showTemplate: false,
+            fullscreen: false,
+            disableTemplates: "NW",
+            maxRange: new Date(),
+            onePanel: true
+        };
+
 
         vm.uploadHasResponse = true;
         vm.frauds = [];
@@ -13,20 +38,17 @@ angular.module('demoApp.fraud')
         vm.uploadFraudData = uploadFraudData;
         vm.showFraudDetail = showFraudDetail;
         vm.showFraudTransactions = showFraudTransactions;
+        vm.pickDateRange = pickDateRange;
+        vm.onClickTransaction = onClickTransaction;
+        vm.openMenu = openMenu;
 
         initialize();
 
         function initialize () {
             var fraudData = userSessionService.getFraudData();
-            //console.log('fraudData: ', fraudData);
-
             if (fraudData) {
                 vm.frauds = fraudService.showFraudDataOnMap(fraudData);
             }
-
-            $timeout(function(){
-                showFraudTransactions();
-            },0);
         }
 
         function showFraudTransactions () {
@@ -38,8 +60,6 @@ angular.module('demoApp.fraud')
 
         function uploadFraudData(file, errFiles, event) {
             event.stopPropagation();
-
-            console.log('uploadFraudData',file,errFiles);
 
             if (!file || errFiles.length) {
                 alertServices.showError('File is invalid.\nAccepts excel file only.\n .xlsx, .xls');
@@ -75,6 +95,55 @@ angular.module('demoApp.fraud')
 
         function showFraudDetail(item) {
             fraudService.showMarker(item.id);
+        }
+
+        function getSalesTransactions () {
+            vm.dataIsLoaded = false;
+
+            fraudService.getTransactionsWithinDateRange(vm.selectedDate.start, vm.selectedDate.end)
+                .then(function(list){
+                   vm.transactions = angular.copy(list);
+                    salesTransactionService.initMarkers(list, true);
+                }).finally(function(){
+                    vm.dataIsLoaded = true;
+                });
+        }
+
+        function pickDateRange($event, showTemplate) {
+            vm.selectedRange.showTemplate = showTemplate;
+
+            $mdDateRangePicker.show({
+                targetEvent: $event,
+                model: vm.selectedRange
+            }).then(function (result) {
+                if (result) {
+                    vm.selectedRange = result;
+
+                    var momentDateStart = moment(vm.selectedRange.dateStart),
+                        momentDateEnd = moment(vm.selectedRange.dateEnd);
+
+                    var dateStartStr = momentDateStart.format('MMM D, YYYY'),
+                        dateEndStr = momentDateEnd.format('MMM D, YYYY');
+
+                    vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
+                    vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
+                    vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+
+                    getSalesTransactions();
+                }
+            })
+        }
+
+        function onClickTransaction (item) {
+            salesTransactionService.showMarkerById(item.id);
+        }
+
+        var originatorEv;
+
+        function openMenu(mdMenu, ev) {
+            console.log('openMenu', mdMenu, ev);
+            //originatorEv = ev;
+            //$mdMenu.open(ev);
         }
     }
 }());
