@@ -1,7 +1,7 @@
 from app import db
 from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary, Territory
-from sqlalchemy import select, func, desc
+from sqlalchemy import select, func, desc, and_
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
@@ -222,3 +222,8 @@ def get_branches_by_filter(q, filter_type):
 
 def get_products_for_branches(branch_ids):
     return Branch.query.filter(Branch.id.in_(branch_ids)).all()
+
+
+def get_sales_transactions_with_date_range(start_date, end_date):
+    limit_ctr = 500
+    return Transaction.query.filter(Transaction.transaction_date.between(start_date, end_date)).limit(limit_ctr).all()

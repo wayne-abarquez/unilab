@@ -7,18 +7,26 @@
         margin-left: 3px;
       }
     }
+
   }
 
   .fraud-list-content {
 
     form.filter-form {
+      width:100%;
+      margin-top: 1rem;
+      padding: 0 0.5rem;
+      height: 35px;
+
       md-input-container {
         margin: 0 !important;
         height: 30px;
       }
     }
 
-    md-list {
+  md-list.transaction-list {
+    padding-top: 0;
+
       md-list-item {
         > button {
           padding: 0 0.25rem;
@@ -30,6 +38,13 @@
             }
 
             .md-list-item-text {
+              span {
+                font-size: 0.75rem;
+                line-height: normal;
+                padding: 0.15rem 0;
+                @extend .text-muted;
+              }
+
               h4 {
                 white-space: nowrap;
                 overflow: hidden;

@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .factory('fraudService', ['$q', 'MARKER_BASE_URL', 'Fraud', 'gmapServices', fraudService]);
+    .factory('fraudService', ['$q', 'MARKER_BASE_URL', 'Fraud', 'gmapServices', 'SalesTransaction', 'salesTransactionService', fraudService]);
 
-    function fraudService ($q, MARKER_BASE_URL, Fraud, gmapServices) {
+    function fraudService ($q, MARKER_BASE_URL, Fraud, gmapServices, SalesTransaction, salesTransactionService) {
         var service = {};
 
         var fraudMarkerUrl = MARKER_BASE_URL + 'fraud.png';
@@ -14,6 +14,7 @@ angular.module('demoApp.fraud')
         service.uploadEmployeeData = uploadEmployeeData;
         service.showFraudDataOnMap = showFraudDataOnMap;
         service.showMarker = showMarker;
+        service.getTransactionsWithinDateRange = getTransactionsWithinDateRange;
 
         function uploadEmployeeData (file) {
             var dfd = $q.defer();
@@ -98,6 +99,24 @@ angular.module('demoApp.fraud')
                 // show infowindow
                 gmapServices.triggerEvent(found, 'click');
             }
+        }
+
+        function getTransactionsWithinDateRange (dateStart, dateEnd) {
+            var dfd = $q.defer();
+
+            SalesTransaction.getList({'start_date': dateStart, 'end_date': dateEnd})
+                .then(function(response){
+                    var result = response.plain().map(function (item) {
+                        item.icon = salesTransactionService.getIconByType(item.type);
+                        return item;
+                    });
+                    console.log('response: ', result);
+                    dfd.resolve(result);
+                }, function(error){
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
         }
 
         return service;

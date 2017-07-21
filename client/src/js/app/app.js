@@ -16,6 +16,7 @@ google.load('visualization', '1', {
             'md.data.table',
             'angularMoment',
             'smDateTimeRangePicker',
+            'ngMaterialDateRangePicker',
             'demoApp.home',
             'demoApp.admin',
             'demoApp.sales',

@@ -34,6 +34,7 @@
     "angular-material-data-table": "^0.10.10",
     "angular-moment": "^1.0.1",
     "smDateTimeRangePicker": "^2.0.11",
-    "PACE": "pace#^1.0.2"
+    "PACE": "pace#^1.0.2",
+    "md-date-range-picker": "^0.5.3"
   }
 }
