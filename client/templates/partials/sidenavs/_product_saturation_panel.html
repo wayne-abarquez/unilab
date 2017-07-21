@@ -52,6 +52,11 @@
                     </md-select>
                 </form>
 
+                <md-select placeholder="Filter Product" ng-model="vm.filter.selectedProduct" ng-change="vm.filterProductChanged()" flex="100" style="width:80%;">
+                    <md-option ng-repeat="item in vm.productList" ng-value="item">{{item}}</md-option>
+                </md-select>
+
+
                 <md-progress-circular ng-hide="vm.dataIsLoaded" md-mode="indeterminate" md-diameter="96"></md-progress-circular>
 
                 <md-list ng-show="vm.dataIsLoaded">

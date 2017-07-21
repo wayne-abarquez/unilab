@@ -5,7 +5,7 @@ from .forms import AddBranchForm, AddSalesTransactionForm
 from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
-    get_branches_by_filter, add_products_to_branch
+    get_branches_by_filter, add_products_to_branch, get_products_for_branches
 from flask import request
 from flask_login import current_user
 import logging
@@ -21,10 +21,6 @@ class BranchResource(Resource):
     @marshal_with(branch_fields)
     def get(self):
         """ GET /branches"""
-
-        name = request.args['name'] if 'name' in request.args else None
-        boundary_name = request.args['boundary_name'] if 'boundary_name' in request.args else None
-        territory = request.args['boundary_name'] if 'boundary_name' in request.args else None
 
         if 'name' in request.args:
             return get_branches_by_filter(request.args['name'], 'name')
@@ -97,6 +93,20 @@ class BranchProductResource(Resource):
         return prods
 
 
+class BranchProductsResource(Resource):
+    """
+    Resource for getting all products for branches
+    """
+
+    @marshal_with(branch_with_product_fields)
+    def post(self):
+        form_data = request.json
+
+        log.debug("Get Products for Branches with ids = {0}".format(form_data['branch_ids']))
+
+        return get_products_for_branches(form_data['branch_ids'])
+
+
 class BoundaryBranchResource(Resource):
     """
     Resource for getting all branches within boundary
@@ -162,6 +172,7 @@ class UserSalesTransactionResource(Resource):
 
 
 rest_api.add_resource(BranchResource, '/api/branches')
+rest_api.add_resource(BranchProductsResource, '/api/branches/products')
 rest_api.add_resource(BranchDetailResource, '/api/branches/<int:branchid>')
 rest_api.add_resource(BranchProductResource, '/api/branches/<int:branchid>/products')
 rest_api.add_resource(BoundaryBranchResource, '/api/boundaries/<int:boundaryid>/branches')

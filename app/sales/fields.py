@@ -44,7 +44,6 @@ branch_product_fields = dict(
     branchid=fields.Integer,
     productid=fields.Integer,
     qty_released=fields.Float,
-    unit_of_measure=fields.String,
     product=fields.Nested(product_fields),
     date_released=fields.DateTime('iso8601')
 )
@@ -77,6 +76,9 @@ sales_transaction_create_fields = dict(
     message=fields.String,
     sales_transaction=fields.Nested(sales_transaction_fields, allow_null=False)
 )
+
+branch_with_product_fields = copy(branch_fields)
+branch_with_product_fields['products'] = fields.List(fields.Nested(branch_product_fields))
 
 branch_complete_fields = copy(branch_fields)
 branch_complete_fields['average_monthly_income'] = fields.Float
