@@ -15,7 +15,6 @@ log = logging.getLogger(__name__)
 
 
 def get_branch_within_boundary(boundaryid):
-    print "get_branch_within_boundary: {0}".format(boundaryid)
     qt = select([Boundary.geometry]).select_from(Boundary).where(Boundary.id == boundaryid).alias('qt')
 
     stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
@@ -59,25 +58,6 @@ def get_branches_id_with_limit(count=0):
 
 def get_branches():
     return get_branches_by_boundary()
-
-
-def get_branches_by_filter(q, filter_type):
-    limit = 2000
-    if filter_type == 'name':
-        if q:
-            return Branch.query.filter(Branch.name.ilike("%" + q.lower() + "%")).limit(limit).all()
-        else:
-            return get_branches_with_limit(200)
-    elif filter_type == 'boundary_name':
-        boundary = Boundary.query.filter(Boundary.name.ilike("%" + q.lower() + "%")).first()
-        if boundary is not None:
-            return Branch.query.filter(func.ST_DWITHIN(cast(boundary.geometry, Geography), cast(Branch.latlng, Geography), 1)).limit(limit).all()
-    elif filter_type == 'territory':
-        territory = Territory.query.filter(Territory.code.ilike("%" + q.lower() + "%")).first()
-        if territory is not None:
-            return Branch.query.filter(func.ST_DWITHIN(cast(territory.geom, Geography), cast(Branch.latlng, Geography), 1)).limit(limit).all()
-
-    return []
 
 
 def get_products():
@@ -216,3 +196,29 @@ def add_products_to_branch(branchid, data):
 
     db.session.add_all(products)
     db.session.commit()
+
+
+def get_branches_by_filter(q, filter_type):
+    limit_num = 2000
+
+    if filter_type == 'name':
+        if q:
+            return Branch.query.filter(Branch.name.ilike("%" + q.lower() + "%")).limit(limit_num).all()
+        else:
+            return get_branches_with_limit(500)
+
+    elif filter_type == 'boundary_name':
+        boundary = Boundary.query.filter(Boundary.name.ilike("%" + q.lower() + "%")).first()
+        if boundary is not None:
+            return Branch.query.filter(func.ST_DWITHIN(cast(boundary.geometry, Geography), cast(Branch.latlng, Geography), 1)).limit(limit_num).all()
+
+    elif filter_type == 'territory':
+        territory = Territory.query.filter(Territory.code.ilike("%" + q.lower() + "%")).first()
+        if territory is not None:
+            return Branch.query.filter(func.ST_DWITHIN(cast(territory.geom, Geography), cast(Branch.latlng, Geography), 1)).limit(limit_num).all()
+
+    return []
+
+
+def get_products_for_branches(branch_ids):
+    return Branch.query.filter(Branch.id.in_(branch_ids)).all()

@@ -35,6 +35,22 @@ angular.module('demoApp.home')
         service.deleteBranch = deleteBranch;
         service.newBranch = newBranch;
         service.triggerClickBranch = triggerClickBranch;
+        service.loadProducts = loadProducts;
+
+        function loadProducts (list) {
+            var dfd = $q.defer();
+
+            var branchIds = _.pluck(list, 'id');
+
+            Branch.customPOST({branch_ids: branchIds}, 'products')
+                .then(function(response){
+                    dfd.resolve(response.plain());
+                }, function(error){
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
 
         function triggerClickBranch (branchId) {
             var marker = getBranchById(branchId);
@@ -174,19 +190,25 @@ angular.module('demoApp.home')
 
         function highlightMarkers (branchIds) {
             var icon,
-                isFound;
+                isFound,
+                foundCtr = 0;
 
             branchMarkers.forEach(function(item){
                 isFound = branchIds.indexOf(item.id) > -1;
 
-                icon = branchIds.indexOf(item.id) > -1
+                if (isFound) {
+                    item.setZIndex(2);
+                    foundCtr++;
+                }
+
+                icon = isFound
                        ? getBranchIconByType(item.branch.type)
                        : getBranchIconByType();
 
                 item.setIcon(icon);
-
-                if (isFound) item.setZIndex(2);
             });
+
+            return foundCtr;
         }
 
         function resetMarkersColor () {

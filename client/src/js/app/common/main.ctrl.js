@@ -17,14 +17,14 @@
         vm.menu = [];
 
         var MENU_SELECTIONS = [
+            //{
+            //    link: '/',
+            //    title: 'Home',
+            //    icon: 'home',
+            //    can: ['ADMIN', 'SALES']
+            //},
             {
                 link: '/',
-                title: 'Home',
-                icon: 'home',
-                can: ['ADMIN', 'SALES']
-            },
-            {
-                link: '/channeldiversification',
                 title: 'Channel Diversification',
                 icon: 'track_changes',
                 can: ['ADMIN', 'SALES']

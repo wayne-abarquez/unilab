@@ -3,6 +3,20 @@
 {% block content %}
     {% raw %}
     <div id="product-saturation-container" layout="row" ng-controller="productSaturationPageController as psPageCtl">
+
+        <md-card ng-if="psPageCtl.showSaturationInfo" layout="column" layout-padding id="product-saturation-percentage-panel">
+            <div layout="row" flex>
+                <span flex="60">Saturation</span>
+                <span flex></span>
+                <span>{{psPageCtl.showSaturationInfo.percentage}}%</span>
+            </div>
+            <div layout="row" flex>
+                <span flex="60">Branches</span>
+                <span flex></span>
+                <span>{{psPageCtl.showSaturationInfo.fraction}}</span>
+            </div>
+        </md-card>
+
         <!-- map canvas dimensions will be computed during map initialization -->
         <div id="map-canvas" flex-gt-xs="{{ hasOpenedModal ? 100 : 80 }}" flex="100"></div>
     {% endraw %}

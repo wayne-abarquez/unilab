@@ -2,10 +2,12 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSaturationPageController', ['gmapServices', 'modalServices', 'branchService', productSaturationPageController]);
+    .controller('productSaturationPageController', ['$rootScope', 'gmapServices', 'modalServices', 'branchService', productSaturationPageController]);
 
-    function productSaturationPageController (gmapServices, modalServices, branchService) {
+    function productSaturationPageController ($rootScope, gmapServices, modalServices, branchService) {
         var vm = this;
+
+        vm.showSaturationInfo = false;
 
         var branchId,
             branchMarker;
@@ -23,6 +25,10 @@ angular.module('demoApp.productSaturation')
                     .then(function(){
 
                     });
+            });
+
+            $rootScope.$on('product-saturation-numbers-update', function(e,params){
+               vm.showSaturationInfo = angular.copy(params.data);
             });
         }
 

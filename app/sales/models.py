@@ -47,6 +47,7 @@ class BranchProduct(BaseModel):
     qty_released = db.Column(db.Float)
     date_released = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+    product = db.relationship(Product)
     branch = db.relationship(Branch, backref=db.backref('products', cascade="all, delete-orphan"), lazy='joined')
 
 
@@ -84,5 +85,6 @@ class Transaction(BaseModel):
     travel_time_in_minutes = db.Column(db.Float)
     average_travel_time_in_minutes = db.Column(db.Float)
     remarks = db.Column(db.Text)
+    status = db.Column(db.String(20))
 
     merchant = db.relationship(Merchant, lazy='joined')

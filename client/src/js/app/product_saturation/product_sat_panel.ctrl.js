@@ -2,16 +2,24 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['modalServices', '$scope', 'alertServices', 'Branch', 'branchService', '$q', '$timeout', productSatPanelController]);
+    .controller('productSatPanelController', ['modalServices', '$rootScope', '$scope', 'alertServices', 'Branch', 'branchService', '$q', '$timeout', 'Product', productSatPanelController]);
 
-    function productSatPanelController (modalServices, $scope, alertServices, Branch, branchService, $q, $timeout) {
+    function productSatPanelController (modalServices, $rootScope, $scope, alertServices, Branch, branchService, $q, $timeout, Product) {
         var vm = this;
 
         var aborts;
 
+        vm.productList = [''];
+
         vm.filter = {
             q: '',
-            selectedType: 'name'
+            selectedType: 'name',
+            selectedProduct: ''
+        };
+
+        vm.hasProduct = {
+            count: 0,
+            percentage: 0
         };
 
         vm.dataIsLoaded = false;
@@ -25,11 +33,16 @@ angular.module('demoApp.productSaturation')
         vm.filterByName = filterByName;
         vm.filterByTerritory = filterByTerritory;
         vm.filterByBoundary = filterByBoundary;
-        vm.filterByProduct = filterByProduct;
+        vm.filterProductChanged = filterByProduct;
 
         initialize();
 
         function initialize () {
+            Product.getList()
+                .then(function (response) {
+                    vm.productList = vm.productList.concat(_.pluck(response.plain(), 'name'));
+                });
+
             vm.filter.types =  [
                 {
                     name: 'name',
@@ -42,10 +55,6 @@ angular.module('demoApp.productSaturation')
                 {
                     name: 'boundary',
                     action: 'vm.filterByBoundary()'
-                },
-                {
-                    name: 'product',
-                    action: 'vm.filterByProduct()'
                 }
             ];
 
@@ -56,7 +65,7 @@ angular.module('demoApp.productSaturation')
             branchService.triggerClickBranch(branchId);
         }
 
-        function filterChanged (isInitialLoad) {
+        function clear (isInitialLoad) {
             if (!vm.filter.selectedType) {
                 alertServices.showInfo('Please select filter type');
                 vm.filter.q = '';
@@ -71,10 +80,13 @@ angular.module('demoApp.productSaturation')
             if (aborts) aborts.resolve();
 
             vm.dataIsLoaded = false;
+        }
+
+        function filterChanged (isInitialLoad) {
+            clear(isInitialLoad);
 
             switch (vm.filter.selectedType) {
                 case 'product':
-                    console.log('product');
                     filterByProduct();
                     break;
                 case 'name':
@@ -89,19 +101,33 @@ angular.module('demoApp.productSaturation')
         }
 
         function filterTypeChanged () {
+            if (vm.filter.selectedType == 'product') return;
+
             vm.filter.q = '';
             vm.list = [];
+            branchService.resetMarkersColor();
             branchService.hideMarkers();
+
+            $rootScope.$broadcast('product-saturation-numbers-update', {data: false});
         }
 
         function loadBranchList (list) {
             vm.list = angular.copy(list);
             branchService.loadMarkers(vm.list, true);
+
+            var found;
+            if (list.length) {
+                branchService.loadProducts(list)
+                    .then(function(result){
+                        result.forEach(function(item){
+                            found = _.findWhere(vm.list, {id: item.id});
+                            if (found) found['products'] = angular.copy(item.products);
+                        });
+                    });
+            }
         }
 
         function filterByName() {
-            console.log('filterByName is called!');
-
             aborts = $q.defer();
 
             Branch
@@ -119,8 +145,6 @@ angular.module('demoApp.productSaturation')
         }
 
         function filterByTerritory () {
-            console.log('filterByTerritory is called');
-
             aborts = $q.defer();
 
             Branch
@@ -137,8 +161,6 @@ angular.module('demoApp.productSaturation')
         }
 
         function filterByBoundary () {
-            console.log('filterByBoundary is called');
-
             aborts = $q.defer();
 
             Branch
@@ -155,7 +177,32 @@ angular.module('demoApp.productSaturation')
         }
 
         function filterByProduct () {
-            console.log('filterByProduct is called');
+            if (!vm.filter.selectedProduct) {
+                vm.dataIsLoaded = false;
+                return;
+            }
+
+            var branchIds = [];
+            var selectedProduct = vm.filter.selectedProduct.toLowerCase();
+
+            vm.list.forEach(function(branch){
+                if (branch.hasOwnProperty('products')) {
+                    for (var i = 0; i < branch.products.length; i++) {
+                        if (branch.products[i].product.name.toLowerCase() == selectedProduct) {
+                            branchIds.push(branch.id);
+                            break;
+                        }
+                    }
+                }
+            });
+
+            vm.dataIsLoaded = true;
+
+            vm.hasProduct.count = branchService.highlightMarkers(branchIds);
+            vm.hasProduct.percentage = Math.floor(vm.hasProduct.count / vm.list.length * 100);
+            vm.hasProduct.fraction = vm.hasProduct.count + ' / ' + vm.list.length;
+
+            $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
         }
 
         function newProduct(event) {
