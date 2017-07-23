@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .factory('fraudService', ['$q', 'MARKER_BASE_URL', 'Fraud', 'gmapServices', 'SalesTransaction', 'salesTransactionService', fraudService]);
+    .factory('fraudService', ['$q', 'MARKER_BASE_URL', 'Fraud', 'gmapServices', 'SalesTransaction', 'salesTransactionService', 'COVERAGE_DATA', fraudService]);
 
-    function fraudService ($q, MARKER_BASE_URL, Fraud, gmapServices, SalesTransaction, salesTransactionService) {
+    function fraudService ($q, MARKER_BASE_URL, Fraud, gmapServices, SalesTransaction, salesTransactionService, COVERAGE_DATA) {
         var service = {};
 
         var fraudMarkerUrl = MARKER_BASE_URL + 'fraud.png';
@@ -15,6 +15,7 @@ angular.module('demoApp.fraud')
         service.showFraudDataOnMap = showFraudDataOnMap;
         service.showMarker = showMarker;
         service.getTransactionsWithinDateRange = getTransactionsWithinDateRange;
+        service.getSampleData = getSampleData;
 
         function uploadEmployeeData (file) {
             var dfd = $q.defer();
@@ -117,6 +118,12 @@ angular.module('demoApp.fraud')
                 });
 
             return dfd.promise;
+        }
+
+        function getSampleData () {
+            var data = [];
+
+            return data.concat(COVERAGE_DATA);
         }
 
         return service;

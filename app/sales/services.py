@@ -224,6 +224,11 @@ def get_products_for_branches(branch_ids):
     return Branch.query.filter(Branch.id.in_(branch_ids)).all()
 
 
-def get_sales_transactions_with_date_range(start_date, end_date):
+def get_sales_transactions_within_date_range(start_date, end_date):
     limit_ctr = 500
     return Transaction.query.filter(Transaction.transaction_date.between(start_date, end_date)).limit(limit_ctr).all()
+
+
+def get_branches_within_date_range(start_date, end_date):
+    limit_ctr = 1000
+    return Branch.query.filter(Branch.operation_started_date.between(start_date, end_date)).limit(limit_ctr).all()

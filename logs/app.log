@@ -326,3 +326,23 @@
 2017-07-21 18:45:16,323 INFO - run.py <module>: Starting app
 2017-07-21 19:20:28,948 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-07-21 19:20:29,223 INFO - run.py <module>: Starting app
+2017-07-23 23:10:19,979 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-23 23:10:22,782 INFO - run.py <module>: Starting app
+2017-07-23 23:55:25,417 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-23 23:55:27,945 INFO - run.py <module>: Starting app
+2017-07-24 01:13:10,960 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-24 01:13:11,227 INFO - run.py <module>: Starting app
+2017-07-24 01:18:29,524 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_coverage
+2017-07-24 01:18:30,006 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:18:30,514 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_1ss
+2017-07-24 01:18:30,534 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:18:31,399 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_c3s
+2017-07-24 01:18:31,431 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:18:31,518 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_iidacs
+2017-07-24 01:18:31,580 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:18:31,666 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_leaves
+2017-07-24 01:18:31,696 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:18:31,898 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_fleet
+2017-07-24 01:18:31,942 INFO - services.py upload_fraud_data: FINISH!
+2017-07-24 01:30:25,805 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-24 01:30:26,114 INFO - run.py <module>: Starting app

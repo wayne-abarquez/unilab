@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['modalServices', '$rootScope', '$scope', 'alertServices', 'Branch', 'branchService', '$q', '$timeout', 'Product', productSatPanelController]);
+    .controller('productSatPanelController', ['modalServices', '$rootScope', '$scope', 'alertServices', 'Branch', 'branchService', '$q', '$timeout', 'Product', '$mdDateRangePicker', productSatPanelController]);
 
-    function productSatPanelController (modalServices, $rootScope, $scope, alertServices, Branch, branchService, $q, $timeout, Product) {
+    function productSatPanelController (modalServices, $rootScope, $scope, alertServices, Branch, branchService, $q, $timeout, Product, $mdDateRangePicker) {
         var vm = this;
 
         var aborts;
@@ -22,6 +22,24 @@ angular.module('demoApp.productSaturation')
             percentage: 0
         };
 
+        vm.selectedDate = {
+            formatted: '',
+            start: null,
+            end: null
+        };
+
+        vm.selectedRange = {
+            selectedTemplate: 'TW',
+            selectedTemplateName: 'This Week',
+            dateStart: null,
+            dateEnd: null,
+            showTemplate: false,
+            fullscreen: false,
+            disableTemplates: "NW",
+            //maxRange: new Date(),
+            onePanel: true
+        };
+
         vm.dataIsLoaded = false;
 
         vm.filterChanged = filterChanged;
@@ -34,6 +52,8 @@ angular.module('demoApp.productSaturation')
         vm.filterByTerritory = filterByTerritory;
         vm.filterByBoundary = filterByBoundary;
         vm.filterProductChanged = filterByProduct;
+        vm.pickDateRange = pickDateRange;
+
 
         initialize();
 
@@ -210,6 +230,47 @@ angular.module('demoApp.productSaturation')
                 .then(function (product) {
 
                 });
+        }
+
+        function getBranchesWithinDateRange(dateStart, dateEnd) {
+            vm.dataIsLoaded = false;
+
+            Branch
+                .withHttpConfig({timeout: aborts.promise})
+                .getList({'start_date': dateStart, 'end_date': dateEnd})
+                .then(function (response) {
+                    loadBranchList(response.plain());
+                })
+                .finally(function () {
+                    $timeout(function () {
+                        vm.dataIsLoaded = true;
+                    }, 1000);
+                });
+        }
+
+        function pickDateRange($event, showTemplate) {
+            vm.selectedRange.showTemplate = showTemplate;
+
+            $mdDateRangePicker.show({
+                targetEvent: $event,
+                model: vm.selectedRange
+            }).then(function (result) {
+                if (result) {
+                    vm.selectedRange = result;
+
+                    var momentDateStart = moment(vm.selectedRange.dateStart),
+                        momentDateEnd = moment(vm.selectedRange.dateEnd);
+
+                    var dateStartStr = momentDateStart.format('MMM D, YYYY'),
+                        dateEndStr = momentDateEnd.format('MMM D, YYYY');
+
+                    vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
+                    vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
+                    vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+
+                    getBranchesWithinDateRange(vm.selectedDate.start, vm.selectedDate.end);
+                }
+            })
         }
     }
 }());

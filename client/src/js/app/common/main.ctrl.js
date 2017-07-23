@@ -92,10 +92,11 @@
 
             // Edit Branch
             $(document).on('click', '#edit-branch-btn', function () {
-                branchId = $(this).data('branch-id');
-                console.log('edit branch with id = ' + branchId);
+                //branchId = $(this).data('branch-id');
+                //console.log('edit branch with id = ' + branchId);
                 // TODO: show edit modal
-                branchMarker = branchService.getBranchById(branchId);
+                //branchMarker = branchService.getBranchById(branchId);
+                alertServices.showInfo(DEMO_MODE_MESSAGE);
             });
 
             // Delete Branch
