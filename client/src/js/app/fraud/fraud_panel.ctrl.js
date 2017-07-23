@@ -54,7 +54,9 @@ angular.module('demoApp.fraud')
             vm.selectedRange.dateEnd = new Date(2017, 1, 10);
             setDateGetData();
             vm.transactions = fraudService.getSampleData();
-            salesTransactionService.initMarkers(vm.transactions, true);
+            $timeout(function(){
+                salesTransactionService.initMarkers(vm.transactions, true);
+            },1000);
         }
 
         function showFraudTransactions () {
