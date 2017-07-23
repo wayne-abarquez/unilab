@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .factory('salesTransactionService', ['SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
+    .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
 
-    function salesTransactionService (SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
+    function salesTransactionService ($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
         var service = {};
 
         var transactionTypes = {
@@ -201,7 +201,23 @@ angular.module('demoApp.sales')
                 return addTransaction(item, isFromFraud);
             });
 
+            var mapLegendData = getMapLegendData(list);
+            console.log('mapLegendData: ', mapLegendData);
+            $rootScope.$broadcast('compile-map-legend', {type: 'transactions', data: mapLegendData});
+
             return transactionMarkers;
+        }
+
+        function getMapLegendData(list) {
+            console.log('getMapLegendData: ',list);
+            return _.pluck(_.uniq(list, function (item) {
+                return item.type;
+            }), 'status').map(function (stat) {
+                return {
+                    name: stat,
+                    iconUrl: getMarkerIconByStatus(stat)
+                };
+            });
         }
 
         function saveTransaction(data, id) {
