@@ -68,7 +68,8 @@ sales_transaction_fields = dict(
     travel_time_in_minutes=fields.Float,
     average_travel_time_in_minutes=fields.Float,
     merchant=fields.Nested(merchant_fields),
-    remarks=fields.String
+    remarks=fields.String,
+    status=fields.String
 )
 
 sales_transaction_create_fields = dict(

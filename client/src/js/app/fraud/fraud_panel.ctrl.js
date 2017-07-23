@@ -49,6 +49,12 @@ angular.module('demoApp.fraud')
             if (fraudData) {
                 vm.frauds = fraudService.showFraudDataOnMap(fraudData);
             }
+
+            vm.selectedRange.dateStart = new Date(2017, 1, 6);
+            vm.selectedRange.dateEnd = new Date(2017, 1, 10);
+            setDateGetData();
+            vm.transactions = fraudService.getSampleData();
+            salesTransactionService.initMarkers(vm.transactions, true);
         }
 
         function showFraudTransactions () {
@@ -109,6 +115,18 @@ angular.module('demoApp.fraud')
                 });
         }
 
+        function setDateGetData () {
+            var momentDateStart = moment(vm.selectedRange.dateStart),
+                momentDateEnd = moment(vm.selectedRange.dateEnd);
+
+            var dateStartStr = momentDateStart.format('MMM D, YYYY'),
+                dateEndStr = momentDateEnd.format('MMM D, YYYY');
+
+            vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
+            vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
+            vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+        }
+
         function pickDateRange($event, showTemplate) {
             vm.selectedRange.showTemplate = showTemplate;
 
@@ -119,15 +137,20 @@ angular.module('demoApp.fraud')
                 if (result) {
                     vm.selectedRange = result;
 
-                    var momentDateStart = moment(vm.selectedRange.dateStart),
-                        momentDateEnd = moment(vm.selectedRange.dateEnd);
+                    setDateGetData();
 
-                    var dateStartStr = momentDateStart.format('MMM D, YYYY'),
-                        dateEndStr = momentDateEnd.format('MMM D, YYYY');
+                    getSalesTransactions();
 
-                    vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
-                    vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
-                    vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+
+                    //var momentDateStart = moment(vm.selectedRange.dateStart),
+                    //    momentDateEnd = moment(vm.selectedRange.dateEnd);
+                    //
+                    //var dateStartStr = momentDateStart.format('MMM D, YYYY'),
+                    //    dateEndStr = momentDateEnd.format('MMM D, YYYY');
+                    //
+                    //vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
+                    //vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
+                    //vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
 
                     getSalesTransactions();
                 }

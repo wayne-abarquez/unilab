@@ -46,6 +46,21 @@
   z-index: 81;
 }
 
+.textarea {
+  width: auto;
+  min-width: 80%;
+  display: block;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0.25rem 0.5rem .75rem 0.5rem;
+}
+
 .treasure-overlay-spinner-active .treasure-overlay-spinner {
   border: 5px solid rgba($primary-color, 0.7);
   border-top: 5px solid rgba($primary-color, 0.25);

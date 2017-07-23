@@ -36,15 +36,6 @@
                                 Fraud Transaction Report
                             </md-button>
                         </md-menu-item>
-
-                        <md-menu-item>
-                            <md-button type="file"
-                                       ngf-pattern="'.xlsx,.xls'"
-                                       ngf-select="vm.uploadFraudData($file, $invalidFiles, $event)">
-                                <md-icon>file_upload</md-icon>
-                                Upload User Transactions
-                            </md-button>
-                        </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <!--
@@ -75,7 +66,7 @@
             <div layout="column" layout-align="start center">
                 <form class="filter-form" flex="100">
                     <md-input-container md-no-float class="md-block">
-                        <input type="text" placeholder="Select Date here" ng-model="vm.selectedDate.formatted" ng-click="vm.pickDateRange($event, true)">
+                        <input type="text" placeholder="Filter by date range" ng-model="vm.selectedDate.formatted" ng-click="vm.pickDateRange($event, true)">
                     </md-input-container>
                 </form>
 
@@ -86,7 +77,7 @@
                     <md-list-item ng-repeat="item in vm.transactions"
                                   class="md-3-line"
                                   ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
-                        <md-icon class="md-avatar-icon text-info">{{item.icon.icon}}</md-icon>
+                        <md-icon class="md-avatar-icon" ng-style="{'color':item.icon.color}">{{item.icon.icon}}</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{ item.merchant.name}}</h3>
                             <span>{{ item.type }}</span>
