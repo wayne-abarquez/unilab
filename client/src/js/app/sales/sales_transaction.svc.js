@@ -52,7 +52,7 @@ angular.module('demoApp.sales')
         };
 
         var iconByStatus = {
-            'CLEARED': 'transaction-cleared.png',
+            'CLEARED': 'transaction-default.png',
             'FRAUD': 'transaction-fraud.png',
             'INVESTIGATE': 'transaction-investigate.png'
         };
@@ -153,7 +153,7 @@ angular.module('demoApp.sales')
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Status: </b> ' + item.status + '</p>';
 
             marker.content += '<label class="text-muted"  style="padding:0.5rem 0 0 0.5rem;"><b>Validation Remarks: </b></label>';
-            marker.content += '<textarea class="textarea" rows="2" cols="20" placeholder="Enter validation remarks here...">' + item.remarks + '</textarea>'
+            marker.content += '<textarea class="textarea" rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'
 
             if (item.status != 'FRAUD' && item.status != 'CLEARED') marker.content += '<button id="mark-fraud-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-warn">Fraud</button>';
             if (item.status != 'CLEARED') marker.content += '<button id="mark-cleared-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-default">Cleared</button>';
