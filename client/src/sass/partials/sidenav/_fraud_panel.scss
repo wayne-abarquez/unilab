@@ -16,7 +16,12 @@
       width:100%;
       margin-top: 1rem;
       padding: 0 0.5rem;
-      height: 35px;
+      //height: 35px;
+
+      md-select {
+        width: 100%;
+        margin: 10px 0 16px;
+      }
 
       md-input-container {
         margin: 0 !important;
@@ -27,6 +32,12 @@
   md-list.transaction-list {
     padding-top: 0;
     width: 100%;
+
+    .md-subheader {
+      .md-subheader-inner {
+        padding: 0 0.5rem;
+      }
+    }
 
       md-list-item {
         > button {
@@ -58,6 +69,14 @@
       }
     }
 
+
+    .days-list {
+      md-list-item {
+        .md-list-item-inner {
+          padding: 0 0.5rem;
+        }
+      }
+    }
 
 
 

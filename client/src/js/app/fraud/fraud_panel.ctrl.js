@@ -2,13 +2,19 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService) {
         var vm = this;
 
+        vm.listOfDays = [];
         vm.dataIsLoaded = true;
 
+        vm.filter = {
+            empId: null
+        };
+
+        vm.employeeList = [];
         vm.transactions = [];
 
         vm.maxDate = new Date();
@@ -32,7 +38,7 @@ angular.module('demoApp.fraud')
         };
 
         var sampleDataStartDate = new Date(2017, 1, 6),
-            sampleDataEndDate = new Date(2017, 1, 10);
+            sampleDataEndDate = new Date(2017, 1, 11);
 
         vm.uploadHasResponse = true;
         vm.frauds = [];
@@ -42,7 +48,9 @@ angular.module('demoApp.fraud')
         vm.showFraudTransactions = showFraudTransactions;
         vm.pickDateRange = pickDateRange;
         vm.onClickTransaction = onClickTransaction;
-        vm.openMenu = openMenu;
+        vm.employeeFilterChanged = employeeFilterChanged;
+        vm.getTransactionByDate = getTransactionByDate;
+        vm.returnToDayList = returnToDayList
 
         initialize();
 
@@ -55,12 +63,19 @@ angular.module('demoApp.fraud')
             vm.selectedRange.dateStart = sampleDataStartDate;
             vm.selectedRange.dateEnd = sampleDataEndDate;
 
-            setDateGetData();
-            vm.transactions = fraudService.getSampleData();
+            userResourcesService.getEmployees()
+                .then(function(list){
+                    vm.employeeList = angular.copy(list);
 
-            $timeout(function(){
-                salesTransactionService.initMarkers(vm.transactions, true);
-            },1000);
+                    $timeout(function(){
+                        vm.filter.empId = '2';
+
+                        $timeout(function () {
+                            setDateGetData(vm.selectedRange.dateStart, vm.selectedRange.dateEnd);
+                            getSalesTransactions();
+                        }, 500);
+                    }, 1000);
+                });
         }
 
         function showFraudTransactions () {
@@ -112,7 +127,10 @@ angular.module('demoApp.fraud')
         function getSalesTransactions () {
             vm.dataIsLoaded = false;
 
-            fraudService.getTransactionsWithinDateRange(vm.selectedDate.start, vm.selectedDate.end)
+            vm.transactions = [];
+            salesTransactionService.resetMarkers();
+
+            fraudService.getTransactionsWithinDateRange(vm.selectedDate.start, vm.selectedDate.end, vm.filter.empId)
                 .then(function(list){
                    vm.transactions = angular.copy(list);
                     salesTransactionService.initMarkers(list, true);
@@ -121,16 +139,42 @@ angular.module('demoApp.fraud')
                 });
         }
 
-        function setDateGetData () {
-            var momentDateStart = moment(vm.selectedRange.dateStart),
-                momentDateEnd = moment(vm.selectedRange.dateEnd);
+        function setDateGetData (dateStart, dateEnd) {
+            vm.selectedDate = {};
 
-            var dateStartStr = momentDateStart.format('MMM D, YYYY'),
-                dateEndStr = momentDateEnd.format('MMM D, YYYY');
+            var momentDateStart = moment(dateStart);
+            var dateStartStr = momentDateStart.format('MMM D, YYYY');
 
-            vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
             vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
-            vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+
+            var dateEndStr;
+
+            if (dateEnd) {
+                var momentDateEnd = moment(dateEnd);
+                dateEndStr = momentDateEnd.format('MMM D, YYYY');
+                vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
+            }
+
+            vm.selectedDate.formatted = dateStart && dateEnd
+                                        ? dateStartStr + ' - ' + dateEndStr
+                                        : dateStartStr;
+
+        }
+
+        function getArrayOfDateFromRange (dateStart, dateEnd) {
+            console.log('getArrayOfDateFromRange', dateStart, dateEnd);
+
+            var dateArray = [];
+
+            while(dateStart <= dateEnd) {
+                dateArray.push({
+                    date: dateStart,
+                    date_formatted: moment(dateStart).format('ddd MMM D, YYYY')
+                });
+                dateStart = dateStart.addDays(1);
+            }
+
+            return dateArray;
         }
 
         function pickDateRange($event, showTemplate) {
@@ -141,29 +185,27 @@ angular.module('demoApp.fraud')
                 model: vm.selectedRange
             }).then(function (result) {
                 if (result) {
+                    listOfDaysTemp = [];
+                    vm.listOfDays = [];
+
                     vm.selectedRange = result;
 
+                    //if (vm.selectedRange.dateStart <= sampleDataStartDate && vm.selectedRange.dateEnd >= sampleDataEndDate) {
+                    //    vm.transactions = fraudService.getSampleData();
+                    //    salesTransactionService.initMarkers(vm.transactions, true);
+                    //    console.log('date range is within sample data');
+                    //    return;
+                    //}
 
-                    setDateGetData();
-
-                    if (vm.selectedRange.dateStart <= sampleDataStartDate && vm.selectedRange.dateEnd >= sampleDataEndDate) {
-                        vm.transactions = fraudService.getSampleData();
-                        salesTransactionService.initMarkers(vm.transactions, true);
-                        return;
+                    if (vm.selectedRange.dateStart == vm.selectedRange.dateEnd) {
+                        console.log('range is same day');
+                        setDateGetData(vm.selectedRange.dateStart);
+                        getSalesTransactions();
+                    } else {
+                        setDateGetData(vm.selectedRange.dateStart, vm.selectedRange.dateEnd);
+                        vm.listOfDays = getArrayOfDateFromRange(vm.selectedRange.dateStart, vm.selectedRange.dateEnd);
+                        console.log('listOfDays', vm.listOfDays);
                     }
-
-                    getSalesTransactions();
-
-
-                    //var momentDateStart = moment(vm.selectedRange.dateStart),
-                    //    momentDateEnd = moment(vm.selectedRange.dateEnd);
-                    //
-                    //var dateStartStr = momentDateStart.format('MMM D, YYYY'),
-                    //    dateEndStr = momentDateEnd.format('MMM D, YYYY');
-                    //
-                    //vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
-                    //vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
-                    //vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
                 }
             })
         }
@@ -172,12 +214,27 @@ angular.module('demoApp.fraud')
             salesTransactionService.showMarkerById(item.id);
         }
 
-        var originatorEv;
+        var listOfDaysTemp = [];
 
-        function openMenu(mdMenu, ev) {
-            console.log('openMenu', mdMenu, ev);
-            //originatorEv = ev;
-            //$mdMenu.open(ev);
+        function employeeFilterChanged () {
+            console.log('employeeFilterChanged');
+            getSalesTransactions();
         }
+
+        function getTransactionByDate (dateItem) {
+            console.log('getTransactionByDate: ', dateItem);
+
+            setDateGetData(dateItem.date);
+
+            listOfDaysTemp = angular.copy(vm.listOfDays);
+            vm.listOfDays = [];
+
+            getSalesTransactions();
+        }
+
+        function returnToDayList () {
+            if (listOfDaysTemp.length) vm.listOfDays = angular.copy(listOfDaysTemp);
+        }
+
     }
 }());
