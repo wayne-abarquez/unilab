@@ -102,16 +102,20 @@ angular.module('demoApp.fraud')
             }
         }
 
-        function getTransactionsWithinDateRange (dateStart, dateEnd) {
+        function getTransactionsWithinDateRange (dateStart, dateEnd, empId) {
+            console.log('getTransactionsWithinDateRange: ',dateStart,dateEnd,empId);
             var dfd = $q.defer();
 
-            SalesTransaction.getList({'start_date': dateStart, 'end_date': dateEnd})
+            var dateMoment;
+
+            SalesTransaction.getList({'start_date': dateStart, 'end_date': dateEnd, 'emp_id': empId})
                 .then(function(response){
                     var result = response.plain().map(function (item) {
+                        dateMoment = moment(item.transaction_date);
+                        item.transaction_date_formatted = dateMoment.format('dddd, MMMM DD, YYYY h:mm:ss A');
                         item.icon = salesTransactionService.getIconByType(item.type);
                         return item;
                     });
-                    console.log('response: ', result);
                     dfd.resolve(result);
                 }, function(error){
                     dfd.reject(error);

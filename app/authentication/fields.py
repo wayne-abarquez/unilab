@@ -7,3 +7,4 @@ user_data_fields = dict(
     firstname=fields.String,
     lastname=fields.String
 )
+

@@ -65,6 +65,11 @@
         <md-content class="fraud-list-content" layout="column" flex>
             <div layout="column" layout-align="start center">
                 <form class="filter-form" flex="100">
+                    <md-select placeholder="Select Employee" ng-model="vm.filter.empId"
+                               ng-change="vm.employeeFilterChanged()">
+                        <md-option ng-repeat="emp in vm.employeeList" ng-value="emp.id">{{emp.name}}</md-option>
+                    </md-select>
+
                     <md-input-container md-no-float class="md-block">
                         <input type="text" placeholder="Filter by date range" ng-model="vm.selectedDate.formatted" ng-click="vm.pickDateRange($event, true)">
                     </md-input-container>
@@ -73,7 +78,14 @@
                 <md-progress-circular ng-hide="vm.dataIsLoaded" md-mode="indeterminate"
                                       md-diameter="96"></md-progress-circular>
 
-                <md-list class="transaction-list" ng-show="vm.dataIsLoaded" flex="100">
+                <md-list class="transaction-list" ng-show="vm.dataIsLoaded" flex="100" ng-if="!vm.listOfDays.length">
+                    <md-subheader class="md-no-sticky" ng-click="vm.returnToDayList()" flex>
+                        <md-button class="md-icon-button">
+                            <md-icon>chevron_left</md-icon>
+                        </md-button>
+                        <span flex>{{ vm.selectedDate.formatted }}</span>
+                    </md-subheader>
+
                     <md-list-item ng-repeat="item in vm.transactions"
                                   class="md-3-line"
                                   ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
@@ -83,6 +95,13 @@
                             <span>{{ item.type }}</span>
                             <p>{{item.transaction_date | date : "MMM d, yyyy hh:mm a" }}</p>
                         </div>
+                    </md-list-item>
+                </md-list>
+
+                <md-list class="transaction-list days-list" flex="100" ng-if="vm.listOfDays.length">
+                    <md-list-item ng-repeat="day in vm.listOfDays"
+                                  ng-click="vm.getTransactionByDate(day);$event.stopPropagation()">
+                            <p>{{ day.date_formatted }}</p>
                     </md-list-item>
                 </md-list>
                 <!--

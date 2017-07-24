@@ -19,6 +19,23 @@ angular.module('demoApp')
         };
 
         service.getUserTransactions = getUserTransactions;
+        service.getEmployees = getEmployees;
+
+        function getEmployees () {
+            var dfd = $q.defer();
+
+            User.getList({roleid: 2})
+                .then(function(response){
+                    dfd.resolve(response.plain().map(function(emp){
+                        emp.name = emp.lastname.capitalize() + ', ' + emp.firstname.capitalize();
+                        return emp;
+                    }));
+                }, function(error){
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
 
         function getUserTransactions () {
             var dfd = $q.defer();

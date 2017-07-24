@@ -6,7 +6,7 @@ from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
-    get_branches_within_date_range
+    get_branches_within_date_range, get_sales_transactions_by_date
 from flask import request
 from flask_login import current_user
 import logging
@@ -135,8 +135,13 @@ class SalesTransactionResource(Resource):
     @marshal_with(sales_transaction_fields)
     def get(self):
         """ GET /salestransactions"""
-        if 'start_date' in request.args and 'end_date' in request.args:
-            return get_sales_transactions_within_date_range(request.args['start_date'], request.args['end_date'])
+        print "get sales transaction: {0}".format(request.args)
+
+        if 'start_date' in request.args and 'end_date' in request.args and 'emp_id' in request.args:
+            return get_sales_transactions_within_date_range(request.args['start_date'], request.args['end_date'],
+                                                            request.args['emp_id'])
+        elif 'start_date' in request.args and 'emp_id' in request.args:
+            return get_sales_transactions_by_date(request.args['start_date'], request.args['emp_id'])
 
         return get_sales_transactions()
 

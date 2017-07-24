@@ -95,7 +95,7 @@ var coverageSampleData = [
         },
         merchant: null,
         remarks: 'less kilometers traveled from transactions over gas expenses',
-        status: 'INVESTIGATE'
+        status: 'INVESTIGATING'
     },
     {
         id: 23,

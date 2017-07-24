@@ -54,7 +54,7 @@ angular.module('demoApp.sales')
         var iconByStatus = {
             'CLEARED': 'transaction-default.png',
             'FRAUD': 'transaction-fraud.png',
-            'INVESTIGATE': 'transaction-investigate.png'
+            'INVESTIGATING': 'transaction-investigate.png'
         };
 
         var marker,
@@ -72,6 +72,7 @@ angular.module('demoApp.sales')
         service.showMarkerById = showMarkerById;
         service.getTransactionById = getTransactionById;
         service.updateTransactionStatus = updateTransactionStatus;
+        service.resetMarkers = resetMarkers;
 
         function updateTransactionStatus (id, status) {
             var transaction = getTransactionById(id);
@@ -194,6 +195,17 @@ angular.module('demoApp.sales')
             return obj;
         }
 
+        function resetMarkers () {
+            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+
+            transactionMarkers.forEach(function(obj){
+                if (obj && obj.marker && obj.marker.getMap()) {
+                    obj.marker.setMap(null);
+                }
+            });
+            transactionMarkers = [];
+        }
+
         function initMarkers (list, isFromFraud) {
             if (!infowindow) infowindow = gmapServices.createInfoWindow('');
 
@@ -202,17 +214,16 @@ angular.module('demoApp.sales')
             });
 
             var mapLegendData = getMapLegendData(list);
-            console.log('mapLegendData: ', mapLegendData);
             $rootScope.$broadcast('compile-map-legend', {type: 'transactions', data: mapLegendData});
 
             return transactionMarkers;
         }
 
         function getMapLegendData(list) {
-            console.log('getMapLegendData: ',list);
             return _.pluck(_.uniq(list, function (item) {
-                return item.type;
+                return item.status;
             }), 'status').map(function (stat) {
+                if (stat)
                 return {
                     name: stat,
                     iconUrl: getMarkerIconByStatus(stat)
@@ -248,7 +259,6 @@ angular.module('demoApp.sales')
         }
 
         function getIconColorByStatus (status) {
-        console.log('getIconColorByStatus: ',status);
             if (!status) return '#95a5a6';
 
             switch (status.toUpperCase()) {
@@ -256,7 +266,7 @@ angular.module('demoApp.sales')
                     return '#2ecc71';
                 case 'FRAUD':
                     return '#e74c3c';
-                case 'INVESTIGATE':
+                case 'INVESTIGATING':
                     return '#f39c12';
             }
         }
@@ -300,7 +310,7 @@ angular.module('demoApp.sales')
 
 
         function showTransactionOnMap (transaction, isFromFraud) {
-            if (transaction.start_point_latlng && gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
 
             if (transaction.start_point_latlng && transaction.end_point_latlng) {
                 // show directions

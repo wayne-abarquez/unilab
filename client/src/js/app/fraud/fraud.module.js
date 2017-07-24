@@ -7,7 +7,7 @@
         .constant('TRANSACTION_STATUSES', {
             'CLEARED': 'CLEARED',
             'FRAUD': 'FRAUD',
-            'INVESTIGATE': 'INVESTIGATE'
+            'INVESTIGATING': 'INVESTIGATING'
         })
 
     ;

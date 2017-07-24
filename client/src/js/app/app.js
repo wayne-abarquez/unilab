@@ -73,6 +73,12 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
+Date.prototype.addDays = function (days) {
+    var dat = new Date(this.valueOf())
+    dat.setDate(dat.getDate() + days);
+    return dat;
+};
+
 window.paceOptions = {
     ajax: {
         trackMethods: ["GET", "POST", "DELETE"],
