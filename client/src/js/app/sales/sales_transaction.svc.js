@@ -138,20 +138,20 @@ angular.module('demoApp.sales')
 
         function setInfowindowContent (item, marker) {
             marker.content = '<div>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + item.type + '</p>';
+            //marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + item.type ? item.type : '' + '</p>';
 
             if (item.merchant) {
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Merchant Name: </b>' + item.merchant.name + '</p>';
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Merchant Address: </b>' + item.merchant.address + '</p>';
             }
 
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Description: </b> ' + item.description + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Amount: </b> ' + item.cost + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Date: </b> ' + item.transaction_date_formatted + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + item.travel_time_in_minutes + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + item.average_travel_time_in_minutes + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Status: </b> ' + item.status + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Description: </b> ' + item.description ? item.description : '' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Amount: </b> ' + item.cost ? item.cost  : '' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Date: </b> ' + item.transaction_date_formatted ? item.transaction_date_formatted : '' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + item.travel_time_in_minutes ? item.travel_time_in_minutes : '' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes : '' + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Status: </b> ' + item.status ? item.status : '' + '</p>';
 
             marker.content += '<label class="text-muted"  style="padding:0.5rem 0 0 0.5rem;"><b>Validation Remarks: </b></label>';
             marker.content += '<textarea class="textarea" rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'
