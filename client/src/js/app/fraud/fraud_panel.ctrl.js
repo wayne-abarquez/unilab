@@ -37,7 +37,7 @@ angular.module('demoApp.fraud')
             onePanel: true
         };
 
-        var sampleDataStartDate = new Date(2017, 1, 6),
+        var sampleDataStartDate = new Date(2017, 1, 1),
             sampleDataEndDate = new Date(2017, 1, 11);
 
         vm.uploadHasResponse = true;
