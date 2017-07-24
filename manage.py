@@ -70,5 +70,11 @@ def restock_branches():
     print "Branches Restocked sample products"
 
 
+@manager.command
+def update_user_passwords():
+    BaseSeeder.update_user_passwords()
+    print "User Passwords updated"
+
+
 if __name__ == '__main__':
     manager.run()

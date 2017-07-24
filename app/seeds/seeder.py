@@ -127,3 +127,10 @@ class BaseSeeder:
         products.restock_branch()
 
         print("--- overall %s seconds ---" % (time.time() - overall_start_time))
+
+    @staticmethod
+    def update_user_passwords():
+        allusers = User.query.all()
+        for user in allusers:
+            user.password = users.test_password
+        db.session.commit()

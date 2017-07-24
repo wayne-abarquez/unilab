@@ -2,7 +2,7 @@ from faker import Factory
 
 fake = Factory.create('en_US')
 
-test_password = 'password123'
+test_password = 'unilabpoc'
 
 users = [
     {
