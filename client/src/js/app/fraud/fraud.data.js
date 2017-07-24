@@ -11,7 +11,7 @@ var coverageSampleData = [
     {
         id: 27,
         userid: 2,
-        merchantid: 228,
+        merchantid: 296,
         address: "B. Rodriguez St, Cebu City, Cebu",
         type: "COVERAGE",
         cost: 1250,

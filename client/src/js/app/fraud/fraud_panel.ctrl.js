@@ -31,6 +31,8 @@ angular.module('demoApp.fraud')
             onePanel: true
         };
 
+        var sampleDataStartDate = new Date(2017, 1, 6),
+            sampleDataEndDate = new Date(2017, 1, 10);
 
         vm.uploadHasResponse = true;
         vm.frauds = [];
@@ -50,10 +52,12 @@ angular.module('demoApp.fraud')
                 vm.frauds = fraudService.showFraudDataOnMap(fraudData);
             }
 
-            vm.selectedRange.dateStart = new Date(2017, 1, 6);
-            vm.selectedRange.dateEnd = new Date(2017, 1, 10);
+            vm.selectedRange.dateStart = sampleDataStartDate;
+            vm.selectedRange.dateEnd = sampleDataEndDate;
+
             setDateGetData();
             vm.transactions = fraudService.getSampleData();
+
             $timeout(function(){
                 salesTransactionService.initMarkers(vm.transactions, true);
             },1000);
@@ -139,7 +143,14 @@ angular.module('demoApp.fraud')
                 if (result) {
                     vm.selectedRange = result;
 
+
                     setDateGetData();
+
+                    if (vm.selectedRange.dateStart <= sampleDataStartDate && vm.selectedRange.dateEnd >= sampleDataEndDate) {
+                        vm.transactions = fraudService.getSampleData();
+                        salesTransactionService.initMarkers(vm.transactions, true);
+                        return;
+                    }
 
                     getSalesTransactions();
 
@@ -153,8 +164,6 @@ angular.module('demoApp.fraud')
                     //vm.selectedDate.formatted = dateStartStr + ' - ' + dateEndStr;
                     //vm.selectedDate.start = momentDateStart.format('YYYY-MM-DD');
                     //vm.selectedDate.end = momentDateEnd.format('YYYY-MM-DD');
-
-                    getSalesTransactions();
                 }
             })
         }

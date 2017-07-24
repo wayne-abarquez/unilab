@@ -73,7 +73,7 @@
                 <md-progress-circular ng-hide="vm.dataIsLoaded" md-mode="indeterminate"
                                       md-diameter="96"></md-progress-circular>
 
-                <md-list class="transaction-list" ng-show="vm.dataIsLoaded">
+                <md-list class="transaction-list" ng-show="vm.dataIsLoaded" flex="100">
                     <md-list-item ng-repeat="item in vm.transactions"
                                   class="md-3-line"
                                   ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
