@@ -17,6 +17,7 @@
       margin-top: 1rem;
       padding: 0 0.5rem;
       //height: 35px;
+      height: 85px;
 
       md-select {
         width: 100%;
@@ -30,7 +31,7 @@
     }
 
   md-list.transaction-list {
-    padding-top: 0;
+    padding: 0.5rem 0;
     width: 100%;
 
     .md-subheader {
@@ -40,7 +41,10 @@
     }
 
       md-list-item {
+        min-height: 70px;
+
         > button {
+          min-height: 70px;
           padding: 0 0.25rem;
 
           .md-list-item-inner {
@@ -57,6 +61,10 @@
                 @extend .text-muted;
               }
 
+              h3 {
+                font-size: 0.85rem;
+              }
+
               h4 {
                 white-space: nowrap;
                 overflow: hidden;
@@ -71,9 +79,17 @@
 
 
     .days-list {
+      padding-top: 1rem !important;
+
       md-list-item {
-        .md-list-item-inner {
-          padding: 0 0.5rem;
+        min-height: 30px !important;
+
+        > button {
+          min-height: 30px !important;
+
+          .md-list-item-inner {
+            padding: 0 0.5rem;
+          }
         }
       }
     }

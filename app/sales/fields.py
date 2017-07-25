@@ -78,6 +78,11 @@ sales_transaction_create_fields = dict(
     sales_transaction=fields.Nested(sales_transaction_fields, allow_null=False)
 )
 
+date_transaction_ctr_fields = dict(
+    date_param=fields.String,
+    count=fields.Integer
+)
+
 branch_with_product_fields = copy(branch_fields)
 branch_with_product_fields['products'] = fields.List(fields.Nested(branch_product_fields))
 

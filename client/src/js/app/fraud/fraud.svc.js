@@ -15,6 +15,7 @@ angular.module('demoApp.fraud')
         service.showFraudDataOnMap = showFraudDataOnMap;
         service.showMarker = showMarker;
         service.getTransactionsWithinDateRange = getTransactionsWithinDateRange;
+        service.getDaysWithTransactionsCount = getDaysWithTransactionsCount;
         service.getSampleData = getSampleData;
 
         function uploadEmployeeData (file) {
@@ -102,14 +103,14 @@ angular.module('demoApp.fraud')
             }
         }
 
-        function getTransactionsWithinDateRange (dateStart, dateEnd, empId) {
-            console.log('getTransactionsWithinDateRange: ',dateStart,dateEnd,empId);
+        function getTransactionsWithinDateRange(dateStart, dateEnd, empId) {
+            console.log('getTransactionsWithinDateRange: ', dateStart, dateEnd, empId);
             var dfd = $q.defer();
 
             var dateMoment;
 
             SalesTransaction.getList({'start_date': dateStart, 'end_date': dateEnd, 'emp_id': empId})
-                .then(function(response){
+                .then(function (response) {
                     var result = response.plain().map(function (item) {
                         dateMoment = moment(item.transaction_date);
                         item.transaction_date_formatted = dateMoment.format('dddd, MMMM DD, YYYY h:mm:ss A');
@@ -117,6 +118,25 @@ angular.module('demoApp.fraud')
                         return item;
                     });
                     dfd.resolve(result);
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function getDaysWithTransactionsCount (datesArray, empId) {
+            var dfd = $q.defer();
+
+            SalesTransaction.customPUT({'dates': datesArray.join('|'), 'emp_id': empId})
+                .then(function(response){
+                    //var result = response.plain().map(function (item) {
+                    //    dateMoment = moment(item.transaction_date);
+                    //    item.transaction_date_formatted = dateMoment.format('dddd, MMMM DD, YYYY h:mm:ss A');
+                    //    item.icon = salesTransactionService.getIconByType(item.type);
+                    //    return item;
+                    //});
+                    dfd.resolve(response.plain());
                 }, function(error){
                     dfd.reject(error);
                 });

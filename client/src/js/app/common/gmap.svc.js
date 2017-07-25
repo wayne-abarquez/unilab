@@ -45,6 +45,8 @@
         service.initializeGeocoder = initializeGeocoder;
         service.initializeDirectionsService = initializeDirectionsService;
         service.initializeDirectionsRenderer = initializeDirectionsRenderer;
+        service.initializeDistanceMatrix = initializeDistanceMatrix;
+        service.initializeIndividualDirectionsRenderer = initializeIndividualDirectionsRenderer;
         service.hideDirectionsRenderer = hideDirectionsRenderer;
         service.createInfoBox = createInfoBox;
         service.openInfoBox = openInfoBox;
@@ -184,6 +186,14 @@
             return service.directionsService;
         }
 
+        function initializeIndividualDirectionsRenderer (opts) {
+            var directionsRenderer = new google.maps.DirectionsRenderer(opts);
+
+            directionsRenderer.setMap(service.map);
+
+            return directionsRenderer;
+        }
+
         function initializeDirectionsRenderer (opts) {
             if (!service.directionsDisplay) {
                 service.directionsDisplay = new google.maps.DirectionsRenderer(opts);
@@ -194,6 +204,12 @@
             }
 
             return service.directionsDisplay;
+        }
+
+        function initializeDistanceMatrix () {
+            if (service.distanceMatrix) return;
+
+            service.distanceMatrix = new google.maps.DistanceMatrixService();
         }
 
         function hideDirectionsRenderer () {

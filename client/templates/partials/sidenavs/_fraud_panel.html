@@ -79,7 +79,8 @@
                                       md-diameter="96"></md-progress-circular>
 
                 <md-list class="transaction-list" ng-show="vm.dataIsLoaded" flex="100" ng-if="!vm.listOfDays.length">
-                    <md-subheader class="md-no-sticky" ng-click="vm.returnToDayList()" flex>
+
+                    <md-subheader class="md-no-sticky" ng-click="vm.returnToDayList()" ng-if="vm.selectedRange.dateStart != vm.selectedRange.dateEnd" flex>
                         <md-button class="md-icon-button">
                             <md-icon>chevron_left</md-icon>
                         </md-button>
@@ -89,7 +90,7 @@
                     <md-list-item ng-repeat="item in vm.transactions"
                                   class="md-3-line"
                                   ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
-                        <md-icon class="md-avatar-icon" ng-style="{'color':item.icon.color}">{{item.icon.icon}}</md-icon>
+                        <md-icon class="md-avatar-icon" ng-class="{'fraud-icon':item.status=='FRAUD', 'cleared-icon':item.status=='CLEARED', 'investigating-icon':item.status=='INVESTIGATING'}">{{item.icon.icon}}</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{ item.merchant.name}}</h3>
                             <span>{{ item.type }}</span>
@@ -101,7 +102,8 @@
                 <md-list class="transaction-list days-list" flex="100" ng-if="vm.listOfDays.length">
                     <md-list-item ng-repeat="day in vm.listOfDays"
                                   ng-click="vm.getTransactionByDate(day);$event.stopPropagation()">
-                            <p>{{ day.date_formatted }}</p>
+                        <p flex>{{ day.date_formatted }}</p>
+                        <span class="badge badge-error" ng-if="day.count">{{ day.count }}</span>
                     </md-list-item>
                 </md-list>
                 <!--

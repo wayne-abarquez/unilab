@@ -60,7 +60,10 @@ angular.module('demoApp.sales')
         var marker,
             transactionMarkerItem = null,
             infowindow = null,
-            transactionMarkers = [];
+            inviMarker,
+            transactionMarkers = []
+
+        var nextTransactionDirectionsDisplay;
 
         service.saveTransaction = saveTransaction;
         service.getUserTransactions = getUserTransactions;
@@ -73,6 +76,7 @@ angular.module('demoApp.sales')
         service.getTransactionById = getTransactionById;
         service.updateTransactionStatus = updateTransactionStatus;
         service.resetMarkers = resetMarkers;
+        service.resetTransactionVisuals = resetTransactionVisuals;
 
         function updateTransactionStatus (id, status) {
             var transaction = getTransactionById(id);
@@ -140,7 +144,7 @@ angular.module('demoApp.sales')
             //marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + (item.type ? item.type : '') + '</p>';
 
-            if (item.merchant) {
+            if (item.merchant && item.merchant.name) {
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Merchant Name: </b>' + item.merchant.name + '</p>';
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Merchant Address: </b>' + item.merchant.address + '</p>';
             }
@@ -169,11 +173,68 @@ angular.module('demoApp.sales')
             marker.transaction = angular.copy(item);
 
             gmapServices.addListener(marker, 'click', function () {
+                clearMapLabel();
+
                 infowindow.open(gmapServices.map, this);
                 infowindow.setContent(this.content);
 
                 showTransactionOnMap(this.transaction, true);
+                showNextTransaction(this.transaction);
             });
+        }
+
+        function getTransactionWithSameDay(transactionDate) {
+            return transactionMarkers.map(function(item){
+                if (item.transaction_date.substring(0, 10) == transactionDate.substring(0, 10)) return item;
+            });
+        }
+
+        var labels = {
+            nextTransaction: null
+        };
+
+        function showNextTransaction(transaction) {
+            var sameDateTransactions = getTransactionWithSameDay(transaction.transaction_date);
+
+            if (!sameDateTransactions.length) return;
+
+            //console.log('sameDateTransactions', sameDateTransactions);
+
+            var currentIndex = _.findIndex(sameDateTransactions, {id: transaction.id});
+
+            if (currentIndex === -1) return;
+
+            if (currentIndex < sameDateTransactions.length - 1) {
+                var nextTransaction = sameDateTransactions[currentIndex + 1];
+                //console.log('nextTransaction: ', nextTransaction);
+                // show next transaction
+                gmapServices.initializeDirectionsService();
+                if (!nextTransactionDirectionsDisplay) {
+                    nextTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
+                        draggable: false, preserveViewport: true, suppressMarkers: true,
+                        polylineOptions: {
+                            strokeOpacity: 0.75,
+                            strokeColor: '#3498db',
+                            //icons: [{
+                            //    icon: {
+                            //        path: 'M 0,-1 0,1',
+                            //        strokeOpacity: 1,
+                            //        scale: 2
+                            //    },
+                            //    offset: '0',
+                            //    repeat: '10px'
+                            //}],
+                            map: gmapServices.map
+                        }
+                    });
+                }
+
+                labels.nextTransaction = true;
+
+                calculateAndDisplayRoute(transaction.end_point_latlng, nextTransaction.end_point_latlng, labels.nextTransaction, nextTransactionDirectionsDisplay);
+            } else {
+                console.log('transaction '+transaction.id+' is last transaction of the day.');
+            }
         }
 
         function addTransaction (item, isFromFraud) {
@@ -194,8 +255,26 @@ angular.module('demoApp.sales')
             return obj;
         }
 
-        function resetMarkers () {
+        function clearMapLabel () {
+            if (labels.nextTransaction) {
+                inviMarker.setMap(null);
+                inviMarker = null;
+                labels.nextTransaction.setMap(null);
+                labels.nextTransaction = null;
+            }
+        }
+
+        function resetTransactionVisuals () {
             if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
+
+            clearMapLabel();
+
+            if (infowindow) infowindow.close();
+        }
+
+        function resetMarkers () {
+            resetTransactionVisuals();
 
             transactionMarkers.forEach(function(obj){
                 if (obj && obj.marker && obj.marker.getMap()) {
@@ -293,20 +372,65 @@ angular.module('demoApp.sales')
             return dfd.promise;
         }
 
-        function calculateAndDisplayRoute(originLatlng, destinationLatLng) {
+        function getCenterOfRouteResult (routes) {
+            var route = routes[0];
+
+            var center = route.overview_path[Math.floor(route.overview_path.length / 2)];
+
+            if (center) return center;
+
+            return route.overview_path[Math.floor(route.overview_path.length / 2 - 1)];
+        }
+
+        function calculateAndDisplayRoute(originLatlng, destinationLatLng, customInfoLabel, customDirectionsDisplay) {
             gmapServices.directionsService.route({
                 origin: originLatlng,
                 destination: destinationLatLng,
                 travelMode: 'DRIVING'
             }, function (response, status) {
                 if (status === 'OK') {
-                    gmapServices.directionsDisplay.setDirections(response);
+                    console.log('calculateAndDisplayRoute: ',response);
+
+                    if (customDirectionsDisplay) customDirectionsDisplay.setDirections(response);
+                    else gmapServices.directionsDisplay.setDirections(response);
+
+                    if (customInfoLabel) {
+                        var contentStr = 'to next transaction';
+
+                        var center = getCenterOfRouteResult(response.routes);
+                        //console.log('getCenterOfRouteResult: ', center);
+
+                        if (!inviMarker) inviMarker = gmapServices.initMarker(center, null, {visible: false});
+
+                        gmapServices.initializeDistanceMatrix();
+
+                        gmapServices.distanceMatrix.getDistanceMatrix({
+                            origins: [originLatlng],
+                            destinations: [destinationLatLng],
+                            travelMode: 'DRIVING',
+                            newForwardGeocoder: true
+                        }, function(response, status){
+
+                            if (status == 'OK' && response.rows.length && response.rows[0].elements.length) {
+                                //console.log('distance matrix response: ',response);
+                                contentStr = 'Distance: ' + response.rows[0].elements[0].distance.text;
+                                contentStr += ' | Average Travel Time: ' + response.rows[0].elements[0].duration.text;
+                            }
+
+                            labels.nextTransaction = new Label({
+                                map: gmapServices.map,
+                                text: contentStr
+                            });
+
+                            labels.nextTransaction.bindTo('position', inviMarker, 'position');
+                        });
+                    }
+
                 } else {
                     console.log('Directions request failed due to ' + status);
                 }
             });
         }
-
 
         function showTransactionOnMap (transaction, isFromFraud) {
             if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
@@ -314,14 +438,13 @@ angular.module('demoApp.sales')
             if (transaction.start_point_latlng && transaction.end_point_latlng) {
                 // show directions
                 gmapServices.initializeDirectionsService();
-                gmapServices.initializeDirectionsRenderer({draggable: false});
+                gmapServices.initializeDirectionsRenderer({draggable: false, preserveViewport: true});
 
                 calculateAndDisplayRoute(transaction.start_point_latlng, transaction.end_point_latlng);
             } else if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
                 // show marker
                 if (transactionMarkerItem) {
                     transactionMarkerItem.setMap(null);
-                    transactionMarkerItem = null;
                 }
 
                 transactionMarkerItem = createMarker(transaction.end_point_latlng, transaction.type);

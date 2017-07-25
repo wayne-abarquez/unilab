@@ -29,7 +29,8 @@ gulp.task('vendor-scripts', function () {
         paths.bower + 'angular-moment/angular-moment.min.js',
         paths.bower + 'smDateTimeRangePicker/src/picker.js',
         paths.bower + 'PACE/pace.min.js',
-        paths.bower + 'md-date-range-picker/dist/md-date-range-picker.min.js'
+        paths.bower + 'md-date-range-picker/dist/md-date-range-picker.min.js',
+        paths.srcLibJs + 'gmap-label.js'
     ])
         .pipe($.plumber())
         .pipe($.concat('vendor.min.js'))
@@ -51,7 +52,7 @@ gulp.task('app-scripts', function () {
         .pipe($.ngAnnotate())
         .pipe($.angularFilesort())
         .pipe($.concat('app.min.js'))
-        .pipe($.if(args.production, $.uglify()))
+        .pipe($.if(args.production, $.uglify({compress: {drop_console: true}})))
         .pipe($.if(args.production, $.jsObfuscator()))
         .pipe($.chmod(774))
         .pipe(gulp.dest(paths.destJs))

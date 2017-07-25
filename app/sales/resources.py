@@ -6,7 +6,7 @@ from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
-    get_branches_within_date_range, get_sales_transactions_by_date
+    get_branches_within_date_range, get_sales_transactions_by_date, get_transaction_count_with_dates
 from flask import request
 from flask_login import current_user
 import logging
@@ -166,6 +166,17 @@ class SalesTransactionResource(Resource):
             return marshal(result, sales_transaction_create_fields)
         else:
             abort(400, message="Invalid Parameters", errors=form.errors)
+
+    @marshal_with(date_transaction_ctr_fields)
+    def put(self):
+        form_data = request.json
+
+        print "get sales transaction put: {0}".format(form_data)
+
+        if 'dates' in form_data and 'emp_id' in form_data:
+            return get_transaction_count_with_dates(form_data['dates'], form_data['emp_id'])
+
+        return []
 
 
 class UserSalesTransactionResource(Resource):
