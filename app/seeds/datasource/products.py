@@ -71,9 +71,21 @@ def generate_products():
     return mappings
 
 
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
 def restock_branch():
     products = get_products()
     stocks = []
+
+    # branch_list = get_branches_by_territory(101)
+    # branch_chunk = zip(*[iter(branch_list)] * 4)
+    #
+    # for idx, chunk in enumerate(branch_chunk):
+    #     for branch in chunk:
 
     for branch in get_branches_by_territory(101):
         upto = randint(10, len(products) - 1)

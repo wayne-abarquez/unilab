@@ -14,6 +14,7 @@ angular.module('demoApp.productSaturation')
         };
 
         var selected;
+        var firstWeek;
 
         vm.currentSelectedWeek = '';
 
@@ -23,11 +24,14 @@ angular.module('demoApp.productSaturation')
         
         function initialize () {
             vm.weeks = productSatService.getFiveWeeksDuration(new Date());
+            firstWeek = vm.weeks[0];
             sliderChanged();
         }
 
         function sliderChanged () {
            selected = vm.weeks[vm.slider.currentVal];
+           selected.weekRangeStart = firstWeek.weekRangeStart;
+           selected.weekRangeStartFormatted = firstWeek.weekRangeStartFormatted;
 
            vm.currentSelectedWeek = selected.weekRangeStartFormatted + ' to ' + selected.weekRangeEndFormatted;
 
