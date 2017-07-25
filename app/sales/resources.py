@@ -6,7 +6,8 @@ from app import rest_api
 from .services import get_branches_by_boundary, get_branch_within_boundary, get_products_by_branch, create_branch, \
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
-    get_branches_within_date_range, get_sales_transactions_by_date, get_transaction_count_with_dates
+    get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
+    get_all_branches_count
 from flask import request
 from flask_login import current_user
 import logging
@@ -29,8 +30,8 @@ class BranchResource(Resource):
             return get_branches_by_filter(request.args['boundary_name'], 'boundary_name')
         elif 'territory' in request.args:
             return get_branches_by_filter(request.args['territory'], 'territory')
-        elif 'start_date' in request.args and 'end_date' in request.args:
-            return get_branches_within_date_range(request.args['start_date'], request.args['end_date'])
+        elif 'start_date' in request.args and 'end_date' in request.args and 'product' in request.args:
+            return get_branches_within_date_range_by_product(request.args['start_date'], request.args['end_date'], request.args['product'])
 
         bounds = request.args['bounds'] if 'bounds' in request.args else None
 
@@ -50,6 +51,15 @@ class BranchResource(Resource):
             return marshal(result, branch_create_fields)
         else:
             abort(400, message="Invalid Parameters", errors=form.errors)
+
+    def put(self):
+        form_data = request.json
+
+        if 'count_all' in form_data:
+            count = get_all_branches_count()
+            return marshal({'count': count}, count_fields)
+
+        return None
 
 
 class BranchDetailResource(Resource):

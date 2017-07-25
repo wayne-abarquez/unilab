@@ -1,5 +1,6 @@
 from flask.ext.restful import fields
 from geoalchemy2.shape import to_shape
+from shapely import wkb
 
 
 class GeomHelpers:
@@ -18,9 +19,12 @@ class PointToLatLng(fields.Raw):
     """
 
     def format(self, value):
-        point = to_shape(value)
-        # return {'lat': point.y, 'lng': point.x}
-        return dict(lat=point.y, lng=point.x)
+        try:
+            point = to_shape(value)
+            return dict(lat=point.y, lng=point.x)
+        except AssertionError:
+            point = wkb.loads(value, hex=True)
+            return dict(lat=point.y, lng=point.x)
 
 
 class PointToLatLngDict(fields.Raw):

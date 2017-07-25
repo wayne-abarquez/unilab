@@ -1,7 +1,7 @@
 from app import db
 from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
 from app.home.models import Boundary, Territory
-from sqlalchemy import select, func, desc, and_, DATE, cast as cast_data
+from sqlalchemy import select, func, desc, DATE, cast as cast_data
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
@@ -47,8 +47,7 @@ def get_transaction_count_with_dates(dates, user_id):
     query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(user_id, datestr)
 
     result = db.engine.execute(query).fetchall()
-    # print "query: {0}".format(query)
-    # print "result: {0}".format(result)
+
     return [{'date_param': item[0], 'count': item[1]} for item in result]
 
 
@@ -262,3 +261,34 @@ def get_sales_transactions_by_date(start_date, user_id):
     return Transaction.query.filter(cast_data(Transaction.transaction_date, DATE) == start_date).filter(
         Transaction.userid == user_id).order_by(Transaction.transaction_date).limit(limit_ctr).all()
 
+
+def get_branches_within_date_range_by_product(start_date, end_date, product):
+    query = """SELECT b.*
+                FROM branch b
+                INNER JOIN branch_product bp
+                ON b.id = bp.branchid
+                INNER JOIN product p
+                ON bp.productid = p.id
+                WHERE LOWER(p.name) = '{0}' AND
+                bp.date_released BETWEEN '{1}' AND '{2}'
+                GROUP BY b.id""".format(product.lower(), start_date, end_date)
+
+    result = db.engine.execute(query).fetchall()
+
+    return [
+        Branch.from_dict({
+            'id': item[0],
+            'type': item[3],
+            'name': item[4],
+            'adddress': item[5] if item[5] is not None else '',
+            'latlng': item[6] if item[6] is not None else None,
+            'status': item[10]
+        }) for item in result]
+
+
+def get_all_branches_count():
+    query = 'SELECT COUNT(*) FROM branch'
+
+    result = db.engine.execute(query).fetchone()
+
+    return result[0]

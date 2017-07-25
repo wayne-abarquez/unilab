@@ -7,6 +7,7 @@ angular.module('demoApp.productSaturation')
     function productSaturationPageController ($rootScope, gmapServices, modalServices, branchService) {
         var vm = this;
 
+        $rootScope.showProductSaturationSlider = false;
         vm.showSaturationInfo = false;
 
         var branchId,
@@ -29,6 +30,10 @@ angular.module('demoApp.productSaturation')
 
             $rootScope.$on('product-saturation-numbers-update', function(e,params){
                vm.showSaturationInfo = angular.copy(params.data);
+            });
+
+            $rootScope.$on('show-product-saturation-slider', function(){
+                $rootScope.showProductSaturationSlider = true;
             });
         }
 

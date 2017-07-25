@@ -62,7 +62,7 @@
                     -->
                 <!--</form>-->
 
-                <md-select placeholder="Filter Product" ng-model="vm.filter.selectedProduct" ng-change="vm.filterProductChanged()" flex="100" style="width:80%;">
+                <md-select placeholder="Select Product" ng-model="vm.filter.selectedProduct" ng-change="vm.filterProductChanged()" flex="100" style="width:80%;">
                     <md-option ng-repeat="item in vm.productList" ng-value="item">{{item}}</md-option>
                 </md-select>
 

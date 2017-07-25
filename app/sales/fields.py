@@ -33,6 +33,10 @@ product_fields = dict(
     remarks=fields.String
 )
 
+count_fields = dict(
+    count=fields.Integer
+)
+
 product_create_fields = dict(
     status=fields.String,
     message=fields.String,
