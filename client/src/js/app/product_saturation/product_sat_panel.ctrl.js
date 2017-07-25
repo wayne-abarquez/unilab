@@ -84,11 +84,8 @@ angular.module('demoApp.productSaturation')
                     loadBranchList(result);
                     //filterByProduct();
 
-                    //vm.hasProduct.count = branchService.highlightMarkers(branchIds);
-                    //vm.hasProduct.percentage = Math.floor(vm.hasProduct.count / branchTotalCount * 100);
-                    //vm.hasProduct.fraction = vm.hasProduct.count + ' / ' + branchTotalCount;
                     vm.hasProduct.count = vm.list.length;
-                    vm.hasProduct.percentage = Math.floor(vm.list.length / branchTotalCount * 100);
+                    vm.hasProduct.percentage = Math.ceil(vm.list.length / branchTotalCount * 100);
                     vm.hasProduct.fraction = vm.list.length + ' / ' + branchTotalCount;
                     $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
                 })
