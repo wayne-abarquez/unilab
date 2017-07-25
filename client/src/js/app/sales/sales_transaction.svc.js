@@ -432,16 +432,8 @@ angular.module('demoApp.sales')
             });
         }
 
-        function showTransactionOnMap (transaction, isFromFraud) {
-            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
-
-            if (transaction.start_point_latlng && transaction.end_point_latlng) {
-                // show directions
-                gmapServices.initializeDirectionsService();
-                gmapServices.initializeDirectionsRenderer({draggable: false, preserveViewport: true});
-
-                calculateAndDisplayRoute(transaction.start_point_latlng, transaction.end_point_latlng);
-            } else if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
+        function showTransactionOnMap(transaction, isFromFraud) {
+            if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
                 // show marker
                 if (transactionMarkerItem) {
                     transactionMarkerItem.setMap(null);
@@ -455,13 +447,36 @@ angular.module('demoApp.sales')
             }
         }
 
+        //function showTransactionOnMap (transaction, isFromFraud) {
+        //    if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+        //
+        //    if (transaction.start_point_latlng && transaction.end_point_latlng) {
+        //        // show directions
+        //        gmapServices.initializeDirectionsService();
+        //        gmapServices.initializeDirectionsRenderer({draggable: false, preserveViewport: true});
+        //
+        //        calculateAndDisplayRoute(transaction.start_point_latlng, transaction.end_point_latlng);
+        //    } else if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
+        //        // show marker
+        //        if (transactionMarkerItem) {
+        //            transactionMarkerItem.setMap(null);
+        //        }
+        //
+        //        transactionMarkerItem = createMarker(transaction.end_point_latlng, transaction.type);
+        //        transactionMarkerItem.setMap(gmapServices.map);
+        //
+        //        gmapServices.setZoomIfGreater(15);
+        //        gmapServices.panTo(transaction.end_point_latlng);
+        //    }
+        //}
+
         function showMarkerById(id) {
             var found = _.findWhere(transactionMarkers, {id: id});
             if (found && found.marker) {
                 if (!found.marker.getMap()) found.marker.setMap(gmapServices.map);
 
-                gmapServices.setZoomIfGreater(18);
-                gmapServices.panToMarker(found.marker);
+                //gmapServices.setZoomIfGreater(18);
+                //gmapServices.panToMarker(found.marker);
 
                 // show infowindow
                 gmapServices.triggerEvent(found.marker, 'click');

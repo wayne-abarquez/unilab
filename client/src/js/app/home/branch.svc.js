@@ -37,6 +37,7 @@ angular.module('demoApp.home')
         service.triggerClickBranch = triggerClickBranch;
         service.loadProducts = loadProducts;
 
+
         function loadProducts (list) {
             var dfd = $q.defer();
 
@@ -62,7 +63,7 @@ angular.module('demoApp.home')
 
         // add to markers
         function newBranch (item, isProductSaturation) {
-            var marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type), {zIndex: 1});
+            var marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type, isProductSaturation), {zIndex: 1});
 
             marker.content = '<div>';
             marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
@@ -120,8 +121,8 @@ angular.module('demoApp.home')
             return dfd.promise;
         }
 
-        function getBranchIconByType (type) {
-            if (!type) return iconBaseUrl + unhighlightIcon;
+        function getBranchIconByType (type, isProductSaturation) {
+            if (!type || isProductSaturation) return iconBaseUrl + unhighlightIcon;
 
             return iconBaseUrl + branchIcons[type.toLowerCase()];
         }
@@ -211,11 +212,11 @@ angular.module('demoApp.home')
             return foundCtr;
         }
 
-        function resetMarkersColor () {
+        function resetMarkersColor (isProductSaturation) {
             var icon;
 
             branchMarkers.forEach(function (item) {
-                icon = getBranchIconByType(item.branch.type)
+                icon = getBranchIconByType(item.branch.type, isProductSaturation)
                 item.setIcon(icon);
                 item.setZIndex(1);
             });
