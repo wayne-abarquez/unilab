@@ -23,7 +23,7 @@ def get_branch_within_boundary(boundaryid):
         # stmt = select([Branch.id, Branch.type, Branch.name, Branch.latlng]) \
     #     .select_from(Branch) \
     #     .where(func.ST_DWITHIN(cast(qt.c.geometry, Geography), cast(Branch.latlng, Geography), 1)) \
-        # .limit(500)
+    # .limit(500)
 
     result = db.engine.execute(stmt).fetchall()
 
@@ -33,6 +33,23 @@ def get_branch_within_boundary(boundaryid):
         modresult.append({'branchid': item.id, 'boundaryid': boundaryid, 'branch': item})
 
     return modresult
+
+
+def get_transaction_count_with_dates(dates, user_id):
+    date_list = dates.split('|')
+
+    datestr = ''
+    for idx, dateitem in enumerate(date_list):
+        datestr += "'" + dateitem + "'"
+        if idx < len(date_list)-1:
+            datestr += ","
+
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(user_id, datestr)
+
+    result = db.engine.execute(query).fetchall()
+    # print "query: {0}".format(query)
+    # print "result: {0}".format(result)
+    return [{'date_param': item[0], 'count': item[1]} for item in result]
 
 
 def get_branches_by_boundary(boundaryid=None):
@@ -178,6 +195,7 @@ def get_user_sales_transactions(userid, limit=None):
         .order_by(desc("(" + ",".join(type_list) + ")"), Transaction.transaction_date) \
         .all()
 
+
 # .order_by("position(type::text in '"+",".join(order_types)+"'") \
 
 # return Transaction.query\
@@ -210,12 +228,16 @@ def get_branches_by_filter(q, filter_type):
     elif filter_type == 'boundary_name':
         boundary = Boundary.query.filter(Boundary.name.ilike("%" + q.lower() + "%")).first()
         if boundary is not None:
-            return Branch.query.filter(func.ST_DWITHIN(cast(boundary.geometry, Geography), cast(Branch.latlng, Geography), 1)).limit(limit_num).all()
+            return Branch.query.filter(
+                func.ST_DWITHIN(cast(boundary.geometry, Geography), cast(Branch.latlng, Geography), 1)).limit(
+                limit_num).all()
 
     elif filter_type == 'territory':
         territory = Territory.query.filter(Territory.code.ilike("%" + q.lower() + "%")).first()
         if territory is not None:
-            return Branch.query.filter(func.ST_DWITHIN(cast(territory.geom, Geography), cast(Branch.latlng, Geography), 1)).limit(limit_num).all()
+            return Branch.query.filter(
+                func.ST_DWITHIN(cast(territory.geom, Geography), cast(Branch.latlng, Geography), 1)).limit(
+                limit_num).all()
 
     return []
 
@@ -224,18 +246,19 @@ def get_products_for_branches(branch_ids):
     return Branch.query.filter(Branch.id.in_(branch_ids)).all()
 
 
+def get_branches_within_date_range(start_date, end_date):
+    limit_ctr = 1000
+    return Branch.query.filter(Branch.operation_started_date.between(start_date, end_date)).limit(limit_ctr).all()
+
+
 def get_sales_transactions_within_date_range(start_date, end_date, user_id):
     limit_ctr = 500
     return Transaction.query.filter(Transaction.transaction_date.between(start_date, end_date)).filter(
-        Transaction.userid == user_id).limit(limit_ctr).all()
+        Transaction.userid == user_id).order_by(Transaction.transaction_date).limit(limit_ctr).all()
 
 
 def get_sales_transactions_by_date(start_date, user_id):
     limit_ctr = 500
     return Transaction.query.filter(cast_data(Transaction.transaction_date, DATE) == start_date).filter(
-        Transaction.userid == user_id).limit(limit_ctr).all()
+        Transaction.userid == user_id).order_by(Transaction.transaction_date).limit(limit_ctr).all()
 
-
-def get_branches_within_date_range(start_date, end_date):
-    limit_ctr = 1000
-    return Branch.query.filter(Branch.operation_started_date.between(start_date, end_date)).limit(limit_ctr).all()
