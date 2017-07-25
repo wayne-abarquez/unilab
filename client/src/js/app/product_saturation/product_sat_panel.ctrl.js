@@ -82,7 +82,6 @@ angular.module('demoApp.productSaturation')
                     var branchIds = result.map(function(item){return item.id;});
                     branchService.highlightMarkers(branchIds);
                     loadBranchList(result);
-                    //filterByProduct();
 
                     vm.hasProduct.count = vm.list.length;
                     vm.hasProduct.percentage = Math.ceil(vm.list.length / branchTotalCount * 100);
