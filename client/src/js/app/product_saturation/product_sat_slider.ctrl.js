@@ -31,7 +31,7 @@ angular.module('demoApp.productSaturation')
         function sliderChanged () {
            selected = vm.weeks[vm.slider.currentVal];
            selected.weekRangeStart = firstWeek.weekRangeStart;
-           selected.weekRangeStartFormatted = firstWeek.weekRangeStartFormatted;
+           //selected.weekRangeStartFormatted = firstWeek.weekRangeStartFormatted;
 
            vm.currentSelectedWeek = selected.weekRangeStartFormatted + ' to ' + selected.weekRangeEndFormatted;
 
