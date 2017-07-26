@@ -7,7 +7,7 @@ from .services import get_branches_by_boundary, get_branch_within_boundary, get_
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
     get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
-    get_all_branches_count
+    get_all_branches_count, delete_branch_wihin_boundary
 from flask import request
 from flask_login import current_user
 import logging
@@ -55,9 +55,13 @@ class BranchResource(Resource):
     def put(self):
         form_data = request.json
 
+        print "put branch formdata: {0}".format(form_data)
+
         if 'count_all' in form_data:
             count = get_all_branches_count()
             return marshal({'count': count}, count_fields)
+        elif 'boundary' in form_data: # delete branches within polygon
+            delete_branch_wihin_boundary(form_data['boundary'])
 
         return None
 
