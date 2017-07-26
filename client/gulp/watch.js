@@ -23,22 +23,19 @@ gulp.task('watch', function(event) {
         paths.srcJs + 'app/*.js',
         paths.srcJs + 'app/**/*.js'
     ], function (event) {
-        runSequence('app-scripts', function () {
-            //browserSync.reload(event.path);
-        });
+        runSequence('app-scripts');
     });
 
-    gulp.watch(paths.bower + '**/*.js', function (event) {
-        runSequence('vendor-scripts', function () {
-            //browserSync.reload(event.path);
-        });
+    gulp.watch([
+        paths.bower + '**/*.js',
+        paths.srcLibJs + '*.js'
+    ], function (event) {
+        runSequence('vendor-scripts');
     });
 
     // Watch Sass Files
     gulp.watch(paths.srcSass + '**/*.scss',
         function (event) {
-            runSequence('sass', function () {
-                //browserSync.reload(event.path);
-            });
+            runSequence('sass');
         });
 });

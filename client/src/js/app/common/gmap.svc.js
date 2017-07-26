@@ -101,6 +101,8 @@
         service.hidePolygon = hidePolygon;
         service.resetPolygonFill = resetPolygonFill;
         service.fillPolygon = fillPolygon;
+        service.fitToBoundsByPolygon = fitToBoundsByPolygon;
+        service.fitToBoundsLatLngArray = fitToBoundsLatLngArray;
         service.panToPolygon = panToPolygon;
         service.panToMarker = panToMarker;
         service.createPolyline = createPolyline;
@@ -712,6 +714,30 @@
             polygon.setOptions({
                 fillOpacity: 0.5
             });
+        }
+
+        function fitToBoundsByPolygon (polygon) {
+            if (!service.map || !polygon) return;
+
+            var bounds = new google.maps.LatLngBounds();
+
+            polygon.getPath().forEach(function (path) {
+                bounds.extend(path);
+            });
+
+            service.map.fitBounds(bounds);
+        }
+
+        function fitToBoundsLatLngArray(latlngArray) {
+            if (!service.map || !latlngArray.length) return;
+
+            var bounds = new google.maps.LatLngBounds();
+
+            latlngArray.forEach(function (path) {
+                bounds.extend(path);
+            });
+
+            service.map.fitBounds(bounds);
         }
 
         function panToPolygon(polygon) {

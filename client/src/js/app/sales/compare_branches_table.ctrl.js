@@ -39,8 +39,9 @@ angular.module('demoApp.sales')
             });
 
             $rootScope.$on('new-compare-branch', function (e, branch) {
-
                 if (_.findWhere(vm.branchCompareList, {id: branch.id})) return;
+
+                if (vm.branchCompareList == 0) branchService.unHighlightMarkers();
 
                 vm.branchCompareList.push(transform(branch));
 
@@ -51,7 +52,10 @@ angular.module('demoApp.sales')
             $rootScope.$watch('showBranchCompareTable', function (newValue, oldValue) {
                 if (newValue === oldValue) return;
 
-                if (newValue) highlightComparedBranches();
+                if (newValue) {
+                    branchService.unHighlightMarkers();
+                    highlightComparedBranches();
+                }
                 else branchService.resetMarkersColor();
             });
 

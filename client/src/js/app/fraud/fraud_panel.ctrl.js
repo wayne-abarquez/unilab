@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', fraudPanelController]);
+    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', 'gmapServices', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q) {
+    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q, gmapServices) {
         var vm = this;
 
         vm.listOfDays = [];
@@ -130,6 +130,8 @@ angular.module('demoApp.fraud')
         }
 
         function getSalesTransactions () {
+            var dfd = $q.defer();
+
             vm.dataIsLoaded = false;
 
             vm.transactions = [];
@@ -139,9 +141,12 @@ angular.module('demoApp.fraud')
                 .then(function(list){
                    vm.transactions = angular.copy(list);
                     salesTransactionService.initMarkers(list, true);
+                    dfd.resolve(list);
                 }).finally(function(){
                     vm.dataIsLoaded = true;
                 });
+
+            return dfd.promise;
         }
 
         function setDateGetData (dateStart, dateEnd) {
@@ -229,7 +234,8 @@ angular.module('demoApp.fraud')
                 targetEvent: $event,
                 model: vm.selectedRange
             }).then(function (result) {
-                if (result) showResult(result);
+                //if (result) showResult(result);
+                alertServices.showInfo('Functionality will be included on Production');
             })
         }
 
@@ -252,7 +258,11 @@ angular.module('demoApp.fraud')
             listOfDaysTemp = angular.copy(vm.listOfDays);
             vm.listOfDays = [];
 
-            getSalesTransactions();
+            getSalesTransactions()
+                .then(function(list){
+                  //console.log('list: ',list);
+                    gmapServices.fitToBoundsLatLngArray(list.map(function(itm){return itm.end_point_latlng;}));
+                });
         }
 
         function returnToDayList () {

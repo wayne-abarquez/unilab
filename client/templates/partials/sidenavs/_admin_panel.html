@@ -59,7 +59,7 @@
 
             <div id="boundaries-container" layout-margin>
 
-                <md-switch ng-model="vm.loadPois">Show POIs</md-switch>
+                <md-switch ng-model="vm.loadPois" ng-if="vm.showPoiPanel">Show POIs</md-switch>
 
                 <md-subheader ng-if="vm.loadPois">Place types</md-subheader>
 

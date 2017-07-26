@@ -46,6 +46,12 @@
   z-index: 81;
 }
 
+.focused-material-list-item {
+  > button {
+    background-color: rgba(158, 158, 158, 0.2);
+  }
+}
+
 .textarea {
   width: auto;
   min-width: 80%;

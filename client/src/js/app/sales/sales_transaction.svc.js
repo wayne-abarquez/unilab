@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
+    .factory('salesTransactionService', ['$rootScope', '$timeout', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
 
-    function salesTransactionService ($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
+    function salesTransactionService ($rootScope, $timeout, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
         var service = {};
 
         var transactionTypes = {
@@ -180,6 +180,19 @@ angular.module('demoApp.sales')
 
                 showTransactionOnMap(this.transaction, true);
                 showNextTransaction(this.transaction);
+
+                $('#fraud-panel md-list.transaction-list md-list-item').removeClass('focused-material-list-item');
+
+                var container = $('body .fraud-list-content'),
+                    scrollTo = $('#fraud-panel md-list.transaction-list md-list-item#transaction-' + this.transaction.id);
+
+                scrollTo.addClass('focused-material-list-item');
+
+                var scrollToValue = scrollTo.offset().top - container.offset().top + container.scrollTop();
+
+                container.animate({
+                    scrollTop: scrollToValue
+                }, 1500);
             });
         }
 
@@ -257,10 +270,13 @@ angular.module('demoApp.sales')
 
         function clearMapLabel () {
             if (labels.nextTransaction) {
-                inviMarker.setMap(null);
-                inviMarker = null;
                 labels.nextTransaction.setMap(null);
                 labels.nextTransaction = null;
+            }
+
+            if (inviMarker && inviMarker.getMap()) {
+                inviMarker.setMap(null);
+                inviMarker = null;
             }
         }
 
@@ -389,8 +405,6 @@ angular.module('demoApp.sales')
                 travelMode: 'DRIVING'
             }, function (response, status) {
                 if (status === 'OK') {
-                    console.log('calculateAndDisplayRoute: ',response);
-
                     if (customDirectionsDisplay) customDirectionsDisplay.setDirections(response);
                     else gmapServices.directionsDisplay.setDirections(response);
 
@@ -433,6 +447,8 @@ angular.module('demoApp.sales')
         }
 
         function showTransactionOnMap(transaction, isFromFraud) {
+            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
+
             if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
                 // show marker
                 if (transactionMarkerItem) {

@@ -89,6 +89,7 @@
 
                     <md-list-item ng-repeat="item in vm.transactions"
                                   class="md-3-line"
+                                  id="transaction-{{item.id}}"
                                   ng-click="vm.onClickTransaction(item);$event.stopPropagation()">
                         <md-icon class="md-avatar-icon" ng-class="{'fraud-icon':item.status=='FRAUD', 'cleared-icon':item.status=='CLEARED', 'investigating-icon':item.status=='INVESTIGATING'}">{{item.icon.icon}}</md-icon>
                         <div class="md-list-item-text" layout="column">

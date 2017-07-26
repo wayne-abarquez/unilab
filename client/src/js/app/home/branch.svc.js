@@ -29,6 +29,7 @@ angular.module('demoApp.home')
         service.getRestangularObj = getRestangularObj;
         service.highlightMarkers = highlightMarkers;
         service.resetMarkersColor = resetMarkersColor;
+        service.unHighlightMarkers = unHighlightMarkers;
         service.unHighlightMarker = unHighlightMarker;
         service.animateMarker = animateMarker;
         service.clearAnimationMarker = clearAnimationMarker;
@@ -71,21 +72,22 @@ angular.module('demoApp.home')
 
             if (!isProductSaturation) marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
 
-            if ($rootScope.currentUser.role === 'ADMIN') {
-                if (isProductSaturation) {
-                    marker.content += '<button id="add-product-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-accent">Add Product</button>';
-                }
+            //if ($rootScope.currentUser.role === 'ADMIN') {
+                //if (isProductSaturation) {
+                //    marker.content += '<button id="add-product-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-accent">Add Product</button>';
+                //}
 
-                if (!isProductSaturation) {
-                    marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Edit</button>';
-                    marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
-                }
-            }
+                //if (!isProductSaturation) {
+                    //marker.content += '<button id="edit-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-warn">Edit</button>';
+                    //marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
+                //}
+            //}
 
             marker.content += '</div>';
 
             marker.branch = angular.copy(item);
             marker.id = item.id;
+            marker.touched = false;
 
             gmapServices.addListener(marker, 'click', function () {
                 branchInfowindow.open(gmapServices.map, this);
@@ -189,24 +191,45 @@ angular.module('demoApp.home')
             return Branch.cast(branchId);
         }
 
-        function highlightMarkers (branchIds) {
+        function highlightMarkers (branchIds, isProductSat) {
             var icon,
                 isFound,
                 foundCtr = 0;
+
+
+            if (isProductSat) {
+                var toHighlightMarkers = _.filter(branchMarkers, function (itm) {
+                    return branchIds.indexOf(itm.id) > -1;
+                });
+
+                toHighlightMarkers.forEach(function (item) {
+                    item.setZIndex(2);
+                    item.setIcon(getBranchIconByType(item.branch.type));
+                    item.touched = true;
+                    foundCtr++;
+                });
+                return;
+            }
 
             branchMarkers.forEach(function(item){
                 isFound = branchIds.indexOf(item.id) > -1;
 
                 if (isFound) {
                     item.setZIndex(2);
+                    item.setIcon(getBranchIconByType(item.branch.type));
+                    item.touched = true;
                     foundCtr++;
                 }
 
-                icon = isFound
-                       ? getBranchIconByType(item.branch.type)
-                       : getBranchIconByType();
-
-                item.setIcon(icon);
+                //if (isFound) {
+                //    item.setZIndex(2);
+                //    foundCtr++;
+                //}
+                //icon = isFound
+                //       ? getBranchIconByType(item.branch.type)
+                //       : getBranchIconByType();
+                //
+                //item.setIcon(icon);
             });
 
             return foundCtr;
@@ -215,11 +238,40 @@ angular.module('demoApp.home')
         function resetMarkersColor (isProductSaturation) {
             var icon;
 
+            if (isProductSaturation) {
+                var touchedMarkers = _.where(branchMarkers, {touched: true});
+
+                if (touchedMarkers.length) {
+                    touchedMarkers.forEach(function (item) {
+                        icon = getBranchIconByType(item.branch.type, isProductSaturation);
+                        item.setIcon(getBranchIconByType(item.branch.type, isProductSaturation));
+                        item.setZIndex(1);
+                    });
+                }
+                return;
+            }
+
+
             branchMarkers.forEach(function (item) {
-                icon = getBranchIconByType(item.branch.type, isProductSaturation)
+                icon = getBranchIconByType(item.branch.type, isProductSaturation);
+
+                if (item.getIcon() == icon) return;
+
                 item.setIcon(icon);
-                item.setZIndex(1);
+                //item.setZIndex(1);
             });
+        }
+
+        function unHighlightMarkers() {
+            var defaultIcon = getBranchIconByType();
+            branchMarkers.forEach(function (item) {
+                if (item.getIcon() != defaultIcon && !item.touched) {
+                    item.setIcon(defaultIcon);
+                    item.setAnimation(null);
+                    item.setZIndex(1);
+                }
+            });
+
         }
 
         function unHighlightMarker (branchId) {
@@ -227,6 +279,7 @@ angular.module('demoApp.home')
 
             if (!found) return;
 
+            found.touched = false;
             found.setIcon(getBranchIconByType());
             found.setZIndex(1);
             found.setAnimation(null);
