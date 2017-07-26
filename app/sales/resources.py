@@ -60,7 +60,8 @@ class BranchResource(Resource):
         if 'count_all' in form_data:
             count = get_all_branches_count()
             return marshal({'count': count}, count_fields)
-        elif 'boundary' in form_data: # delete branches within polygon
+        
+        elif 'boundary' in form_data: # tool to delete branches within polygon, this is temporary
             delete_branch_wihin_boundary(form_data['boundary'])
 
         return None

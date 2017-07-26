@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSaturationPageController', ['$rootScope', 'gmapServices', 'modalServices', 'branchService', 'Branch', productSaturationPageController]);
+    .controller('productSaturationPageController', ['$rootScope', 'gmapServices', 'modalServices', 'branchService', productSaturationPageController]);
 
-    function productSaturationPageController ($rootScope, gmapServices, modalServices, branchService, Branch) {
+    function productSaturationPageController ($rootScope, gmapServices, modalServices, branchService) {
         var vm = this;
 
         $rootScope.showProductSaturationSlider = false;
@@ -13,7 +13,7 @@ angular.module('demoApp.productSaturation')
         var branchId,
             branchMarker;
 
-        var drawingManager, overlay;
+        //var drawingManager, overlay;
 
         initialize();
 
@@ -40,30 +40,29 @@ angular.module('demoApp.productSaturation')
 
 
             /* for deletion only on branch, remove after */
-
-            drawingManager = new google.maps.drawing.DrawingManager({
-                drawingControl: true,
-                drawingControlOptions: {
-                    position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: ['polygon']
-                }
-            });
-            drawingManager.setMap(gmapServices.map);
-            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
-                if (overlay) {
-                    overlay.setMap(null);
-                    overlay = null;
-                }
-
-                overlay = event.overlay;
-                var path = overlay.getPath().getArray().map(function(p){return p.toJSON();});
-
-                Branch.customPUT({boundary: path})
-                    .then(function(){
-                        overlay.setMap(null);
-                        overlay = null;
-                    },function(error){console.log('error: ',error);});
-            });
+            //drawingManager = new google.maps.drawing.DrawingManager({
+            //    drawingControl: true,
+            //    drawingControlOptions: {
+            //        position: google.maps.ControlPosition.TOP_CENTER,
+            //        drawingModes: ['polygon']
+            //    }
+            //});
+            //drawingManager.setMap(gmapServices.map);
+            //google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+            //    if (overlay) {
+            //        overlay.setMap(null);
+            //        overlay = null;
+            //    }
+            //
+            //    overlay = event.overlay;
+            //    var path = overlay.getPath().getArray().map(function(p){return p.toJSON();});
+            //
+            //    Branch.customPUT({boundary: path})
+            //        .then(function(){
+            //            overlay.setMap(null);
+            //            overlay = null;
+            //        },function(error){console.log('error: ',error);});
+            //});
         }
 
     }
