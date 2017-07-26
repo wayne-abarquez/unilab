@@ -292,3 +292,18 @@ def get_all_branches_count():
     result = db.engine.execute(query).fetchone()
 
     return result[0]
+
+
+def delete_branch_wihin_boundary(latlngList):
+    from app.utils import forms_helper
+
+    boundary = forms_helper.parse_area(latlngList)
+
+    result = Branch.query \
+        .filter(func.ST_DWITHIN(cast(boundary, Geography), cast(Branch.latlng, Geography), 1)) \
+        .all()
+
+    for br in result:
+        db.session.delete(br)
+
+    db.session.commit()
