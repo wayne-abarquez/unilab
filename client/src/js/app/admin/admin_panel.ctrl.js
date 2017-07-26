@@ -169,7 +169,9 @@ angular.module('demoApp.admin')
             } else {
                 $('md-list-item#' + item.id.toString() + ' md-progress-circular').show();
 
-                vm.showPoiPanel = true;
+                $timeout(function(){
+                    vm.showPoiPanel = true;
+                },500);
             }
 
             promises.push(
