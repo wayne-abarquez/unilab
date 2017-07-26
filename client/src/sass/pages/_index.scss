@@ -16,6 +16,7 @@ md-menu-content {
   position: absolute;
   top: 5px;
   left: 5px;
+  z-index: 2;
 
   //@media screen and (max-width: 456px) {
   //  left: 10px;
@@ -28,6 +29,7 @@ md-menu-content {
   //left: 5px;
   top: 50px;
   left: 5px;
+  z-index: 2;
 }
 
 #admin-options-btn {

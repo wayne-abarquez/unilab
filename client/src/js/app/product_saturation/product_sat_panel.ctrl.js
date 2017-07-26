@@ -55,10 +55,7 @@ angular.module('demoApp.productSaturation')
             $rootScope.$on('product-saturation-time-slider-changes', function (e, params) {
                 vm.selectedDate = angular.copy(params.selectedWeek);
 
-                if (!vm.filter.selectedProduct) {
-                    //alertServices.showInfo('Please select product');
-                    return;
-                }
+                if (!vm.filter.selectedProduct) return;
 
                 showResult(params.selectedWeek.weekRangeStart, params.selectedWeek.weekRangeEnd, vm.filter.selectedProduct);
             });
@@ -80,7 +77,7 @@ angular.module('demoApp.productSaturation')
                 .then(function (response) {
                     var result = response.plain();
                     var branchIds = result.map(function(item){return item.id;});
-                    branchService.highlightMarkers(branchIds);
+                    branchService.highlightMarkers(branchIds, true);
                     loadBranchList(result);
 
                     vm.hasProduct.count = vm.list.length;
@@ -99,23 +96,6 @@ angular.module('demoApp.productSaturation')
             branchService.triggerClickBranch(branchId);
         }
 
-        //function clear (isInitialLoad) {
-        //    if (!vm.filter.selectedType) {
-        //        alertServices.showInfo('Please select filter type');
-        //        vm.filter.q = '';
-        //        return;
-        //    }
-        //
-        //    if (!vm.filter.q && !isInitialLoad) {
-        //        filterTypeChanged();
-        //        return;
-        //    }
-        //
-        //    if (aborts) aborts.resolve();
-        //
-        //    vm.dataIsLoaded = false;
-        //}
-
         function loadBranchList (list) {
             vm.list = angular.copy(list);
         }
@@ -133,10 +113,7 @@ angular.module('demoApp.productSaturation')
         }
 
         function newProduct(event) {
-            modalServices.showNewProductForm(event)
-                .then(function (product) {
-
-                });
+            modalServices.showNewProductForm(event);
         }
     }
 }());
