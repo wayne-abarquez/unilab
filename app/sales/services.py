@@ -251,9 +251,9 @@ def get_branches_within_date_range(start_date, end_date):
 
 
 def get_sales_transactions_within_date_range(start_date, end_date, user_id):
-    limit_ctr = 500
+    # limit_ctr = 500
     return Transaction.query.filter(Transaction.transaction_date.between(start_date, end_date)).filter(
-        Transaction.userid == user_id).order_by(Transaction.transaction_date).limit(limit_ctr).all()
+        Transaction.userid == user_id).order_by(Transaction.transaction_date).all()
 
 
 def get_sales_transactions_by_date(start_date, user_id):
@@ -305,5 +305,21 @@ def delete_branch_wihin_boundary(latlngList):
 
     for br in result:
         db.session.delete(br)
+
+    db.session.commit()
+
+
+def update_sales_transaction_remarks(transactionid, remarks):
+    transaction = Transaction.query.get(transactionid)
+
+    transaction.remarks = remarks
+
+    db.session.commit()
+
+
+def update_sales_transaction_status(transactionid, status):
+    transaction = Transaction.query.get(transactionid)
+
+    transaction.status = status
 
     db.session.commit()

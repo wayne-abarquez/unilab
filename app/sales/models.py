@@ -72,6 +72,12 @@ class TransactionType:
     )
 
 
+class TransactionStatus:
+    CLEARED = 'CLEARED'
+    INVESTIGATING = 'INVESTIGATING'
+    FRAUD = 'FRAUD'
+
+
 class Transaction(BaseModel):
     merchantid = db.Column(db.Integer, db.ForeignKey('merchant.id'))
     userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -82,8 +88,15 @@ class Transaction(BaseModel):
     address = db.Column(db.String(500))
     start_point_latlng = db.Column(Geometry('POINT'), nullable=True)
     end_point_latlng = db.Column(Geometry('POINT'))
+
     travel_time_in_minutes = db.Column(db.Float)
     average_travel_time_in_minutes = db.Column(db.Float)
+    travel_time_difference = db.Column(db.Float)
+    travel_distance_in_km = db.Column(db.Float)
+
+    next_average_travel_time_in_minutes = db.Column(db.Float)
+    next_travel_distance_in_km = db.Column(db.Float)
+
     remarks = db.Column(db.Text)
     status = db.Column(db.String(20))
 

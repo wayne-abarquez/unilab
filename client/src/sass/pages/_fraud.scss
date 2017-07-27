@@ -21,3 +21,18 @@
 .investigating-icon {
   color: #f39c12;
 }
+
+#transaction-remarks-textarea {
+  margin-bottom: 0.25rem;
+}
+
+.transaction-remarks-textarea-container {
+  text-align: right;
+  padding-right: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+#transaction-remarks-textarea-response {
+  display: none;
+  color: white;
+}

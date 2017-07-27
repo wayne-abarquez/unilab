@@ -1,13 +1,18 @@
 from app import app, db
 from openpyxl import load_workbook
 from sqlalchemy import Column, String, Integer, MetaData, Table, ForeignKey
-from app.sales.models import Transaction
+from app.sales.models import Transaction, TransactionStatus
 from app.authentication.models import User
 from unicodedata import normalize
-from app.sales.services import create_transaction, create_merchant
-import re
+from app.sales.services import create_transaction, create_merchant, get_sales_transactions_within_date_range
 from datetime import datetime
+import json
+import requests
+from app.utils.gis_json_fields import PointToLatLngParam
 import logging
+import itertools
+import re
+from random import randint
 
 log = logging.getLogger(__name__)
 
@@ -136,7 +141,7 @@ def upload_fraud_data(file):
                         elif "clinic address" in key:
                             merchant_data['address'] = cell.value
                 except Exception as error:
-                        print "ERROR: {0}".format(error)
+                    print "ERROR: {0}".format(error)
 
             # print "DATA TYPES: {0}".format(data_types)
 
@@ -154,7 +159,8 @@ def upload_fraud_data(file):
                     address = merchant_data['address'] if 'address' in merchant_data else None
                     transaction_date = clean_date(dct['visit_date']) if 'visit_date' in dct else None
 
-                    transaction = create_transaction(userid, latlng, sheet.upper(), merchantid, address, transaction_date)
+                    transaction = create_transaction(userid, latlng, sheet.upper(), merchantid, address,
+                                                     transaction_date)
 
                     if transaction is not None and transaction.id is not None:
                         dct['transactionid'] = transaction.id
@@ -170,7 +176,7 @@ def upload_fraud_data(file):
             app.logger.info("INSERTING DATA TO {0}".format(table_name))
             returning_column = table.c.id if is_table_non_transaction else table.c.transactionid
             res = engine.execute(table.insert().values(values).returning(returning_column))
-            result[sheet.lower()] = map(lambda itm : itm[0], res)
+            result[sheet.lower()] = map(lambda itm: itm[0], res)
             app.logger.info("FINISH!")
         except Exception as err:
             app.logger.info("ERROR INSERTING: {0}".format(err))
@@ -178,30 +184,167 @@ def upload_fraud_data(file):
     return result
 
 
-# def make_table(table_name, fields):
-#     metadata = MetaData
-#     columns = [_create_column(*field) for field in reader.fields]
-#     table = Table(table_name, metadata, *columns)
-#     if not table.exists():
-#         table.create()
-#     return table
+def get_distance(origin_list, destination_list):
+    pointToLatLngParam = PointToLatLngParam()
+
+    url = 'https://maps.googleapis.com/maps/api/distancematrix/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
+    url += '&origins=' + ','.join([pointToLatLngParam.format(point) for point in origin_list])
+    url += '&destinations=' + ','.join([pointToLatLngParam.format(point) for point in destination_list])
+    # print url
+
+    response = requests.get(url, verify=False)
+
+    if response.content:
+        content = json.loads(response.content)
+        if content['status'] == 'OK' and len(content['rows']) > 0 and len(content['rows'][0]):
+            result = content['rows'][0]['elements'].pop()
+            return {
+                'distance': float((result['distance']['text']).split()[0]),
+                'duration': float((result['duration']['text']).split()[0])
+            }
+
+    return None
 
 
-# def upload_photo(solar_id, uploaded_file):
-#     # Prepare Data
-#     solar = Solar.query.get(solar_id)
-#
-#     if solar is None:
-#         raise SolarNotFoundError("Solar id={0} not found".format(solar_id))
-#
-#     if uploaded_file is not None:
-#         upload = UploadResource()
-#         filename = upload.copy_file(uploaded_file)
-#         file_ext = upload.get_file_extension(filename)
-#         solar_file = SolarFile(file_name=filename,
-#                                type=file_ext)
-#         solar.files.append(solar_file)
-#         db.session.commit()
-#         return solar_file
-#
-#     return None
+def compute_transaction_travel_details(start_date, end_date, user_id):
+    print "compute_transaction_travel_details startdate={0} enddate={1} userid={2}".format(start_date, end_date,
+                                                                                           user_id)
+    # get all the transactions within date range
+    transactions = get_sales_transactions_within_date_range(start_date, end_date, user_id)
+
+    # group transactions by day
+    grouped_transactions = []
+    for key, items in itertools.groupby(transactions, lambda transaction: str(transaction.transaction_date)[:10]):
+        grouped_transactions.append(list(items))
+
+    for outer_idx, listitem in enumerate(grouped_transactions):
+
+        print "list {0} : {1}".format(outer_idx, len(listitem))
+
+        for idx, transitm in enumerate(listitem):
+
+            print "Transaction id={0} : {1}".format(transitm.id, transitm.transaction_date)
+
+            latlngs = {
+                'current': None,
+                'previous': None,
+                'next': None
+            }
+
+            transaction_dates = {
+                'current': None,
+                'previous': None
+            }
+
+            # refer to previous transaction (idx - 1) for previous
+            # refer to next transaction (idx + 1) for next
+            if len(listitem) > 1:
+                if idx == 0:  # NO PREVIOUS TRANSACTION
+                    # refer to start_point_latlng for previous
+                    next = listitem[idx + 1]
+
+                    latlngs['current'] = transitm.end_point_latlng
+                    latlngs['next'] = next.end_point_latlng
+                    latlngs['previous'] = transitm.start_point_latlng
+
+                    transaction_dates['current'] = transitm.transaction_date
+                elif idx == len(listitem) - 1:  # NO NEXT TRANSACTION
+                    # do not compute next_average_travel_time and next_travel_distance
+                    previous = listitem[idx - 1]
+
+                    latlngs['current'] = transitm.end_point_latlng
+                    latlngs['previous'] = previous.end_point_latlng
+
+                    transaction_dates['current'] = transitm.transaction_date
+                    transaction_dates['previous'] = previous.transaction_date
+                else:
+                    previous = listitem[idx - 1]
+                    next = listitem[idx + 1]
+
+                    latlngs['current'] = transitm.end_point_latlng
+                    latlngs['next'] = next.end_point_latlng
+                    latlngs['previous'] = previous.end_point_latlng
+
+                    transaction_dates['current'] = transitm.transaction_date
+                    transaction_dates['previous'] = previous.transaction_date
+
+                    # print "latlngs: {0}".format(latlngs)
+                    # print "transaction dates: {0}".format(transaction_dates)
+
+            else:  # only one on list
+                latlngs['current'] = transitm.end_point_latlng
+                latlngs['previous'] = transitm.start_point_latlng
+
+                transaction_dates['current'] = transitm.transaction_date
+
+            average_travel_time_in_minutes = None
+            travel_distance_in_km = None
+            travel_time_in_minutes = None
+            travel_time_difference = None
+            next_average_travel_time_in_minutes = None
+            next_travel_distace_in_km = None
+
+            # fill average_travel_time and travel_distance_in_km by getting the previous transaction is has one if not then refer on the start_point_latlng then it in distance matrix
+            # compute for average_travel_time_in_minutes and travel_distance_in_km
+            if latlngs['previous'] is not None and latlngs['current'] is not None:
+                l1 = [latlngs['previous']]
+                l2 = [latlngs['current']]
+
+                response = get_distance(l1, l2)
+
+                if response is not None:
+                    travel_distance_in_km = response['distance']
+                    average_travel_time_in_minutes = response['duration']
+                    transitm.travel_distance_in_km = travel_distance_in_km
+                    transitm.average_travel_time_in_minutes = average_travel_time_in_minutes
+                    print "travel_distance_in_km: {0} km average_travel_time_in_minutes: {1} mins".format(
+                        travel_distance_in_km, average_travel_time_in_minutes)
+
+            # fill next_average_travel_time_in_minutes and next_travel_distance_in_km by getting the next transaction if has one then compute it in distance matrix
+            # compute for next_average_travel_time_in_km and next_travel_distance_in_km
+            if latlngs['current'] is not None and latlngs['next'] is not None:
+                l1 = [latlngs['current']]
+                l2 = [latlngs['next']]
+
+                response = get_distance(l1, l2)
+
+                if response is not None:
+                    next_travel_distance_in_km = response['distance']
+                    next_average_travel_time_in_minutes = response['duration']
+                    transitm.next_travel_distance_in_km = next_travel_distance_in_km
+                    transitm.next_average_travel_time_in_minutes = next_average_travel_time_in_minutes
+                    print "next_travel_distance_in_km: {0} km next_average_travel_time_in_minutes: {1} mins".format(
+                        next_travel_distance_in_km, next_average_travel_time_in_minutes)
+
+            # fill travel time based on transaction_date - previous_transaction_date
+            if transaction_dates['previous'] and transaction_dates['current']:
+                # compute for travel_time_in_minutes
+                travel_time_result = transaction_dates['current'] - transaction_dates['previous']
+                travel_time_in_minutes = round(travel_time_result.total_seconds() / 60, 2)
+                transitm.travel_time_in_minutes = travel_time_in_minutes
+                print "travel time in minutes: {0}".format(travel_time_in_minutes)
+
+                if average_travel_time_in_minutes is not None:
+                    scan_for_fraud_by_date(transaction_dates['current'], transaction_dates['previous'],
+                                           average_travel_time_in_minutes, transitm)
+
+            elif average_travel_time_in_minutes is not None:
+                # add random additional time for the sake of test data
+                transitm.travel_time_in_minutes = average_travel_time_in_minutes + randint(10, 25)
+
+            if transitm.travel_time_in_minutes is not None:
+                transitm.travel_time_difference = transitm.travel_time_in_minutes
+
+    db.session.commit()
+
+
+def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, average_travel_time_in_minutes,
+                           transaction_obj):
+    actual_travel_time_result = current_transaction_date - previous_transaction_date
+    actual_travel_time_in_minutes = round(actual_travel_time_result.total_seconds() / 60, 2)
+
+    if actual_travel_time_in_minutes < (average_travel_time_in_minutes - (average_travel_time_in_minutes * 0.5)) \
+            or average_travel_time_in_minutes > (average_travel_time_in_minutes * 1.5):
+        transaction_obj.status = TransactionStatus.FRAUD
+        transaction_obj.remarks = 'suspicious travel time'
+

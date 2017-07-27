@@ -7,7 +7,8 @@ from .services import get_branches_by_boundary, get_branch_within_boundary, get_
     get_sales_transactions, create_sales_transaction, create_merchant, delete_branch, get_user_sales_transactions, \
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
     get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
-    get_all_branches_count, delete_branch_wihin_boundary
+    get_all_branches_count, delete_branch_wihin_boundary, update_sales_transaction_remarks, \
+    update_sales_transaction_status
 from flask import request
 from flask_login import current_user
 import logging
@@ -60,7 +61,7 @@ class BranchResource(Resource):
         if 'count_all' in form_data:
             count = get_all_branches_count()
             return marshal({'count': count}, count_fields)
-        
+
         elif 'boundary' in form_data: # tool to delete branches within polygon, this is temporary
             delete_branch_wihin_boundary(form_data['boundary'])
 
@@ -194,6 +195,22 @@ class SalesTransactionResource(Resource):
         return []
 
 
+class SalesTransactionDetailResource(Resource):
+    """
+    Resource for getting all Sales Transactions Detail
+    """
+
+    def put(self, transactionid):
+        form_data = request.json
+
+        if 'remarks' in form_data:
+            update_sales_transaction_remarks(transactionid, form_data['remarks'])
+        elif 'status' in form_data:
+            update_sales_transaction_status(transactionid, form_data['status'])
+
+        return marshal(dict(status=200, message="OK"), success_fields)
+
+
 class UserSalesTransactionResource(Resource):
     """
     Resource for getting all Sales Transactions for a User
@@ -213,4 +230,5 @@ rest_api.add_resource(BranchDetailResource, '/api/branches/<int:branchid>')
 rest_api.add_resource(BranchProductResource, '/api/branches/<int:branchid>/products')
 rest_api.add_resource(BoundaryBranchResource, '/api/boundaries/<int:boundaryid>/branches')
 rest_api.add_resource(SalesTransactionResource, '/api/salestransactions')
+rest_api.add_resource(SalesTransactionDetailResource, '/api/salestransactions/<int:transactionid>')
 rest_api.add_resource(UserSalesTransactionResource, '/api/users/<int:userid>/salestransactions')
