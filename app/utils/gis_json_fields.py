@@ -13,6 +13,21 @@ class GeomHelpers:
         return str(to_shape(value))
 
 
+class PointToLatLngParam(fields.Raw):
+    """
+    Convert PostGIS POINT Geometry to {pt.y,pt.x}
+    For Distance Matrix Param
+    """
+
+    def format(self, value):
+        try:
+            point = to_shape(value)
+            return str(point.y) + ',' + str(point.x)
+        except AssertionError:
+            point = wkb.loads(value, hex=True)
+            return str(point.y) + ',' + str(point.x)
+
+
 class PointToLatLng(fields.Raw):
     """
     Convert PostGIS POINT Geometry to {lat=pt.y,lng=pt.x}

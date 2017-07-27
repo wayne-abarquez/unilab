@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.sales')
-    .factory('salesTransactionService', ['$rootScope', '$timeout', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
+    .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
 
-    function salesTransactionService ($rootScope, $timeout, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
+    function salesTransactionService ($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
         var service = {};
 
         var transactionTypes = {
@@ -61,9 +61,16 @@ angular.module('demoApp.sales')
             transactionMarkerItem = null,
             infowindow = null,
             inviMarker,
-            transactionMarkers = []
+            transactionMarkers = [],
+            inviMarkers = [];
 
-        var nextTransactionDirectionsDisplay;
+        var labels = {
+            nextTransaction: null,
+            previousTransaction: null
+        };
+
+        var nextTransactionDirectionsDisplay,
+            previousTransactionDirectionsDisplay;
 
         service.saveTransaction = saveTransaction;
         service.getUserTransactions = getUserTransactions;
@@ -77,21 +84,46 @@ angular.module('demoApp.sales')
         service.updateTransactionStatus = updateTransactionStatus;
         service.resetMarkers = resetMarkers;
         service.resetTransactionVisuals = resetTransactionVisuals;
+        service.saveTransactionRemarks = saveTransactionRemarks;
+
+        function saveTransactionRemarks (transactionId, remarks) {
+            var dfd = $q.defer();
+
+            var restObj = SalesTransaction.cast(transactionId);
+
+            restObj.customPUT({'remarks': remarks})
+                .then(function(response){
+                    dfd.resolve(response.plain());
+                }, function (error){ dfd.reject(error); });
+
+            return dfd.promise;
+        }
 
         function updateTransactionStatus (id, status) {
-            var transaction = getTransactionById(id);
+            var dfd = $q.defer();
 
-            console.log('updateTransactionStatus');
+            var restObj = SalesTransaction.cast(id);
 
-            console.log('transactionMarker', transaction);
-            if (!transaction) return;
+            restObj.customPUT({'status': status})
+                .then(function (response) {
 
-            transaction.status = status;
+                    var transaction = getTransactionById(id);
 
-            transaction.marker.setIcon(getMarkerIconByStatus(transaction.status));
+                    if (!transaction) return;
 
-            setInfowindowContent(transaction, transaction.marker);
-            infowindow.setContent(transaction.marker.content);
+                    transaction.status = status;
+
+                    transaction.marker.setIcon(getMarkerIconByStatus(transaction.status));
+
+                    setInfowindowContent(transaction, transaction.marker);
+                    infowindow.setContent(transaction.marker.content);
+
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
         }
 
         function getTransactionById(transactionId) {
@@ -143,6 +175,7 @@ angular.module('demoApp.sales')
             marker.content = '<div>';
             //marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + (item.type ? item.type : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Status: </b> ' + (item.status ? item.status : '') + '</p>';
 
             if (item.merchant && item.merchant.name) {
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Merchant Name: </b>' + item.merchant.name + '</p>';
@@ -151,17 +184,29 @@ angular.module('demoApp.sales')
 
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Description: </b> ' + (item.description ? item.description : '') + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Amount: </b> ' + (item.cost ? item.cost  : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Date: </b> ' + (item.transaction_date_formatted ? item.transaction_date_formatted : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes ? item.travel_time_in_minutes : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Status: </b> ' + (item.status ? item.status : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Date: </b> ' + (item.transaction_date_formatted ? item.transaction_date_formatted : '') + '</p>';
+
+            marker.content += '<br>';
+
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes + ' mins' : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.travel_distance_in_km ? item.travel_distance_in_km + ' km' : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes ? item.travel_time_in_minutes + ' mins' : '') + '</p>';
+
+            marker.content += '<br>';
+
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Next Transaction</b></p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.next_average_travel_time_in_minutes ? item.next_average_travel_time_in_minutes + ' mins' : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.next_travel_distance_in_km ? item.next_travel_distance_in_km + ' km' : '') + '</p>';
+
+            marker.content += '<br>';
 
             marker.content += '<label class="text-muted"  style="padding:0.5rem 0 0 0.5rem;"><b>Validation Remarks: </b></label>';
-            marker.content += '<textarea class="textarea" rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'
+            marker.content += '<textarea class="textarea" id="transaction-remarks-textarea" data-transaction-id="' + item.id + '"rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'
+            marker.content += '<div class="transaction-remarks-textarea-container"><span id="transaction-remarks-textarea-response" class="label label-success"></span></div>';
 
-            if (item.status != 'FRAUD' && item.status != 'CLEARED') marker.content += '<button id="mark-fraud-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-warn">Fraud</button>';
+            if (item.status != 'FRAUD') marker.content += '<button id="mark-fraud-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-warn">Fraud</button>';
             if (item.status != 'CLEARED') marker.content += '<button id="mark-cleared-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-default">Cleared</button>';
-            if (!item.status) marker.content += '<button id="mark-investigate-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-accent">Investigate</button>';
+            if (item.status != 'INVESTIGATING' || !item.status) marker.content += '<button id="mark-investigate-btn" data-transaction-id="' + item.id + '" class="md-button md-raised md-accent">Investigate</button>';
 
             marker.content += '</div>';
 
@@ -202,24 +247,18 @@ angular.module('demoApp.sales')
             });
         }
 
-        var labels = {
-            nextTransaction: null
-        };
-
         function showNextTransaction(transaction) {
             var sameDateTransactions = getTransactionWithSameDay(transaction.transaction_date);
 
             if (!sameDateTransactions.length) return;
 
-            //console.log('sameDateTransactions', sameDateTransactions);
-
             var currentIndex = _.findIndex(sameDateTransactions, {id: transaction.id});
 
             if (currentIndex === -1) return;
 
+            // next route
             if (currentIndex < sameDateTransactions.length - 1) {
                 var nextTransaction = sameDateTransactions[currentIndex + 1];
-                //console.log('nextTransaction: ', nextTransaction);
                 // show next transaction
                 gmapServices.initializeDirectionsService();
                 if (!nextTransactionDirectionsDisplay) {
@@ -227,27 +266,53 @@ angular.module('demoApp.sales')
                         draggable: false, preserveViewport: true, suppressMarkers: true,
                         polylineOptions: {
                             strokeOpacity: 0.75,
-                            strokeColor: '#3498db',
-                            //icons: [{
-                            //    icon: {
-                            //        path: 'M 0,-1 0,1',
-                            //        strokeOpacity: 1,
-                            //        scale: 2
-                            //    },
-                            //    offset: '0',
-                            //    repeat: '10px'
-                            //}],
+                            strokeColor: '#27ae60',
                             map: gmapServices.map
                         }
                     });
                 }
 
-                labels.nextTransaction = true;
+                labels.nextTransaction = {'test': 'test'};
 
-                calculateAndDisplayRoute(transaction.end_point_latlng, nextTransaction.end_point_latlng, labels.nextTransaction, nextTransactionDirectionsDisplay);
-            } else {
-                console.log('transaction '+transaction.id+' is last transaction of the day.');
-            }
+                var travelInfo = {
+                    distance: transaction.travel_distance_in_km,
+                    duration: transaction.travel_time_in_minutes
+                };
+
+                calculateAndDisplayRoute(transaction.end_point_latlng, nextTransaction.end_point_latlng, travelInfo, labels.nextTransaction, nextTransactionDirectionsDisplay, 'Next', 'rgba(39, 174, 96, 0.75)')
+                    .then(function (label) {
+                        labels.nextTransaction = label;
+                    });
+            } else console.log('transaction ' + transaction.id + ' is last transaction of the day.');
+
+            // previous route
+            if (currentIndex > 0) {
+                var previousTransaction = sameDateTransactions[currentIndex - 1];
+                // show next transaction
+                gmapServices.initializeDirectionsService();
+                if (!previousTransactionDirectionsDisplay) {
+                    previousTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
+                        draggable: false, preserveViewport: true, suppressMarkers: true,
+                        polylineOptions: {
+                            strokeOpacity: 0.75,
+                            strokeColor: '#f39c12',
+                            map: gmapServices.map
+                        }
+                    });
+                }
+
+                labels.previousTransaction = {'test': 'test'};
+
+                var travelInfo = {
+                    distance: transaction.next_travel_distance_in_km,
+                    duration: transaction.next_average_travel_time_in_minutes
+                };
+
+                calculateAndDisplayRoute(previousTransaction.end_point_latlng, transaction.end_point_latlng, travelInfo, labels.previousTransaction, previousTransactionDirectionsDisplay, 'Last', 'rgba(243, 156, 18, 0.75)')
+                    .then(function(label){
+                        labels.previousTransaction = label;
+                    });
+            } else console.log('transaction ' + transaction.id + ' is first transaction of the day.');
         }
 
         function addTransaction (item, isFromFraud) {
@@ -261,23 +326,27 @@ angular.module('demoApp.sales')
 
             obj.marker.id = item.id;
 
-            if (obj.marker) {
-                createContentForInfowindow(item, obj.marker);
-            }
+            if (obj.marker) createContentForInfowindow(item, obj.marker);
 
             return obj;
         }
 
         function clearMapLabel () {
-            if (labels.nextTransaction) {
-                labels.nextTransaction.setMap(null);
-                labels.nextTransaction = null;
+            for (var key in labels) {
+                if (!_.isEmpty(labels[key]) && labels[key] instanceof google.maps.OverlayView) {
+                    labels[key].setMap(null);
+                    labels[key] = null;
+                }
             }
 
-            if (inviMarker && inviMarker.getMap()) {
-                inviMarker.setMap(null);
-                inviMarker = null;
-            }
+            inviMarkers.forEach(function(marker){
+                if (marker && marker.getMap()) {
+                    marker.setMap(null);
+                    marker = null;
+                }
+            });
+
+            inviMarkers = [];
         }
 
         function resetTransactionVisuals () {
@@ -301,7 +370,7 @@ angular.module('demoApp.sales')
         }
 
         function initMarkers (list, isFromFraud) {
-            if (!infowindow) infowindow = gmapServices.createInfoWindow('');
+            if (!infowindow) infowindow = gmapServices.createInfoWindow('', {zIndex: 1});
 
             transactionMarkers = list.map(function(item){
                 return addTransaction(item, isFromFraud);
@@ -398,7 +467,9 @@ angular.module('demoApp.sales')
             return route.overview_path[Math.floor(route.overview_path.length / 2 - 1)];
         }
 
-        function calculateAndDisplayRoute(originLatlng, destinationLatLng, customInfoLabel, customDirectionsDisplay) {
+        function calculateAndDisplayRoute(originLatlng, destinationLatLng, travelInfo, customInfoLabel, customDirectionsDisplay, labelStartText, labelBgColor) {
+            var dfd = $q.defer();
+
             gmapServices.directionsService.route({
                 origin: originLatlng,
                 destination: destinationLatLng,
@@ -408,42 +479,65 @@ angular.module('demoApp.sales')
                     if (customDirectionsDisplay) customDirectionsDisplay.setDirections(response);
                     else gmapServices.directionsDisplay.setDirections(response);
 
-                    if (customInfoLabel) {
+                    if (!_.isEmpty(customInfoLabel)) {
                         var contentStr = 'to next transaction';
 
                         var center = getCenterOfRouteResult(response.routes);
-                        //console.log('getCenterOfRouteResult: ', center);
 
-                        if (!inviMarker) inviMarker = gmapServices.initMarker(center, null, {visible: false});
+                        var invimarker = gmapServices.initMarker(center, null, {visible: false})
 
-                        gmapServices.initializeDistanceMatrix();
+                        if (!travelInfo.distance || !travelInfo.duration) {
+                            gmapServices.initializeDistanceMatrix();
 
-                        gmapServices.distanceMatrix.getDistanceMatrix({
-                            origins: [originLatlng],
-                            destinations: [destinationLatLng],
-                            travelMode: 'DRIVING',
-                            newForwardGeocoder: true
-                        }, function(response, status){
+                            console.log('CALLINMG DISTANCE MATRIX');
 
-                            if (status == 'OK' && response.rows.length && response.rows[0].elements.length) {
-                                //console.log('distance matrix response: ',response);
-                                contentStr = 'Distance: ' + response.rows[0].elements[0].distance.text;
-                                contentStr += ' | Average Travel Time: ' + response.rows[0].elements[0].duration.text;
-                            }
+                            gmapServices.distanceMatrix.getDistanceMatrix({
+                                origins: [originLatlng],
+                                destinations: [destinationLatLng],
+                                travelMode: 'DRIVING',
+                                newForwardGeocoder: true
+                            }, function(response, status){
 
-                            labels.nextTransaction = new Label({
-                                map: gmapServices.map,
-                                text: contentStr
+                                if (status == 'OK' && response.rows.length && response.rows[0].elements.length) {
+                                    contentStr = '';
+                                    if (labelStartText) contentStr += labelStartText + ' | ';
+                                    contentStr += 'Distance: ' + response.rows[0].elements[0].distance.text;
+                                    contentStr += ' | Average Travel Time: ' + response.rows[0].elements[0].duration.text;
+                                    customInfoLabel = new Label({
+                                        map: gmapServices.map,
+                                        text: contentStr,
+                                        bgcolor: labelBgColor
+                                    });
+                                    customInfoLabel.bindTo('position', invimarker, 'position');
+                                    inviMarkers.push(invimarker);
+                                    dfd.resolve(customInfoLabel);
+                                }
                             });
+                        } else {
+                            contentStr = '';
+                            if (labelStartText) contentStr += labelStartText + ' | ';
+                            contentStr += 'Distance: ' + travelInfo.distance;
+                            contentStr += ' | Average Travel Time: ' + travelInfo.duration;
 
-                            labels.nextTransaction.bindTo('position', inviMarker, 'position');
-                        });
-                    }
+                            customInfoLabel = new Label({
+                                map: gmapServices.map,
+                                text: contentStr,
+                                bgcolor: labelBgColor
+                            });
+                            customInfoLabel.bindTo('position', invimarker, 'position');
+                            inviMarkers.push(invimarker);
+                            dfd.resolve(customInfoLabel);
+                        }
+
+                    } else dfd.reject();
 
                 } else {
+                    dfd.reject();
                     console.log('Directions request failed due to ' + status);
                 }
             });
+
+            return dfd.promise;
         }
 
         function showTransactionOnMap(transaction, isFromFraud) {
@@ -463,36 +557,10 @@ angular.module('demoApp.sales')
             }
         }
 
-        //function showTransactionOnMap (transaction, isFromFraud) {
-        //    if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
-        //
-        //    if (transaction.start_point_latlng && transaction.end_point_latlng) {
-        //        // show directions
-        //        gmapServices.initializeDirectionsService();
-        //        gmapServices.initializeDirectionsRenderer({draggable: false, preserveViewport: true});
-        //
-        //        calculateAndDisplayRoute(transaction.start_point_latlng, transaction.end_point_latlng);
-        //    } else if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
-        //        // show marker
-        //        if (transactionMarkerItem) {
-        //            transactionMarkerItem.setMap(null);
-        //        }
-        //
-        //        transactionMarkerItem = createMarker(transaction.end_point_latlng, transaction.type);
-        //        transactionMarkerItem.setMap(gmapServices.map);
-        //
-        //        gmapServices.setZoomIfGreater(15);
-        //        gmapServices.panTo(transaction.end_point_latlng);
-        //    }
-        //}
-
         function showMarkerById(id) {
             var found = _.findWhere(transactionMarkers, {id: id});
             if (found && found.marker) {
                 if (!found.marker.getMap()) found.marker.setMap(gmapServices.map);
-
-                //gmapServices.setZoomIfGreater(18);
-                //gmapServices.panToMarker(found.marker);
 
                 // show infowindow
                 gmapServices.triggerEvent(found.marker, 'click');

@@ -7,6 +7,7 @@ from app.authentication.models import Role, User
 from app.home.models import BoundaryType, Boundary, Territory, UserTerritory
 from app.sales.models import Branch, Product, BranchProduct, Merchant, Transaction
 from app.seeds.seeder import BaseSeeder
+from app.fraud.services import compute_transaction_travel_details
 
 manager = Manager(app)
 migrate = Migrate(app, db)
@@ -74,6 +75,15 @@ def restock_branches():
 def update_user_passwords():
     BaseSeeder.update_user_passwords()
     print "User Passwords updated"
+
+
+@manager.option('-s', '--startdate', dest='start_date')
+@manager.option('-e', '--enddate', dest='end_date')
+@manager.option('-u', '--userid', dest='user_id', default=2)
+def compute_travel_times(start_date, end_date, user_id):
+    print "Compute Travel Times  : {0} - {1} User: {2}".format(start_date, end_date, user_id)
+    compute_transaction_travel_details(start_date, end_date, user_id)
+    return True
 
 
 if __name__ == '__main__':
