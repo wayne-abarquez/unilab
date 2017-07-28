@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', 'gmapServices', fraudPanelController]);
+    .controller('fraudPanelController', ['$rootScope', 'fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', 'gmapServices', fraudPanelController]);
 
-    function fraudPanelController (fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q, gmapServices) {
+    function fraudPanelController ($rootScope, fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q, gmapServices) {
         var vm = this;
 
         vm.listOfDays = [];
@@ -81,6 +81,11 @@ angular.module('demoApp.fraud')
                         }, 500);
                     }, 1000);
                 });
+
+            $rootScope.$on('update-transacton-status', function(e, params){
+                var foundIndex = _.findIndex(vm.transactions, {id: params.id});
+                if (foundIndex > -1) vm.transactions[foundIndex].status = params.status;
+            });
         }
 
         function showFraudTransactions () {

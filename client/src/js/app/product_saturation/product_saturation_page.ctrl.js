@@ -20,6 +20,8 @@ angular.module('demoApp.productSaturation')
         function initialize () {
             gmapServices.createMap('map-canvas');
 
+            $('#map-legend').addClass('map-legend-most-right');
+
             $(document).on('click', '#add-product-branch-btn', function () {
                 branchId = $(this).data('branch-id');
                 branchMarker = branchService.getBranchById(branchId);

@@ -2,15 +2,18 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['modalServices', '$rootScope', '$scope', 'alertServices', 'Branch', 'branchService', '$q', '$timeout', 'Product', '$mdDateRangePicker', productSatPanelController]);
+    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', productSatPanelController]);
 
-    function productSatPanelController (modalServices, $rootScope, $scope, alertServices, Branch, branchService, $q, $timeout, Product, $mdDateRangePicker) {
+    function productSatPanelController ($rootScope, Branch, branchService, $q, Product) {
         var vm = this;
 
         var aborts;
 
-        vm.list = [];
+        var branchTotalCount = 0;
+        var list = [];
+
         vm.productList = [];
+        vm.selectedDate = null;
 
         vm.filter = {
             q: '',
@@ -23,14 +26,7 @@ angular.module('demoApp.productSaturation')
             percentage: 0
         };
 
-        vm.selectedDate = null;
-
-        var branchTotalCount = 0;
-
-        vm.dataIsLoaded = true;
-
         vm.filterProductChanged = filterByProduct;
-        vm.newProduct = newProduct;
         vm.showBranch = showBranch;
 
         initialize();
@@ -64,7 +60,7 @@ angular.module('demoApp.productSaturation')
         function showResult (dateStart, dateEnd, selectedProduct) {
             aborts = $q.defer();
 
-            vm.list = [];
+            list = [];
             branchService.resetMarkersColor(true);
 
             Branch
@@ -78,17 +74,13 @@ angular.module('demoApp.productSaturation')
                     var result = response.plain();
                     var branchIds = result.map(function(item){return item.id;});
                     branchService.highlightMarkers(branchIds, true);
-                    loadBranchList(result);
 
-                    vm.hasProduct.count = vm.list.length;
-                    vm.hasProduct.percentage = Math.ceil(vm.list.length / branchTotalCount * 100);
-                    vm.hasProduct.fraction = vm.list.length + ' / ' + branchTotalCount;
+                    list = angular.copy(result);
+
+                    vm.hasProduct.count = list.length;
+                    vm.hasProduct.percentage = Math.ceil(list.length / branchTotalCount * 100);
+                    vm.hasProduct.fraction = list.length + ' / ' + branchTotalCount;
                     $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
-                })
-                .finally(function () {
-                    $timeout(function () {
-                        vm.dataIsLoaded = true;
-                    }, 1000);
                 });
         }
 
@@ -96,24 +88,12 @@ angular.module('demoApp.productSaturation')
             branchService.triggerClickBranch(branchId);
         }
 
-        function loadBranchList (list) {
-            vm.list = angular.copy(list);
-        }
-
         function filterByProduct () {
             $rootScope.$broadcast('show-product-saturation-slider');
 
-            if (!vm.filter.selectedProduct || !vm.selectedDate) {
-                //vm.dataIsLoaded = false;
-                return;
-            }
+            if (!vm.filter.selectedProduct || !vm.selectedDate)  return;
 
-            //vm.dataIsLoaded = true;
             showResult(vm.selectedDate.weekRangeStart, vm.selectedDate.weekRangeEnd, vm.filter.selectedProduct);
-        }
-
-        function newProduct(event) {
-            modalServices.showNewProductForm(event);
         }
     }
 }());
