@@ -1,0 +1,11 @@
+{% raw %}
+<div id="product-saturation-filter-container" class="md-whiteframe-2dp" layout="row" layout-align="center center"
+     ng-controller="productSatPanelController as vm">
+
+    <md-select placeholder="Select Product" ng-model="vm.filter.selectedProduct" ng-change="vm.filterProductChanged()"
+               flex="100">
+        <md-option ng-repeat="item in vm.productList" ng-value="item">{{item}}</md-option>
+    </md-select>
+
+</div>
+{% endraw %}

@@ -93,6 +93,15 @@ angular.module('demoApp.sales')
 
             restObj.customPUT({'remarks': remarks})
                 .then(function(response){
+
+                    var foundIndex = _.findIndex(transactionMarkers, {id: transactionId});
+
+                    if (foundIndex > -1) {
+                        transactionMarkers[foundIndex].remarks = remarks;
+                        transactionMarkers[foundIndex].marker.transaction.remarks = remarks;
+                        transactionMarkers[foundIndex].marker.content = setInfowindowContent(transactionMarkers[foundIndex], transactionMarkers[foundIndex].marker);
+                    }
+
                     dfd.resolve(response.plain());
                 }, function (error){ dfd.reject(error); });
 
@@ -210,6 +219,7 @@ angular.module('demoApp.sales')
 
             marker.content += '</div>';
 
+            return marker.content;
         }
 
         function createContentForInfowindow (item, marker) {

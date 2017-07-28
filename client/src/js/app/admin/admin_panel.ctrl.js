@@ -171,6 +171,7 @@ angular.module('demoApp.admin')
 
                 $timeout(function(){
                     vm.showPoiPanel = true;
+                    vm.loadPois = true;
                 },500);
             }
 
@@ -241,6 +242,7 @@ angular.module('demoApp.admin')
             if (item.isExpanded === false) return;
 
             vm.showPoiPanel = false;
+            vm.loadPois = false;
 
             if (item.typeid < 7) {
                 if (item.hasOwnProperty('children') && item.children.length) {

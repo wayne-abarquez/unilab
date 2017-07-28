@@ -2,12 +2,16 @@
   padding: 0;
   margin: 0;
   width: 100%;
+
   #product-saturation-percentage-panel {
     position: absolute;
-    top: 0;
+    //top: 0;
     left: 0;
     z-index: 11;
     width: 12%;
+    margin: 1.75rem 1rem;
+
+    bottom: 0;
 
     > div {
       padding: 0;
@@ -21,6 +25,26 @@
       }
     }
   }
-
 }
 
+#product-saturation-filter-container {
+  background-color: white;
+  margin: 1rem;
+  padding: 0.15rem 1rem;
+  width: 15%;
+  position: absolute;
+  //bottom: 15px;
+  //left: calc(5% + 10px);
+  top: 0;
+  left: 0;
+
+  md-select {
+    margin: 0.5rem;
+  }
+}
+
+.map-legend-most-right {
+  right: 0 !important;
+  margin: 0 1rem !important;
+  top: 60px !important;
+}

@@ -2,9 +2,11 @@
 <div id="product-saturation-slider-container" class="md-whiteframe-2dp" layout="row" layout-align="center center"
      ng-controller="productSatSliderController as vm"
      ng-if="showProductSaturationSlider">
-    <md-slider-container flex="70">
-        <md-slider class="md-primary" md-discrete min="0" step="1" max="4" ng-model="vm.slider.currentVal" ng-change="vm.sliderChanged()" flex></md-slider>
+
+    <md-slider-container flex="65">
+        <md-slider class="md-primary" md-discrete min="0" step="1" max="4" ng-model="vm.slider.currentVal"
+                   ng-change="vm.sliderChanged()" flex></md-slider>
     </md-slider-container>
-    <span class="slider-value-info" flex >{{vm.currentSelectedWeek}}</span>
+    <span class="slider-value-info" flex>{{vm.currentSelectedWeek}}</span>
 </div>
 {% endraw %}

@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPageController', ['gmapServices', 'salesTransactionService', 'TRANSACTION_STATUSES', 'alertServices', fraudPageController]);
+    .controller('fraudPageController', ['$rootScope', 'gmapServices', 'salesTransactionService', 'TRANSACTION_STATUSES', 'alertServices', fraudPageController]);
 
-    function fraudPageController (gmapServices, salesTransactionService, TRANSACTION_STATUSES, alertServices) {
+    function fraudPageController ($rootScope, gmapServices, salesTransactionService, TRANSACTION_STATUSES, alertServices) {
         var vm = this;
 
         var timeoutId;
@@ -42,6 +42,7 @@ angular.module('demoApp.fraud')
                 salesTransactionService.updateTransactionStatus(id, TRANSACTION_STATUSES.FRAUD)
                     .then(function(){
                         alertServices.showBottomLeftToast('Transaction marked as FRAUD.');
+                        $rootScope.$broadcast('update-transacton-status', {'id': id, 'status': TRANSACTION_STATUSES.FRAUD});
                     });
             });
 
@@ -52,6 +53,7 @@ angular.module('demoApp.fraud')
                 salesTransactionService.updateTransactionStatus(id, TRANSACTION_STATUSES.CLEARED)
                     .then(function(){
                         alertServices.showBottomLeftToast('Transaction marked as CLEARED.');
+                        $rootScope.$broadcast('update-transacton-status', {'id': id, 'status': TRANSACTION_STATUSES.CLEARED});
                     });
             });
 
@@ -62,6 +64,7 @@ angular.module('demoApp.fraud')
                 salesTransactionService.updateTransactionStatus(id, TRANSACTION_STATUSES.INVESTIGATING)
                     .then(function(){
                         alertServices.showBottomLeftToast('Transaction marked as for INVESTIGATION.');
+                        $rootScope.$broadcast('update-transacton-status', {'id': id, 'status': TRANSACTION_STATUSES.INVESTIGATING});
                     });
             });
 
