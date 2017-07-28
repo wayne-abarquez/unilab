@@ -100,7 +100,8 @@
                     </md-list-item>
                 </md-list>
 
-                <md-list class="transaction-list days-list" flex="100" ng-if="vm.listOfDays.length">
+                <md-list class="transaction-list days-list" flex="100" ng-if="vm.listOfDays.length"
+                         ng-show="vm.dataIsLoaded">
                     <md-list-item ng-repeat="day in vm.listOfDays"
                                   ng-click="vm.getTransactionByDate(day);$event.stopPropagation()">
                         <p flex>{{ day.date_formatted }}</p>
