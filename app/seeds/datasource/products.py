@@ -77,7 +77,7 @@ def chunks(l, n):
         yield l[i:i + n]
 
 
-def restock_branch():
+def restock_branch(startdate, enddate):
     products = get_products()
     stocks = []
 
@@ -95,7 +95,8 @@ def restock_branch():
                 'productid': products[i].id,
                 'qty_released': randint(500, 10000),
                 'unit_of_measure': 'PCS',
-                'date_released': fake.date_time_between(start_date="now", end_date="+4w") # current week and the next 4 weeks
+                'date_released': fake.date_time_between(start_date=startdate, end_date=enddate) # current week and the next 4 weeks
+                # 'date_released': fake.date_time_between(start_date="-1w", end_date="+6w") # current week and the next 4 weeks
                 # 'date_released': fake.date_time_between(start_date="-2y", end_date="now")
             }
             stocks.append(data)

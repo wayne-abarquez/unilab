@@ -119,12 +119,12 @@ class BaseSeeder:
         print("--- overall %s seconds ---" % (time.time() - overall_start_time))
 
     @staticmethod
-    def restock_branch():
+    def restock_branch(startdate, enddate):
         overall_start_time = time.time()
 
         BaseSeeder.refresh_table('branch_product')
 
-        products.restock_branch()
+        products.restock_branch(startdate, enddate)
 
         print("--- overall %s seconds ---" % (time.time() - overall_start_time))
 
