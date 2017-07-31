@@ -62,7 +62,8 @@ angular.module('demoApp.sales')
             infowindow = null,
             inviMarker,
             transactionMarkers = [],
-            inviMarkers = [];
+            inviMarkers = [],
+            transactionList = [];
 
         var labels = {
             nextTransaction: null,
@@ -180,7 +181,7 @@ angular.module('demoApp.sales')
             return marker;
         }
 
-        function setInfowindowContent (item, marker) {
+        function setInfowindowContent (item, marker, index) {
             marker.content = '<div>';
             //marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + (item.type ? item.type : '') + '</p>';
@@ -197,17 +198,39 @@ angular.module('demoApp.sales')
 
             marker.content += '<br>';
 
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes + ' mins' : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.travel_distance_in_km ? item.travel_distance_in_km + ' km' : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes ? item.travel_time_in_minutes + ' mins' : '') + '</p>';
 
-            marker.content += '<br>';
+            if (item.average_travel_time_in_minutes && item.travel_distance_in_km) {
+                marker.content += '<p class="no-margin text-muted padding-left-5" style="color:#f39c12;"><b>Previous Transaction</b></p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Actual Travel Time: </b> ' + (item.travel_time_in_minutes ? item.travel_time_in_minutes + ' mins' : '') + '</p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes + ' mins' : '') + '</p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.travel_distance_in_km ? item.travel_distance_in_km + ' km' : '') + '</p>';
 
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Next Transaction</b></p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.next_average_travel_time_in_minutes ? item.next_average_travel_time_in_minutes + ' mins' : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.next_travel_distance_in_km ? item.next_travel_distance_in_km + ' km' : '') + '</p>';
+                var prevTravelDiff = item.travel_time_in_minutes - item.average_travel_time_in_minutes;
 
-            marker.content += '<br>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ?  prevTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
+
+
+                marker.content += '<br>';
+            }
+
+            if (item.next_average_travel_time_in_minutes && item.next_travel_distance_in_km) {
+                marker.content += '<p class="no-margin text-muted padding-left-5" style="color:#27ae60;"><b>Next Transaction</b></p>';
+
+                if (transactionList.length > 1 && index < transactionList.length - 1) {
+                    marker.content += '<p class="no-margin text-muted padding-left-5"><b>Actual Travel Time: </b> ' + (transactionList[index+1].travel_time_in_minutes ? transactionList[index + 1].travel_time_in_minutes + ' mins' : '') + '</p>';
+                }
+
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.next_average_travel_time_in_minutes ? item.next_average_travel_time_in_minutes + ' mins' : '') + '</p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.next_travel_distance_in_km ? item.next_travel_distance_in_km + ' km' : '') + '</p>';
+
+                if (transactionList.length > 1 && index < transactionList.length - 1) {
+                    var nextTravelDiff = transactionList[index + 1].travel_time_in_minutes - transactionList[index + 1].average_travel_time_in_minutes;
+                    marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (transactionList[index + 1].travel_time_in_minutes && transactionList[index + 1].average_travel_time_in_minutes ? nextTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
+                }
+
+
+                marker.content += '<br>';
+            }
 
             marker.content += '<label class="text-muted"  style="padding:0.5rem 0 0 0.5rem;"><b>Validation Remarks: </b></label>';
             marker.content += '<textarea class="textarea" id="transaction-remarks-textarea" data-transaction-id="' + item.id + '"rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'
@@ -222,8 +245,8 @@ angular.module('demoApp.sales')
             return marker.content;
         }
 
-        function createContentForInfowindow (item, marker) {
-            setInfowindowContent(item, marker);
+        function createContentForInfowindow (item, marker, index) {
+            setInfowindowContent(item, marker, index);
 
             marker.transaction = angular.copy(item);
 
@@ -271,7 +294,7 @@ angular.module('demoApp.sales')
                 var nextTransaction = sameDateTransactions[currentIndex + 1];
                 // show next transaction
                 gmapServices.initializeDirectionsService();
-                if (!nextTransactionDirectionsDisplay) {
+                if (!nextTransactionDirectionsDisplay || !nextTransactionDirectionsDisplay.getMap()) {
                     nextTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
                         draggable: false, preserveViewport: true, suppressMarkers: true,
                         polylineOptions: {
@@ -300,7 +323,7 @@ angular.module('demoApp.sales')
                 var previousTransaction = sameDateTransactions[currentIndex - 1];
                 // show next transaction
                 gmapServices.initializeDirectionsService();
-                if (!previousTransactionDirectionsDisplay) {
+                if (!previousTransactionDirectionsDisplay || !previousTransactionDirectionsDisplay.getMap()) {
                     previousTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
                         draggable: false, preserveViewport: true, suppressMarkers: true,
                         polylineOptions: {
@@ -318,14 +341,14 @@ angular.module('demoApp.sales')
                     duration: transaction.next_average_travel_time_in_minutes
                 };
 
-                calculateAndDisplayRoute(previousTransaction.end_point_latlng, transaction.end_point_latlng, travelInfo, labels.previousTransaction, previousTransactionDirectionsDisplay, 'Last', 'rgba(243, 156, 18, 0.75)')
+                calculateAndDisplayRoute(previousTransaction.end_point_latlng, transaction.end_point_latlng, travelInfo, labels.previousTransaction, previousTransactionDirectionsDisplay, 'Prev', 'rgba(243, 156, 18, 0.75)')
                     .then(function(label){
                         labels.previousTransaction = label;
                     });
             } else console.log('transaction ' + transaction.id + ' is first transaction of the day.');
         }
 
-        function addTransaction (item, isFromFraud) {
+        function addTransaction (item, isFromFraud, index) {
             var obj = angular.copy(item);
 
             if (item.end_point_latlng) {
@@ -336,7 +359,7 @@ angular.module('demoApp.sales')
 
             obj.marker.id = item.id;
 
-            if (obj.marker) createContentForInfowindow(item, obj.marker);
+            if (obj.marker) createContentForInfowindow(item, obj.marker, index);
 
             return obj;
         }
@@ -382,8 +405,10 @@ angular.module('demoApp.sales')
         function initMarkers (list, isFromFraud) {
             if (!infowindow) infowindow = gmapServices.createInfoWindow('', {zIndex: 1});
 
-            transactionMarkers = list.map(function(item){
-                return addTransaction(item, isFromFraud);
+            transactionList = angular.copy(list);
+
+            transactionMarkers = list.map(function(item, idx){
+                return addTransaction(item, isFromFraud, idx);
             });
 
             var mapLegendData = getMapLegendData(list);
@@ -551,7 +576,9 @@ angular.module('demoApp.sales')
         }
 
         function showTransactionOnMap(transaction, isFromFraud) {
+            console.log('showTransactionOnMap: ',transaction);
             if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
+            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({routes: []});
 
             if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
                 // show marker
