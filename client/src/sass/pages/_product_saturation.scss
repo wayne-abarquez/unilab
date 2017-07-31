@@ -8,20 +8,22 @@
     //top: 0;
     left: 0;
     z-index: 11;
-    width: 12%;
+    max-width: 20%;
+    min-width: 15%;
     margin: 1.75rem 1rem;
 
     bottom: 0;
 
     > div {
-      padding: 0;
+      padding: 0.25rem 0;
 
       span:first-of-type {
         font-weight: 600;
       }
 
       span:first-of-type, span:last-of-type {
-        font-size: 0.8rem;
+        //font-size: 0.8rem;
+        font-size: 1rem;
       }
     }
   }
