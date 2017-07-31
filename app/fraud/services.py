@@ -344,7 +344,7 @@ def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, 
     actual_travel_time_in_minutes = round(actual_travel_time_result.total_seconds() / 60, 2)
 
     if actual_travel_time_in_minutes < (average_travel_time_in_minutes - (average_travel_time_in_minutes * 0.5)) \
-            or average_travel_time_in_minutes > (average_travel_time_in_minutes * 1.5):
+            or actual_travel_time_in_minutes > (average_travel_time_in_minutes * 3): # less than 50% or greater than 200% of the average travel time
         transaction_obj.status = TransactionStatus.FRAUD
         transaction_obj.remarks = 'suspicious travel time'
 
