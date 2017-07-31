@@ -1,10 +1,10 @@
-(function(){
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('demoApp.sales')
-    .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
+    angular.module('demoApp.sales')
+        .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
 
-    function salesTransactionService ($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
+    function salesTransactionService($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
         var service = {};
 
         var transactionTypes = {
@@ -58,7 +58,7 @@ angular.module('demoApp.sales')
         };
 
         var marker,
-            transactionMarkerItem = null,
+        transactionMarkerItem = null,
             infowindow = null,
             inviMarker,
             transactionMarkers = [],
@@ -71,7 +71,7 @@ angular.module('demoApp.sales')
         };
 
         var nextTransactionDirectionsDisplay,
-            previousTransactionDirectionsDisplay;
+        previousTransactionDirectionsDisplay;
 
         service.saveTransaction = saveTransaction;
         service.getUserTransactions = getUserTransactions;
@@ -87,71 +87,81 @@ angular.module('demoApp.sales')
         service.resetTransactionVisuals = resetTransactionVisuals;
         service.saveTransactionRemarks = saveTransactionRemarks;
 
-        function saveTransactionRemarks (transactionId, remarks) {
+        function saveTransactionRemarks(transactionId, remarks) {
             var dfd = $q.defer();
 
             var restObj = SalesTransaction.cast(transactionId);
 
-            restObj.customPUT({'remarks': remarks})
-                .then(function(response){
+            restObj.customPUT({
+                'remarks': remarks
+            })
+                .then(function(response) {
 
-                    var foundIndex = _.findIndex(transactionMarkers, {id: transactionId});
+                var foundIndex = _.findIndex(transactionMarkers, {
+                    id: transactionId
+                });
 
-                    if (foundIndex > -1) {
-                        transactionMarkers[foundIndex].remarks = remarks;
-                        transactionMarkers[foundIndex].marker.transaction.remarks = remarks;
-                        transactionMarkers[foundIndex].marker.content = setInfowindowContent(transactionMarkers[foundIndex], transactionMarkers[foundIndex].marker);
-                    }
+                if (foundIndex > -1) {
+                    transactionMarkers[foundIndex].remarks = remarks;
+                    transactionMarkers[foundIndex].marker.transaction.remarks = remarks;
+                    transactionMarkers[foundIndex].marker.content = setInfowindowContent(transactionMarkers[foundIndex], transactionMarkers[foundIndex].marker);
+                }
 
-                    dfd.resolve(response.plain());
-                }, function (error){ dfd.reject(error); });
+                dfd.resolve(response.plain());
+            }, function(error) {
+                dfd.reject(error);
+            });
 
             return dfd.promise;
         }
 
-        function updateTransactionStatus (id, status) {
+        function updateTransactionStatus(id, status) {
             var dfd = $q.defer();
 
             var restObj = SalesTransaction.cast(id);
 
-            restObj.customPUT({'status': status})
-                .then(function (response) {
+            restObj.customPUT({
+                'status': status
+            })
+                .then(function(response) {
 
-                    var transaction = getTransactionById(id);
+                var transaction = getTransactionById(id);
 
-                    if (!transaction) return;
+                if (!transaction) return;
 
-                    transaction.status = status;
+                transaction.status = status;
 
-                    transaction.marker.setIcon(getMarkerIconByStatus(transaction.status));
+                transaction.marker.setIcon(getMarkerIconByStatus(transaction.status));
 
-                    setInfowindowContent(transaction, transaction.marker);
-                    infowindow.setContent(transaction.marker.content);
+                setInfowindowContent(transaction, transaction.marker);
+                infowindow.setContent(transaction.marker.content);
 
-                    dfd.resolve(response.plain());
-                }, function (error) {
-                    dfd.reject(error);
-                });
+                dfd.resolve(response.plain());
+            }, function(error) {
+                dfd.reject(error);
+            });
 
             return dfd.promise;
         }
 
         function getTransactionById(transactionId) {
-            return _.findWhere(transactionMarkers, {id: transactionId});
+            return _.findWhere(transactionMarkers, {
+                id: transactionId
+            });
         }
 
-        function showMarkers () {
+        function showMarkers() {
             transactionMarkerItem.setMap(null);
 
-            transactionMarkers.forEach(function(item){
-               if (item.marker && !item.marker.getMap()) {
-                   item.marker.setMap(gmapServices.map);
-               }
+            transactionMarkers.forEach(function(item) {
+                if (item.marker && !item.marker.getMap()) {
+                    item.marker.setMap(gmapServices.map);
+                }
             });
         }
 
         function hideMarkers() {
-            transactionMarkers.forEach(function (item) {
+            transactionMarkers.forEach(function(item) {
                 if (item.marker && item.marker.getMap()) {
                     item.marker.setMap(null);
                 }
@@ -160,12 +170,10 @@ angular.module('demoApp.sales')
 
         var icon;
 
-        function getIconByType (type) {
+        function getIconByType(type) {
             var type = transactionTypes[type.toUpperCase()];
 
-            return type
-                    ? type
-                    : transactionTypes[Object.keys(transactionTypes)[0]];
+            return type ? type : transactionTypes[Object.keys(transactionTypes)[0]];
         }
 
         function getMarkerIconByStatus(status) {
@@ -174,14 +182,14 @@ angular.module('demoApp.sales')
             return MARKER_BASE_URL + iconByStatus[status.toUpperCase()];
         }
 
-        function createMarker (latlng, item, isFromFraud) {
+        function createMarker(latlng, item, isFromFraud) {
             icon = getMarkerIconByStatus(item.status);
             marker = gmapServices.initMarker(latlng, icon);
             if (!isFromFraud) marker.setMap(null);
             return marker;
         }
 
-        function setInfowindowContent (item, marker, index) {
+        function setInfowindowContent(item, marker, index) {
             marker.content = '<div>';
             //marker.content += '<p class="no-margin text-muted padding-left-5"><b>Employee: </b> ' + 'Randy Ambito' + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Type: </b> ' + (item.type ? item.type : '') + '</p>';
@@ -193,7 +201,7 @@ angular.module('demoApp.sales')
             }
 
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Description: </b> ' + (item.description ? item.description : '') + '</p>';
-            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Amount: </b> ' + (item.cost ? item.cost  : '') + '</p>';
+            marker.content += '<p class="no-margin text-muted padding-left-5"><b>Amount: </b> ' + (item.cost ? item.cost : '') + '</p>';
             marker.content += '<p class="no-margin text-muted padding-left-5"><b>Transaction Date: </b> ' + (item.transaction_date_formatted ? item.transaction_date_formatted : '') + '</p>';
 
             marker.content += '<br>';
@@ -205,9 +213,9 @@ angular.module('demoApp.sales')
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.average_travel_time_in_minutes ? item.average_travel_time_in_minutes + ' mins' : '') + '</p>';
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.travel_distance_in_km ? item.travel_distance_in_km + ' km' : '') + '</p>';
 
-                var prevTravelDiff = item.travel_time_in_minutes - item.average_travel_time_in_minutes;
+                var prevTravelDiff = Math.abs(item.travel_time_in_minutes - item.average_travel_time_in_minutes);
 
-                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ?  prevTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ? prevTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
 
 
                 marker.content += '<br>';
@@ -217,17 +225,16 @@ angular.module('demoApp.sales')
                 marker.content += '<p class="no-margin text-muted padding-left-5" style="color:#27ae60;"><b>Next Transaction</b></p>';
 
                 if (transactionList.length > 1 && index < transactionList.length - 1) {
-                    marker.content += '<p class="no-margin text-muted padding-left-5"><b>Actual Travel Time: </b> ' + (transactionList[index+1].travel_time_in_minutes ? transactionList[index + 1].travel_time_in_minutes + ' mins' : '') + '</p>';
+                    marker.content += '<p class="no-margin text-muted padding-left-5"><b>Actual Travel Time: </b> ' + (transactionList[index + 1].travel_time_in_minutes ? transactionList[index + 1].travel_time_in_minutes + ' mins' : '') + '</p>';
                 }
 
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Average Travel Time: </b> ' + (item.next_average_travel_time_in_minutes ? item.next_average_travel_time_in_minutes + ' mins' : '') + '</p>';
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Distance: </b> ' + (item.next_travel_distance_in_km ? item.next_travel_distance_in_km + ' km' : '') + '</p>';
 
                 if (transactionList.length > 1 && index < transactionList.length - 1) {
-                    var nextTravelDiff = transactionList[index + 1].travel_time_in_minutes - transactionList[index + 1].average_travel_time_in_minutes;
+                    var nextTravelDiff = Math.abs(transactionList[index + 1].travel_time_in_minutes - transactionList[index + 1].average_travel_time_in_minutes);
                     marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (transactionList[index + 1].travel_time_in_minutes && transactionList[index + 1].average_travel_time_in_minutes ? nextTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
                 }
-
 
                 marker.content += '<br>';
             }
@@ -245,12 +252,12 @@ angular.module('demoApp.sales')
             return marker.content;
         }
 
-        function createContentForInfowindow (item, marker, index) {
+        function createContentForInfowindow(item, marker, index) {
             setInfowindowContent(item, marker, index);
 
             marker.transaction = angular.copy(item);
 
-            gmapServices.addListener(marker, 'click', function () {
+            gmapServices.addListener(marker, 'click', function() {
                 clearMapLabel();
 
                 infowindow.open(gmapServices.map, this);
@@ -275,7 +282,7 @@ angular.module('demoApp.sales')
         }
 
         function getTransactionWithSameDay(transactionDate) {
-            return transactionMarkers.map(function(item){
+            return transactionMarkers.map(function(item) {
                 if (item.transaction_date.substring(0, 10) == transactionDate.substring(0, 10)) return item;
             });
         }
@@ -285,7 +292,9 @@ angular.module('demoApp.sales')
 
             if (!sameDateTransactions.length) return;
 
-            var currentIndex = _.findIndex(sameDateTransactions, {id: transaction.id});
+            var currentIndex = _.findIndex(sameDateTransactions, {
+                id: transaction.id
+            });
 
             if (currentIndex === -1) return;
 
@@ -296,7 +305,9 @@ angular.module('demoApp.sales')
                 gmapServices.initializeDirectionsService();
                 if (!nextTransactionDirectionsDisplay || !nextTransactionDirectionsDisplay.getMap()) {
                     nextTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
-                        draggable: false, preserveViewport: true, suppressMarkers: true,
+                        draggable: false,
+                        preserveViewport: true,
+                        suppressMarkers: true,
                         polylineOptions: {
                             strokeOpacity: 0.75,
                             strokeColor: '#27ae60',
@@ -305,7 +316,9 @@ angular.module('demoApp.sales')
                     });
                 }
 
-                labels.nextTransaction = {'test': 'test'};
+                labels.nextTransaction = {
+                    'test': 'test'
+                };
 
                 var travelInfo = {
                     distance: transaction.travel_distance_in_km,
@@ -313,9 +326,9 @@ angular.module('demoApp.sales')
                 };
 
                 calculateAndDisplayRoute(transaction.end_point_latlng, nextTransaction.end_point_latlng, travelInfo, labels.nextTransaction, nextTransactionDirectionsDisplay, 'Next', 'rgba(39, 174, 96, 0.75)')
-                    .then(function (label) {
-                        labels.nextTransaction = label;
-                    });
+                    .then(function(label) {
+                    labels.nextTransaction = label;
+                });
             } else console.log('transaction ' + transaction.id + ' is last transaction of the day.');
 
             // previous route
@@ -325,7 +338,9 @@ angular.module('demoApp.sales')
                 gmapServices.initializeDirectionsService();
                 if (!previousTransactionDirectionsDisplay || !previousTransactionDirectionsDisplay.getMap()) {
                     previousTransactionDirectionsDisplay = gmapServices.initializeIndividualDirectionsRenderer({
-                        draggable: false, preserveViewport: true, suppressMarkers: true,
+                        draggable: false,
+                        preserveViewport: true,
+                        suppressMarkers: true,
                         polylineOptions: {
                             strokeOpacity: 0.75,
                             strokeColor: '#f39c12',
@@ -334,7 +349,9 @@ angular.module('demoApp.sales')
                     });
                 }
 
-                labels.previousTransaction = {'test': 'test'};
+                labels.previousTransaction = {
+                    'test': 'test'
+                };
 
                 var travelInfo = {
                     distance: transaction.next_travel_distance_in_km,
@@ -342,18 +359,18 @@ angular.module('demoApp.sales')
                 };
 
                 calculateAndDisplayRoute(previousTransaction.end_point_latlng, transaction.end_point_latlng, travelInfo, labels.previousTransaction, previousTransactionDirectionsDisplay, 'Prev', 'rgba(243, 156, 18, 0.75)')
-                    .then(function(label){
-                        labels.previousTransaction = label;
-                    });
+                    .then(function(label) {
+                    labels.previousTransaction = label;
+                });
             } else console.log('transaction ' + transaction.id + ' is first transaction of the day.');
         }
 
-        function addTransaction (item, isFromFraud, index) {
+        function addTransaction(item, isFromFraud, index) {
             var obj = angular.copy(item);
 
             if (item.end_point_latlng) {
                 obj.marker = createMarker(item.end_point_latlng, item, isFromFraud);
-            } else if(item.start_point_latlng) {
+            } else if (item.start_point_latlng) {
                 obj.marker = createMarker(item.start_point_latlng, item, isFromFraud);
             }
 
@@ -364,7 +381,7 @@ angular.module('demoApp.sales')
             return obj;
         }
 
-        function clearMapLabel () {
+        function clearMapLabel() {
             for (var key in labels) {
                 if (!_.isEmpty(labels[key]) && labels[key] instanceof google.maps.OverlayView) {
                     labels[key].setMap(null);
@@ -372,7 +389,7 @@ angular.module('demoApp.sales')
                 }
             }
 
-            inviMarkers.forEach(function(marker){
+            inviMarkers.forEach(function(marker) {
                 if (marker && marker.getMap()) {
                     marker.setMap(null);
                     marker = null;
@@ -382,20 +399,26 @@ angular.module('demoApp.sales')
             inviMarkers = [];
         }
 
-        function resetTransactionVisuals () {
-            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
-            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({routes: []}); 
-            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
+        function resetTransactionVisuals() {
+            if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({
+                routes: []
+            });
+            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({
+                routes: []
+            });
+            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({
+                routes: []
+            });
 
             clearMapLabel();
 
             if (infowindow) infowindow.close();
         }
 
-        function resetMarkers () {
+        function resetMarkers() {
             resetTransactionVisuals();
 
-            transactionMarkers.forEach(function(obj){
+            transactionMarkers.forEach(function(obj) {
                 if (obj && obj.marker && obj.marker.getMap()) {
                     obj.marker.setMap(null);
                 }
@@ -403,27 +426,31 @@ angular.module('demoApp.sales')
             transactionMarkers = [];
         }
 
-        function initMarkers (list, isFromFraud) {
-            if (!infowindow) infowindow = gmapServices.createInfoWindow('', {zIndex: 1});
+        function initMarkers(list, isFromFraud) {
+            if (!infowindow) infowindow = gmapServices.createInfoWindow('', {
+                zIndex: 1
+            });
 
             transactionList = angular.copy(list);
 
-            transactionMarkers = list.map(function(item, idx){
+            transactionMarkers = list.map(function(item, idx) {
                 return addTransaction(item, isFromFraud, idx);
             });
 
             var mapLegendData = getMapLegendData(list);
-            $rootScope.$broadcast('compile-map-legend', {type: 'transactions', data: mapLegendData});
+            $rootScope.$broadcast('compile-map-legend', {
+                type: 'transactions',
+                data: mapLegendData
+            });
 
             return transactionMarkers;
         }
 
         function getMapLegendData(list) {
-            return _.pluck(_.uniq(list, function (item) {
+            return _.pluck(_.uniq(list, function(item) {
                 return item.status;
-            }), 'status').map(function (stat) {
-                if (stat)
-                return {
+            }), 'status').map(function(stat) {
+                if (stat) return {
                     name: stat,
                     iconUrl: getMarkerIconByStatus(stat)
                 };
@@ -436,28 +463,28 @@ angular.module('demoApp.sales')
             if (id) { // update
                 var restObj = SalesTransaction.cast(id);
                 restObj.customPUT(data)
-                    .then(function (response) {
-                        dfd.resolve(response.plain());
-                    }, function (error) {
-                        dfd.reject(error);
-                    });
+                    .then(function(response) {
+                    dfd.resolve(response.plain());
+                }, function(error) {
+                    dfd.reject(error);
+                });
             } else { // insert
                 SalesTransaction.post(data)
-                    .then(function (response) {
-                        var resp = response.plain();
-                        var transactionItem = addTransaction(resp.sales_transaction);
-                        gmapServices.showMarker(transactionItem.marker);
-                        transactionMarkers.push(transactionItem);
-                        dfd.resolve(resp);
-                    }, function (error) {
-                        dfd.reject(error);
-                    });
+                    .then(function(response) {
+                    var resp = response.plain();
+                    var transactionItem = addTransaction(resp.sales_transaction);
+                    gmapServices.showMarker(transactionItem.marker);
+                    transactionMarkers.push(transactionItem);
+                    dfd.resolve(resp);
+                }, function(error) {
+                    dfd.reject(error);
+                });
             }
 
             return dfd.promise;
         }
 
-        function getIconColorByStatus (status) {
+        function getIconColorByStatus(status) {
             if (!status) return '#95a5a6';
 
             switch (status.toUpperCase()) {
@@ -476,16 +503,19 @@ angular.module('demoApp.sales')
             var user = userSessionService.getUserInfo(true);
 
             if (user) {
-                user.getList('salestransactions', {page_no: pageNo, page_size: pageSize})
-                    .then(function (response) {
-                        dfd.resolve(response.plain().map(function (item) {
-                            item.icon = transactionTypes[item.type.toUpperCase()];
-                            item.icon.color = getIconColorByStatus(item.status);
-                            return item;
-                        }));
-                    }, function (error) {
-                        dfd.reject(error);
-                    });
+                user.getList('salestransactions', {
+                    page_no: pageNo,
+                    page_size: pageSize
+                })
+                    .then(function(response) {
+                    dfd.resolve(response.plain().map(function(item) {
+                        item.icon = transactionTypes[item.type.toUpperCase()];
+                        item.icon.color = getIconColorByStatus(item.status);
+                        return item;
+                    }));
+                }, function(error) {
+                    dfd.reject(error);
+                });
             } else {
                 dfd.reject();
             }
@@ -493,7 +523,7 @@ angular.module('demoApp.sales')
             return dfd.promise;
         }
 
-        function getCenterOfRouteResult (routes) {
+        function getCenterOfRouteResult(routes) {
             var route = routes[0];
 
             var center = route.overview_path[Math.floor(route.overview_path.length / 2)];
@@ -510,7 +540,7 @@ angular.module('demoApp.sales')
                 origin: originLatlng,
                 destination: destinationLatLng,
                 travelMode: 'DRIVING'
-            }, function (response, status) {
+            }, function(response, status) {
                 if (status === 'OK') {
                     if (customDirectionsDisplay) customDirectionsDisplay.setDirections(response);
                     else gmapServices.directionsDisplay.setDirections(response);
@@ -520,7 +550,9 @@ angular.module('demoApp.sales')
 
                         var center = getCenterOfRouteResult(response.routes);
 
-                        var invimarker = gmapServices.initMarker(center, null, {visible: false})
+                        var invimarker = gmapServices.initMarker(center, null, {
+                            visible: false
+                        })
 
                         if (!travelInfo.distance || !travelInfo.duration) {
                             gmapServices.initializeDistanceMatrix();
@@ -532,7 +564,7 @@ angular.module('demoApp.sales')
                                 destinations: [destinationLatLng],
                                 travelMode: 'DRIVING',
                                 newForwardGeocoder: true
-                            }, function(response, status){
+                            }, function(response, status) {
 
                                 if (status == 'OK' && response.rows.length && response.rows[0].elements.length) {
                                     contentStr = '';
@@ -577,9 +609,13 @@ angular.module('demoApp.sales')
         }
 
         function showTransactionOnMap(transaction, isFromFraud) {
-            console.log('showTransactionOnMap: ',transaction);
-            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
-            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({routes: []});
+            console.log('showTransactionOnMap: ', transaction);
+            if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({
+                routes: []
+            });
+            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({
+                routes: []
+            });
 
             if (!transaction.start_point_latlng && transaction.end_point_latlng && !isFromFraud) {
                 // show marker
@@ -596,7 +632,9 @@ angular.module('demoApp.sales')
         }
 
         function showMarkerById(id) {
-            var found = _.findWhere(transactionMarkers, {id: id});
+            var found = _.findWhere(transactionMarkers, {
+                id: id
+            });
             if (found && found.marker) {
                 if (!found.marker.getMap()) found.marker.setMap(gmapServices.map);
 
