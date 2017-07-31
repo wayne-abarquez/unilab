@@ -1,0 +1,5 @@
+2017-07-31 22:27:10,911 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-31 22:27:12,321 INFO - run.py <module>: Starting app
+2017-07-31 22:52:19,985 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-31 22:52:32,703 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-07-31 22:52:32,971 INFO - run.py <module>: Starting app

@@ -65,9 +65,10 @@ def create_products():
     print "Created sample products"
 
 
-@manager.command
-def restock_branches():
-    BaseSeeder.restock_branch()
+@manager.option('-s', '--startdate', dest='start_date')
+@manager.option('-e', '--enddate', dest='end_date')
+def restock_branches(start_date, end_date):
+    BaseSeeder.restock_branch(start_date, end_date)
     print "Branches Restocked sample products"
 
 
