@@ -384,6 +384,7 @@ angular.module('demoApp.sales')
 
         function resetTransactionVisuals () {
             if (gmapServices.directionsDisplay) gmapServices.directionsDisplay.setDirections({routes: []});
+            if (previousTransactionDirectionsDisplay) previousTransactionDirectionsDisplay.setDirections({routes: []}); 
             if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({routes: []});
 
             clearMapLabel();
