@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', productSatPanelController]);
+    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', 'productSatService', productSatPanelController]);
 
-    function productSatPanelController ($rootScope, Branch, branchService, $q, Product) {
+    function productSatPanelController ($rootScope, Branch, branchService, $q, Product, productSatService) {
         var vm = this;
 
         var aborts;
@@ -26,8 +26,23 @@ angular.module('demoApp.productSaturation')
             percentage: 0
         };
 
+        /* Slider Variables */
+
+        vm.weeks = [];
+
+        vm.slider = {
+            currentVal: 0
+        };
+
+        var selected;
+        var firstWeek;
+
+        vm.currentSelectedWeek = '';
+
+        /* Scope Functions */
         vm.filterProductChanged = filterByProduct;
         vm.showBranch = showBranch;
+        vm.sliderChanged = sliderChanged;
 
         initialize();
 
@@ -48,20 +63,24 @@ angular.module('demoApp.productSaturation')
                     branchService.loadMarkers(response.plain(), true);
                 });
 
-            $rootScope.$on('product-saturation-time-slider-changes', function (e, params) {
-                vm.selectedDate = angular.copy(params.selectedWeek);
+            vm.weeks = productSatService.getFiveWeeksDuration(new Date());
+            firstWeek = vm.weeks[0];
+            sliderChanged();
 
-                if (!vm.filter.selectedProduct) return;
-
-                showResult(params.selectedWeek.weekRangeStart, params.selectedWeek.weekRangeEnd, vm.filter.selectedProduct);
-            });
+            //$rootScope.$on('product-saturation-time-slider-changes', function (e, params) {
+            //    vm.selectedDate = angular.copy(params.selectedWeek);
+            //
+            //    if (!vm.filter.selectedProduct) return;
+            //
+            //    showResult(params.selectedWeek.weekRangeStart, params.selectedWeek.weekRangeEnd, vm.filter.selectedProduct);
+            //});
         }
 
         function showResult (dateStart, dateEnd, selectedProduct) {
             aborts = $q.defer();
 
             list = [];
-            branchService.resetMarkersColor(true);
+            //branchService.resetMarkersColor(true);
 
             Branch
                 .withHttpConfig({timeout: aborts.promise})
@@ -73,7 +92,8 @@ angular.module('demoApp.productSaturation')
                 .then(function (response) {
                     var result = response.plain();
                     var branchIds = result.map(function(item){return item.id;});
-                    branchService.highlightMarkers(branchIds, true);
+                    //branchService.highlightMarkers(branchIds, true);
+                    branchService.highlightMarkersOnSaturation(branchIds);
 
                     list = angular.copy(result);
 
@@ -92,6 +112,22 @@ angular.module('demoApp.productSaturation')
             $rootScope.$broadcast('show-product-saturation-slider');
 
             if (!vm.filter.selectedProduct || !vm.selectedDate)  return;
+
+            showResult(vm.selectedDate.weekRangeStart, vm.selectedDate.weekRangeEnd, vm.filter.selectedProduct);
+        }
+
+        function sliderChanged() {
+            vm.selectedDate = angular.copy(vm.weeks[vm.slider.currentVal]);
+            vm.selectedDate.weekRangeStart = firstWeek.weekRangeStart;
+            //selected.weekRangeStartFormatted = firstWeek.weekRangeStartFormatted;
+
+            vm.currentSelectedWeek = vm.selectedDate.weekRangeStartFormatted + ' to ' + vm.selectedDate.weekRangeEndFormatted;
+
+            //$rootScope.$broadcast('product-saturation-time-slider-changes', {selectedWeek: selected});
+
+            //vm.selectedDate = angular.copy(selected);
+
+            if (!vm.filter.selectedProduct) return;
 
             showResult(vm.selectedDate.weekRangeStart, vm.selectedDate.weekRangeEnd, vm.filter.selectedProduct);
         }

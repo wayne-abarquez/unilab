@@ -191,6 +191,39 @@ angular.module('demoApp.home')
             return Branch.cast(branchId);
         }
 
+
+        var previouslyHighlightedMarkerIds = [];
+        service.highlightMarkersOnSaturation = highlightMarkersOnSaturation;
+        function highlightMarkersOnSaturation(branchIds) {
+            var icon,
+                isFound,
+                foundCtr = 0,
+                markerIdsToUnhighlight = [];
+
+            if (previouslyHighlightedMarkerIds.length) {
+                markerIdsToUnhighlight = _.difference(previouslyHighlightedMarkerIds, branchIds);
+                _.filter(branchMarkers, function(itm){
+                   return markerIdsToUnhighlight.indexOf(itm.id) > -1;
+                }).forEach(function(itemMarker){
+                    itemMarker.setZIndex(1);
+                    itemMarker.setIcon(getBranchIconByType());
+                });
+            }
+
+                _.filter(branchMarkers, function (itm) {
+                    return branchIds.indexOf(itm.id) > -1;
+                }).forEach(function (item) {
+                    item.setZIndex(2);
+                    item.setIcon(getBranchIconByType(item.branch.type));
+                    item.touched = true;
+                    foundCtr++;
+                });
+
+            previouslyHighlightedMarkerIds = angular.copy(branchIds);
+
+            return foundCtr;
+        }
+
         function highlightMarkers (branchIds, isProductSat) {
             var icon,
                 isFound,
