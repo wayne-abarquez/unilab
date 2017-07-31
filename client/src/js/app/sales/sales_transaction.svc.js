@@ -206,7 +206,6 @@
 
             marker.content += '<br>';
 
-
             if (item.average_travel_time_in_minutes && item.travel_distance_in_km) {
                 marker.content += '<p class="no-margin text-muted padding-left-5" style="color:#f39c12;"><b>Previous Transaction</b></p>';
                 marker.content += '<p class="no-margin text-muted padding-left-5"><b>Actual Travel Time: </b> ' + (item.travel_time_in_minutes ? item.travel_time_in_minutes + ' mins' : '') + '</p>';
@@ -215,8 +214,7 @@
 
                 var prevTravelDiff = Math.abs(item.travel_time_in_minutes - item.average_travel_time_in_minutes);
 
-                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ? prevTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
-
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ? prevTravelDiff.toFixed(2) + ' mins (Average Travel Time vs Actual Travel Time)' : '') + '</p>';
 
                 marker.content += '<br>';
             }
@@ -238,6 +236,12 @@
 
                 marker.content += '<br>';
             }
+
+            //marker.content += '<br>';
+
+            marker.content += '<p class="no-margin text-muted padding-left-5">(Note: Difference = Average Travel Time vs Actual Travel Time)</p>';
+            marker.content += '<br>';
+
 
             marker.content += '<label class="text-muted"  style="padding:0.5rem 0 0 0.5rem;"><b>Validation Remarks: </b></label>';
             marker.content += '<textarea class="textarea" id="transaction-remarks-textarea" data-transaction-id="' + item.id + '"rows="2" cols="20" placeholder="Enter validation remarks here...">' + (item.remarks ? item.remarks : '') + '</textarea>'

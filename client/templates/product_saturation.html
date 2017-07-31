@@ -19,10 +19,41 @@
 
         <!-- map canvas dimensions will be computed during map initialization -->
         <div id="map-canvas" flex="100"></div>
-    {% endraw %}
-        {% include "partials/_product_saturation_filter.html" %}
-        {% include "partials/_product_saturation_slider.html" %}
+
+        <div style="position: absolute;left:2%;top:10px;width:80%;" layout="row"
+             layout-align="start center"
+             flex
+             ng-controller="productSatPanelController as vm">
+
+            <div id="product-saturation-filter-container" class="md-whiteframe-2dp" layout="row"
+                 layout-align="center center"
+                 flex="20"
+                 layout-margin>
+
+                <md-select placeholder="Select Product" ng-model="vm.filter.selectedProduct"
+                           ng-change="vm.filterProductChanged()"
+                           flex="100">
+                    <md-option ng-repeat="item in vm.productList" ng-value="item">{{ item }}</md-option>
+                </md-select>
+
+            </div>
+
+            <div id="product-saturation-slider-container" class="md-whiteframe-2dp" layout="row"
+                 layout-align="start center"
+                 ng-if="showProductSaturationSlider"
+                 flex="70"
+                 layout-margin>
+
+                <md-slider-container flex layout-margin>
+                    <md-slider class="md-primary" md-discrete min="0" step="1" max="4" ng-model="vm.slider.currentVal"
+                               ng-change="vm.sliderChanged()" flex></md-slider>
+                </md-slider-container>
+                <span class="slider-value-info" flex="25" layout-margin>{{ vm.currentSelectedWeek }}</span>
+            </div>
+
+        </div>
     </div>
+    {% endraw %}
 
     <script src="js/vendor.min.js"></script>
     <script src="js/app.min.js"></script>
