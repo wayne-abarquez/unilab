@@ -3,9 +3,10 @@ from app.sales.models import BranchProduct
 from datetime import datetime
 from random import randint
 from faker import Factory
+from sqlalchemy import and_
 from multiprocessing.dummy import Pool as ThreadPool
 from app.home.services import get_branches_by_territory
-from app.sales.services import get_products
+from app.sales.services import get_products, get_branches_by_boundary
 
 fake = Factory.create('en_US')
 
@@ -77,17 +78,18 @@ def chunks(l, n):
         yield l[i:i + n]
 
 
-def restock_branch(startdate, enddate):
+def restock_branch(startdate, enddate, territory_id=None, boundary_id=None):
     products = get_products()
     stocks = []
+    branch_list = []
 
-    # branch_list = get_branches_by_territory(101)
-    # branch_chunk = zip(*[iter(branch_list)] * 4)
-    #
-    # for idx, chunk in enumerate(branch_chunk):
-    #     for branch in chunk:
+    if boundary_id is not None:
+        branch_list = map(lambda britm:britm['branch'], get_branches_by_boundary(boundary_id))
+        # print result[0]
+    elif territory_id is not None:
+        branch_list = get_branches_by_territory(territory_id)
 
-    for branch in get_branches_by_territory(101):
+    for branch in branch_list:
         upto = randint(10, len(products) - 1)
         for i in range(upto):
             data = {
@@ -95,12 +97,19 @@ def restock_branch(startdate, enddate):
                 'productid': products[i].id,
                 'qty_released': randint(500, 10000),
                 'unit_of_measure': 'PCS',
-                'date_released': fake.date_time_between(start_date=startdate, end_date=enddate) # current week and the next 4 weeks
+                'date_released': fake.date_time_between(start_date=startdate, end_date=enddate)
                 # 'date_released': fake.date_time_between(start_date="-1w", end_date="+6w") # current week and the next 4 weeks
                 # 'date_released': fake.date_time_between(start_date="-2y", end_date="now")
             }
-            stocks.append(data)
+            found = BranchProduct.query.filter(
+                and_(BranchProduct.branchid == data['branchid'], BranchProduct.productid == data['productid'])).first()
+            if found is not None:
+                found.date_released = data['date_released']
+                db.session.commit()
+            else:
+                stocks.append(BranchProduct.from_dict(data))
 
-    db.session.bulk_insert_mappings(BranchProduct, stocks)
+    db.session.add_all(stocks)
+    # db.session.bulk_insert_mappings(BranchProduct, stocks)
     db.session.commit()
 
