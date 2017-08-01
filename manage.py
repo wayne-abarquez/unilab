@@ -67,8 +67,15 @@ def create_products():
 
 @manager.option('-s', '--startdate', dest='start_date')
 @manager.option('-e', '--enddate', dest='end_date')
-def restock_branches(start_date, end_date):
-    BaseSeeder.restock_branch(start_date, end_date)
+@manager.option('-i', '--territoryid', dest='territory_id', default=None)
+@manager.option('-b', '--boundaryid', dest='boundary_id', default=None)
+@manager.option('-t', '--truncate', dest='is_truncate', default=False)
+def restock_branches(start_date, end_date, territory_id, boundary_id, is_truncate):
+    if territory_id is None and boundary_id is None:
+        print "Please Enter Territory id. ex: --territoryid='101' or Boundary id. ex: --boundaryid='452736'"
+        return
+
+    BaseSeeder.restock_branch(start_date, end_date, territory_id, boundary_id, is_truncate)
     print "Branches Restocked sample products"
 
 
