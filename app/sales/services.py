@@ -277,12 +277,12 @@ def get_branches_within_date_range_by_product(start_date, end_date, product):
 
     return [
         Branch.from_dict({
-            'id': item[0],
-            'type': item[3],
-            'name': item[4],
-            'adddress': item[5] if item[5] is not None else '',
-            'latlng': item[6] if item[6] is not None else None,
-            'status': item[10]
+            'id': item[0]
+            # 'type': item[3],
+            # 'name': item[4],
+            # 'adddress': item[5] if item[5] is not None else '',
+            # 'latlng': item[6] if item[6] is not None else None,
+            # 'status': item[10]
         }) for item in result]
 
 
