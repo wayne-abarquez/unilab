@@ -214,7 +214,7 @@
 
                 var prevTravelDiff = Math.abs(item.travel_time_in_minutes - item.average_travel_time_in_minutes);
 
-                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ? prevTravelDiff.toFixed(2) + ' mins (Average Travel Time vs Actual Travel Time)' : '') + '</p>';
+                marker.content += '<p class="no-margin text-muted padding-left-5"><b>Difference: </b> ' + (item.travel_time_in_minutes && item.average_travel_time_in_minutes ? prevTravelDiff.toFixed(2) + ' mins' : '') + '</p>';
 
                 marker.content += '<br>';
             }

@@ -273,6 +273,8 @@ def get_branches_within_date_range_by_product(start_date, end_date, product):
                 bp.date_released BETWEEN '{1}' AND '{2}'
                 GROUP BY b.id""".format(product.lower(), start_date, end_date)
 
+    print query
+
     result = db.engine.execute(query).fetchall()
 
     return [
