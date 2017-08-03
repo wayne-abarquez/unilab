@@ -129,13 +129,14 @@ angular.module('demoApp.home')
             return iconBaseUrl + branchIcons[type.toLowerCase()];
         }
 
-        function loadMarkers (list, isProductSaturation) {
+        function loadMarkers (list, isProductSaturation, infowindow) {
 
             hideMarkers();
 
             branchMarkers = [];
 
-            if (!branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
+            if (infowindow) branchInfowindow = infowindow;
+            else if (!infowindow && !branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
             list.forEach(function (item) {
                 newBranch(item, isProductSaturation);

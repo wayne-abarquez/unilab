@@ -7,7 +7,9 @@ angular.module('demoApp.admin')
     function adminPanelController ($rootScope, $scope, boundariesService, branchService, userTerritoriesService, $timeout, gmapServices, $q, alertServices, placesService, $mdSidenav) {
         var vm = this;
 
-        var polygonObj;
+        var polygonObj,
+            adminInfowindow;
+        ;
 
         var selectedTypes = [],
             foundTypeIndex,
@@ -35,6 +37,8 @@ angular.module('demoApp.admin')
         initialize();
 
         function initialize () {
+            adminInfowindow = gmapServices.createInfoWindow('');
+
             boundariesService.loadBoundaries()
                 .then(function (list) {
                     vm.boundaries = angular.copy(list);
@@ -141,7 +145,7 @@ angular.module('demoApp.admin')
             if (currentSelected.type == 'boundary' && currentSelected.typeid == 7) {
                 placesService.loadPOIsWithinBoundary(currentSelected.id, selectedTypes)
                     .then(function (response) {
-                        placesService.showPOIs(response);
+                        placesService.showPOIs(response, adminInfowindow);
                     });
             }
         }
@@ -199,7 +203,7 @@ angular.module('demoApp.admin')
 
                         branchService.loadMarkers(resp.map(function (item) {
                             return item.branch;
-                        }));
+                        }), null, adminInfowindow);
                     })
                     .finally(function () {
                         $timeout(function () {
@@ -214,7 +218,7 @@ angular.module('demoApp.admin')
                 promises.push(
                     placesService.loadPOIsWithinBoundary(boundary.id, selectedTypes)
                         .then(function (response) {
-                            placesService.showPOIs(response);
+                            placesService.showPOIs(response, adminInfowindow);
                         })
                 );
             }
@@ -301,7 +305,7 @@ angular.module('demoApp.admin')
                 promises.push(
                     placesService.loadPOIs(item.territoryid, selectedTypes)
                         .then(function (response) {
-                            placesService.showPOIs(response);
+                            placesService.showPOIs(response, adminInfowindow);
                             $rootScope.selectedTerritory.places = response;
                         })
                 );
@@ -315,7 +319,7 @@ angular.module('demoApp.admin')
                             alertServices.showBottomLeftToast('This territory doesnt have branch yet.');
                         } else {
                             $rootScope.selectedTerritory.branches = response;
-                            branchService.loadMarkers(response);
+                            branchService.loadMarkers(response, null, adminInfowindow);
                         }
 
                         $timeout(function () {
