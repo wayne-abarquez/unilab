@@ -88,11 +88,12 @@ angular.module('demoApp')
             return dfd.promise;
         }
 
-        function showPOIs(list) {
+        function showPOIs(list, infowindow) {
             var marker,
                 placeType;
 
-             if (!poiInfowindow) poiInfowindow = gmapServices.createInfoWindow('');
+            if (infowindow) poiInfowindow = infowindow;
+            else if (!infowindow && !poiInfowindow) poiInfowindow = gmapServices.createInfoWindow('');
 
             hidePOIs();
 
