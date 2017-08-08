@@ -16,7 +16,6 @@ angular.module('demoApp')
             console.log('map legend controller init');
 
             $rootScope.$on('compile-map-legend', function (e, params) {
-                console.log('on compile-map-legend', params.data);
                 vm.legendData[params.type] = params.data;
 
                 if (!$rootScope.showLegend) $rootScope.showLegend = true;

@@ -50,6 +50,7 @@ angular.module('demoApp')
         service.showVisiblePOIs = showVisiblePOIs;
         service.hidePOIs = hidePOIs;
         service.getPlaceTypes = getPlaceTypes;
+        service.dismissInfowindow = dismissInfowindow;
 
         function loadPOIs (territoryId, typesArray) {
             var dfd = $q.defer();
@@ -111,6 +112,7 @@ angular.module('demoApp')
                     gmapServices.addListener(marker, 'click', function () {
                         poiInfowindow.open(gmapServices.map, this);
                         poiInfowindow.setContent(this.content);
+                        $rootScope.$broadcast('poi-clicked', {position: this.getPosition()});
                     });
 
                     poiMarkers.push(marker);
@@ -169,6 +171,10 @@ angular.module('demoApp')
 
         function getPlaceIcon(placeType) {
             return iconByplaceTypes[placeType];
+        }
+
+        function dismissInfowindow () {
+            poiInfowindow.close();
         }
 
         return service;

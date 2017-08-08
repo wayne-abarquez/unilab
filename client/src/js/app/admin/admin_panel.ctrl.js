@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.admin')
-    .controller('adminPanelController', ['$rootScope', '$scope', 'boundariesService', 'branchService', 'userTerritoriesService', '$timeout', 'gmapServices', '$q', 'alertServices', 'placesService', '$mdSidenav', adminPanelController]);
+    .controller('adminPanelController', ['$rootScope', '$scope', 'boundariesService', 'branchService', 'userTerritoriesService', '$timeout', 'gmapServices', '$q', 'alertServices', 'placesService', '$mdSidenav', 'mapToolsService', '$mdToast', adminPanelController]);
 
-    function adminPanelController ($rootScope, $scope, boundariesService, branchService, userTerritoriesService, $timeout, gmapServices, $q, alertServices, placesService, $mdSidenav) {
+    function adminPanelController ($rootScope, $scope, boundariesService, branchService, userTerritoriesService, $timeout, gmapServices, $q, alertServices, placesService, $mdSidenav, mapToolsService, $mdToast) {
         var vm = this;
 
         var polygonObj,
@@ -280,6 +280,12 @@ angular.module('demoApp.admin')
             $rootScope.$broadcast('clear-compare-branches');
             branchService.hideMarkers();
             placesService.hidePOIs();
+            if (polygonObj) {
+                polygonObj.setMap(null);
+                polygonObj = null;
+            }
+            $mdToast.hide();
+            mapToolsService.clearMeasurementLines();
         }
 
         function showTerritory (item) {

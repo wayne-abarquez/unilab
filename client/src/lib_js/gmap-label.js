@@ -7,9 +7,9 @@ function Label(opt_options) {
     var span = this.span_ = document.createElement('span');
     var cssText = 'position: relative; left: -50%; top: -8px; ' +
         'white-space: nowrap;' +
-        'padding: 2px; color: white; padding: 0.25rem;';
+        'padding: 2px;';
 
-    cssText += 'background-color: ' + (opt_options.hasOwnProperty('bgcolor') ? opt_options['bgcolor'] : 'white');
+    cssText += 'background-color: ' + (opt_options.hasOwnProperty('bgcolor') ? opt_options['bgcolor'] + ';color: white;' : 'white;color:black;');
 
     span.style.cssText = cssText;
 
@@ -53,6 +53,9 @@ Label.prototype.onRemove = function () {
 // Implement draw
 Label.prototype.draw = function () {
     var projection = this.getProjection();
+
+    if (!projection) return;
+
     var position = projection.fromLatLngToDivPixel(this.get('position'));
 
     var div = this.div_;
@@ -63,8 +66,7 @@ Label.prototype.draw = function () {
     this.span_.innerHTML = this.get('text').toString();
 };
 
-//Label.prototype.setPosition = function (latlng) {
-//    this.position = latlng;
-//
-//    this.draw();
-//};
+Label.prototype.setContent = function (txt) {
+    this.set('text', txt);
+    this.draw();
+};

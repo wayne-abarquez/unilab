@@ -33,6 +33,17 @@
             showToast(message, 'top right', delay);
         }
 
+        service.showDismissableToast = showDismissableToast;
+
+        function showDismissableToast (message, delay) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('bottom left')
+                    .hideDelay(delay)
+            );
+        }
+
         function showMessage(message, type, isAutoClose) {
             var opts = {
                 title: message,

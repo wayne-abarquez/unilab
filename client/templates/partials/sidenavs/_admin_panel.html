@@ -24,8 +24,15 @@
             </span>
                 <span flex></span>
 
-                <md-button class="md-icon-button" ng-click="vm.showTerritoriesPanel=!vm.showTerritoriesPanel">
+                <md-button class="md-icon-button md-primary md-raised" ng-click="vm.showTerritoriesPanel=!vm.showTerritoriesPanel">
                     <md-icon>arrow_forward</md-icon>
+                </md-button>
+
+                <md-button class="md-icon-button md-raised md-accent"
+                           type="file"
+                           ngf-pattern="'.xlsx,.xls'"
+                           ngf-select="vm.uploadFraudData($file, $invalidFiles, $event)">
+                    <md-icon>file_upload</md-icon>
                 </md-button>
             </div>
         </md-toolbar>
