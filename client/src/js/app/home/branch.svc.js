@@ -8,7 +8,25 @@ angular.module('demoApp.home')
         var service = {};
 
         var branchMarkers = [],
-            branchInfowindow;
+            branchInfowindow,
+            heatmap;
+
+        var gradient = [
+            'rgba(0, 255, 255, 0)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(0, 127, 255, 1)',
+            'rgba(0, 63, 255, 1)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 0, 223, 1)',
+            'rgba(0, 0, 191, 1)',
+            'rgba(0, 0, 159, 1)',
+            'rgba(0, 0, 127, 1)',
+            'rgba(63, 0, 91, 1)',
+            'rgba(127, 0, 63, 1)',
+            'rgba(191, 0, 31, 1)',
+            'rgba(255, 0, 0, 1)'
+        ];
 
         var branchIcons = {
             'mdc': 'branch-red.png',
@@ -18,6 +36,8 @@ angular.module('demoApp.home')
 
         var iconBaseUrl = MARKER_BASE_URL;
         var unhighlightIcon = 'branch-default.png';
+
+        var previouslyHighlightedMarkerIds = [];
 
         service.saveBranch = saveBranch;
         service.loadMarkers = loadMarkers;
@@ -37,7 +57,7 @@ angular.module('demoApp.home')
         service.newBranch = newBranch;
         service.triggerClickBranch = triggerClickBranch;
         service.loadProducts = loadProducts;
-
+        service.highlightMarkersOnSaturation = highlightMarkersOnSaturation;
 
         function loadProducts (list) {
             var dfd = $q.defer();
@@ -70,7 +90,10 @@ angular.module('demoApp.home')
             marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
             marker.content += '<h4 class="no-margin text-muted padding-left-5">' + item.type + '</h4>';
 
-            if (!isProductSaturation) marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>'
+            if (!isProductSaturation) {
+                marker.content += '<button id="compare-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-primary">Compare</button>';
+                marker.content += '<button id="get-distance-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-accent">Get Distance</button>';
+            }
 
             //if ($rootScope.currentUser.role === 'ADMIN') {
                 //if (isProductSaturation) {
@@ -192,14 +215,13 @@ angular.module('demoApp.home')
             return Branch.cast(branchId);
         }
 
-
-        var previouslyHighlightedMarkerIds = [];
-        service.highlightMarkersOnSaturation = highlightMarkersOnSaturation;
-        function highlightMarkersOnSaturation(branchIds) {
+        function highlightMarkersOnSaturation(branchIds, showAsHeatmap) {
             var icon,
                 isFound,
                 foundCtr = 0,
                 markerIdsToUnhighlight = [];
+
+            if (!showAsHeatmap) showMarkers();
 
             if (previouslyHighlightedMarkerIds.length) {
                 markerIdsToUnhighlight = _.difference(previouslyHighlightedMarkerIds, branchIds);
@@ -211,6 +233,23 @@ angular.module('demoApp.home')
                 });
             }
 
+            if (showAsHeatmap) {
+                if (!heatmap) heatmap = gmapServices.createHeatmap([], gradient);
+
+                var latlngData = [];
+
+                hideMarkers();
+
+                _.filter(branchMarkers, function (itm) {
+                    return branchIds.indexOf(itm.id) > -1;
+                }).forEach(function (item) {
+                    latlngData.push(item.getPosition());
+                    item.touched = true;
+                    foundCtr++;
+                });
+                heatmap.setData(latlngData);
+                previouslyHighlightedMarkerIds = angular.copy(branchIds);
+            } else {
                 _.filter(branchMarkers, function (itm) {
                     return branchIds.indexOf(itm.id) > -1;
                 }).forEach(function (item) {
@@ -219,8 +258,9 @@ angular.module('demoApp.home')
                     item.touched = true;
                     foundCtr++;
                 });
+                previouslyHighlightedMarkerIds = angular.copy(branchIds);
+            }
 
-            previouslyHighlightedMarkerIds = angular.copy(branchIds);
 
             return foundCtr;
         }

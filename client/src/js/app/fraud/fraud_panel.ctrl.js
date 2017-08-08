@@ -67,6 +67,8 @@ angular.module('demoApp.fraud')
                 .then(function(list){
                     vm.employeeList = angular.copy(list);
 
+                    console.log('employeeList: ',list);
+
                     $timeout(function(){
                         vm.filter.empId = '2';
 
@@ -253,6 +255,11 @@ angular.module('demoApp.fraud')
         function employeeFilterChanged () {
             //console.log('employeeFilterChanged');
             getSalesTransactions();
+            showEmployeeTerritory(vm.filter.empId);
+        }
+
+        function showEmployeeTerritory (empId) {
+            console.log('showEmployeeTerritory: ',empId);
         }
 
         function getTransactionByDate (dateItem) {

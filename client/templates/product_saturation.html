@@ -49,6 +49,9 @@
                                ng-change="vm.sliderChanged()" flex></md-slider>
                 </md-slider-container>
                 <span class="slider-value-info" flex="25" layout-margin>{{ vm.currentSelectedWeek }}</span>
+                <md-switch ng-model="vm.toggleDataDisplayModel" aria-label="Switch 6" ng-change="vm.toggleDataDisplay(vm.toggleDataDisplayModel)">
+                    {{ vm.toggleDataDisplayMessage }}
+                </md-switch>
             </div>
 
         </div>

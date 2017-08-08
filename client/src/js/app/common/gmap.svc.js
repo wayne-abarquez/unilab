@@ -133,6 +133,7 @@
         service.containsLocation = containsLocation;
         service.triggerEvent = triggerEvent;
         service.createMapIconLabel = createMapIconLabel;
+        service.createHeatmap = createHeatmap;
 
         function apiAvailable() {
             return typeof window.google === 'object';
@@ -257,10 +258,9 @@
         }
 
         function addMapListener(eventName, callback) {
-            if (service.map) {
-                return service.addListener(service.map, eventName, callback);
-            }
-            return null;
+            if (!service.map) return;
+
+            return service.addListener(service.map, eventName, callback);
         }
 
         function setMapCursorDefault() {
@@ -780,7 +780,7 @@
             var lineSymbol = {
                 path: 'M 0,-1 0,1',
                 strokeOpacity: 1,
-                scale: 1
+                scale: 2
             };
 
             var polylineOptions = {
@@ -793,7 +793,7 @@
                 icons: [{
                     icon: lineSymbol,
                     offset: '0',
-                    repeat: '3px'
+                    repeat: '10px'
                 }],
                 strokeOpacity: 0,
                 zIndex: 100
@@ -1052,6 +1052,14 @@
 
         function createFacilityMarker(latLng) {
             return service.initMarker(latLng, 'resources/images/markers/wifi.png');
+        }
+
+        function createHeatmap (latLngArray, gradient) {
+            return new google.maps.visualization.HeatmapLayer({
+                data: latLngArray,
+                map: service.map,
+                gradient: gradient
+            });
         }
 
         return service;

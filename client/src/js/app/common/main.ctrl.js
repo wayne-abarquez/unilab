@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp')
-        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService',  'DEMO_MODE_MESSAGE','$http', mainController]);
+        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService',  'DEMO_MODE_MESSAGE','$http', 'mapToolsService', '$mdToast', 'placesService', mainController]);
 
-    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService, DEMO_MODE_MESSAGE, $http) {
+    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService, DEMO_MODE_MESSAGE, $http, mapToolsService, $mdToast, placesService) {
         var vm = this;
 
         $rootScope.appName = APP_NAME;
@@ -17,12 +17,6 @@
         vm.menu = [];
 
         var MENU_SELECTIONS = [
-            //{
-            //    link: '/',
-            //    title: 'Home',
-            //    icon: 'home',
-            //    can: ['ADMIN', 'SALES']
-            //},
             {
                 link: '/',
                 title: 'Channel Diversification',
@@ -64,7 +58,7 @@
 
         function initialize () {
             // loads user details
-            $rootScope.$watch('currentUser', function(newValue, oldValue){
+            $rootScope.$watch('currentUser', function(newValue){
                 if (!newValue) return;
                 vm.menu = getUserMenu(newValue);
             });
@@ -90,7 +84,32 @@
                 }
             });
 
-            // Edit Branch
+            // get distance
+            $(document).on('click', '#get-distance-branch-btn', function () {
+                branchId = $(this).data('branch-id');
+                branchMarker = branchService.getBranchById(branchId);
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Click POI to measure distance')
+                        .position('bottom left')
+                        .hideDelay(false)
+                        .action('Close')
+                ).then(function(response){
+                    if (response == 'ok') mapToolsService.clearMeasurementLines();
+                });
+
+                branchService.dismissInfowindow();
+                mapToolsService.activateMeasureDistanceTool(branchMarker.getPosition());
+
+                var poiClickListener = $rootScope.$on('poi-clicked', function(e,params){
+                    placesService.dismissInfowindow();
+                    mapToolsService.deactivateMeasureDistanceTool(params.position);
+                    poiClickListener();
+                });
+            });
+
+                // Edit Branch
             $(document).on('click', '#edit-branch-btn', function () {
                 //branchId = $(this).data('branch-id');
                 //console.log('edit branch with id = ' + branchId);
@@ -147,7 +166,6 @@
             }
 
             isURLExist(item.link);
-            //window.location.href = item.link;
         }
 
         function showBanchCompareTableAction () {

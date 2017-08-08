@@ -43,6 +43,7 @@ angular.module('demoApp.productSaturation')
         vm.filterProductChanged = filterByProduct;
         vm.showBranch = showBranch;
         vm.sliderChanged = sliderChanged;
+        vm.toggleDataDisplay = toggleDataDisplay;
 
         initialize();
 
@@ -80,7 +81,6 @@ angular.module('demoApp.productSaturation')
             aborts = $q.defer();
 
             list = [];
-            //branchService.resetMarkersColor(true);
 
             Branch
                 .withHttpConfig({timeout: aborts.promise})
@@ -93,7 +93,7 @@ angular.module('demoApp.productSaturation')
                     var result = response.plain();
                     var branchIds = result.map(function(item){return item.id;});
                     //branchService.highlightMarkers(branchIds, true);
-                    branchService.highlightMarkersOnSaturation(branchIds);
+                    branchService.highlightMarkersOnSaturation(branchIds, vm.toggleDataDisplayModel);
 
                     list = angular.copy(result);
 
@@ -130,6 +130,15 @@ angular.module('demoApp.productSaturation')
             if (!vm.filter.selectedProduct) return;
 
             showResult(vm.selectedDate.weekRangeStart, vm.selectedDate.weekRangeEnd, vm.filter.selectedProduct);
+        }
+
+        vm.toggleDataDisplayMessage = 'Show Heatmap';
+
+        function toggleDataDisplay (flag) {
+            vm.toggleDataDisplayMessage = flag ? 'Show Markers' : 'Show Heatmap';
+            //if (flag) { // show heatmap
+                sliderChanged();
+            //}
         }
     }
 }());
