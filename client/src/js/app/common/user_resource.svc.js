@@ -20,6 +20,7 @@ angular.module('demoApp')
 
         service.getUserTransactions = getUserTransactions;
         service.getEmployees = getEmployees;
+        service.getUserTerritories = getUserTerritories;
 
         function getEmployees () {
             var dfd = $q.defer();
@@ -56,6 +57,19 @@ angular.module('demoApp')
             } else {
                 dfd.reject();
             }
+
+            return dfd.promise;
+        }
+
+        function getUserTerritories (userId) {
+            var dfd = $q.defer();
+
+            User.cast(userId).getList('territories')
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
 
             return dfd.promise;
         }

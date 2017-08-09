@@ -18,6 +18,7 @@ class User(BaseModel, UserMixin):
     username = db.Column(db.String(50), nullable=False)
     password_hash = db.Column(db.String, nullable=False)
     roleid = db.Column(db.Integer, db.ForeignKey('role.id'))
+    empid = db.Column(db.Integer)
     firstname = db.Column(db.String(200))
     lastname = db.Column(db.String(200))
 

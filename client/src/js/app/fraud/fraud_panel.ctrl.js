@@ -2,10 +2,12 @@
 'use strict';
 
 angular.module('demoApp.fraud')
-    .controller('fraudPanelController', ['$rootScope', 'fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', 'gmapServices', fraudPanelController]);
+    .controller('fraudPanelController', ['$rootScope', 'fraudService', 'alertServices', '$timeout', 'modalServices', 'userSessionService', '$mdDateRangePicker', 'salesTransactionService', 'userResourcesService', '$q', 'gmapServices', 'userTerritoriesService', fraudPanelController]);
 
-    function fraudPanelController ($rootScope, fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q, gmapServices) {
+    function fraudPanelController ($rootScope, fraudService, alertServices, $timeout, modalServices, userSessionService, $mdDateRangePicker, salesTransactionService, userResourcesService, $q, gmapServices, userTerritoriesService) {
         var vm = this;
+
+        var userTerritoryPolygons = [];
 
         vm.listOfDays = [];
         vm.dataIsLoaded = true;
@@ -67,8 +69,6 @@ angular.module('demoApp.fraud')
                 .then(function(list){
                     vm.employeeList = angular.copy(list);
 
-                    console.log('employeeList: ',list);
-
                     $timeout(function(){
                         vm.filter.empId = '2';
 
@@ -79,6 +79,7 @@ angular.module('demoApp.fraud')
                                     vm.listOfDays = list;
 
                                     getSalesTransactions();
+                                    showEmployeeTerritory();
                                 });
                         }, 500);
                     }, 1000);
@@ -253,13 +254,27 @@ angular.module('demoApp.fraud')
         var listOfDaysTemp = [];
 
         function employeeFilterChanged () {
-            //console.log('employeeFilterChanged');
             getSalesTransactions();
-            showEmployeeTerritory(vm.filter.empId);
+            showEmployeeTerritory();
         }
 
-        function showEmployeeTerritory (empId) {
-            console.log('showEmployeeTerritory: ',empId);
+        function hideUserTerritories () {
+            userTerritoryPolygons.forEach(function(polygon){
+                polygon.setMap(null);
+                polygon = null;
+            });
+            userTerritoryPolygons = [];
+        }
+
+        function showEmployeeTerritory () {
+            hideUserTerritories();
+
+            userResourcesService.getUserTerritories(vm.filter.empId)
+                .then(function(polygonResults){
+                    polygonResults.forEach(function(data){
+                        userTerritoryPolygons.push(userTerritoriesService.showTerritoryPolygon(data.territory.geom));
+                    });
+                });
         }
 
         function getTransactionByDate (dateItem) {

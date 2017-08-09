@@ -35,7 +35,7 @@ def get_territories():
 def get_user_territories(userid):
     user = User.query.get(userid)
 
-    if user == None:
+    if user is None:
         return []
 
     result = []

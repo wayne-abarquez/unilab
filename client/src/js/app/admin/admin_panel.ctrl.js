@@ -110,10 +110,11 @@ angular.module('demoApp.admin')
             var color = isTerritory ? '#3f51b5' : '#ff0000';
 
             if (polygonObj) {
-                polygonObj.setPath(latLngArray);
+                //polygonObj.setPath(latLngArray);
                 polygonObj.setOptions({
                     fillColor: color,
                     strokeColor: color,
+                    paths: latLngArray
                 });
             } else {
                 polygonObj = gmapServices.createPolygon(latLngArray, color);
