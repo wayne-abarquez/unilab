@@ -5,6 +5,7 @@ user_data_fields = dict(
     username=fields.String,
     role=fields.String,
     firstname=fields.String,
-    lastname=fields.String
+    lastname=fields.String,
+    empid=fields.Integer
 )
 

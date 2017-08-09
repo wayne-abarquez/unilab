@@ -93,6 +93,5 @@ def compute_travel_times(start_date, end_date, user_id):
     compute_transaction_travel_details(start_date, end_date, user_id)
     return True
 
-
 if __name__ == '__main__':
     manager.run()

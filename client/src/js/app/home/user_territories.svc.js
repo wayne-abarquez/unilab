@@ -2,15 +2,18 @@
 'use strict';
 
 angular.module('demoApp.home')
-    .factory('userTerritoriesService', ['$q', 'userSessionService', 'Territory', userTerritoriesService]);
+    .factory('userTerritoriesService', ['$q', 'userSessionService', 'Territory', 'gmapServices', userTerritoriesService]);
 
-    function userTerritoriesService ($q, userSessionService, Territory) {
+    function userTerritoriesService ($q, userSessionService, Territory, gmapServices) {
         var service = {};
 
         var abort;
 
+        var polygonColor = '#3f51b5';
+
         service.getTerritories = getTerritories;
         service.getTerritoryBranches = getTerritoryBranches;
+        service.showTerritoryPolygon = showTerritoryPolygon;
 
         function getTerritories () {
             var dfd = $q.defer();
@@ -46,6 +49,10 @@ angular.module('demoApp.home')
                     });
 
             return dfd.promise;
+        }
+
+        function showTerritoryPolygon(latlngArray) {
+            return gmapServices.createPolygon(latlngArray, polygonColor);
         }
 
         return service;

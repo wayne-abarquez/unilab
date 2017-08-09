@@ -69,7 +69,7 @@
                 <form class="filter-form" flex="100">
                     <md-select placeholder="Select Employee" ng-model="vm.filter.empId"
                                ng-change="vm.employeeFilterChanged()">
-                        <md-option ng-repeat="emp in vm.employeeList" ng-value="emp.id">{{emp.id}}</md-option>
+                        <md-option ng-repeat="emp in vm.employeeList" ng-value="emp.id">{{emp.empid}}</md-option>
                     </md-select>
 
                     <md-input-container md-no-float class="md-block">
