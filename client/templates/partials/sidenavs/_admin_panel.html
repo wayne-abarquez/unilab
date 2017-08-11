@@ -28,12 +28,33 @@
                     <md-icon>arrow_forward</md-icon>
                 </md-button>
 
-                <md-button class="md-icon-button md-raised md-accent"
-                           type="file"
-                           ngf-pattern="'.xlsx,.xls'"
-                           ngf-select="vm.uploadFraudData($file, $invalidFiles, $event)">
-                    <md-icon>file_upload</md-icon>
-                </md-button>
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
+                        <md-icon md-menu-origin>more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content>
+
+                        <!-- UPLOAD CUSTOMER DATA -->
+                        <md-menu-item>
+                            <span type="file"
+                                  ngf-pattern="'.xlsx,.xls'"
+                                  ngf-select="vm.uploadBranchData($file, $invalidFiles, $event)">
+                                <md-icon>folder_shared</md-icon> Upload Customer Data
+                            </span>
+                        </md-menu-item>
+
+                        <!-- UPLOAD SALES DATA -->
+                        <md-menu-item>
+                            <span type="file"
+                                  ngf-pattern="'.xlsx,.xls'"
+                                  ngf-select="vm.uploadSalesData($file, $invalidFiles, $event)">
+                                <md-icon>assessment</md-icon> Upload Sell-Out Data
+                            </span>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+
             </div>
         </md-toolbar>
 

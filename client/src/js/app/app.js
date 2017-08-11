@@ -30,6 +30,17 @@ google.load('visualization', '1', {
 
         .constant('DEMO_MODE_MESSAGE', 'Functionality disabled for POC')
 
+        .constant('SEMESTERS', [
+            {
+                display: 'Sem 1 - 2016',
+                value: '2016-01-01'
+            },
+            {
+                display: 'Sem 2 - 2016',
+                value: '2016-07-01'
+            }
+        ])
+
 
         .config(['RestangularProvider', function (RestangularProvider) {
             //set the base url for api calls on our RESTful services

@@ -33,7 +33,9 @@ class Branch(BaseModel):
 
 
 class Product(BaseModel):
-    name = db.Column(db.String(200))
+    material_code = db.Column(db.String(20))
+    brand = db.Column(db.String(200))
+    name = db.Column(db.String(200)) # this is the subbrand
     type = db.Column(db.String(50))
     cost = db.Column(db.Numeric)
     remarks = db.Column(db.Text)
@@ -101,3 +103,13 @@ class Transaction(BaseModel):
     status = db.Column(db.String(20))
 
     merchant = db.relationship(Merchant, lazy='joined')
+
+
+class Sellout(BaseModel):
+    branchid = db.Column(db.Integer, db.ForeignKey('branch.id'), nullable=False)
+    productid = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    sellout_date = db.Column(db.Date, nullable=False)
+    grossup_amount = db.Column(db.Numeric)
+
+    product = db.relationship(Product)
+    branch = db.relationship(Branch, backref=db.backref('sellouts', cascade="all, delete-orphan"), lazy='joined')

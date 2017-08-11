@@ -1,7 +1,8 @@
-from app import db
-from .models import Branch, BranchStatus, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, Transaction
+from app import app, db
+from .models import Branch, BranchStatus, BranchType, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, \
+    Transaction, Sellout
 from app.home.models import Boundary, Territory
-from sqlalchemy import select, func, desc, DATE, cast as cast_data
+from sqlalchemy import select, func, desc, DATE, cast as cast_data, and_
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
@@ -9,6 +10,10 @@ from app.utils import forms_helper
 from random import randint
 from .exceptions import BranchNotFoundError
 from datetime import datetime
+from openpyxl import load_workbook
+import time
+import requests
+import json
 import logging
 
 log = logging.getLogger(__name__)
@@ -41,10 +46,11 @@ def get_transaction_count_with_dates(dates, user_id):
     datestr = ''
     for idx, dateitem in enumerate(date_list):
         datestr += "'" + dateitem + "'"
-        if idx < len(date_list)-1:
+        if idx < len(date_list) - 1:
             datestr += ","
 
-    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(user_id, datestr)
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
+        user_id, datestr)
 
     result = db.engine.execute(query).fetchall()
 
@@ -295,8 +301,6 @@ def get_all_branches_count():
 
 
 def delete_branch_wihin_boundary(latlngList):
-    from app.utils import forms_helper
-
     boundary = forms_helper.parse_area(latlngList)
 
     result = Branch.query \
@@ -323,3 +327,250 @@ def update_sales_transaction_status(transactionid, status):
     transaction.status = status
 
     db.session.commit()
+
+
+def reverse_geocode(latlng_dict):
+    url = 'https://maps.googleapis.com/maps/api/geocode/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
+    url += '&latlng=' + str(latlng_dict['lat']) + ',' + str(latlng_dict['lng'])
+
+    response = requests.get(url, verify=False)
+
+    if response.content:
+        content = json.loads(response.content)
+        if content['status'] == 'OK' and len(content['results']) > 0:
+            result = content['results']
+            return result[0]['formatted_address']
+
+    return ''
+
+
+def geocode(address):
+    print "GEOCODING ADDRESS: {0}".format(address)
+    url = 'https://maps.googleapis.com/maps/api/geocode/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
+    url += '&address=' + address
+
+    response = requests.get(url, verify=False)
+
+    if response.content:
+        content = json.loads(response.content)
+        if content['status'] == 'OK' and len(content['results']) > 0:
+            result = content['results']
+            return result[0]
+
+    return None
+
+
+def upload_branch_data(file):
+    wb = load_workbook(file, read_only=True)
+
+    # grab the active worksheet
+    ws = wb.active
+
+    rows = ws.iter_rows()
+
+    columnrow = rows.next()
+
+    for cell in columnrow:
+        print "column: {0}".format(cell.value)
+
+    for row in rows:
+        time.sleep(0.01)
+
+        data_dict = {}
+
+        raw_name = row[0].value.encode('utf-8')
+        fidx = raw_name.find('-')
+
+        data_dict['name'] = raw_name[fidx + 1:].strip() if fidx > -1 else raw_name
+
+        typestr = row[3].value.encode('utf-8').lower()
+
+        if typestr == 'iserv':
+            data_dict['type'] = BranchType.GT
+        elif typestr == 'mst':
+            data_dict['type'] = BranchType.MDC
+
+        lat = row[4].value
+        lng = row[5].value
+        latlng = None if lat <= 0 or lng <= 0 else {'lat': row[4].value, 'lng': row[5].value}
+
+        if latlng is not None:
+            data_dict['latlng'] = forms_helper.parse_coordinates(latlng)
+            data_dict['address'] = reverse_geocode(latlng)
+        else:
+            address_param = data_dict['name'] + ' ' + row[1].value.encode('utf-8')
+            result = geocode(address_param)
+            if result is not None:
+                latlng = result['geometry']['location']
+                data_dict['latlng'] = forms_helper.parse_coordinates(latlng)
+                data_dict['address'] = result['formatted_address']
+
+        try:
+            db.session.add(Branch.from_dict(data_dict))
+            db.session.commit()
+        except Exception as e:
+            # print "ERROR: {0}".format(e)
+            db.session.rollback()
+            continue
+
+    log.debug("Branch data uploaded")
+
+
+def upload_branch_sellouts_data(file):
+    wb = load_workbook(file, read_only=True)
+
+    # grab the active worksheet
+    ws = wb.active
+
+    rows = ws.iter_rows()
+
+    # skip 1 row for columns
+    rows.next()
+
+    prev_dict = {}
+
+    for idx, row in enumerate(rows):
+        data_dict = {}
+
+        # if idx == 10:
+        #     break
+
+        raw_branch_name = row[5].value.encode('utf-8')
+        fidx = raw_branch_name.find('-')
+        data_dict['branch_name'] = raw_branch_name[fidx + 1:].strip() if fidx > -1 else raw_branch_name
+
+        if row[4].value is not None:
+            typestr = row[4].value.encode('utf-8').lower()
+            if typestr == 'iserv':
+                data_dict['branch_type'] = BranchType.GT
+            elif typestr == 'mst':
+                data_dict['branch_type'] = BranchType.MDC
+            prev_dict['branch_type'] = data_dict['branch_type']
+        elif row[4].value is None and idx > 0:
+            data_dict['branch_type'] = prev_dict['branch_type']
+
+        # find branch first if exist do not geocode and insert
+        branch = Branch.query.filter(Branch.name.ilike('%' + data_dict['branch_name'] + '%')).first()
+        if branch is None:
+            geocode_result = geocode(data_dict['branch_name'])
+            # branch_latlng = None if geocode_result is None else forms_helper.parse_coordinates(geocode_result['geometry']['location'])
+            # branch_address = '' if geocode_result is None else geocode_result['formatted_address']
+            # branch_dict = {
+            #     'name': data_dict['branch_name'],
+            #     'type': data_dict['branch_type'],
+            #     'latlng': branch_latlng,
+            #     'address': branch_address
+            # }
+            # branch = Branch.from_dict(branch_dict)
+            # try:
+            #     db.session.add(branch)
+            #     db.session.commit()
+            #     print "Branch saved. {0}".format(branch_dict)
+            # except Exception as e:
+            #     db.session.rollback()
+            if geocode_result is not None:
+                branch_dict = {
+                    'name': data_dict['branch_name'],
+                    'type': data_dict['branch_type'],
+                    'latlng': forms_helper.parse_coordinates(geocode_result['geometry']['location']),
+                    'address': geocode_result['formatted_address']
+                }
+                branch = Branch.from_dict(branch_dict)
+                try:
+                    db.session.add(branch)
+                    db.session.commit()
+                    print "Branch saved. {0}".format(branch_dict)
+                except Exception as e:
+                    # print "ERROR saving branch: {0}".format(e)
+                    db.session.rollback()
+            else:
+                continue
+
+        data_dict['measure_type'] = str(row[6].value)
+        data_dict['sellout_amount'] = str(row[7].value)
+
+        if row[0].value is not None:
+            data_dict['date'] = str(row[0].value)  # row[0].value.encode('utf-8')
+            prev_dict['date'] = data_dict['date']
+        elif row[0].value is None and idx > 0:
+            data_dict['date'] = prev_dict['date']
+
+        if row[1].value is not None:
+            data_dict['brand'] = row[1].value.encode('utf-8')
+            prev_dict['brand'] = data_dict['brand']
+        elif row[1].value is None and idx > 0:
+            data_dict['brand'] = prev_dict['brand']
+
+        if row[2].value is not None:
+            data_dict['subbrand'] = row[2].value.encode('utf-8')
+            prev_dict['subbrand'] = data_dict['subbrand']
+        elif row[2].value is None and idx > 0:
+            data_dict['subbrand'] = prev_dict['subbrand']
+
+        if row[3].value is not None:
+            data_dict['materialid'] = row[3].value.encode('utf-8')
+            prev_dict['materialid'] = data_dict['materialid']
+        elif row[3].value is None and idx > 0:
+            data_dict['materialid'] = prev_dict['materialid']
+
+        product = Product.query.filter(Product.name.ilike('%' + data_dict['subbrand'] + '%')).first()
+        if product is None:
+            product_dict = {
+                'material_code': data_dict['materialid'],
+                'brand': data_dict['brand'],
+                'name': data_dict['subbrand']
+            }
+            product = Product.from_dict(product_dict)
+            try:
+                db.session.add(product)
+                db.session.commit()
+                print "Product saved. {0}".format(product_dict)
+            except Exception as e:
+                # print "ERROR saving product: {0}".format(e)
+                db.session.rollback()
+        else:  # update product
+            product.brand = data_dict['brand']
+            product.material_code = data_dict['materialid']
+            db.session.commit()
+            print "Product Updated. {0}".format(product.to_dict())
+
+        if product:
+            branch_product_dict = {
+                'branchid': branch.id,
+                'productid': product.id
+            }
+            try:
+                db.session.add(BranchProduct.from_dict(branch_product_dict))
+                db.session.commit()
+                print "BranchProduct saved. {0}".format(branch_product_dict)
+            except Exception as e:
+                db.session.rollback()
+        try:
+            sellout_dict = {
+                'branchid': branch.id,
+                'productid': product.id,
+                'sellout_date': data_dict['date'],
+                'grossup_amount': data_dict['sellout_amount']
+            }
+            sellout = Sellout.from_dict(sellout_dict)
+            db.session.add(sellout)
+            db.session.commit()
+            print "Sellout saved. {0}".format(sellout_dict)
+        except Exception as e:
+            # print "ERROR saving sellout: {0}".format(e)
+            db.session.rollback()
+
+
+def get_branch_sellouts(semester, branch_ids):
+    return Sellout.query.filter(
+        and_(Sellout.branchid.in_(branch_ids.split(',')), Sellout.sellout_date == semester)).all()
+    # return Sellout.query.filter(Sellout.branchid.in_(branch_ids.split(','))).all()
+
+
+def get_branch_sellouts_by_product(semester, product):
+    product = Product.query.filter(Product.name.ilike('%' + product + '%')).first()
+
+    if product is None:
+        return []
+
+    return Sellout.query.filter(and_(Sellout.productid == product.id, Sellout.sellout_date == semester)).all()

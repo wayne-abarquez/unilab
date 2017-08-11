@@ -1,5 +1,6 @@
 from flask.ext.restful import Resource, abort, marshal_with, marshal
 from .fields import *
+from app.fields import success_with_result_fields
 from app.fields import success_fields
 from .forms import AddBranchForm, AddSalesTransactionForm
 from app import rest_api
@@ -8,9 +9,11 @@ from .services import get_branches_by_boundary, get_branch_within_boundary, get_
     get_branches_by_filter, add_products_to_branch, get_products_for_branches, get_sales_transactions_within_date_range, \
     get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
     get_all_branches_count, delete_branch_wihin_boundary, update_sales_transaction_remarks, \
-    update_sales_transaction_status
+    update_sales_transaction_status, upload_branch_data, upload_branch_sellouts_data, get_branch_sellouts, \
+    get_branch_sellouts_by_product
 from flask import request
 from flask_login import current_user
+from app.resources import UploadResource
 import logging
 
 log = logging.getLogger(__name__)
@@ -224,6 +227,73 @@ class UserSalesTransactionResource(Resource):
         return get_user_sales_transactions(userid, 300)
 
 
+class BranchUploadResource(UploadResource):
+    """
+    Resource for Branch data uploads
+    """
+
+    def post(self):
+        data = request.form
+
+        log.debug("POST Upload customer data request : {0}".format(data))
+
+        # TODO check authenticated user
+        # if current_user and current_user.is_authenticated:
+
+        uploaded_file = request.files['file']
+
+        # TODO: Delete previous associated file before saving new one for good housekeeping
+
+        if uploaded_file and self.allowed_excel_file(uploaded_file.filename):
+            result = upload_branch_data(uploaded_file)
+            return marshal(dict(status=200, message="OK", result=result), success_with_result_fields)
+        else:
+            abort(400, message="Invalid parameters")
+            # abort(401, message="Requires user to login")
+
+
+class BranchSelloutsUploadResource(UploadResource):
+    """
+    Resource for Branch sellouts data uploads
+    """
+
+    def post(self):
+        data = request.form
+
+        log.debug("POST Upload branch sellouts data request : {0}".format(data))
+
+        # TODO check authenticated user
+        # if current_user and current_user.is_authenticated:
+
+        uploaded_file = request.files['file']
+
+        # TODO: Delete previous associated file before saving new one for good housekeeping
+
+        if uploaded_file and self.allowed_excel_file(uploaded_file.filename):
+            result = upload_branch_sellouts_data(uploaded_file)
+            return marshal(dict(status=200, message="OK", result=result), success_with_result_fields)
+        else:
+            abort(400, message="Invalid parameters")
+            # abort(401, message="Requires user to login")
+
+
+class BranchSelloutsResource(Resource):
+    """
+    Resource for getting all Sellouts for branch
+    """
+
+    @marshal_with(branch_sellout_fields)
+    def get(self):
+        """ GET /branches/sellouts """
+
+        if 'semester' in request.args and 'product' in request.args:
+            return get_branch_sellouts_by_product(request.args['semester'], request.args['product'])
+        elif 'semester' in request.args and 'branch_ids' in request.args:
+            return get_branch_sellouts(request.args['semester'], request.args['branch_ids'])
+
+        return []
+
+
 rest_api.add_resource(BranchResource, '/api/branches')
 rest_api.add_resource(BranchProductsResource, '/api/branches/products')
 rest_api.add_resource(BranchDetailResource, '/api/branches/<int:branchid>')
@@ -232,3 +302,7 @@ rest_api.add_resource(BoundaryBranchResource, '/api/boundaries/<int:boundaryid>/
 rest_api.add_resource(SalesTransactionResource, '/api/salestransactions')
 rest_api.add_resource(SalesTransactionDetailResource, '/api/salestransactions/<int:transactionid>')
 rest_api.add_resource(UserSalesTransactionResource, '/api/users/<int:userid>/salestransactions')
+rest_api.add_resource(BranchUploadResource, '/api/branches/upload')
+rest_api.add_resource(BranchSelloutsUploadResource, '/api/branches/sellouts/upload')
+rest_api.add_resource(BranchSelloutsResource, '/api/branches/sellouts')
+

@@ -561,8 +561,7 @@
                         if (!travelInfo.distance || !travelInfo.duration) {
                             gmapServices.initializeDistanceMatrix();
 
-                            console.log('CALLINMG DISTANCE MATRIX');
-
+                            console.log('CALLING DISTANCE MATRIX');
                             gmapServices.distanceMatrix.getDistanceMatrix({
                                 origins: [originLatlng],
                                 destinations: [destinationLatLng],

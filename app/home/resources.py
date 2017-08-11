@@ -32,7 +32,6 @@ class BoundaryDetailResource(Resource):
     @marshal_with(boundary_complete_fields)
     def get(self, boundaryid):
         """ GET /boundaries/<boundaryid> """
-
         return get_boundary(boundaryid)
 
 
@@ -85,6 +84,7 @@ class TerritoryBranchResource(Resource):
         log.debug("Get branches by territory id = {0}".format(territoryid))
 
         return get_branches_by_territory(territoryid)
+
 
 rest_api.add_resource(BoundaryResource, '/api/boundaries')
 rest_api.add_resource(BoundaryDetailResource, '/api/boundaries/<int:boundaryid>')
