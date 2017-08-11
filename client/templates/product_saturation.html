@@ -41,17 +41,31 @@
             <div id="product-saturation-slider-container" class="md-whiteframe-2dp" layout="row"
                  layout-align="start center"
                  ng-if="showProductSaturationSlider"
-                 flex="70"
+                 layout-wrap
                  layout-margin>
 
-                <md-slider-container flex layout-margin>
-                    <md-slider class="md-primary" md-discrete min="0" step="1" max="4" ng-model="vm.slider.currentVal"
-                               ng-change="vm.sliderChanged()" flex></md-slider>
-                </md-slider-container>
-                <span class="slider-value-info" flex="25" layout-margin>{{ vm.currentSelectedWeek }}</span>
-                <md-switch ng-model="vm.toggleDataDisplayModel" aria-label="Switch 6" ng-change="vm.toggleDataDisplay(vm.toggleDataDisplayModel)">
-                    {{ vm.toggleDataDisplayMessage }}
+                <md-switch ng-model="vm.toggleSaturationOrSalesModel"
+                           ng-change="vm.toggleSaturationOrSalesChanged(vm.toggleSaturationOrSalesModel)">
+                    {{ vm.toggleSaturationOrSalesDisplayMessage }}
                 </md-switch>
+
+                <div layout="row" layout-align="start center" flex ng-if="!vm.toggleSaturationOrSalesModel">
+                    <md-slider-container flex layout-margin>
+                        <md-slider class="md-primary" md-discrete min="0" step="1" max="4" ng-model="vm.slider.currentVal"
+                                   ng-change="vm.sliderChanged()" flex></md-slider>
+                    </md-slider-container>
+                    <span class="slider-value-info" flex="25" layout-margin>{{ vm.currentSelectedWeek }}</span>
+                    <md-switch ng-model="vm.toggleDataDisplayModel" aria-label="Switch 6" ng-change="vm.toggleDataDisplay(vm.toggleDataDisplayModel)">
+                        {{ vm.toggleDataDisplayMessage }}
+                    </md-switch>
+                </div>
+
+                <div layout="row" layout-align="start center" layout-wrap ng-if="vm.toggleSaturationOrSalesModel">
+                    <md-select placeholder="Year and Semester" ng-model="vm.filter.semester"
+                               ng-change="vm.semesterChanged(vm.filter.semester)">
+                        <md-option ng-value="sem.value" ng-repeat="sem in vm.semesters">{{sem.display}}</md-option>
+                    </md-select>
+                </div>
             </div>
 
         </div>

@@ -30,7 +30,9 @@ product_fields = dict(
     type=fields.String,
     cost=fields.Float,
     unit_of_measure=fields.String,
-    remarks=fields.String
+    remarks=fields.String,
+    material_code=fields.String,
+    brand=fields.String
 )
 
 count_fields = dict(
@@ -89,6 +91,16 @@ sales_transaction_create_fields = dict(
 date_transaction_ctr_fields = dict(
     date_param=fields.String,
     count=fields.Integer
+)
+
+branch_sellout_fields = dict(
+    id=fields.Integer,
+    branchid=fields.Integer,
+    productid=fields.Integer,
+    sellout_date=fields.DateTime('iso8601'),
+    grossup_amount=fields.Float,
+    product=fields.Nested(product_fields, allow_null=False),
+    branch=fields.Nested(branch_fields, allow_null=True)
 )
 
 branch_with_product_fields = copy(branch_fields)

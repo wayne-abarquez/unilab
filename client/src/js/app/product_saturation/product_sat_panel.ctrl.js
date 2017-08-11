@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', 'productSatService', productSatPanelController]);
+    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', 'productSatService', 'SEMESTERS', productSatPanelController]);
 
-    function productSatPanelController ($rootScope, Branch, branchService, $q, Product, productSatService) {
+    function productSatPanelController ($rootScope, Branch, branchService, $q, Product, productSatService, SEMESTERS) {
         var vm = this;
 
         var aborts;
@@ -18,7 +18,8 @@ angular.module('demoApp.productSaturation')
         vm.filter = {
             q: '',
             selectedType: 'name',
-            selectedProduct: ''
+            selectedProduct: '',
+            semester: null
         };
 
         vm.hasProduct = {
@@ -34,16 +35,23 @@ angular.module('demoApp.productSaturation')
             currentVal: 0
         };
 
-        var selected;
         var firstWeek;
 
         vm.currentSelectedWeek = '';
+
+        vm.toggleDataDisplayMessage = 'Show Heatmap';
+        vm.toggleSaturationOrSalesDisplayMessage = 'Saturation';
+
+        vm.semesters = SEMESTERS;
+
 
         /* Scope Functions */
         vm.filterProductChanged = filterByProduct;
         vm.showBranch = showBranch;
         vm.sliderChanged = sliderChanged;
         vm.toggleDataDisplay = toggleDataDisplay;
+        vm.toggleSaturationOrSalesChanged = toggleSaturationOrSalesChanged;
+        vm.semesterChanged = semesterChanged;
 
         initialize();
 
@@ -92,7 +100,6 @@ angular.module('demoApp.productSaturation')
                 .then(function (response) {
                     var result = response.plain();
                     var branchIds = result.map(function(item){return item.id;});
-                    //branchService.highlightMarkers(branchIds, true);
                     branchService.highlightMarkersOnSaturation(branchIds, vm.toggleDataDisplayModel);
 
                     list = angular.copy(result);
@@ -109,6 +116,11 @@ angular.module('demoApp.productSaturation')
         }
 
         function filterByProduct () {
+            if (vm.toggleSaturationOrSalesModel) {
+                semesterChanged(vm.filter.semester);
+                return;
+            }
+
             $rootScope.$broadcast('show-product-saturation-slider');
 
             if (!vm.filter.selectedProduct || !vm.selectedDate)  return;
@@ -132,13 +144,43 @@ angular.module('demoApp.productSaturation')
             showResult(vm.selectedDate.weekRangeStart, vm.selectedDate.weekRangeEnd, vm.filter.selectedProduct);
         }
 
-        vm.toggleDataDisplayMessage = 'Show Heatmap';
-
         function toggleDataDisplay (flag) {
             vm.toggleDataDisplayMessage = flag ? 'Show Markers' : 'Show Heatmap';
-            //if (flag) { // show heatmap
-                sliderChanged();
-            //}
+            sliderChanged();
+        }
+
+        function toggleSaturationOrSalesChanged(flag) {
+            vm.toggleSaturationOrSalesDisplayMessage = flag ? 'Sales' : 'Saturation';
+
+            if (flag) {
+                branchService.hideMarkers();
+                if (vm.filter.semester) semesterChanged(vm.filter.semester);
+                return;
+            }
+
+            branchService.hideHeatmap();
+            branchService.showMarkers();
+
+            vm.hasProduct.count = list.length;
+            vm.hasProduct.percentage = Math.ceil(list.length / branchTotalCount * 100);
+            vm.hasProduct.fraction = list.length + ' / ' + branchTotalCount;
+            $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
+
+        }
+
+        function semesterChanged(semester) {
+            console.log('semesterChanged: ',semester);
+            branchService.getSelloutsByProduct(semester, vm.filter.selectedProduct)
+                .then(function (sellouts) {
+                    console.log('sellouts by product: ', sellouts);
+                    branchService.displaySellouts(sellouts);
+
+                    vm.hasProduct.count = sellouts.length;
+                    vm.hasProduct.percentage = Math.ceil(sellouts.length / branchTotalCount * 100);
+                    vm.hasProduct.fraction = sellouts.length + ' / ' + branchTotalCount;
+                    $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
+                });
+
         }
     }
 }());

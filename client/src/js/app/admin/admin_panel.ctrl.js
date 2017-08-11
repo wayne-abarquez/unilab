@@ -33,6 +33,8 @@ angular.module('demoApp.admin')
         vm.showBoundary = showBoundary;
         vm.showTerritory = showTerritory;
         vm.toggleType = toggleType;
+        vm.uploadBranchData = uploadBranchData;
+        vm.uploadSalesData = uploadSalesData;
 
         initialize();
 
@@ -102,6 +104,7 @@ angular.module('demoApp.admin')
         }
 
         function showPolygon(latLngArray, isTerritory) {
+            //console.log('showPolygon: ',latLngArray);
             if (!latLngArray.length) {
                 alertServices.showError('Cannot load polygon, data error.');
                 return;
@@ -110,7 +113,6 @@ angular.module('demoApp.admin')
             var color = isTerritory ? '#3f51b5' : '#ff0000';
 
             if (polygonObj) {
-                //polygonObj.setPath(latLngArray);
                 polygonObj.setOptions({
                     fillColor: color,
                     strokeColor: color,
@@ -337,6 +339,64 @@ angular.module('demoApp.admin')
                         $rootScope.$broadcast('territory_selected', $rootScope.selectedTerritory);
                     })
             );
+        }
+
+        function uploadBranchData(file, errFiles, event) {
+            event.stopPropagation();
+
+            if (!file || errFiles.length) {
+                alertServices.showError('File is invalid.\nAccepts excel file only.\n .xlsx, .xls');
+                return;
+            }
+
+            //vm.uploadHasResponse = false;
+
+            branchService.uploadBranchData(file)
+                .then(function (response) {
+                    console.log('successfully uploaded branch data: ', response);
+
+            //$timeout(function () {
+            //
+            //    vm.uploadHasResponse = true;
+            //
+            //    alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
+            //    $timeout(function () {
+            //        modalServices.showFraudResult()
+            //            .then(function (datalist) {
+            //                vm.frauds = fraudService.showFraudDataOnMap(datalist);
+            //            });
+            //    }, 1500);
+            //}, 3000);
+
+                }, function (error) {
+                    console.log('error on uploading data: ', error);
+                })
+                .finally(function () {
+                    //$timeout(function () {
+                    //    vm.uploadHasResponse = true;
+                    //}, 1000);
+                });
+        }
+
+        function uploadSalesData(file, errFiles, event) {
+            event.stopPropagation();
+
+            if (!file || errFiles.length) {
+                alertServices.showError('File is invalid.\nAccepts excel file only.\n .xlsx, .xls');
+                return;
+            }
+
+            branchService.uploadBranchSellOutData(file)
+                .then(function (response) {
+                    console.log('successfully uploaded sales data: ', response);
+                }, function (error) {
+                    console.log('error on uploading data: ', error);
+                })
+                .finally(function () {
+                    //$timeout(function () {
+                    //    vm.uploadHasResponse = true;
+                    //}, 1000);
+                });
         }
 
     }

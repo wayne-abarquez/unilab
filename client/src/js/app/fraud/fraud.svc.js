@@ -11,20 +11,20 @@ angular.module('demoApp.fraud')
         var fraudMarkers = [],
             fraudInfowindow;
 
-        service.uploadEmployeeData = uploadEmployeeData;
+        service.uploadEmployeeTransactionData = uploadEmployeeTransactionData;
         service.showFraudDataOnMap = showFraudDataOnMap;
         service.showMarker = showMarker;
         service.getTransactionsWithinDateRange = getTransactionsWithinDateRange;
         service.getDaysWithTransactionsCount = getDaysWithTransactionsCount;
         service.getSampleData = getSampleData;
 
-        function uploadEmployeeData (file) {
+        function uploadEmployeeTransactionData (file) {
             var dfd = $q.defer();
 
             if (!file) {
                 dfd.reject();
             } else {
-                file.upload = Fraud.uploadEmployeeData(file);
+                file.upload = Fraud.uploadEmployeeTransactionData(file);
 
                 file.upload.then(function (response) {
                         file.result = response.data;

@@ -28,6 +28,23 @@ angular.module('demoApp.home')
             'rgba(255, 0, 0, 1)'
         ];
 
+        var salesGradient = [
+            'rgba(0, 255, 255, 0)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(0, 127, 255, 1)',
+            'rgba(0, 63, 255, 1)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 0, 223, 1)',
+            'rgba(0, 0, 191, 1)',
+            'rgba(0, 0, 159, 1)',
+            'rgba(0, 0, 127, 1)',
+            'rgba(63, 0, 91, 1)',
+            'rgba(127, 0, 63, 1)',
+            'rgba(191, 0, 31, 1)',
+            'rgba(255, 0, 0, 1)'
+        ];
+
         var branchIcons = {
             'mdc': 'branch-red.png',
             'lka': 'branch-green.png',
@@ -58,6 +75,14 @@ angular.module('demoApp.home')
         service.triggerClickBranch = triggerClickBranch;
         service.loadProducts = loadProducts;
         service.highlightMarkersOnSaturation = highlightMarkersOnSaturation;
+        service.uploadBranchData = uploadBranchData;
+        service.uploadBranchSellOutData = uploadBranchSellOutData;
+        service.getSellouts = getSellouts;
+        service.getSelloutsByProduct = getSelloutsByProduct;
+        service.displaySellouts = displaySellouts;
+        service.showHeatmap = showHeatmap;
+        service.hideHeatmap = hideHeatmap;
+
 
         function loadProducts (list) {
             var dfd = $q.defer();
@@ -221,7 +246,10 @@ angular.module('demoApp.home')
                 foundCtr = 0,
                 markerIdsToUnhighlight = [];
 
-            if (!showAsHeatmap) showMarkers();
+            if (!showAsHeatmap) {
+                if (heatmap) heatmap.setMap(null);
+                showMarkers();
+            }
 
             if (previouslyHighlightedMarkerIds.length) {
                 markerIdsToUnhighlight = _.difference(previouslyHighlightedMarkerIds, branchIds);
@@ -235,6 +263,7 @@ angular.module('demoApp.home')
 
             if (showAsHeatmap) {
                 if (!heatmap) heatmap = gmapServices.createHeatmap([], gradient);
+                else if (heatmap && !heatmap.getMap()) heatmap.setMap(gmapServices.map);
 
                 var latlngData = [];
 
@@ -406,6 +435,121 @@ angular.module('demoApp.home')
                 });
 
             return dfd.promise;
+        }
+
+        function uploadBranchData(file) {
+            var dfd = $q.defer();
+
+            if (!file) {
+                dfd.reject();
+            } else {
+                file.upload = Branch.uploadData(file);
+
+                file.upload.then(function (response) {
+                    file.result = response.data;
+                    dfd.resolve(response.data);
+                }, function (error) {
+                    dfd.reject(error);
+                }, function (evt) {
+                    file.progress = Math.min(100, parseInt(100.0 *
+                        evt.loaded / evt.total));
+
+                });
+            }
+
+            return dfd.promise;
+        }
+
+        function uploadBranchSellOutData(file) {
+            var dfd = $q.defer();
+
+            if (!file) {
+                dfd.reject();
+            } else {
+                file.upload = Branch.uploadSellOutData(file);
+
+                file.upload.then(function (response) {
+                    file.result = response.data;
+                    dfd.resolve(response.data);
+                }, function (error) {
+                    dfd.reject(error);
+                }, function (evt) {
+                    file.progress = Math.min(100, parseInt(100.0 *
+                        evt.loaded / evt.total));
+
+                });
+            }
+
+            return dfd.promise;
+        }
+
+        function getSellouts(semester, branchIdsArray) {
+            var dfd = $q.defer();
+
+            Branch.getSellouts(semester, branchIdsArray)
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function getSelloutsByProduct(semester, product) {
+            var dfd = $q.defer();
+
+            Branch.getSelloutsByProduct(semester, product)
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function getHeatmapWeight (grossupAmount) {
+            if (grossupAmount == 0) {
+                return 0.5;
+            } else if (grossupAmount > 0 && grossupAmount <= 300) {
+                return 3;
+            } else if (grossupAmount > 300 && grossupAmount <= 500) {
+                return 5;
+            } else if (grossupAmount > 500 && grossupAmount <= 1000) {
+                return 10;
+            } else if (grossupAmount > 1000) {
+                return 20;
+            }
+        }
+
+        function displaySellouts (selloutData) {
+            console.log('displaySellouts: ',selloutData);
+
+            var heatMapData = selloutData.map(function(item){
+               return {
+                   location: new google.maps.LatLng(item.branch.latlng),
+                   weight: getHeatmapWeight(item.grossup_amount)
+               }
+            });
+
+            if (!heatmap) heatmap = gmapServices.createHeatmap(heatMapData, salesGradient);
+            else {
+                showHeatmap();
+                heatmap.setOptions({
+                    data: heatMapData,
+                    gradient: salesGradient
+                });
+            }
+            //console.log('heatmap data: ',heatMapData);
+        }
+
+        function showHeatmap() {
+            if (heatmap && !heatmap.getMap()) heatmap.setMap(gmapServices.map);
+        }
+
+        function hideHeatmap() {
+            if (heatmap && heatmap.getMap()) heatmap.setMap(null);
         }
 
         return service;

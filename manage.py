@@ -5,7 +5,7 @@ from app import app
 from app import db
 from app.authentication.models import Role, User
 from app.home.models import BoundaryType, Boundary, Territory, UserTerritory
-from app.sales.models import Branch, Product, BranchProduct, Merchant, Transaction
+from app.sales.models import Branch, Product, BranchProduct, Merchant, Transaction, Sellout
 from app.seeds.seeder import BaseSeeder
 from app.fraud.services import compute_transaction_travel_details
 

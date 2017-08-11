@@ -16,6 +16,18 @@
     }
   }
 
+  md-tabs {
+    md-tab-content {
+      padding-top: 0;
+
+      .sales-tab {
+        md-select {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
   .md-table {
     .md-cell {
       button {

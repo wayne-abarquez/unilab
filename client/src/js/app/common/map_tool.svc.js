@@ -41,11 +41,14 @@ angular.module('demoApp')
         function activateMeasureDistanceTool (startLatLng) {
             //measurePaths = [];
             //measurePaths.push(startLatLng);
-            measurePolyline = gmapServices.createDashedPolyline([startLatLng], '#3498db');
 
-            measureInviMarker = gmapServices.initMarker(startLatLng, null, {visible: false});
+            if (!measurePolyline) measurePolyline = gmapServices.createDashedPolyline([startLatLng], '#3498db');
+            else measurePolyline.setPath([startLatLng]);
 
-            measureLabel = new Label({map: gmapServices.map, text: ''});
+            if (!measureInviMarker) measureInviMarker = gmapServices.initMarker(startLatLng, null, {visible: false});
+            else measureInviMarker.setPosition(startLatLng);
+
+            if (!measureLabel) measureLabel = new Label({map: gmapServices.map, text: ''});
 
             measureLabel.bindTo('position', measureInviMarker, 'position');
 

@@ -12,7 +12,7 @@
                 return Restangular.restangularizeElement(null, {id: myid}, 'frauds');
             },
 
-            uploadEmployeeData: function (fileParam) {
+            uploadEmployeeTransactionData: function (fileParam) {
                 var uploadUrl = myModel.getRestangularUrl() + '/' + 'upload';
                 return Upload.upload({
                     url: uploadUrl,

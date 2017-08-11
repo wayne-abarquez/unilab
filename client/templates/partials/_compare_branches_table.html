@@ -1,11 +1,12 @@
 {% raw %}
-<md-card id="compare-branch-table-container"
-         ng-controller="compareBranchesTableController as vm"
-         ng-show="showBranchCompareTable">
+<md-content id="compare-branch-table-container"
+            class="md-whiteframe-4dp"
+            ng-controller="compareBranchesTableController as vm"
+            ng-show="showBranchCompareTable">
 
-    <md-toolbar class="md-table-toolbar md-default">
+    <md-toolbar class="md-primary">
         <div class="md-toolbar-tools">
-            <span class="text-muted">Branch SKU Comparison</span>
+            <span>Branch Comparison</span>
             <div flex></div>
             <md-button class="md-icon-button" ng-click="vm.close()">
                 <md-icon>close</md-icon>
@@ -13,22 +14,72 @@
         </div>
     </md-toolbar>
 
-    <md-table-container>
+    <md-tabs md-dynamic-height md-border-bottom>
 
-        <table md-table>
-            <tbody md-body>
-                <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
-                    <td md-cell ng-repeat="value in values track by $index"
-                        ng-mouseover="vm.hoverIn(vm.list['id'][$index])"
-                        ng-mouseleave="vm.hoverOut(vm.list['id'][$index])"
-                        data-branch-id="{{ vm.list['id'][$index] }}">
-                        <span>{{ value }}</span>
-                        <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index])" ng-if="$rowIndex == 1"><md-icon>close</md-icon></md-button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </md-table-container>
+        <!-- SKU COMPARISON -->
+        <md-tab label="SKU">
+            <div>
+                <!--
+                <md-toolbar class="md-table-toolbar md-default">
+                    <div class="md-toolbar-tools">
+                        <span class="text-muted">Branch SKU Comparison</span>
+                        <div flex></div>
+                        <md-button class="md-icon-button" ng-click="vm.close()">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                -->
+                <md-table-container>
+                    <table md-table>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
+                                <td md-cell ng-repeat="item in values track by $index"
+                                    ng-mouseover="vm.hoverIn(vm.list['id'][$index].value)"
+                                    ng-mouseleave="vm.hoverOut(vm.list['id'][$index].value)"
+                                    data-branch-id="{{ vm.list['id'][$index].value }}">
+                                    <span>{{ item.value }}</span>
+                                    <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index].value)" ng-if="$rowIndex == 1"><md-icon>close</md-icon></md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+        </md-tab>
 
-</md-card>
+        <!-- SALES COMPARISON -->
+        <md-tab label="Sales">
+            <div class="sales-tab">
+
+                <div layout="row" layout-align="end center">
+                    <md-select placeholder="Year and Semester" ng-model="vm.filter.semester" ng-change="vm.semesterChanged(vm.filter.semester)">
+                        <md-option ng-value="sem.value" ng-repeat="sem in vm.semesters">{{sem.display}}</md-option>
+                    </md-select>
+                </div>
+
+                <md-table-container ng-if="vm.filter.semester">
+                    <table md-table>
+                        <tbody md-body>
+                        <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
+                            <td md-cell ng-repeat="item in values track by $index"
+                                ng-mouseover="vm.hoverIn(vm.list['id'][$index].value)"
+                                ng-mouseleave="vm.hoverOut(vm.list['id'][$index].value)"
+                                data-branch-id="{{ vm.list['id'][$index].value }}">
+                                <span>{{ item.value }}</span>
+                                <p ng-if="$rowIndex > 1">{{ item.sellout | currency:'PHP ': 2}}</p>
+                                <md-button class="md-icon-button" ng-click="vm.removeBranch(vm.list['id'][$index].value)"
+                                           ng-if="$rowIndex == 1">
+                                    <md-icon>close</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+        </md-tab>
+
+    </md-tabs>
+</md-content>
 {% endraw %}

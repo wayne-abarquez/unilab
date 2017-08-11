@@ -107,7 +107,7 @@ angular.module('demoApp.fraud')
             }
 
             vm.uploadHasResponse = false;
-            //fraudService.uploadEmployeeData(file)
+            //fraudService.uploadEmployeeTransactionData(file)
             //    .then(function (response) {
             //        console.log('successfully uploaded employee data: ', response);
             $timeout(function(){
