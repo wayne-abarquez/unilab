@@ -174,7 +174,8 @@ angular.module('demoApp.fraud')
         function getArrayOfDateFromRange (dateStart, dateEnd) {
             var dfd = $q.defer();
             //console.log('getArrayOfDateFromRange', dateStart, dateEnd);
-            var dateArray = [];
+            var dateArray = [],
+                idx;
 
             while(dateStart <= dateEnd) {
                 dateArray.push({
@@ -185,24 +186,46 @@ angular.module('demoApp.fraud')
                 dateStart = dateStart.addDays(1);
             }
 
-            fraudService.getDaysWithTransactionsCount(dateArray.map(function(item){return item.date_param;}), vm.filter.empId)
-                .then(function(list){
-                    var idx;
+            var dateArrayParam = dateArray.map(function (item) {
+                return item.date_param;
+            });
 
-                    dateArray.forEach(function(dateItm, listIndex){
-                        idx = _.findIndex(list, {date_param: dateItm.date_param});
-                        if (idx > -1) dateArray[listIndex]['count'] = list[idx].count;
+            fraudService.getDaysWithFraudTransactionsCount(dateArrayParam, vm.filter.empId)
+                .then(function (fraudListTransactions) {
+                    //console.log('getDaysWithFraudTransactionsCount list: ', fraudListTransactions);
+                    dateArray.forEach(function (dateItm, listIndex) {
+                        idx = _.findIndex(fraudListTransactions, {date_param: dateItm.date_param});
+                        if (idx > -1) dateArray[listIndex]['fraudcount'] = fraudListTransactions[idx].count;
                     });
 
-                    console.log('finalresult: ', dateArray);
+                    fraudService.getDaysWithInvestigatedTransactionsCount(dateArrayParam, vm.filter.empId)
+                        .then(function (investigatedListTransactions) {
+                            //console.log('getDaysWithInvestigatedTransactionsCount: ', investigatedListTransactions);
+                            dateArray.forEach(function (dateItm, listIndex) {
+                                idx = _.findIndex(investigatedListTransactions, {date_param: dateItm.date_param});
+                                if (idx > -1) dateArray[listIndex]['investigatedcount'] = investigatedListTransactions[idx].count;
+                            });
 
-                    dfd.resolve(dateArray);
+                            fraudService.getDaysWithClearedTransactionsCount(dateArrayParam, vm.filter.empId)
+                                .then(function (clearedListTransactions) {
+                                    //console.log('getDaysWithClearedTransactionsCount: ', clearedListTransactions);
+                                    dateArray.forEach(function (dateItm, listIndex) {
+                                        idx = _.findIndex(clearedListTransactions, {date_param: dateItm.date_param});
+                                        if (idx > -1) dateArray[listIndex]['clearedcount'] = clearedListTransactions[idx].count;
+                                    });
+                                    //console.log('finalresult: ', dateArray);
+                                    dfd.resolve(dateArray);
+                                }, function (error) {
+                                    dfd.resolve(dateArray);
+                                });
 
-                }, function (error){
+                        }, function (error){
+                            dfd.resolve(dateArray);
+                        });
+
+                }, function (error) {
                     dfd.reject(error);
                 });
-
-            //return dateArray;
 
             return dfd.promise;
         }
@@ -234,8 +257,8 @@ angular.module('demoApp.fraud')
                 targetEvent: $event,
                 model: vm.selectedRange
             }).then(function (result) {
-                //if (result) showResult(result);
-                alertServices.showInfo('Functionality will be included on Production');
+                if (result) showResult(result);
+                //alertServices.showInfo('Functionality will be included on Production');
             })
         }
 

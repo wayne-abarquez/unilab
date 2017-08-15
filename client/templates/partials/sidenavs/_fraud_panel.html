@@ -108,7 +108,9 @@
                     <md-list-item ng-repeat="day in vm.listOfDays"
                                   ng-click="vm.getTransactionByDate(day);$event.stopPropagation()">
                         <p flex>{{ day.date_formatted }}</p>
-                        <span class="badge badge-error" ng-if="day.count">{{ day.count }}</span>
+                        <span class="badge badge-error" ng-if="day.fraudcount">{{ day.fraudcount }}</span>
+                        <span class="badge badge-warning" ng-if="!day.fraudcount && day.investigatedcount">{{ day.investigatedcount }}</span>
+                        <span class="badge badge-default" ng-if="!day.fraudcount && !day.investigatedcount && day.clearedcount">{{ day.clearedcount }}</span>
                     </md-list-item>
                 </md-list>
                 <!--

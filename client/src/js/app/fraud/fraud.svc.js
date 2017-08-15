@@ -15,7 +15,9 @@ angular.module('demoApp.fraud')
         //service.showFraudDataOnMap = showFraudDataOnMap;
         service.showMarker = showMarker;
         service.getTransactionsWithinDateRange = getTransactionsWithinDateRange;
-        service.getDaysWithTransactionsCount = getDaysWithTransactionsCount;
+        service.getDaysWithFraudTransactionsCount = getDaysWithFraudTransactionsCount;
+        service.getDaysWithClearedTransactionsCount = getDaysWithClearedTransactionsCount;
+        service.getDaysWithInvestigatedTransactionsCount = getDaysWithInvestigatedTransactionsCount;
         service.getSampleData = getSampleData;
 
         function uploadEmployeeTransactionData (file) {
@@ -125,7 +127,7 @@ angular.module('demoApp.fraud')
             return dfd.promise;
         }
 
-        function getDaysWithTransactionsCount (datesArray, empId) {
+        function getDaysWithFraudTransactionsCount (datesArray, empId) {
             var dfd = $q.defer();
 
             SalesTransaction.customPUT({'dates': datesArray.join('|'), 'emp_id': empId})
@@ -138,6 +140,36 @@ angular.module('demoApp.fraud')
                     //});
                     dfd.resolve(response.plain());
                 }, function(error){
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function getDaysWithClearedTransactionsCount(datesArray, empId) {
+            var dfd = $q.defer();
+
+            SalesTransaction.customPUT({'dates': datesArray.join('|'), 'emp_id': empId, 'transaction_status': 'cleared'})
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
+        function getDaysWithInvestigatedTransactionsCount(datesArray, empId) {
+            var dfd = $q.defer();
+
+            SalesTransaction.customPUT({
+                    'dates': datesArray.join('|'),
+                    'emp_id': empId,
+                    'transaction_status': 'investigating'
+                })
+                .then(function (response) {
+                    dfd.resolve(response.plain());
+                }, function (error) {
                     dfd.reject(error);
                 });
 

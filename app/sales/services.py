@@ -55,6 +55,39 @@ def get_transaction_count_with_dates(dates, user_id):
     return [{'date_param': item[0], 'count': item[1]} for item in result]
 
 
+def get_cleared_transaction_count_with_dates(dates, user_id):
+    date_list = dates.split('|')
+
+    datestr = ''
+    for idx, dateitem in enumerate(date_list):
+        datestr += "'" + dateitem + "'"
+        if idx < len(date_list) - 1:
+            datestr += ","
+
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND (status IS NULL OR status = '' OR status = 'CLEARED') AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(user_id, datestr)
+
+    result = db.engine.execute(query).fetchall()
+
+    return [{'date_param': item[0], 'count': item[1]} for item in result]
+
+
+def get_investigated_transaction_count_with_dates(dates, user_id):
+    date_list = dates.split('|')
+
+    datestr = ''
+    for idx, dateitem in enumerate(date_list):
+        datestr += "'" + dateitem + "'"
+        if idx < len(date_list) - 1:
+            datestr += ","
+
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'INVESTIGATING' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
+        user_id, datestr)
+
+    result = db.engine.execute(query).fetchall()
+
+    return [{'date_param': item[0], 'count': item[1]} for item in result]
+
+
 def get_branches_by_boundary(boundaryid=None):
     if boundaryid is None:
         return Branch.query.all()

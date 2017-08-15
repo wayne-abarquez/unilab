@@ -10,7 +10,7 @@ from .services import get_branches_by_boundary, get_branch_within_boundary, get_
     get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
     get_all_branches_count, delete_branch_wihin_boundary, update_sales_transaction_remarks, \
     update_sales_transaction_status, upload_branch_data, upload_branch_sellouts_data, get_branch_sellouts, \
-    get_branch_sellouts_by_product
+    get_branch_sellouts_by_product, get_cleared_transaction_count_with_dates, get_investigated_transaction_count_with_dates
 from flask import request
 from flask_login import current_user
 from app.resources import UploadResource
@@ -192,7 +192,15 @@ class SalesTransactionResource(Resource):
 
         print "get sales transaction put: {0}".format(form_data)
 
-        if 'dates' in form_data and 'emp_id' in form_data:
+        if 'dates' in form_data and 'emp_id' in form_data \
+                and 'transaction_status' in form_data \
+                and form_data['transaction_status'] == 'cleared':
+            return get_cleared_transaction_count_with_dates(form_data['dates'], form_data['emp_id'])
+        elif 'dates' in form_data and 'emp_id' in form_data \
+                and 'transaction_status' in form_data \
+                and form_data['transaction_status'] == 'investigating':
+            return get_investigated_transaction_count_with_dates(form_data['dates'], form_data['emp_id'])
+        elif 'dates' in form_data and 'emp_id' in form_data:
             return get_transaction_count_with_dates(form_data['dates'], form_data['emp_id'])
 
         return []

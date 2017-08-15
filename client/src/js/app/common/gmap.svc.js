@@ -1077,18 +1077,26 @@
                 keepSpiderfied: true
             });
 
-            var iconURL;
-
-            if (!spiderifyListener) {
-                spiderifyListener = service.spiderifier.addListener('format', function (marker, status) {
-                    iconURL = (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED) ? marker['iconUrl']:
-                        (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) ? MARKER_BASE_URL + 'symbol_plus.png':
-                            (status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE) ? marker['iconUrl']:'';
-                    marker.setIcon({
-                        url: iconURL
-                    });
-                });
-            }
+            //var iconURL;
+            //if (!spiderifyListener) {
+            //    spiderifyListener = service.spiderifier.addListener('format', function (marker, status) {
+            //        if (service.map.getZoom() < 10) {
+            //            if (marker.getIcon() != marker['iconUrl']) {
+            //                marker.setIcon({
+            //                    url: marker['iconUrl']
+            //                });
+            //            }
+            //            return;
+            //        }
+            //
+            //        iconURL = (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED) ? marker['iconUrl']:
+            //            (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) ? MARKER_BASE_URL + 'symbol_plus.png':
+            //                (status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE) ? marker['iconUrl']:'';
+            //        marker.setIcon({
+            //            url: iconURL
+            //        });
+            //    });
+            //}
 
             //window.oms = service.spiderifier;
         }
