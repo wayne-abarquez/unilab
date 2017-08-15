@@ -1072,6 +1072,7 @@
 
             if (!service.spiderifier) service.spiderifier = new OverlappingMarkerSpiderfier(service.map, {
                 nearbyDistance: 1,
+                basicFormatEvents: true,
                 markersWontMove: true,
                 markersWontHide: false,
                 keepSpiderfied: true

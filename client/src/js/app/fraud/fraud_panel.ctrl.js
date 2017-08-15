@@ -39,8 +39,12 @@ angular.module('demoApp.fraud')
             onePanel: true
         };
 
-        var sampleDataStartDate = new Date(2017, 1, 8),
-            sampleDataEndDate = new Date(2017, 1, 10);
+        //var sampleDataStartDate = new Date(2017, 1, 8),
+        //    sampleDataEndDate = new Date(2017, 1, 10);
+
+
+        var sampleDataStartDate = new Date(2016, 5, 1),
+            sampleDataEndDate = new Date(2016, 11, 31);
 
         vm.uploadHasResponse = true;
         vm.frauds = [];
@@ -107,22 +111,22 @@ angular.module('demoApp.fraud')
             }
 
             vm.uploadHasResponse = false;
-            //fraudService.uploadEmployeeTransactionData(file)
-            //    .then(function (response) {
-            //        console.log('successfully uploaded employee data: ', response);
-                        $timeout(function(){
-                            vm.uploadHasResponse = true;
-                            alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
-                        }, 3000);
 
-                //}, function (error) {
-                //    console.log('error on uploading employee data: ', error);
-                //})
-                //.finally(function () {
-                //    $timeout(function () {
-                //        vm.uploadHasResponse = true;
-                //    }, 1000);
-                //});
+            fraudService.uploadEmployeeTransactionData(file)
+                .then(function (response) {
+                    console.log('successfully uploaded employee data: ', response);
+                        //$timeout(function(){
+                        //    vm.uploadHasResponse = true;
+                            alertServices.showInfo('Data uploaded.', true);
+                        //}, 3000);
+                }, function (error) {
+                    console.log('error on uploading employee data: ', error);
+                })
+                .finally(function () {
+                    $timeout(function () {
+                        vm.uploadHasResponse = true;
+                    }, 1000);
+                });
         }
 
         function showFraudDetail(item) {
@@ -139,9 +143,15 @@ angular.module('demoApp.fraud')
 
             fraudService.getTransactionsWithinDateRange(vm.selectedDate.start, vm.selectedDate.end, vm.filter.empId)
                 .then(function(list){
-                   vm.transactions = angular.copy(list);
-                    salesTransactionService.initMarkers(list, true);
-                    dfd.resolve(list);
+                   vm.transactions = [];
+                   list.forEach(function(item){
+                       if (item.end_point_latlng) {
+                           vm.transactions.push(item);
+                       }
+                   });
+                    //salesTransactionService.initMarkers(list, true);
+                    salesTransactionService.initMarkers(vm.transactions, true);
+                    dfd.resolve(vm.transactions);
                 }).finally(function(){
                     vm.dataIsLoaded = true;
                 });

@@ -574,3 +574,7 @@ def get_branch_sellouts_by_product(semester, product):
         return []
 
     return Sellout.query.filter(and_(Sellout.productid == product.id, Sellout.sellout_date == semester)).all()
+
+
+def find_merchant(name, address=''):
+    return Merchant.query.filter(and_(Merchant.name.ilike('%' + name + '%'), Merchant.address.ilike('%' + address + '%'))).first()
