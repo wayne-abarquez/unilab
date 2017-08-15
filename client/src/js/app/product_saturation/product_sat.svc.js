@@ -69,7 +69,8 @@ angular.module('demoApp.productSaturation')
 
         function getFiveWeeksDuration (date) {
             var result = [];
-            var currentMomentData = moment(date);
+            //var currentMomentData = moment(date);
+            var currentMomentData = moment('2016-01-01');
             var formatDate = 'YYYY-MM-DD',
                 formatDateHuman = 'dddd, MMMM Do YYYY';
 

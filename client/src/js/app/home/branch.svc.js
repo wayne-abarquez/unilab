@@ -105,11 +105,15 @@ angular.module('demoApp.home')
             if (!marker) return;
 
             gmapServices.trigger(marker, 'click');
+            //gmapServices.trigger(marker, 'spider_click');
         }
 
         // add to markers
         function newBranch (item, isProductSaturation) {
-            var marker = gmapServices.initMarker(item.latlng, getBranchIconByType(item.type, isProductSaturation), {zIndex: 1});
+            var icon = getBranchIconByType(item.type, isProductSaturation);
+            var marker = gmapServices.initMarker(item.latlng, icon);
+
+            if (!item.latlng || _.isEmpty(item.latlng)) return;
 
             marker.content = '<div>';
             marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
@@ -130,9 +134,9 @@ angular.module('demoApp.home')
                     //marker.content += '<button id="delete-branch-btn" data-branch-id="' + item.id + '" class="md-button md-raised md-default">Delete</button>';
                 //}
             //}
-
             marker.content += '</div>';
 
+            marker.iconUrl = icon;
             marker.branch = angular.copy(item);
             marker.id = item.id;
             marker.touched = false;
@@ -142,7 +146,14 @@ angular.module('demoApp.home')
                 branchInfowindow.setContent(this.content);
             });
 
+            //gmapServices.spiderifier.addMarker(marker, function () {
+            //    branchInfowindow.open(gmapServices.map, this);
+            //    branchInfowindow.setContent(this.content);
+            //});
+
             branchMarkers.push(marker);
+
+            return marker;
         }
 
         function saveBranch (data, id) {
@@ -178,7 +189,6 @@ angular.module('demoApp.home')
         }
 
         function loadMarkers (list, isProductSaturation, infowindow) {
-
             hideMarkers();
 
             branchMarkers = [];
@@ -186,8 +196,10 @@ angular.module('demoApp.home')
             if (infowindow) branchInfowindow = infowindow;
             else if (!infowindow && !branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
+            //gmapServices.initializeSpiderify();
+
             list.forEach(function (item) {
-                newBranch(item, isProductSaturation);
+               newBranch(item, isProductSaturation);
             });
 
             $rootScope.$broadcast('compile-map-legend', {type: 'branches', data: getMapLegendData(list)});

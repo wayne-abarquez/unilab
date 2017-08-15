@@ -1,7 +1,7 @@
 from app import app, db
 from openpyxl import load_workbook
 from sqlalchemy import Column, String, Integer, MetaData, Table, ForeignKey
-from app.sales.models import Transaction, TransactionStatus
+from app.sales.models import Transaction, TransactionStatus, Branch
 from app.authentication.models import User
 from unicodedata import normalize
 from app.sales.services import create_transaction, create_merchant, get_sales_transactions_within_date_range
@@ -9,6 +9,7 @@ from datetime import datetime
 import json
 import requests
 from app.utils.gis_json_fields import PointToLatLngParam
+from app.utils.google_api import geocode
 import logging
 import itertools
 import re
@@ -41,11 +42,14 @@ def create_table_name(name, prefix='transaction'):
     return prefix + '_' + name.lower()
 
 
+address_columns = ['clinic address', 'address3', 'station address']
 user_id_columns = ['emp id', 'employeeid', 'employee id', 'empid', 'payee id']
 latlng_columns = ['latitude', 'longitude']
-merchant_columns = ['mdname', 'specialty description', 'clinic address']
+merchant_columns = ['mdname', 'vendor name', 'merchantname', 'specialty description']
+merchant_name_columns = ['mdname', 'vendor name', 'merchantname']
 
-except_columns = user_id_columns + latlng_columns + merchant_columns
+# except_columns = user_id_columns + latlng_columns + merchant_columns
+except_columns = user_id_columns + address_columns + merchant_columns + merchant_name_columns
 
 
 def upload_fraud_data(file):
@@ -128,18 +132,18 @@ def upload_fraud_data(file):
                             dct['userid'] = cell.value
                         else:
                             userid = cell.value
-                    elif len([s for s in latlng_columns if s in key]) > 0:
-                        if 'latitude' in key:
-                            latlng['lat'] = cell.value
-                        elif 'longitude' in key:
-                            latlng['lng'] = cell.value
+                    elif len([s for s in address_columns if s in key]) > 0:
+                        merchant_data['address'] = cell.value
+                    # elif len([s for s in latlng_columns if s in key]) > 0:
+                    #     if 'latitude' in key:
+                    #         latlng['lat'] = cell.value
+                    #     elif 'longitude' in key:
+                    #         latlng['lng'] = cell.value
                     elif len([s for s in merchant_columns if s in key]) > 0:
-                        if "mdname" in key:
+                        if key in merchant_name_columns:
                             merchant_data['name'] = cell.value
                         elif "specialty description" in key:
                             merchant_data['specialty'] = cell.value.upper()
-                        elif "clinic address" in key:
-                            merchant_data['address'] = cell.value
                 except Exception as error:
                     print "ERROR: {0}".format(error)
 
@@ -150,8 +154,9 @@ def upload_fraud_data(file):
                         and latlng['lng'] is not None and not is_table_non_transaction:
                     # save merchant
                     merchantid = None
-                    if bool(merchant_data):
-                        merchant_data['latlng'] = latlng
+                    if bool(merchant_data) and 'address' in merchant_data:
+                        geocode_result = geocode(merchant_data['address'])
+                        merchant_data['latlng'] = geocode_result['geometry']['location']
                         # app.logger.info("CREATE MERCHANT: {0}".format(merchant_data))
                         merchant = create_merchant(merchant_data)
                         merchantid = merchant.id

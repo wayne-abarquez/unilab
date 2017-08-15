@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp')
-        .factory('gmapServices', ['$log', '$q', gmapServices]);
+        .factory('gmapServices', ['$log', '$q', 'MARKER_BASE_URL', gmapServices]);
 
-    function gmapServices($log, $q) {
+    function gmapServices($log, $q, MARKER_BASE_URL) {
         var service = {};
 
         //infowindow balloons
@@ -36,6 +36,10 @@
 
         service.directionsService = null;
         service.directionsDisplay = null;
+
+        service.spiderifier = null;
+
+        var spiderifyListener;
 
         /**
          * Service Functions
@@ -134,6 +138,7 @@
         service.triggerEvent = triggerEvent;
         service.createMapIconLabel = createMapIconLabel;
         service.createHeatmap = createHeatmap;
+        service.initializeSpiderify = initializeSpiderify;
 
         function apiAvailable() {
             return typeof window.google === 'object';
@@ -1060,6 +1065,32 @@
                 map: service.map,
                 gradient: gradient
             });
+        }
+
+        function initializeSpiderify () {
+            if (!service.map) return;
+
+            if (!service.spiderifier) service.spiderifier = new OverlappingMarkerSpiderfier(service.map, {
+                nearbyDistance: 1,
+                markersWontMove: true,
+                markersWontHide: false,
+                keepSpiderfied: true
+            });
+
+            var iconURL;
+
+            if (!spiderifyListener) {
+                spiderifyListener = service.spiderifier.addListener('format', function (marker, status) {
+                    iconURL = (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED) ? marker['iconUrl']:
+                        (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) ? MARKER_BASE_URL + 'symbol_plus.png':
+                            (status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE) ? marker['iconUrl']:'';
+                    marker.setIcon({
+                        url: iconURL
+                    });
+                });
+            }
+
+            //window.oms = service.spiderifier;
         }
 
         return service;

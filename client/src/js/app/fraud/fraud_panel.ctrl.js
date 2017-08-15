@@ -47,7 +47,7 @@ angular.module('demoApp.fraud')
 
         vm.uploadFraudData = uploadFraudData;
         vm.showFraudDetail = showFraudDetail;
-        vm.showFraudTransactions = showFraudTransactions;
+        //vm.showFraudTransactions = showFraudTransactions;
         vm.pickDateRange = pickDateRange;
         vm.onClickTransaction = onClickTransaction;
         vm.employeeFilterChanged = employeeFilterChanged;
@@ -91,12 +91,12 @@ angular.module('demoApp.fraud')
             });
         }
 
-        function showFraudTransactions () {
-            modalServices.showFraudResult()
-                .then(function (datalist) {
-                    vm.frauds = fraudService.showFraudDataOnMap(datalist);
-                });
-        }
+        //function showFraudTransactions () {
+        //    modalServices.showFraudResult()
+        //        .then(function (datalist) {
+        //            vm.frauds = fraudService.showFraudDataOnMap(datalist);
+        //        });
+        //}
 
         function uploadFraudData(file, errFiles, event) {
             event.stopPropagation();
@@ -110,18 +110,10 @@ angular.module('demoApp.fraud')
             //fraudService.uploadEmployeeTransactionData(file)
             //    .then(function (response) {
             //        console.log('successfully uploaded employee data: ', response);
-            $timeout(function(){
-
-                vm.uploadHasResponse = true;
-
-                alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
-                $timeout(function () {
-                    modalServices.showFraudResult()
-                        .then(function (datalist) {
-                            vm.frauds = fraudService.showFraudDataOnMap(datalist);
-                        });
-                }, 1500);
-            }, 3000);
+                        $timeout(function(){
+                            vm.uploadHasResponse = true;
+                            alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
+                        }, 3000);
 
                 //}, function (error) {
                 //    console.log('error on uploading employee data: ', error);

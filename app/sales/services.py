@@ -1,4 +1,4 @@
-from app import app, db
+from app import db
 from .models import Branch, BranchStatus, BranchType, Product, BranchProduct, MERCHANT_SPECIALTIES, Merchant, \
     Transaction, Sellout
 from app.home.models import Boundary, Territory
@@ -6,14 +6,12 @@ from sqlalchemy import select, func, desc, DATE, cast as cast_data, and_
 from sqlalchemy.sql.expression import cast
 from app.utils.response_transformer import to_dict
 from geoalchemy2 import Geography
-from app.utils import forms_helper
+from app.utils import forms_helper, google_api
 from random import randint
 from .exceptions import BranchNotFoundError
 from datetime import datetime
 from openpyxl import load_workbook
 import time
-import requests
-import json
 import logging
 
 log = logging.getLogger(__name__)
@@ -126,7 +124,7 @@ def delete_branch(branchid):
 
 
 def create_merchant(data):
-    found = Merchant.query.filter(Merchant.name == data['name'], Merchant.address == data['address']).first()
+    found = Merchant.query.filter(and_(Merchant.name.ilike('%'+ data['name'] +'%'), Merchant.address.ilike('%' + data['address'] + '%'))).first()
 
     if found is not None:
         return found
@@ -329,37 +327,6 @@ def update_sales_transaction_status(transactionid, status):
     db.session.commit()
 
 
-def reverse_geocode(latlng_dict):
-    url = 'https://maps.googleapis.com/maps/api/geocode/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
-    url += '&latlng=' + str(latlng_dict['lat']) + ',' + str(latlng_dict['lng'])
-
-    response = requests.get(url, verify=False)
-
-    if response.content:
-        content = json.loads(response.content)
-        if content['status'] == 'OK' and len(content['results']) > 0:
-            result = content['results']
-            return result[0]['formatted_address']
-
-    return ''
-
-
-def geocode(address):
-    print "GEOCODING ADDRESS: {0}".format(address)
-    url = 'https://maps.googleapis.com/maps/api/geocode/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
-    url += '&address=' + address
-
-    response = requests.get(url, verify=False)
-
-    if response.content:
-        content = json.loads(response.content)
-        if content['status'] == 'OK' and len(content['results']) > 0:
-            result = content['results']
-            return result[0]
-
-    return None
-
-
 def upload_branch_data(file):
     wb = load_workbook(file, read_only=True)
 
@@ -396,10 +363,10 @@ def upload_branch_data(file):
 
         if latlng is not None:
             data_dict['latlng'] = forms_helper.parse_coordinates(latlng)
-            data_dict['address'] = reverse_geocode(latlng)
+            data_dict['address'] = google_api.reverse_geocode(latlng)
         else:
             address_param = data_dict['name'] + ' ' + row[1].value.encode('utf-8')
-            result = geocode(address_param)
+            result = google_api.geocode(address_param)
             if result is not None:
                 latlng = result['geometry']['location']
                 data_dict['latlng'] = forms_helper.parse_coordinates(latlng)
@@ -452,7 +419,7 @@ def upload_branch_sellouts_data(file):
         # find branch first if exist do not geocode and insert
         branch = Branch.query.filter(Branch.name.ilike('%' + data_dict['branch_name'] + '%')).first()
         if branch is None:
-            geocode_result = geocode(data_dict['branch_name'])
+            geocode_result = google_api.geocode(data_dict['branch_name'])
             # branch_latlng = None if geocode_result is None else forms_helper.parse_coordinates(geocode_result['geometry']['location'])
             # branch_address = '' if geocode_result is None else geocode_result['formatted_address']
             # branch_dict = {

@@ -68,7 +68,7 @@ angular.module('demoApp.productSaturation')
             });
 
             Branch.getList()
-                .then(function(response){
+                .then(function (response) {
                     branchService.loadMarkers(response.plain(), true);
                 });
 
@@ -169,7 +169,6 @@ angular.module('demoApp.productSaturation')
         }
 
         function semesterChanged(semester) {
-            console.log('semesterChanged: ',semester);
             branchService.getSelloutsByProduct(semester, vm.filter.selectedProduct)
                 .then(function (sellouts) {
                     console.log('sellouts by product: ', sellouts);
