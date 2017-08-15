@@ -370,6 +370,7 @@
         }
 
         function addTransaction(item, isFromFraud, index) {
+            console.log('item: ', item);
             var obj = angular.copy(item);
 
             if (item.end_point_latlng) {
@@ -377,6 +378,9 @@
             } else if (item.start_point_latlng) {
                 obj.marker = createMarker(item.start_point_latlng, item, isFromFraud);
             }
+            //else {
+            //    return;
+            //}
 
             obj.marker.id = item.id;
 
@@ -441,7 +445,15 @@
                 return addTransaction(item, isFromFraud, idx);
             });
 
+            //transactionMarkers = [];
+            //list.forEach(function(item,idx){
+            //    if (!_.isEmpty(item.end_point_latlng) || !_.isEmpty(item.start_point_latlng)) {
+            //        transactionMarkers.push(addTransaction(item, isFromFraud, idx));
+            //    }
+            //});
+
             var mapLegendData = getMapLegendData(list);
+
             $rootScope.$broadcast('compile-map-legend', {
                 type: 'transactions',
                 data: mapLegendData
@@ -477,6 +489,7 @@
                     .then(function(response) {
                     var resp = response.plain();
                     var transactionItem = addTransaction(resp.sales_transaction);
+                        //if (transactionItem) return;
                     gmapServices.showMarker(transactionItem.marker);
                     transactionMarkers.push(transactionItem);
                     dfd.resolve(resp);

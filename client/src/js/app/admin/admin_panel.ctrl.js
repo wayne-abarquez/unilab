@@ -251,7 +251,8 @@ angular.module('demoApp.admin')
             vm.showPoiPanel = false;
             vm.loadPois = false;
 
-            if (item.typeid < 7) {
+            //if (item.typeid < 7) {
+            if (item.typeid < 6) {
                 if (item.hasOwnProperty('children') && item.children.length) {
                     boundaryAfterExpand(item);
                     return;

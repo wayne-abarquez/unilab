@@ -34,13 +34,13 @@ angular.module('demoApp.sales')
             $scope.$watchCollection(function () {
                 return vm.branchCompareList;
             }, function (newCollection) {
-                console.log('branchCompareList: ', newCollection);
+                //console.log('branchCompareList: ', newCollection);
 
                 if (newCollection.length) {
                     $rootScope.showBranchCompareTable = true;
                     $('#show-compare-branches-btn').show();
 
-                    if (vm.filter.semester) semesterChanged(vm.filter.semester.value);
+                    if (vm.filter.semester) semesterChanged(vm.filter.semester);
 
                     return;
                 }
@@ -56,6 +56,13 @@ angular.module('demoApp.sales')
                 if (vm.branchCompareList.length == 0) branchService.unHighlightMarkers();
 
                 vm.branchCompareList.push(transform(branch));
+
+                vm.branchCompareList = _.sortBy(vm.branchCompareList, function(item){
+                    var products = getProductsByItem(item);
+                    return products.length;
+                }).reverse();
+
+                //console.log('new-compare-branch branchCompareList= ',vm.branchCompareList);
 
                 compileList();
                 highlightComparedBranches();
@@ -91,7 +98,7 @@ angular.module('demoApp.sales')
             var result = {};
 
             result['id'] = obj.id;
-            result['name'] = {name: obj.name};
+            result['name'] = {name: obj.name, isbranch: true};
 
             obj.products.forEach(function(prod){
                result[prod.product.name] = {
@@ -102,32 +109,62 @@ angular.module('demoApp.sales')
             return result;
         }
 
+        function getProductsByItem (item) {
+            var products = [];
+            for (var key in item) if (key != 'id' || key != 'name') products.push(key);
+            return products;
+        }
+
+        function getProductsInCollection (collection) {
+            var products = [];
+            collection.forEach(function(item){
+                for (var key in item) if (key != 'id' || key != 'name') products.push(key);
+            });
+            return products;
+        }
+
         function indexByAttribute(collection) {
-            console.log('indexByAttribute: collection=',collection);
+            //console.log('collection: ',collection);
 
-            var obj;
+            var products = getProductsInCollection(collection);
 
-            return collection.reduce(function (result, item) {
+            var result = {},
+                resObj = {};
 
-                angular.forEach(item, function (product, index) {
-                    result[index] = result[index] || [];
+            for (var i = 0; i < collection.length; i++) {
+                for (var key in collection[i]) {
+                    resObj = {};
 
-                    obj = product.hasOwnProperty('name')
-                            ? {'value': product.name}
-                            : {'value': product};
+                    var item = collection[i].hasOwnProperty(key) ? collection[i][key] : {name: null};
 
-                    if (product.hasOwnProperty('sellout')) obj['sellout'] = product.sellout;
+                    if (!result.hasOwnProperty(key)) result[key] = [];
 
-                    result[index].push(obj)
-                });
+                    if (key === 'id' || key === 'name') {
+                        resObj = item.hasOwnProperty('name')
+                            ? {'value': item.name}
+                            : {'value': item};
+                        result[key].push(resObj);
+                    } else {
+                        if (products.indexOf(key) > -1) {
+                            resObj = item.hasOwnProperty('name')
+                                ? {'value': item.name}
+                                : {'value': item};
 
-                return result;
-            }, {});
+                            if (item.hasOwnProperty('sellout')) resObj['sellout'] = item.sellout;
+                        } else {
+                            resObj = {'value': null};
+                        }
+                        result[key].push(resObj);
+                    }
+                }
+            }
+
+            //console.log('result: ',result);
+            return result;
         }
 
         function compileList () {
             vm.list = indexByAttribute(vm.branchCompareList);
-            console.log('compile vm.list: ',vm.list);
         }
 
         function removeBranch(branchId) {
@@ -183,6 +220,13 @@ angular.module('demoApp.sales')
                     });
 
                     if (foundSellout) branch[key]['sellout'] = foundSellout.grossup_amount;
+
+                    //var foundIndex = _.find(selloutData, function (sellout) {
+                    //    return sellout.branchid == branch.id
+                    //        && key.toLowerCase() == sellout.product.name.toLowerCase();
+                    //});
+                    //if (foundIndex > -1) vm.branchCompareList[index][key]['sellout'] = selloutData[foundIndex].grossup_amount;
+
                 }
             });
 
@@ -192,6 +236,7 @@ angular.module('demoApp.sales')
         }
 
         function semesterChanged (semester) {
+            console.log('semesterChanged: ',semester);
             var branchIdsArray = _.pluck(vm.branchCompareList, 'id');
 
             branchService.getSellouts(semester, branchIdsArray)

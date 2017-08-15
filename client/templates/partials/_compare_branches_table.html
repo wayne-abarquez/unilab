@@ -33,7 +33,7 @@
                 <md-table-container>
                     <table md-table>
                         <tbody md-body>
-                            <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
+                            <tr md-row ng-repeat="(index, values) in vm.list track by $index" ng-init="$rowIndex = $index">
                                 <td md-cell ng-repeat="item in values track by $index"
                                     ng-mouseover="vm.hoverIn(vm.list['id'][$index].value)"
                                     ng-mouseleave="vm.hoverOut(vm.list['id'][$index].value)"
@@ -61,7 +61,7 @@
                 <md-table-container ng-if="vm.filter.semester">
                     <table md-table>
                         <tbody md-body>
-                        <tr md-row ng-repeat="(index, values) in vm.list track by index" ng-init="$rowIndex = $index">
+                        <tr md-row ng-repeat="(index, values) in vm.list track by $index" ng-init="$rowIndex = $index">
                             <td md-cell ng-repeat="item in values track by $index"
                                 ng-mouseover="vm.hoverIn(vm.list['id'][$index].value)"
                                 ng-mouseleave="vm.hoverOut(vm.list['id'][$index].value)"
