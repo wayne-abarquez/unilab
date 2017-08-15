@@ -1,10 +1,15 @@
 from app import db
 from app.authentication.models import Role, User
-from app.sales.models import Branch, BranchType, Merchant, Product
+from app.sales.models import Branch, BranchType, Merchant, Product, BranchProduct
 from app.home.models import Territory
 from app.seeds.datasource import roles, users, branches, merchants, employees, territories, products
 from datetime import datetime
 import time
+from itertools import groupby
+from faker import Factory
+from datetime import datetime
+
+fake = Factory.create('en_US')
 
 
 class BaseSeeder:
@@ -135,3 +140,23 @@ class BaseSeeder:
         for user in allusers:
             user.password = users.test_password
         db.session.commit()
+
+    @staticmethod
+    def generate_branch_product_dates():
+        datestart = datetime(2016, 1, 1)
+        dateend = datetime(2016, 2, 1)
+
+        bp_list = BranchProduct.query.order_by(BranchProduct.productid).all()
+        group_list = groupby(bp_list, key=lambda itm: itm.productid)
+
+        for group_itm in group_list:
+            group_itm_list = list(group_itm)
+            group_itm_list_grouped = list(group_itm_list[1])
+            chunk = [group_itm_list_grouped[i::3] for i in range(3)]
+            for chunk_list in chunk:
+                for bp_itm in chunk_list:
+                    bp_itm.date_released = fake.date_time_between_dates(datestart, dateend)
+                    print "product id: {0} branch id: {1} date released: {2}".format(bp_itm.productid, bp_itm.branchid, bp_itm.date_released)
+
+        db.session.commit()
+        print "Branch Product new date released saved"

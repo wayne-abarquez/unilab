@@ -111,7 +111,7 @@ angular.module('demoApp.home')
         // add to markers
         function newBranch (item, isProductSaturation) {
             var icon = getBranchIconByType(item.type, isProductSaturation);
-            var marker = gmapServices.initMarker(item.latlng, icon);
+            var marker = gmapServices.initMarker(item.latlng, icon, {zIndex: 1});
 
             if (!item.latlng || _.isEmpty(item.latlng)) return;
 
@@ -146,10 +146,10 @@ angular.module('demoApp.home')
                 branchInfowindow.setContent(this.content);
             });
 
-            //gmapServices.spiderifier.addMarker(marker, function () {
-            //    branchInfowindow.open(gmapServices.map, this);
-            //    branchInfowindow.setContent(this.content);
-            //});
+            gmapServices.spiderifier.addMarker(marker, function () {
+                branchInfowindow.open(gmapServices.map, this);
+                branchInfowindow.setContent(this.content);
+            });
 
             branchMarkers.push(marker);
 
@@ -196,7 +196,8 @@ angular.module('demoApp.home')
             if (infowindow) branchInfowindow = infowindow;
             else if (!infowindow && !branchInfowindow) branchInfowindow = gmapServices.createInfoWindow('');
 
-            //gmapServices.initializeSpiderify();
+            // for spider
+            gmapServices.initializeSpiderify();
 
             list.forEach(function (item) {
                newBranch(item, isProductSaturation);

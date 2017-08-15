@@ -372,3 +372,144 @@
 2017-08-14 15:26:52,569 INFO - run.py <module>: Starting app
 2017-08-14 17:59:22,281 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-08-14 17:59:25,194 INFO - run.py <module>: Starting app
+2017-08-15 13:32:36,312 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 13:32:39,972 INFO - run.py <module>: Starting app
+2017-08-15 14:21:12,788 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:21:15,131 INFO - run.py <module>: Starting app
+2017-08-15 14:42:02,240 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:42:02,552 INFO - run.py <module>: Starting app
+2017-08-15 14:45:08,296 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:45:08,576 INFO - run.py <module>: Starting app
+2017-08-15 14:45:31,515 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:50:12,996 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:51:45,968 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:52:07,782 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:52:24,344 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:52:42,542 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:53:02,710 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:53:49,410 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:54:05,315 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:55:34,614 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:55:43,631 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:56:05,617 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:56:46,883 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:57:05,138 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:58:08,532 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:58:26,416 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:59:16,827 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 14:59:41,932 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:01:10,803 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:01:33,773 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:02:20,771 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:03:14,188 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:03:30,128 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:03:59,464 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:05:17,802 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:05:42,274 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:06:35,724 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:07:05,499 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:07:13,649 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:07:33,388 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:08:07,938 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:08:27,621 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:09:03,359 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:09:15,058 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:09:46,332 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:10:19,333 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:10:28,312 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:10:34,659 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:11:42,478 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:12:10,199 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:12:48,148 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:13:05,884 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:13:16,321 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:13:46,073 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:15:33,120 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:15:49,963 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:16:27,449 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:16:50,475 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:17:01,164 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:17:29,327 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:17:38,385 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:18:06,622 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:19:35,891 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:19:54,359 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:20:07,838 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:20:19,110 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:20:45,471 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:25:51,950 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:28:31,486 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:28:50,989 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:29:03,623 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:29:15,699 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:29:29,010 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:29:44,448 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:30:00,179 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:30:11,965 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:30:36,260 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:31:10,211 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:31:24,265 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:31:41,298 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:32:04,775 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:32:20,420 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:32:34,250 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:32:48,897 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:33:04,263 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:33:35,423 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:33:46,608 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:34:00,684 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:34:16,985 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:34:37,975 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:34:52,229 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:35:11,235 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:35:38,435 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:35:49,706 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:36:59,413 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:37:19,238 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:37:40,892 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:37:52,118 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:38:52,885 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:42:58,038 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:43:12,544 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:43:24,715 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:47:06,316 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:47:16,266 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:47:30,966 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:48:03,697 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:49:26,847 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:49:55,467 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:57:05,923 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:57:16,021 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:57:16,326 INFO - run.py <module>: Starting app
+2017-08-15 15:57:39,738 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:57:40,011 INFO - run.py <module>: Starting app
+2017-08-15 15:57:42,962 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:58:03,327 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:58:22,798 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 15:58:23,231 INFO - run.py <module>: Starting app
+2017-08-15 16:26:22,704 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 16:26:25,542 INFO - run.py <module>: Starting app
+2017-08-15 16:57:37,542 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 16:57:40,053 INFO - run.py <module>: Starting app
+2017-08-15 17:05:35,175 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:05:35,457 INFO - run.py <module>: Starting app
+2017-08-15 17:16:57,532 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:16:58,500 INFO - run.py <module>: Starting app
+2017-08-15 17:28:11,324 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:28:11,738 INFO - run.py <module>: Starting app
+2017-08-15 17:38:47,503 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:38:47,783 INFO - run.py <module>: Starting app
+2017-08-15 17:41:12,133 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:41:12,407 INFO - run.py <module>: Starting app
+2017-08-15 17:42:15,436 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:42:15,715 INFO - run.py <module>: Starting app
+2017-08-15 17:42:51,427 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:42:51,709 INFO - run.py <module>: Starting app
+2017-08-15 17:43:28,879 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:43:29,159 INFO - run.py <module>: Starting app
+2017-08-15 17:43:48,363 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:43:48,647 INFO - run.py <module>: Starting app
+2017-08-15 17:44:42,526 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 17:44:42,810 INFO - run.py <module>: Starting app
+2017-08-15 18:01:17,940 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-15 18:01:18,333 INFO - run.py <module>: Starting app
