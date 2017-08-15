@@ -1,6 +1,6 @@
-google.load('visualization', '1', {
-    packages: ['table']
-});
+//google.load('visualization', '1', {
+//    packages: ['table']
+//});
 
 (function () {
     'use strict';

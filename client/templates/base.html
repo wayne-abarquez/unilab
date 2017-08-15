@@ -15,16 +15,15 @@
 </head>
 <body layout="column" ng-controller="mainController as mainCtl" ng-cloak>
 
-<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+<!--<script src="https://www.google.com/jsapi" type="text/javascript"></script>-->
 
 {% if gmap_api_key %}
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{gmap_api_key}}&libraries=geometry,places,visualization"></script>
+            src="https://maps.googleapis.com/maps/api/js?v=3.28&key={{gmap_api_key}}&libraries=geometry,places,visualization"></script>
 {% else %}
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places,visualization"></script>
+            src="https://maps.googleapis.com/maps/api/js?v=3.28&libraries=geometry,places,visualization"></script>
 {% endif %}
-
 
 <!-- Fixed Top Navbar -->
 <div ng-include="'partials/_top_nav.html'"></div>
