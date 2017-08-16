@@ -183,7 +183,9 @@ angular.module('demoApp.fraud')
 
         function getArrayOfDateFromRange (dateStart, dateEnd) {
             var dfd = $q.defer();
+
             //console.log('getArrayOfDateFromRange', dateStart, dateEnd);
+
             var dateArray = [],
                 idx;
 
@@ -200,41 +202,53 @@ angular.module('demoApp.fraud')
                 return item.date_param;
             });
 
-            fraudService.getDaysWithFraudTransactionsCount(dateArrayParam, vm.filter.empId)
-                .then(function (fraudListTransactions) {
-                    //console.log('getDaysWithFraudTransactionsCount list: ', fraudListTransactions);
-                    dateArray.forEach(function (dateItm, listIndex) {
-                        idx = _.findIndex(fraudListTransactions, {date_param: dateItm.date_param});
-                        if (idx > -1) dateArray[listIndex]['fraudcount'] = fraudListTransactions[idx].count;
-                    });
+            var promises = [];
 
-                    fraudService.getDaysWithInvestigatedTransactionsCount(dateArrayParam, vm.filter.empId)
-                        .then(function (investigatedListTransactions) {
-                            //console.log('getDaysWithInvestigatedTransactionsCount: ', investigatedListTransactions);
-                            dateArray.forEach(function (dateItm, listIndex) {
-                                idx = _.findIndex(investigatedListTransactions, {date_param: dateItm.date_param});
-                                if (idx > -1) dateArray[listIndex]['investigatedcount'] = investigatedListTransactions[idx].count;
-                            });
-
-                            fraudService.getDaysWithClearedTransactionsCount(dateArrayParam, vm.filter.empId)
-                                .then(function (clearedListTransactions) {
-                                    //console.log('getDaysWithClearedTransactionsCount: ', clearedListTransactions);
-                                    dateArray.forEach(function (dateItm, listIndex) {
-                                        idx = _.findIndex(clearedListTransactions, {date_param: dateItm.date_param});
-                                        if (idx > -1) dateArray[listIndex]['clearedcount'] = clearedListTransactions[idx].count;
-                                    });
-                                    //console.log('finalresult: ', dateArray);
-                                    dfd.resolve(dateArray);
-                                }, function (error) {
-                                    dfd.resolve(dateArray);
-                                });
-
-                        }, function (error){
-                            dfd.resolve(dateArray);
+            promises.push(
+                fraudService.getDaysWithFraudTransactionsCount(dateArrayParam, vm.filter.empId)
+                    .then(function (fraudListTransactions) {
+                        //console.log('getDaysWithFraudTransactionsCount list: ', fraudListTransactions);
+                        dateArray.forEach(function (dateItm, listIndex) {
+                            idx = _.findIndex(fraudListTransactions, {date_param: dateItm.date_param});
+                            if (idx > -1 && fraudListTransactions[idx].count) dateArray[listIndex]['fraudcount'] = fraudListTransactions[idx].count;
                         });
+                    })
+            );
 
-                }, function (error) {
-                    dfd.reject(error);
+            promises.push(
+                fraudService.getDaysWithInvestigatedTransactionsCount(dateArrayParam, vm.filter.empId)
+                    .then(function (investigatedListTransactions) {
+                        //console.log('getDaysWithInvestigatedTransactionsCount: ', investigatedListTransactions);
+                        dateArray.forEach(function (dateItm, listIndex) {
+                            idx = _.findIndex(investigatedListTransactions, {date_param: dateItm.date_param});
+                            if (idx > -1 && investigatedListTransactions[idx].count) dateArray[listIndex]['investigatedcount'] = investigatedListTransactions[idx].count;
+                        });
+                    })
+            );
+
+            promises.push(
+                fraudService.getDaysWithClearedTransactionsCount(dateArrayParam, vm.filter.empId)
+                    .then(function (clearedListTransactions) {
+                        //console.log('getDaysWithClearedTransactionsCount: ', clearedListTransactions);
+                        dateArray.forEach(function (dateItm, listIndex) {
+                            idx = _.findIndex(clearedListTransactions, {date_param: dateItm.date_param});
+                            if (idx > -1 && clearedListTransactions[idx].count) dateArray[listIndex]['clearedcount'] = clearedListTransactions[idx].count;
+                        });
+                    })
+            );
+
+
+            $q.all(promises)
+                .finally(function(){
+                    var newarray = [];
+                    dateArray.map(function (item) {
+                        if (item.hasOwnProperty('fraudcount')
+                            || item.hasOwnProperty('investigatedcount')
+                            || item.hasOwnProperty('clearedcount')) {
+                            newarray.push(item);
+                        }
+                    });
+                    dfd.resolve(newarray);
                 });
 
             return dfd.promise;

@@ -73,6 +73,13 @@ angular.module('demoApp.admin')
             }, function (newValue, oldValue){
                 if (newValue === oldValue) return;
 
+                if (newValue) {
+                    vm.showPoiPanel = true;
+                } else {
+                    vm.loadPois = false;
+                    vm.showPoiPanel = false;
+                }
+
                 clear();
 
                 if (!newValue) $mdSidenav('territoryInfoPanelSidenav').close();
@@ -123,6 +130,10 @@ angular.module('demoApp.admin')
             }
         }
 
+        /*
+        * Show POI by type
+        */
+
         function toggleType(type) {
             var arr = vm.placeTypes['0'].concat(vm.placeTypes['1']);
             var val = _.findWhere(arr, {name: type});
@@ -137,15 +148,14 @@ angular.module('demoApp.admin')
 
             if (!currentSelected.id || !vm.loadPois) return;
 
-            //if (currentSelected.type == 'territory') {
-            //    placesService.loadPOIs(currentSelected.territoryid, selectedTypes)
-            //        .then(function (response) {
-            //            placesService.showPOIs(response);
-            //            $rootScope.selectedTerritory.places = response;
-            //        });
-            //} else
-
-            if (currentSelected.type == 'boundary' && currentSelected.typeid == 7) {
+            if (currentSelected.type == 'territory' && $rootScope.selectedTerritory) {
+                placesService.loadPOIs($rootScope.selectedTerritory.territoryid, selectedTypes)
+                    .then(function (response) {
+                        console.log('loadPOIs response',response);
+                        placesService.showPOIs(response);
+                        $rootScope.selectedTerritory.places = response;
+                    });
+            } else if (currentSelected.type == 'boundary' && currentSelected.typeid >= 6) { // show pois for city and brgy level
                 placesService.loadPOIsWithinBoundary(currentSelected.id, selectedTypes)
                     .then(function (response) {
                         placesService.showPOIs(response, adminInfowindow);
@@ -175,11 +185,14 @@ angular.module('demoApp.admin')
                 $('v-pane#' + boundary.id.toString() + ' v-pane-header md-progress-circular').css({'display': 'block'});
             } else {
                 $('md-list-item#' + item.id.toString() + ' md-progress-circular').show();
+            }
 
-                $timeout(function(){
+            // show poi selection for city and barangay
+            if (boundary.typeid >= 6) {
+                $timeout(function () {
                     vm.showPoiPanel = true;
                     vm.loadPois = true;
-                },500);
+                }, 500);
             }
 
             promises.push(
@@ -252,7 +265,7 @@ angular.module('demoApp.admin')
             vm.loadPois = false;
 
             //if (item.typeid < 7) {
-            if (item.typeid < 6) {
+            if (item.typeid < 7) {
                 if (item.hasOwnProperty('children') && item.children.length) {
                     boundaryAfterExpand(item);
                     return;
@@ -294,6 +307,10 @@ angular.module('demoApp.admin')
 
         function showTerritory (item) {
             clear();
+
+            console.log('showTerritory: ',item);
+
+            if (!vm.loadPois) vm.loadPois = true;
 
             currentSelected = {
                 type: 'territory',
@@ -350,32 +367,14 @@ angular.module('demoApp.admin')
                 return;
             }
 
-            //vm.uploadHasResponse = false;
+            alertServices.showInfo('Uploading, Please wait...');
 
             branchService.uploadBranchData(file)
                 .then(function (response) {
                     console.log('successfully uploaded branch data: ', response);
-
-            //$timeout(function () {
-            //
-            //    vm.uploadHasResponse = true;
-            //
-            //    alertServices.showInfo('Data uploaded. Showing Fraud Report...', true);
-            //    $timeout(function () {
-            //        modalServices.showFraudResult()
-            //            .then(function (datalist) {
-            //                vm.frauds = fraudService.showFraudDataOnMap(datalist);
-            //            });
-            //    }, 1500);
-            //}, 3000);
-
+                    alertServices.showInfo('Branches uploaded.', true);
                 }, function (error) {
                     console.log('error on uploading data: ', error);
-                })
-                .finally(function () {
-                    //$timeout(function () {
-                    //    vm.uploadHasResponse = true;
-                    //}, 1000);
                 });
         }
 
@@ -387,16 +386,14 @@ angular.module('demoApp.admin')
                 return;
             }
 
+            alertServices.showInfo('Uploading, Please wait...');
+
             branchService.uploadBranchSellOutData(file)
                 .then(function (response) {
                     console.log('successfully uploaded sales data: ', response);
+                    alertServices.showInfo('Sellouts uploaded.', true);
                 }, function (error) {
                     console.log('error on uploading data: ', error);
-                })
-                .finally(function () {
-                    //$timeout(function () {
-                    //    vm.uploadHasResponse = true;
-                    //}, 1000);
                 });
         }
 

@@ -370,7 +370,6 @@
         }
 
         function addTransaction(item, isFromFraud, index) {
-            console.log('item: ', item);
             var obj = angular.copy(item);
 
             if (item.end_point_latlng) {
@@ -378,9 +377,6 @@
             } else if (item.start_point_latlng) {
                 obj.marker = createMarker(item.start_point_latlng, item, isFromFraud);
             }
-            //else {
-            //    return;
-            //}
 
             obj.marker.id = item.id;
 
@@ -625,7 +621,7 @@
         }
 
         function showTransactionOnMap(transaction, isFromFraud) {
-            console.log('showTransactionOnMap: ', transaction);
+            //console.log('showTransactionOnMap: ', transaction);
             if (nextTransactionDirectionsDisplay) nextTransactionDirectionsDisplay.setDirections({
                 routes: []
             });

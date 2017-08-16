@@ -37,11 +37,12 @@ def get_poi_by_within_radius(center, radius_param, results, place_type=None, nex
     if response.content:
         content = json.loads(response.content)
         if 'results' in content:
-            if 'next_page_token' in content:
-                results += map(lambda item: attach_next_page_token(item, content['next_page_token']),
-                               content['results'])
-            else:
-                results += content['results']
+            results += content['results']
+            # if 'next_page_token' in content:
+            #     results += map(lambda item: attach_next_page_token(item, content['next_page_token']),
+            #                    content['results'])
+            # else:
+            #     results += content['results']
 
         # if 'next_page_token' in content and content['next_page_token'] is not None:
         #     return get_poi_by_within_radius(center_param, radius_param, results, place_type, content['next_page_token'])

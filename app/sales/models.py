@@ -21,6 +21,7 @@ class BranchStatus:
 
 
 class Branch(BaseModel):
+    branch_code = db.Column(db.String(30), index=True, unique=True)
     type = db.Column(db.String(50))
     name = db.Column(db.String(200))
     address = db.Column(db.String(500))
