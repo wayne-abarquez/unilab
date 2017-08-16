@@ -11,6 +11,7 @@ import json
 import requests
 from app.utils.gis_json_fields import PointToLatLngParam, PointToLatLng
 from app.utils.google_api import geocode
+from app.utils import forms_helper
 import logging
 import itertools
 import re
@@ -177,6 +178,8 @@ def upload_fraud_data(file):
                             merchantid = merchant.id
                         else:
                             merchantid = merchant.id
+                            merchant.latlng = forms_helper.parse_coordinates(latlng) if latlng is not None else merchant.latlng
+                            db.session.commit()
                             latlng = ptolatlng.format(merchant.latlng)
 
                     # address = merchant_data['address'] if 'address' in merchant_data else None
