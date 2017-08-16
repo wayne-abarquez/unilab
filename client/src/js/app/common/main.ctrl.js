@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp')
-        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService',  'DEMO_MODE_MESSAGE','$http', 'mapToolsService', '$mdToast', 'placesService', mainController]);
+        .controller('mainController', ['$rootScope', 'APP_NAME', '$mdSidenav', 'userSessionService', 'alertServices', 'branchService',  'DEMO_MODE_MESSAGE','$http', 'mapToolsService', '$mdToast', 'placesService', 'gmapServices', mainController]);
 
-    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService, DEMO_MODE_MESSAGE, $http, mapToolsService, $mdToast, placesService) {
+    function mainController($rootScope, APP_NAME, $mdSidenav, userSessionService, alertServices, branchService, DEMO_MODE_MESSAGE, $http, mapToolsService, $mdToast, placesService, gmapServices) {
         var vm = this;
 
         $rootScope.appName = APP_NAME;
@@ -100,7 +100,7 @@
                 });
 
                 branchService.dismissInfowindow();
-                mapToolsService.activateMeasureDistanceTool(branchMarker.getPosition());
+                mapToolsService.activateMeasureDistanceTool(branchMarker.originalPosition);
 
                 var poiClickListener = $rootScope.$on('poi-clicked', function(e,params){
                     placesService.dismissInfowindow();

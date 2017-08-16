@@ -10,11 +10,13 @@
         service.showBottomLeftToast = showBottomLeftToast;
         service.showTopRightToast = showTopRightToast;
         service.showNoDataAvailablePrompt = showNoDataAvailablePrompt;
-        //service.showFilterSelectionEmpty = showFilterSelectionEmpty;
+        service.showDismissableToast = showDismissableToast;
+
         service.showConfirm = showConfirm;
         service.showSuccess = showSuccess;
         service.showInfo = showInfo;
         service.showError = showError;
+
 
         function showToast(message, position, delay) {
             $mdToast.show(
@@ -33,8 +35,6 @@
             showToast(message, 'top right', delay);
         }
 
-        service.showDismissableToast = showDismissableToast;
-
         function showDismissableToast (message, delay) {
             $mdToast.show(
                 $mdToast.simple()
@@ -42,6 +42,10 @@
                     .position('bottom left')
                     .hideDelay(delay)
             );
+        }
+
+        function showNoDataAvailablePrompt(entityName) {
+            service.showBottomLeftToast('No ' + entityName + ' data available for this area.');
         }
 
         function showMessage(message, type, isAutoClose) {
@@ -54,23 +58,23 @@
                 angular.merge(opts, {timer: 1500, showConfirmButton: false});
             }
 
-            SweetAlert.swal(opts);
+            return SweetAlert.swal(opts);
         }
 
         function showSuccess(message) {
-            showMessage(message, 'success');
+            return showMessage(message, 'success');
         }
 
         function showError(message) {
-            showMessage(message, 'error');
+            return showMessage(message, 'error');
         }
 
-        function showNoDataAvailablePrompt(entityName) {
-            service.showBottomLeftToast('No ' + entityName + ' data available for this area.');
+        function showInfo(message, isAutoClose) {
+            return showMessage(message, 'info', isAutoClose);
         }
 
         function showConfirm (title, message, callbackOnConfirm) {
-            SweetAlert.swal({
+            return SweetAlert.swal({
                     title: title,
                     text: message,
                     type: "warning",
@@ -81,19 +85,6 @@
                 },
                 callbackOnConfirm);
         }
-
-        function showInfo(message, isAutoClose) {
-            showMessage(message, 'info', isAutoClose);
-        }
-
-
-        //function showFilterSelectionEmpty() {
-        //    showMessage('Please select filter type.', 'warning');
-        //}
-        //
-        //function showQueryIsEmpty() {
-        //    showMessage('Please fill in search query.', 'info');
-        //}
 
         return service;
     }

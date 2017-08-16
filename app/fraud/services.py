@@ -47,7 +47,7 @@ address_columns = ['clinic address', 'address3', 'station address']
 
 user_id_columns = ['emp id', 'employeeid', 'employee id', 'empid', 'payee id']
 latlng_columns = ['latitude', 'longitude']
-merchant_columns = ['mdname', 'specialty description', 'clinic address']
+merchant_columns = ['mdname', 'specialty description']
 
 except_columns = user_id_columns + latlng_columns + merchant_columns + address_columns
 
@@ -137,8 +137,9 @@ def upload_fraud_data(file):
                         # else:
                         #     userid = cell.value
                     elif len([s for s in address_columns if s in key]) > 0:
-                        address = cell.value
+                        address = cell.value.encode('utf-8')
                         merchant_data['address'] = address
+                        # print "ADDRESS: {0}".format(address)
                     elif len([s for s in latlng_columns if s in key]) > 0:
                         if 'latitude' in key:
                             latlng['lat'] = cell.value
@@ -149,8 +150,6 @@ def upload_fraud_data(file):
                             merchant_data['name'] = cell.value
                         elif "specialty description" in key:
                             merchant_data['specialty'] = cell.value.upper()
-                        elif "clinic address" in key:
-                            merchant_data['address'] = cell.value
                 except Exception as error:
                     print "ERROR: {0}".format(error)
 
@@ -163,8 +162,8 @@ def upload_fraud_data(file):
                     # save merchant
                     merchantid = None
 
-                    if latlng is None and address is not None:
-                        geocode_result = geocode(address)
+                    if not bool(latlng) and 'address' in merchant_data:
+                        geocode_result = geocode(merchant_data['address'])
                         latlng = geocode_result['geometry']['location']
 
                     if bool(merchant_data):
@@ -173,7 +172,7 @@ def upload_fraud_data(file):
 
                         if merchant is None:
                             merchant_data['latlng'] = latlng
-                            # app.logger.info("CREATE MERCHANT: {0}".format(merchant_data))
+                            app.logger.info("CREATE MERCHANT: {0}".format(merchant_data))
                             merchant = create_merchant(merchant_data)
                             merchantid = merchant.id
                         else:

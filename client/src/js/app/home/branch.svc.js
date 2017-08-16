@@ -115,6 +115,8 @@ angular.module('demoApp.home')
 
             if (!item.latlng || _.isEmpty(item.latlng)) return;
 
+            marker.originalPosition = new google.maps.LatLng(item.latlng);
+
             marker.content = '<div>';
             marker.content += '<h3 class="no-margin padding-left-5"><b>' + item.name + '</b></h3>';
             marker.content += '<h4 class="no-margin text-muted padding-left-5">' + item.type + '</h4>';

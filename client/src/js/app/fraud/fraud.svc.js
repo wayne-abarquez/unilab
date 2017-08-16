@@ -106,7 +106,7 @@ angular.module('demoApp.fraud')
         }
 
         function getTransactionsWithinDateRange(dateStart, dateEnd, empId) {
-            console.log('getTransactionsWithinDateRange: ', dateStart, dateEnd, empId);
+            //console.log('getTransactionsWithinDateRange: ', dateStart, dateEnd, empId);
             var dfd = $q.defer();
 
             var dateMoment;

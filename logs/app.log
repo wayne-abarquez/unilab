@@ -649,3 +649,1013 @@ DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null
  [SQL: 'INSERT INTO transaction_fleet DEFAULT VALUES RETURNING transaction_fleet.transactionid']
 2017-08-16 01:35:41,595 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-08-16 01:35:41,883 INFO - run.py <module>: Starting app
+2017-08-16 13:51:02,007 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 13:51:04,803 INFO - run.py <module>: Starting app
+2017-08-16 15:06:54,455 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:11:38,490 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:13:01,405 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:25:53,437 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:26:11,836 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:26:12,165 INFO - run.py <module>: Starting app
+2017-08-16 15:31:27,414 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:31:27,990 INFO - run.py <module>: Starting app
+2017-08-16 15:38:58,161 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:38:58,560 INFO - run.py <module>: Starting app
+2017-08-16 15:53:00,250 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 15:53:00,850 INFO - run.py <module>: Starting app
+2017-08-16 16:02:17,811 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:02:18,147 INFO - run.py <module>: Starting app
+2017-08-16 16:04:54,785 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:04:55,138 INFO - run.py <module>: Starting app
+2017-08-16 16:08:21,776 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:08:22,139 INFO - run.py <module>: Starting app
+2017-08-16 16:13:01,169 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:13:01,467 INFO - run.py <module>: Starting app
+2017-08-16 16:14:00,735 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:14:01,059 INFO - run.py <module>: Starting app
+2017-08-16 16:14:56,305 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:14:56,600 INFO - run.py <module>: Starting app
+2017-08-16 16:19:14,665 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:19:15,003 INFO - run.py <module>: Starting app
+2017-08-16 16:22:25,623 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:22:25,946 INFO - run.py <module>: Starting app
+2017-08-16 16:29:14,291 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:29:14,654 INFO - run.py <module>: Starting app
+2017-08-16 16:32:37,244 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:32:37,708 INFO - run.py <module>: Starting app
+2017-08-16 16:32:51,859 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:32:52,149 INFO - run.py <module>: Starting app
+2017-08-16 16:32:55,143 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:32:55,448 INFO - run.py <module>: Starting app
+2017-08-16 16:33:44,626 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:33:44,951 INFO - run.py <module>: Starting app
+2017-08-16 16:36:31,876 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:36:32,164 INFO - run.py <module>: Starting app
+2017-08-16 16:38:49,167 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:38:49,577 INFO - run.py <module>: Starting app
+2017-08-16 16:39:16,857 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:39:17,164 INFO - run.py <module>: Starting app
+2017-08-16 16:41:33,834 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:41:35,992 INFO - run.py <module>: Starting app
+2017-08-16 16:41:59,329 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:42:00,705 INFO - run.py <module>: Starting app
+2017-08-16 16:42:12,670 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:42:14,272 INFO - run.py <module>: Starting app
+2017-08-16 16:44:49,899 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:44:51,051 INFO - run.py <module>: Starting app
+2017-08-16 16:45:33,261 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:45:34,448 INFO - run.py <module>: Starting app
+2017-08-16 16:48:24,626 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 16:48:25,850 INFO - run.py <module>: Starting app
+2017-08-16 17:04:58,316 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 17:05:02,337 INFO - run.py <module>: Starting app
+2017-08-16 17:42:32,362 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 17:42:36,306 INFO - run.py <module>: Starting app
+2017-08-16 18:12:44,606 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:12:45,808 INFO - run.py <module>: Starting app
+2017-08-16 18:13:03,279 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:13:04,457 INFO - run.py <module>: Starting app
+2017-08-16 18:13:19,667 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_coverage
+2017-08-16 18:13:19,696 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "transactionid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null, null, null, null).
+ [SQL: 'INSERT INTO transaction_coverage DEFAULT VALUES RETURNING transaction_coverage.transactionid']
+2017-08-16 18:13:20,069 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_1ss
+2017-08-16 18:13:20,075 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "transactionid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).
+ [SQL: 'INSERT INTO transaction_1ss DEFAULT VALUES RETURNING transaction_1ss.transactionid']
+2017-08-16 18:13:20,234 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_c3s
+2017-08-16 18:13:20,247 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "transactionid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).
+ [SQL: 'INSERT INTO transaction_c3s DEFAULT VALUES RETURNING transaction_c3s.transactionid']
+2017-08-16 18:13:20,311 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_iidacs
+2017-08-16 18:13:20,314 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "transactionid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, null, null, null).
+ [SQL: 'INSERT INTO transaction_iidacs DEFAULT VALUES RETURNING transaction_iidacs.transactionid']
+2017-08-16 18:13:20,403 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_leaves
+2017-08-16 18:13:20,407 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "userid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, DELA CRUZ, JUAN, 09/01/2016, 1, PEDILWOP, Whole Day, Personal Reason, 08/30/2016, Approved, IMMEDIATE SUPERIOR, VALENTONA, BERNARDO JR D., 08/31/2016,  VALENTONA, BERNARDO JR D.).
+ [SQL: 'INSERT INTO transaction_leaves (employee_name, leave_date, applied_credits, leave_type, occurrence, reason, date_applied, application_status, approval_status, last_action_by, last_action_date, approver_name) VALUES (%(employee_name_0)s, %(leave_date_0)s, %(applied_credits_0)s, %(leave_type_0)s, %(occurrence_0)s, %(reason_0)s, %(date_applied_0)s, %(application_status_0)s, %(approval_status_0)s, %(last_action_by_0)s, %(last_action_date_0)s, %(approver_name_0)s), (%(employee_name_1)s, %(leave_date_1)s, %(applied_credits_1)s, %(leave_type_1)s, %(occurrence_1)s, %(reason_1)s, %(date_applied_1)s, %(application_status_1)s, %(approval_status_1)s, %(last_action_by_1)s, %(last_action_date_1)s, %(approver_name_1)s), (%(employee_name_2)s, %(leave_date_2)s, %(applied_credits_2)s, %(leave_type_2)s, %(occurrence_2)s, %(reason_2)s, %(date_applied_2)s, %(application_status_2)s, %(approval_status_2)s, %(last_action_by_2)s, %(last_action_date_2)s, %(approver_name_2)s) RETURNING transaction_leaves.id'] [parameters: {'approval_status_2': u'IMMEDIATE SUPERIOR', 'approval_status_0': u'IMMEDIATE SUPERIOR', 'approval_status_1': u'IMMEDIATE SUPERIOR', 'employee_name_0': u'DELA CRUZ, JUAN', 'employee_name_1': u'DELA CRUZ, JUAN', 'employee_name_2': u'DELA CRUZ, JUAN', 'reason_1': u'Personal Reason', 'reason_0': u'Personal Reason', 'reason_2': u'Others', 'date_applied_1': u'08/30/2016', 'date_applied_0': u'08/30/2016', 'date_applied_2': u'06/11/2016', 'application_status_2': u'Approved', 'application_status_0': u'Approved', 'application_status_1': u'Approved', 'last_action_by_2': u'VALENTONA, BERNARDO JR D.', 'last_action_by_0': u'VALENTONA, BERNARDO JR D.', 'last_action_by_1': u'VALENTONA, BERNARDO JR D.', 'occurrence_2': u'Whole Day', 'approver_name_1': u' VALENTONA, BERNARDO JR D.', 'occurrence_0': u'Whole Day', 'occurrence_1': u'Whole Day', 'leave_date_0': u'09/01/2016', 'leave_date_2': u'06/10/2016', 'last_action_date_2': u'06/13/2016', 'last_action_date_1': u'08/31/2016', 'last_action_date_0': u'08/31/2016', 'leave_type_1': u'PEDILWOP', 'leave_type_0': u'PEDILWOP', 'leave_type_2': u'PEDISL', 'leave_date_1': u'09/02/2016', 'approver_name_0': u' VALENTONA, BERNARDO JR D.', 'approver_name_2': u' VALENTONA, BERNARDO JR D.', 'applied_credits_0': 1L, 'applied_credits_1': 1L, 'applied_credits_2': 1L}]
+2017-08-16 18:13:20,432 INFO - services.py upload_fraud_data: INSERTING DATA TO transaction_fleet
+2017-08-16 18:13:20,435 INFO - services.py upload_fraud_data: ERROR INSERTING: (psycopg2.IntegrityError) null value in column "transactionid" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).
+ [SQL: 'INSERT INTO transaction_fleet DEFAULT VALUES RETURNING transaction_fleet.transactionid']
+2017-08-16 18:14:20,162 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:14:21,321 INFO - run.py <module>: Starting app
+2017-08-16 18:15:26,736 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:15:27,930 INFO - run.py <module>: Starting app
+2017-08-16 18:18:10,397 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:18:11,572 INFO - run.py <module>: Starting app
+2017-08-16 18:18:23,308 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:18:25,262 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'G/F Poquito Mas BLDG., '}
+2017-08-16 18:18:25,262 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'SAN RAFAEL, '}
+2017-08-16 18:18:25,263 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN, '}
+2017-08-16 18:18:25,263 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN, '}
+2017-08-16 18:18:25,264 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'PULILAN, '}
+2017-08-16 18:18:25,264 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'701 Citystate Center 750 Shaw , '}
+2017-08-16 18:18:25,265 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'701 Citystate Center 750 Shaw , '}
+2017-08-16 18:18:25,265 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MacArthur Highway, Bulihan, '}
+2017-08-16 18:18:25,266 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'66  CAGAYAN VALLEY RD. STA RIT, '}
+2017-08-16 18:18:25,266 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN PHL, '}
+2017-08-16 18:18:25,267 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN PH, '}
+2017-08-16 18:18:25,267 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN PH, '}
+2017-08-16 18:18:25,267 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MAKATI CITY, '}
+2017-08-16 18:18:25,268 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'GROUND FLOOR EX 135A-136 SM, CITY BALIUAG, BULACAN'}
+2017-08-16 18:18:25,269 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'TIKAY CITY OF MALOLOS, BULACAN'}
+2017-08-16 18:18:25,270 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MC ARTHUR HI WAY BULIHAN, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,270 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'SAN JOSE SAN MIGUEL BULACAN, '}
+2017-08-16 18:18:25,271 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,271 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'PETRON SERVICE STATION (PEC1), MARILAO,BULACAN'}
+2017-08-16 18:18:25,272 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'17 PINAGBARILAN ST.  DRT HIWAY, BALIWAG BULACAN'}
+2017-08-16 18:18:25,272 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'STARWALK COMMERCIAL BLDG TIKAY, TIKAY MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,272 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'3903 CAGAYAN VALLEY ROAD , TABANG PLARIDEL BULACAN'}
+2017-08-16 18:18:25,274 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'TIKAY, MALOLOS CITY, BULACAN, '}
+2017-08-16 18:18:25,274 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'PULILAN JUNCTION STO CRISTO, PULILAN BULACAN'}
+2017-08-16 18:18:25,275 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'PLARIDEL BULACAN, '}
+2017-08-16 18:18:25,275 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'35 COMMONWEALTH AVE. COR LUZON, BRGY MATANDANG BALARA D2 QC'}
+2017-08-16 18:18:25,275 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'EX 144A SM CITY BALIWAG DRT , HIWAY PAGALA BALIWAG BULACAN'}
+2017-08-16 18:18:25,276 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BALIAUG BULACAN, '}
+2017-08-16 18:18:25,276 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'CONGRESSIONAL AVE.BRGY. RAMON, MAGSAYSAY QUEZON CITY,'}
+2017-08-16 18:18:25,277 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BALIAUG BULACAN, '}
+2017-08-16 18:18:25,277 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'PROVINCIAL CAPITOL MCARTHUR, MALOLOS CITY, BULACAN'}
+2017-08-16 18:18:25,278 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'SM CITY BALIWAG , BALIWAG BUALCAN'}
+2017-08-16 18:18:25,278 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,279 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,279 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,280 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,280 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,281 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,281 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,282 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,282 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,282 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,283 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,283 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,284 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,284 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,285 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,285 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,285 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,286 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,287 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,288 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,288 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,288 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,289 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,289 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,290 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,290 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,291 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,291 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,291 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,292 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,292 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,295 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,296 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,297 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,298 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,298 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,299 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,299 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,300 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,300 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:18:25,301 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,301 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,301 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,302 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,302 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,303 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,303 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,304 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,305 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,305 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,306 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,306 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,306 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,307 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,307 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,308 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,308 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,308 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,309 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,309 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:18:25,344 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,345 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,345 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,346 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,346 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,347 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,347 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,348 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,348 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,349 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,349 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,349 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,350 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,350 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,351 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,352 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,352 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,354 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,355 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u"ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:18:25,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BAGONG NAYON, BALIUAG, BUALCAN'}
+2017-08-16 18:18:25,604 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:18:25,605 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:18:25,606 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,607 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:18:25,607 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:18:25,608 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,609 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,610 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:18:25,610 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'National Highway, Brgy. Camp One Udiao, Rosario, La Union '}
+2017-08-16 18:18:25,612 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,612 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,613 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:18:25,614 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:18:25,614 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,615 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,615 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,616 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:18:25,617 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,618 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,619 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,620 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,621 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'B.S. Aquino Ave. Tangos,Baliwag Bulacan'}
+2017-08-16 18:18:25,622 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:18:25,623 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,624 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:18:25,625 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,625 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:18:25,626 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,626 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:18:25,627 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:18:25,628 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:18:25,628 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:18:25,629 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,630 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:18:25,635 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:20:47,071 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:20:48,256 INFO - run.py <module>: Starting app
+2017-08-16 18:21:02,858 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': u'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:21:45,394 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:21:46,562 INFO - run.py <module>: Starting app
+2017-08-16 18:21:52,646 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:21:55,015 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'G/F Poquito Mas BLDG., '}
+2017-08-16 18:21:55,015 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN RAFAEL, '}
+2017-08-16 18:21:55,016 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:21:55,016 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:21:55,017 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN, '}
+2017-08-16 18:21:55,017 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:21:55,018 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:21:55,018 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MacArthur Highway, Bulihan, '}
+2017-08-16 18:21:55,019 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '66  CAGAYAN VALLEY RD. STA RIT, '}
+2017-08-16 18:21:55,019 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PHL, '}
+2017-08-16 18:21:55,019 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:21:55,020 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:21:55,020 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MAKATI CITY, '}
+2017-08-16 18:21:55,021 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'GROUND FLOOR EX 135A-136 SM, CITY BALIUAG, BULACAN'}
+2017-08-16 18:21:55,021 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY CITY OF MALOLOS, BULACAN'}
+2017-08-16 18:21:55,022 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MC ARTHUR HI WAY BULIHAN, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,022 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN JOSE SAN MIGUEL BULACAN, '}
+2017-08-16 18:21:55,022 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,023 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PETRON SERVICE STATION (PEC1), MARILAO,BULACAN'}
+2017-08-16 18:21:55,023 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '17 PINAGBARILAN ST.  DRT HIWAY, BALIWAG BULACAN'}
+2017-08-16 18:21:55,024 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'STARWALK COMMERCIAL BLDG TIKAY, TIKAY MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,024 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '3903 CAGAYAN VALLEY ROAD , TABANG PLARIDEL BULACAN'}
+2017-08-16 18:21:55,025 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY, MALOLOS CITY, BULACAN, '}
+2017-08-16 18:21:55,026 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN JUNCTION STO CRISTO, PULILAN BULACAN'}
+2017-08-16 18:21:55,026 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PLARIDEL BULACAN, '}
+2017-08-16 18:21:55,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '35 COMMONWEALTH AVE. COR LUZON, BRGY MATANDANG BALARA D2 QC'}
+2017-08-16 18:21:55,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'EX 144A SM CITY BALIWAG DRT , HIWAY PAGALA BALIWAG BULACAN'}
+2017-08-16 18:21:55,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:21:55,028 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'CONGRESSIONAL AVE.BRGY. RAMON, MAGSAYSAY QUEZON CITY,'}
+2017-08-16 18:21:55,028 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:21:55,029 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PROVINCIAL CAPITOL MCARTHUR, MALOLOS CITY, BULACAN'}
+2017-08-16 18:21:55,029 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SM CITY BALIWAG , BALIWAG BUALCAN'}
+2017-08-16 18:21:55,030 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,030 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,031 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,031 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,032 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,032 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,033 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,033 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,034 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,034 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,034 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,035 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,035 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,036 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,036 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,037 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,037 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,038 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,039 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,040 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,040 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,041 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,041 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,042 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,042 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,043 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,043 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,044 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,044 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,045 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,045 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,046 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,046 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,046 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,047 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,047 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,048 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,048 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,049 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,049 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:21:55,050 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,050 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,051 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,051 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,052 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,053 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,054 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,055 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,056 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,056 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,057 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,078 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,079 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,079 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,080 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,080 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,081 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,081 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,082 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,083 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:21:55,084 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,085 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,086 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,087 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,087 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,088 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,089 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,089 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,090 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,090 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,091 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,091 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,091 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,092 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,092 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,094 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,094 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,095 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,095 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,096 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:21:55,096 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BAGONG NAYON, BALIUAG, BUALCAN'}
+2017-08-16 18:21:55,351 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:21:55,352 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:21:55,353 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,354 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:21:55,354 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:21:55,355 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:21:55,357 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Highway, Brgy. Camp One Udiao, Rosario, La Union '}
+2017-08-16 18:21:55,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,359 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,359 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:21:55,360 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:21:55,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:21:55,363 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,363 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,364 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,365 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'B.S. Aquino Ave. Tangos,Baliwag Bulacan'}
+2017-08-16 18:21:55,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:21:55,367 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,367 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:21:55,368 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,369 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:21:55,369 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,370 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:21:55,371 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:21:55,372 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:21:55,373 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:21:55,373 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,375 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:21:55,375 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:50,149 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:22:51,306 INFO - run.py <module>: Starting app
+2017-08-16 18:22:56,029 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:22:58,002 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'G/F Poquito Mas BLDG., '}
+2017-08-16 18:22:58,003 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN RAFAEL, '}
+2017-08-16 18:22:58,003 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:22:58,004 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:22:58,004 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN, '}
+2017-08-16 18:22:58,004 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:22:58,005 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:22:58,005 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MacArthur Highway, Bulihan, '}
+2017-08-16 18:22:58,006 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '66  CAGAYAN VALLEY RD. STA RIT, '}
+2017-08-16 18:22:58,006 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PHL, '}
+2017-08-16 18:22:58,007 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:22:58,007 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:22:58,008 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MAKATI CITY, '}
+2017-08-16 18:22:58,008 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'GROUND FLOOR EX 135A-136 SM, CITY BALIUAG, BULACAN'}
+2017-08-16 18:22:58,008 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY CITY OF MALOLOS, BULACAN'}
+2017-08-16 18:22:58,009 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MC ARTHUR HI WAY BULIHAN, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,009 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN JOSE SAN MIGUEL BULACAN, '}
+2017-08-16 18:22:58,010 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,010 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PETRON SERVICE STATION (PEC1), MARILAO,BULACAN'}
+2017-08-16 18:22:58,011 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '17 PINAGBARILAN ST.  DRT HIWAY, BALIWAG BULACAN'}
+2017-08-16 18:22:58,011 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'STARWALK COMMERCIAL BLDG TIKAY, TIKAY MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,011 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '3903 CAGAYAN VALLEY ROAD , TABANG PLARIDEL BULACAN'}
+2017-08-16 18:22:58,013 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY, MALOLOS CITY, BULACAN, '}
+2017-08-16 18:22:58,013 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN JUNCTION STO CRISTO, PULILAN BULACAN'}
+2017-08-16 18:22:58,013 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PLARIDEL BULACAN, '}
+2017-08-16 18:22:58,015 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '35 COMMONWEALTH AVE. COR LUZON, BRGY MATANDANG BALARA D2 QC'}
+2017-08-16 18:22:58,015 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'EX 144A SM CITY BALIWAG DRT , HIWAY PAGALA BALIWAG BULACAN'}
+2017-08-16 18:22:58,016 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:22:58,021 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'CONGRESSIONAL AVE.BRGY. RAMON, MAGSAYSAY QUEZON CITY,'}
+2017-08-16 18:22:58,021 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:22:58,022 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PROVINCIAL CAPITOL MCARTHUR, MALOLOS CITY, BULACAN'}
+2017-08-16 18:22:58,022 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SM CITY BALIWAG , BALIWAG BUALCAN'}
+2017-08-16 18:22:58,023 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,023 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,024 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,024 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,025 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,026 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,026 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,027 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,028 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,030 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,030 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,031 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,031 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,032 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,032 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,032 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,034 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,035 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,036 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,037 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,037 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,037 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,038 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,041 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,042 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,042 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,043 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,046 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,047 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,047 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,048 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,048 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,049 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,049 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,050 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,050 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,051 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,051 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:22:58,052 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,052 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,054 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,055 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,055 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,056 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,056 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,057 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,058 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,058 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,059 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,059 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,061 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,062 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,064 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,064 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,065 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,065 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,070 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,071 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:22:58,071 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,072 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,073 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,073 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,074 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,074 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,075 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,075 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,075 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,076 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,076 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,077 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,077 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,078 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,078 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,079 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,080 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,080 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,096 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,098 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:22:58,099 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BAGONG NAYON, BALIUAG, BUALCAN'}
+2017-08-16 18:22:58,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:22:58,357 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:22:58,357 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:22:58,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:22:58,359 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,360 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,360 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:22:58,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Highway, Brgy. Camp One Udiao, Rosario, La Union '}
+2017-08-16 18:22:58,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,363 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:22:58,364 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:22:58,364 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,365 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,365 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:22:58,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,367 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,368 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,370 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,370 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'B.S. Aquino Ave. Tangos,Baliwag Bulacan'}
+2017-08-16 18:22:58,371 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:22:58,372 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,372 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:22:58,373 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,374 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:22:58,374 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,375 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:22:58,375 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:22:58,376 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:22:58,377 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:22:58,377 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,378 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:22:58,379 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:23:59,798 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:24:00,946 INFO - run.py <module>: Starting app
+2017-08-16 18:24:17,914 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:24:19,094 INFO - run.py <module>: Starting app
+2017-08-16 18:24:38,345 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:24:40,317 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'G/F Poquito Mas BLDG., '}
+2017-08-16 18:24:40,317 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN RAFAEL, '}
+2017-08-16 18:24:40,318 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:24:40,319 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:24:40,319 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN, '}
+2017-08-16 18:24:40,320 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:24:40,320 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:24:40,321 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MacArthur Highway, Bulihan, '}
+2017-08-16 18:24:40,321 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '66  CAGAYAN VALLEY RD. STA RIT, '}
+2017-08-16 18:24:40,322 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PHL, '}
+2017-08-16 18:24:40,322 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:24:40,323 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:24:40,323 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MAKATI CITY, '}
+2017-08-16 18:24:40,324 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'GROUND FLOOR EX 135A-136 SM, CITY BALIUAG, BULACAN'}
+2017-08-16 18:24:40,324 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY CITY OF MALOLOS, BULACAN'}
+2017-08-16 18:24:40,325 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MC ARTHUR HI WAY BULIHAN, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,325 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN JOSE SAN MIGUEL BULACAN, '}
+2017-08-16 18:24:40,326 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,326 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PETRON SERVICE STATION (PEC1), MARILAO,BULACAN'}
+2017-08-16 18:24:40,326 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '17 PINAGBARILAN ST.  DRT HIWAY, BALIWAG BULACAN'}
+2017-08-16 18:24:40,327 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'STARWALK COMMERCIAL BLDG TIKAY, TIKAY MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,327 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '3903 CAGAYAN VALLEY ROAD , TABANG PLARIDEL BULACAN'}
+2017-08-16 18:24:40,329 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY, MALOLOS CITY, BULACAN, '}
+2017-08-16 18:24:40,330 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN JUNCTION STO CRISTO, PULILAN BULACAN'}
+2017-08-16 18:24:40,331 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PLARIDEL BULACAN, '}
+2017-08-16 18:24:40,331 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '35 COMMONWEALTH AVE. COR LUZON, BRGY MATANDANG BALARA D2 QC'}
+2017-08-16 18:24:40,332 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'EX 144A SM CITY BALIWAG DRT , HIWAY PAGALA BALIWAG BULACAN'}
+2017-08-16 18:24:40,332 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:24:40,333 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'CONGRESSIONAL AVE.BRGY. RAMON, MAGSAYSAY QUEZON CITY,'}
+2017-08-16 18:24:40,333 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:24:40,334 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PROVINCIAL CAPITOL MCARTHUR, MALOLOS CITY, BULACAN'}
+2017-08-16 18:24:40,334 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SM CITY BALIWAG , BALIWAG BUALCAN'}
+2017-08-16 18:24:40,335 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,335 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,336 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,339 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,343 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,344 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,344 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,345 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,345 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,346 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,346 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,347 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,347 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,347 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,348 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,348 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,349 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,349 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,350 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,351 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,351 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,352 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,352 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,353 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,353 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,354 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,354 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,355 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,355 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,356 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,357 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,357 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,359 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,359 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,360 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,360 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:24:40,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,361 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,362 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,363 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,363 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,364 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,365 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,365 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,366 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,367 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,367 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,368 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,368 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,387 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,387 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,388 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,389 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:24:40,389 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,390 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,390 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,391 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,391 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,392 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,392 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,394 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,394 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,395 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,396 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,396 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,397 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,397 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,397 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,399 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,399 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,400 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,400 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,401 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:24:40,401 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BAGONG NAYON, BALIUAG, BUALCAN'}
+2017-08-16 18:24:40,647 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:24:40,647 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:24:40,648 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,649 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:24:40,649 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:24:40,650 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,650 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,651 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:24:40,651 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Highway, Brgy. Camp One Udiao, Rosario, La Union '}
+2017-08-16 18:24:40,653 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,653 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,654 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:24:40,654 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:24:40,655 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,656 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,656 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,657 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:24:40,657 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,658 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,659 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,660 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,660 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'B.S. Aquino Ave. Tangos,Baliwag Bulacan'}
+2017-08-16 18:24:40,661 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:24:40,662 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,662 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:24:40,663 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,664 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:24:40,665 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,665 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:24:40,666 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:24:40,666 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:24:40,667 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:24:40,668 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,669 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:40,669 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:24:57,488 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:24:58,666 INFO - run.py <module>: Starting app
+2017-08-16 18:25:10,064 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:25:12,175 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'G/F Poquito Mas BLDG., '}
+2017-08-16 18:25:12,176 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN RAFAEL, '}
+2017-08-16 18:25:12,177 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:25:12,177 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN, '}
+2017-08-16 18:25:12,178 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN, '}
+2017-08-16 18:25:12,178 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:25:12,179 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '701 Citystate Center 750 Shaw , '}
+2017-08-16 18:25:12,179 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MacArthur Highway, Bulihan, '}
+2017-08-16 18:25:12,180 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '66  CAGAYAN VALLEY RD. STA RIT, '}
+2017-08-16 18:25:12,180 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PHL, '}
+2017-08-16 18:25:12,181 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:25:12,181 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BULACAN PH, '}
+2017-08-16 18:25:12,181 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MAKATI CITY, '}
+2017-08-16 18:25:12,182 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'GROUND FLOOR EX 135A-136 SM, CITY BALIUAG, BULACAN'}
+2017-08-16 18:25:12,182 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY CITY OF MALOLOS, BULACAN'}
+2017-08-16 18:25:12,183 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MC ARTHUR HI WAY BULIHAN, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,183 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SAN JOSE SAN MIGUEL BULACAN, '}
+2017-08-16 18:25:12,184 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,184 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PETRON SERVICE STATION (PEC1), MARILAO,BULACAN'}
+2017-08-16 18:25:12,185 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '17 PINAGBARILAN ST.  DRT HIWAY, BALIWAG BULACAN'}
+2017-08-16 18:25:12,185 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'STARWALK COMMERCIAL BLDG TIKAY, TIKAY MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,186 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '3903 CAGAYAN VALLEY ROAD , TABANG PLARIDEL BULACAN'}
+2017-08-16 18:25:12,187 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'TIKAY, MALOLOS CITY, BULACAN, '}
+2017-08-16 18:25:12,188 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PULILAN JUNCTION STO CRISTO, PULILAN BULACAN'}
+2017-08-16 18:25:12,189 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PLARIDEL BULACAN, '}
+2017-08-16 18:25:12,189 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '35 COMMONWEALTH AVE. COR LUZON, BRGY MATANDANG BALARA D2 QC'}
+2017-08-16 18:25:12,190 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'EX 144A SM CITY BALIWAG DRT , HIWAY PAGALA BALIWAG BULACAN'}
+2017-08-16 18:25:12,190 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:25:12,190 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'CONGRESSIONAL AVE.BRGY. RAMON, MAGSAYSAY QUEZON CITY,'}
+2017-08-16 18:25:12,191 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BALIAUG BULACAN, '}
+2017-08-16 18:25:12,191 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'PROVINCIAL CAPITOL MCARTHUR, MALOLOS CITY, BULACAN'}
+2017-08-16 18:25:12,192 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'SM CITY BALIWAG , BALIWAG BUALCAN'}
+2017-08-16 18:25:12,192 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,193 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,193 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,194 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,194 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,194 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,195 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,195 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,196 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,196 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,197 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,197 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,197 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,198 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,198 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,199 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,199 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,199 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,201 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,201 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MACARTHUR HIGHWAY GUINHAWA, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,202 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,202 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,203 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,203 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,205 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,205 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,206 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,206 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,206 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,207 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,207 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,208 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,208 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,209 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,209 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,210 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,210 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,210 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,211 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,211 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'MCARTHUR HIGHWAY, MABOLO, MALOLOS CITY BULACAN'}
+2017-08-16 18:25:12,212 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,212 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,213 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,213 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,213 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,214 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,214 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,215 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,216 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,216 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,217 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,218 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,219 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,220 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,220 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,221 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,221 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,222 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,222 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,223 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'ROBINSONS PLACE MALOLOS, BULACAN'}
+2017-08-16 18:25:12,223 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,236 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,237 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,237 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,238 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,238 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,239 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,239 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,240 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,241 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,241 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,242 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,245 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,246 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,247 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,248 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,249 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,249 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,249 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,250 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': "ROBINSON'S PLACE MALOLOS, MALOLOS CITY, BULACAN"}
+2017-08-16 18:25:12,251 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'BAGONG NAYON, BALIUAG, BUALCAN'}
+2017-08-16 18:25:12,498 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:25:12,499 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:25:12,500 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,501 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:25:12,501 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'McArthur Highway, Guinhawa, Malolos, Bulacan'}
+2017-08-16 18:25:12,502 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,502 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,503 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:25:12,504 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Highway, Brgy. Camp One Udiao, Rosario, La Union '}
+2017-08-16 18:25:12,505 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,506 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,506 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:25:12,507 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Hiway, Sabang, Baliuag,Bulacan'}
+2017-08-16 18:25:12,507 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,508 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,508 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,509 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'National Rd, Dampol 1st (Lumbac), Pulilan, Bulacan'}
+2017-08-16 18:25:12,509 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,510 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,511 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,512 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,513 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'B.S. Aquino Ave. Tangos,Baliwag Bulacan'}
+2017-08-16 18:25:12,513 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Km. 23 Bo. Lias, North Expressway(inside NL Tollway) Marilao,Bulacan'}
+2017-08-16 18:25:12,514 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,515 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:25:12,515 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,516 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:25:12,517 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,518 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'North Luzon Tollway, Balagtas Bulacan (southbound)'}
+2017-08-16 18:25:12,518 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:25:12,519 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'DRT Highway, Pinagbarilan, Baliuag, Bulacan'}
+2017-08-16 18:25:12,520 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': '205 General Alejo DonacionAngat, Bulacan'}
+2017-08-16 18:25:12,520 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,521 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:12,522 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {}, 'address': 'Brgy. Malamig, Bustos, Bulacan'}
+2017-08-16 18:25:33,967 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:25:35,145 INFO - run.py <module>: Starting app
+2017-08-16 18:26:12,008 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:26:13,140 INFO - run.py <module>: Starting app
+2017-08-16 18:26:44,052 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:26:45,206 INFO - run.py <module>: Starting app
+2017-08-16 18:26:51,027 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:26:52,227 INFO - run.py <module>: Starting app
+2017-08-16 18:27:13,415 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 18:27:14,583 INFO - run.py <module>: Starting app
+2017-08-16 18:27:18,297 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AGUSTIN,MARIA ROSANA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:19,689 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'ALVARAN,MARY GRACE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:21,503 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.96989, u'lng': 120.913358}, 'address': 'BALIUAG DISTRICT HOSPITAL, BALIUAG, BULACAN   ', 'name': u'AMBITO,RANDY', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:23,116 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AMPARO,MARYANNE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:27,657 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.839892, u'lng': 120.811569}, 'address': 'T.ALONZO ST., STO.ROSARIO, MALOLOS, BULACAN   ', 'name': u'ANIAG,MILAGROS', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:32,166 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'AVELLANA,FLORANGEL', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:33,832 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.777227, u'lng': 120.8793846}, 'address': 'RHU 1, MALOLOS, BULACAN   ', 'name': u'AVES,EVA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:37,392 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9519226, u'lng': 120.8988293}, 'address': 'CLINICA BALIUAG   ', 'name': u'BALATBAT,JOSE ALVIN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:40,976 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.886277, u'lng': 120.8634105}, 'address': 'LA CONSOLACION GEN. HOSP., PLARIDEL, BUL.   ', 'name': u'BAQUIRAN,JUN', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:42,752 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8370235, u'lng': 120.8855897}, 'address': 'GUIGUINTO, BULACAN   ', 'name': u'BASSIG,DEANNA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:44,453 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8521842, u'lng': 120.8175623}, 'address': 'Rm 211 ALTA BLDG. GUINHAWA MALOLOS, BULACAN   ', 'name': u'BATOON,MA. CECILIA LEDEVINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:46,702 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DIST. HOSP.   ', 'name': u'BAUTISTA,MIRAFE', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:48,540 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.957781, u'lng': 120.903559}, 'address': 'CASTRO GENERAL HOSP,Baliwag   ', 'name': u'BAUTISTA,ELVIRA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:50,364 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DISTRICT HOSPITAL, SAN MIGUEL, BULACAN   ', 'name': u'BAYAN,VIRGILIO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:52,521 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'Baliwag,Bulacan   ', 'name': u'BRAGA,CECILLE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:53,093 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'BUGAOAN,MARGUERITA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:54,790 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.886277, u'lng': 120.8634105}, 'address': 'PLARIDEL EMERGENCY HOSPITAL, PLARIDEL, BULACAN   ', 'name': u'BULAONG,ANTONIO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:56,887 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9585462, u'lng': 120.8992238}, 'address': 'B.S AQUINO ST.BALIWAG BULACAN   ', 'name': u'CANASA,MARY ANN', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:27:58,898 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9011437, u'lng': 120.769476}, 'address': 'CALUMPIT, BULACAN   ', 'name': u'CANDELARIA,NANCY', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:27:59,746 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'CASINGAL,BRENDA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:02,076 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.957781, u'lng': 120.903559}, 'address': 'CASTRO HOSPITAL, BALIUAG, BULACAN   ', 'name': u'CASTRO,RAYMUNDO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:04,101 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'CASTRO,VERONICA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:05,969 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIUAG, BULACAN   ', 'name': u'CENTENO,ZENAIDA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:08,968 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8874018, u'lng': 120.8678586}, 'address': 'PASTRANA BLDG. BANGA 2, PLARIDEL, BULACAN   ', 'name': u'CERVANTES,PEDRO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:11,553 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.7956608, u'lng': 120.8771673}, 'address': 'SAN JOSE BULACAN, BULACAN   ', 'name': u'CORONEL,ANGELYN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:14,909 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8406365, u'lng': 120.8615009}, 'address': 'GUIGUINTO, TABANG,  SPECIALTY CLINIC   ', 'name': u'CORTES,ANNA CARLA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:17,756 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.166425, u'lng': 121.0105733}, 'address': 'SAN MIGUEL, BULACAN   ', 'name': u'COTO,EVANGELINE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:19,832 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8584604, u'lng': 120.8174162}, 'address': 'PEDIA DEPT., B.P.H., MALOLOS, BULACAN   ', 'name': u'CRISOSTOMO,ANALIZ', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:21,772 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8938666, u'lng': 120.8659977}, 'address': 'OUR LADY OF MERCY HOSP. PULILAN, BULACAN   ', 'name': u'CRUDA,ROWENA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:23,468 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9379359, u'lng': 120.927572}, 'address': 'BUSTOS, BULACAN   ', 'name': u'CRUZ,LIZA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:25,976 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.846501, u'lng': 120.812473}, 'address': 'BARASOAIN MALOLOS CITY   ', 'name': u'CRUZ,MYRA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:27,714 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DISTRICT HOSPITAL, BULACAN   ', 'name': u'DE GUZMAN,ELIZABETH', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:28,888 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'DE GUZMAN,MARICEL JANICE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:30,557 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.848432, u'lng': 120.814081}, 'address': 'ST. VINCENT POLYCLINIC CATMON MALOLOS   ', 'name': u'DE JESUS,PETER MARKUS', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:33,546 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9597366, u'lng': 120.899798}, 'address': 'RHU 1-BALIUAG, BALIUAG, BULACAN   ', 'name': u'DE LEON,MERILYN', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:35,423 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8481138, u'lng': 120.8140862}, 'address': 'PASEO DEL CONGRESO MALOLOS, BULACAN   ', 'name': u'DE MESA,BENJAMIN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:37,470 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.837136, u'lng': 120.7700563}, 'address': 'RHU, PAOMBONG   ', 'name': u'DE ROXAS,ROY NELSON', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:38,922 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8584604, u'lng': 120.8174162}, 'address': 'PEDIA DEPT., B.P.H., MALOLOS, BULACAN   ', 'name': u'DE ROXAS,MA. CORAZON IRENE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:41,262 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8542066, u'lng': 120.8585076}, 'address': 'STA. RITA GUIGUINTO, BULACAN   ', 'name': u'DEJITO,MA CORAZON', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:44,162 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9011437, u'lng': 120.769476}, 'address': 'CALUMPIT BULACAN   ', 'name': u'DEL ROSARIO,MARIVIC', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:45,454 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'DELA CRUZ,TARA ANGELA KRYSTEENA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:50,169 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.851836, u'lng': 120.8177406}, 'address': 'SACRED HEART HOSP., MALOLOS, BULACAN   ', 'name': u'DELA MERCED,RESTITUTO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:28:52,297 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.843673, u'lng': 120.813614}, 'address': 'TANJECO ST. SAN VICENTE MALOLOS, BULACAN   ', 'name': u'DELA PENA,MA. LOURDES', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:55,808 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.83669, u'lng': 120.733577}, 'address': 'HAGONOY DISTRICT HOSPITAL   ', 'name': u'DELA VEGA,JAY', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:28:57,547 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.998451, u'lng': 120.9532123}, 'address': 'SAN RAFAEL, BULACAN   ', 'name': u'DELOS REYES,RAMON', 'specialty': u'FAMILY MEDICINE'}
+2017-08-16 18:28:59,071 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.948208, u'lng': 120.894568}, 'address': 'RHU 3, BALIUAG, BULACAN   ', 'name': u'DINLASAN,JOAN', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:29:01,809 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'DOCTOR,DONNA FE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:08,260 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8938666, u'lng': 120.8659977}, 'address': 'OLMGH, PULILAN, BULACAN   ', 'name': u'ENRIQUEZ,MA. CONSUELO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:11,750 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': "BULACAN MATERNITY & CHILDREN'S HOSPITAL, CALUMPIT, BULACAN  ", 'name': u'ESCUETA,ARVIN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:14,120 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9510846, u'lng': 120.8946401}, 'address': 'GIL CARLOS ST., SAN JOSE, BALIAUG, BULACAN   ', 'name': u'EUGENIO,LYDIA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:15,919 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9653008, u'lng': 120.9093058}, 'address': 'SABANG, BALIUAG, BULACAN   ', 'name': u'FERMO,NELIA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:18,576 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MARY IMMACULATE HOSPITAL MALOLOS   ', 'name': u'FERNANDEZ,PATRICIA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:19,941 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9379359, u'lng': 120.927572}, 'address': 'BUSTOS, BULACAN   ', 'name': u'FERNANDO,RIZZA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:21,796 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'FLORENDO,MARY ANN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:23,463 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.851937, u'lng': 120.819095}, 'address': 'JDM MULTISPECIALTY CLINIC, MALOLOS, BUL.   ', 'name': u'FORTIFAES,MICHELLE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:24,335 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8406365, u'lng': 120.8615009}, 'address': 'GUIGUINTO, TABANG,  SPECIALTY CLINIC   ', 'name': u'FRANCISCO,GINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:28,220 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.0659182, u'lng': 120.9452996}, 'address': 'MATIMBUBONG SAN ILDEFONSO, BULACAN   ', 'name': u'GARCIA,GIL', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:29:29,841 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.957781, u'lng': 120.903557}, 'address': 'CASTRO MATERNITY & GENERAL HOSPITAL   ', 'name': u'GARCIA,MARILOU', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:32,435 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.837136, u'lng': 120.7700563}, 'address': 'RHU, PAOMBONG   ', 'name': u'GARVIDA,JULIO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:29:33,555 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'GATDULA,ELLAINE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:34,747 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8584604, u'lng': 120.8174162}, 'address': 'PEDIA DEPT., B.P.H., MALOLOS, BULACAN   ', 'name': u'GATIERA,BARBARA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:35,874 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIUAG, BULACAN   ', 'name': u'GATMAITAN,ADELENE', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:29:37,153 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIUAG, BULACAN   ', 'name': u'GATMAITAN,JOSELITO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:29:38,822 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.777227, u'lng': 120.8793846}, 'address': 'RHU 1 GUIGUINTO, BULACAN   ', 'name': u'GERONIMO,SHEILA MAE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:40,263 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIUAG   ', 'name': u'GUICO,ELSA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:41,701 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8584604, u'lng': 120.8174162}, 'address': 'PEDIA DEPT., B.P.H., MALOLOS, BULACAN   ', 'name': u'GUMATAY,MARY GRACE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:43,727 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.851836, u'lng': 120.8177406}, 'address': 'SACRED HEART HOSPITAL, MALOLOS, BULACAN   ', 'name': u'HAO,BELINDA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:45,915 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'HERNANDEZ,JOYCE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:47,529 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.840881, u'lng': 120.861407}, 'address': 'BULACAN POLYMEDIC HOSPITAL   ', 'name': u'ILAGA,RUBY', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:49,692 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9712533, u'lng': 120.8953392}, 'address': 'MIRACLES CHILDREN CLINIC, TANGOS, BALIUAG   ', 'name': u'INONCILLO,MILLET', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:51,498 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.0285158, u'lng': 120.9345641}, 'address': 'CRUZ NA DAAN, SAN RAFAEL, BULACAN   ', 'name': u'JIMENEZ,RICA MONINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:54,249 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.848961, u'lng': 120.814326}, 'address': 'ST.VINCENT WELLNESS CLINIC CATMON MALOLOS   ', 'name': u'JIMENEZ,IRENE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:56,577 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.886277, u'lng': 120.8634105}, 'address': 'PLARIDEL EMERGENCY HOSP.  PLARIDEL, BULACAN   ', 'name': u'JIMENEZ,JONIJOHN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:29:58,827 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DISTRICT HOSP   ', 'name': u'KATIPUNAN,MARIETTA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:00,621 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9712533, u'lng': 120.8953392}, 'address': "CHILDREN'S CLINIC, TANGOS, BALIUAG, BULACAN   ", 'name': u'LOZANO,FORTUNATO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:05,912 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.888363, u'lng': 120.869587}, 'address': "MAGHINANG CHILDREN'S CLINIC, PLARIDEL   ", 'name': u'MAGHINANG,GRACIANO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:09,029 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DIST. HOSP.   ', 'name': u'MAGLALANG,ELIZABETH', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:11,112 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.791933, u'lng': 120.734995}, 'address': 'HAGONOY, BULACAN   ', 'name': u'MANGAHAS,MA. LUZ', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:13,191 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8814829, u'lng': 120.8671201}, 'address': 'PLARIDEL, BULACAN   ', 'name': u'MANGAHAS,NIVARD', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:14,874 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8867291, u'lng': 120.8600499}, 'address': 'RHU 1, POBLACION, PLARIDEL, BULACAN   ', 'name': u'MANICAD,MACARIO JR', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:16,410 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8394585, u'lng': 120.8342815}, 'address': 'STA. ISABEL MALOLOS BULACAN   ', 'name': u'MANICAD,MARITESS', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:17,641 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.957781, u'lng': 120.903557}, 'address': 'CASTRO MATERNITY & GENERAL HOSPITAL   ', 'name': u'MANIPULA,JORGE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:19,895 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'MANOOS,CHERYL', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:21,488 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.7942735, u'lng': 120.8799008}, 'address': 'BULACAN, BULACAN   ', 'name': u'MARQUEZ,LILIA', 'specialty': u'FAMILY MEDICINE'}
+2017-08-16 18:30:23,691 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9324868, u'lng': 120.8384093}, 'address': 'PULILAN, BULACAN   ', 'name': u'MARTINEZ,CARINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:25,561 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9379359, u'lng': 120.927572}, 'address': 'BUSTOS, BULACAN   ', 'name': u'MATEO,JANE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:26,163 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIUAG, BULACAN   ', 'name': u'MENDOZA,DOLORES', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:29,320 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.953966, u'lng': 120.918296}, 'address': 'STO. NI\xc3\x91O HOSP., BUSTOS, BULACAN   ', 'name': u'MENDOZA,PABLITO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:31,075 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MALOLOS, BULACAN   ', 'name': u'MENDOZA,LORETA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:33,772 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9324868, u'lng': 120.8384093}, 'address': 'PULILAN, BULACAN   ', 'name': u'MUNOZ,GEMMA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:37,157 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9717677, u'lng': 120.8972593}, 'address': 'TANGOS BALIWAG BULACAN   ', 'name': u'NICOLAS,JAMAINE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:38,358 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MARY IMMACULATE MATERNITY HOSPITAL, STO. ROSARIO, MALOLOS, B', 'name': u'OBNIAL,CRISTINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:40,693 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.7942735, u'lng': 120.8799008}, 'address': 'BULACAN, BULACAN   ', 'name': u'ORDINADO,ANAVIC', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:42,965 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.840881, u'lng': 120.861407}, 'address': 'BULACAN POLYMEDIC HOSPITAL   ', 'name': u'ORTEGA,ROCHELL', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:44,642 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.888659, u'lng': 120.866539}, 'address': 'MARCELO PADILLA HOSP. PLARIDEL, BULACAN   ', 'name': u'PADILLA,MARIA TRINIDAD', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:47,493 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8675019, u'lng': 120.7421793}, 'address': 'RHU 1, HAGONOY, BULACAN   ', 'name': u'PAJELA,ROMMEL', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:48,635 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8584604, u'lng': 120.8174162}, 'address': 'PEDIA DEPT., B.P.H., MALOLOS, BULACAN   ', 'name': u'PANGANIBAN,FIELA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:50,269 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9597366, u'lng': 120.899798}, 'address': 'RHU 1, BALIUAG, BULACAN   ', 'name': u'PATAWARAN,ORPHA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:30:55,139 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.886277, u'lng': 120.8634105}, 'address': 'PLARIDEL EMERGENCY HOSP.  PLARIDEL, BULACAN   ', 'name': u'PERALTA,RENATO', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:57,719 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.953966, u'lng': 120.918296}, 'address': 'STO. NI\xc3\x91O HOSP., BUSTOS, BULACAN   ', 'name': u'QUE,JEANETTE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:58,823 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MALOLOS, BULACAN   ', 'name': u'QUETUA,ROWENA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:30:59,889 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9324868, u'lng': 120.8384093}, 'address': 'PULILAN, BULACAN   ', 'name': u'RAMOS,ESSIE ANN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:01,508 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8100383, u'lng': 120.8412807}, 'address': 'MATIMBO, MALOLOS, BULACAN   ', 'name': u'RAMOS,REBECCA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:04,522 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1520419, u'lng': 120.9811791}, 'address': 'TIGPALAS, SAN MIGUEL, BIULACAN   ', 'name': u'RAYO,JOSEPH', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:06,313 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.96989, u'lng': 120.913358}, 'address': 'BALIUAG DISTRICT HOSPITAL, BALIUAG, BULACAN   ', 'name': u'REYES,RUTH', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:06,894 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.851836, u'lng': 120.8177406}, 'address': 'SACRED HEART HOSPITAL, MALOLOS, BULACAN   ', 'name': u'REYES,MARIA RUTH', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:08,876 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.902593, u'lng': 120.8446006}, 'address': 'GOOD SHEPERD HOSP. PULILAN, BULACAN   ', 'name': u'RIEGO DE DIOS,LILIA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:12,151 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1419742, u'lng': 120.9747258}, 'address': 'POBLACION, SAN ILDELFONSO, BULACAN   ', 'name': u'RODRIGUEZ,LOURDES', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:13,890 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.0417552, u'lng': 121.0105733}, 'address': 'SAN ILDELFONSO, BULACAN   ', 'name': u'SADAM,JOSEPHINA EDITHA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:15,496 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.791933, u'lng': 120.734995}, 'address': 'HAGONOY, BULACAN   ', 'name': u'SALAMAT,JOSE LLEWELLYN', 'specialty': u'FAMILY MEDICINE'}
+2017-08-16 18:31:16,914 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.848432, u'lng': 120.814081}, 'address': 'ST. VINCENT POLYCLINIC CATMON MALOLOS   ', 'name': u'SALVADOR,RENE MARI', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:19,132 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.902695, u'lng': 120.846881}, 'address': 'TRINITY MEDICAL CLINIC, POBLACION, PULILAN, BULACAN   ', 'name': u'SANTOS,ESTELA', 'specialty': u'FAMILY MEDICINE'}
+2017-08-16 18:31:20,902 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.949579, u'lng': 120.915768}, 'address': 'BUSTOS, 790 C. L. HILARIO HI-WAY,, BULACAN   ', 'name': u'SANTOS,EDITHA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:21,545 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'SANTOS,RONA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:23,214 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MALOLOS, BULACAN   ', 'name': u'SAYO,MA. ELENA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:26,272 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8414454, u'lng': 120.8128303}, 'address': 'Sayo Family Clinic, Poblacion, Malolos, Bulacan   ', 'name': u'SAYO,THERESE', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:28,355 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.848432, u'lng': 120.814081}, 'address': 'ST.VINCENT POLYCLINIC CATMON MALOLOS BULACAN   ', 'name': u'SERRANO,HAZEL', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:30,526 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DIST. HOSP.   ', 'name': u'SICCION,ROBERTINO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:34,232 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'Baliwag,Bulacan   ', 'name': u'TALUSAN,ANNABELLE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:38,338 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9565137, u'lng': 120.9003563}, 'address': '304 B AQUINO AVE, BALIUAG, BULACAN   ', 'name': u'TAN,NERISSA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:40,244 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.1367181, u'lng': 120.9651863}, 'address': 'SAN MIGUEL DISTRICT HOSPITAL, BULACAN   ', 'name': u'TECSON,EDWIN', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:42,166 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8325434, u'lng': 120.7337488}, 'address': 'HAGONOY, ST. JUDE CLINIC, BULACAN   ', 'name': u'TEMPONGKO,CRISTINA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:43,333 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.83669, u'lng': 120.733577}, 'address': 'HAGONOY DISTRICT HOSPITAL   ', 'name': u'TENORIO,CHARLIE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:44,413 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'TRINIDAD,WENDELL', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:45,485 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.0417552, u'lng': 121.0105733}, 'address': 'SAN ILDELFONSO, BULACAN   ', 'name': u'UMANA,MARY ANN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:46,836 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.968625, u'lng': 120.913907}, 'address': 'RUGAY HOSPITAL   ', 'name': u'VALENZUELA,ELENA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:50,433 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.7955968, u'lng': 120.8791522}, 'address': 'RHU 2, Bulacan,Bulacan   ', 'name': u'VILLANUEVA,ELISA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:52,824 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.758829, u'lng': 120.9479594}, 'address': '379 POBLACION, SAN ILDEFONSO, BULACAN   ', 'name': u'VILLANUEVA,KRISTINE MICHELLE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:31:54,779 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.7942735, u'lng': 120.8799008}, 'address': 'BULACAN BULACAN   ', 'name': u'VITUG,MARCELINA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:56,726 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 15.0659182, u'lng': 120.9452996}, 'address': 'MATIMBUBONG, SAN ILDEFONSO, BULACAN   ', 'name': u'VUIDEZ,LOLITA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:31:58,585 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.851836, u'lng': 120.8177406}, 'address': 'SACRED HEART HOSPITAL MALOLOS BULACAN   ', 'name': u'LORENZO,SHERRY MAE', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:32:01,689 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8527393, u'lng': 120.8160376}, 'address': 'MALOLOS, BULACAN   ', 'name': u'ANOSA,ROLAND', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:32:03,211 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 20.6717062, u'lng': -103.3538403}, 'address': 'SANTISIMA TRINIDAD HOSPITAL   ', 'name': u'VALERIO,LEIGH ANN', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:32:05,481 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9672031, u'lng': 120.8843434}, 'address': 'BALIWAG BULACAN   ', 'name': u'NICOLAS,JAY JOSEPH', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:32:07,426 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9861202, u'lng': 120.8917683}, 'address': 'RHU 2 BALIWAG BULACAN   ', 'name': u'ESGUERRA,ROSARIO', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:32:08,995 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.85873, u'lng': 120.81617}, 'address': 'BULACAN MEDICAL CENTER   ', 'name': u'BURTEL,PRAJWOL', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:34:08,220 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9585462, u'lng': 120.8992238}, 'address': 'B.S AQUINO ST.BALIWAG BULACAN   ', 'name': u'ONTOY,MARY JANE', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:34:16,729 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.917075, u'lng': 120.766987}, 'address': 'RM103 STA CRUZ HOSP CALUMPIT, BULACAN   ', 'name': u'PANIS,LEVITA', 'specialty': u'PEDIATRICS'}
+2017-08-16 18:43:02,224 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.8814829, u'lng': 120.8671201}, 'address': 'PLARIDEL BULACAN   ', 'name': u'DE JESUS,RAQUEL', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 18:47:05,739 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9379359, u'lng': 120.927572}, 'address': 'BUSTOS BULACAN   ', 'name': u'MAGPOC,MA.VICTORIA', 'specialty': u'GENERAL PRACTICE'}
+2017-08-16 23:23:24,280 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-16 23:23:25,957 INFO - run.py <module>: Starting app
+2017-08-17 00:04:47,691 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-17 00:04:49,096 INFO - run.py <module>: Starting app
+2017-08-17 00:07:44,180 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-17 00:07:45,346 INFO - run.py <module>: Starting app

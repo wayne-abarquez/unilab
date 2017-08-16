@@ -23,6 +23,8 @@ def geocode(address):
     url = 'https://maps.googleapis.com/maps/api/geocode/json??key=' + app.config.get('GOOGLE_MAP_API_KEY')
     url += '&address=' + address
 
+    print url
+
     response = requests.get(url, verify=False)
 
     if response.content:
