@@ -52,7 +52,7 @@
         <md-tab label="Sales">
             <div class="sales-tab">
 
-                <div layout="row" layout-align="end center">
+                <div layout="row" layout-align="start center" layout-margin>
                     <md-select placeholder="Year and Semester" ng-model="vm.filter.semester" ng-change="vm.semesterChanged(vm.filter.semester)">
                         <md-option ng-value="sem.value" ng-repeat="sem in vm.semesters">{{sem.display}}</md-option>
                     </md-select>

@@ -235,8 +235,22 @@ angular.module('demoApp.sales')
             compileList();
         }
 
+        function resetSellouts () {
+            vm.branchCompareList.forEach(function (branch) {
+                for (var key in branch) {
+                    if (key == 'id' || key == 'name') continue;
+                    if (branch[key].hasOwnProperty('sellout')) delete branch[key]['sellout'];
+                }
+            });
+            //console.log('after assigning sellout: ', vm.branchCompareList);
+            compileList();
+        }
+
         function semesterChanged (semester) {
             console.log('semesterChanged: ',semester);
+
+            resetSellouts();
+
             var branchIdsArray = _.pluck(vm.branchCompareList, 'id');
 
             branchService.getSellouts(semester, branchIdsArray)

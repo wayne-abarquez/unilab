@@ -39,11 +39,10 @@ angular.module('demoApp.productSaturation')
 
         vm.currentSelectedWeek = '';
 
-        vm.toggleDataDisplayMessage = 'Show Markers';
+        vm.toggleDataDisplayMessage = 'Show Heatmap';
         vm.toggleSaturationOrSalesDisplayMessage = 'Sales';
 
         vm.semesters = SEMESTERS;
-
 
         /* Scope Functions */
         vm.filterProductChanged = filterByProduct;
@@ -145,7 +144,7 @@ angular.module('demoApp.productSaturation')
         }
 
         function toggleDataDisplay (flag) {
-            vm.toggleDataDisplayMessage = flag ? 'Show Heatmap' : 'Show Markers';
+            vm.toggleDataDisplayMessage = flag ? 'Show Markers' : 'Show Heatmap';
             sliderChanged();
         }
 

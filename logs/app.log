@@ -1655,3 +1655,7 @@ DETAIL:  Failing row contains (1, null, null, null, null, null, null, null, null
 2017-08-16 18:47:05,739 INFO - services.py upload_fraud_data: CREATE MERCHANT: {'latlng': {u'lat': 14.9379359, u'lng': 120.927572}, 'address': 'BUSTOS BULACAN   ', 'name': u'MAGPOC,MA.VICTORIA', 'specialty': u'GENERAL PRACTICE'}
 2017-08-16 23:23:24,280 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
 2017-08-16 23:23:25,957 INFO - run.py <module>: Starting app
+2017-08-17 00:04:47,691 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-17 00:04:49,096 INFO - run.py <module>: Starting app
+2017-08-17 00:07:44,180 INFO - __init__.py <module>: Will output log to /var/www/unilab/logs/app.log
+2017-08-17 00:07:45,346 INFO - run.py <module>: Starting app

@@ -99,8 +99,6 @@
                     if (response == 'ok') mapToolsService.clearMeasurementLines();
                 });
 
-                console.log('spiderified markers: ',gmapServices.spiderifier.getMarkers());
-
                 branchService.dismissInfowindow();
                 mapToolsService.activateMeasureDistanceTool(branchMarker.originalPosition);
 
