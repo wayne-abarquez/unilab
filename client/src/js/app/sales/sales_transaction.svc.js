@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('demoApp.sales')
-        .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', salesTransactionService]);
+        .factory('salesTransactionService', ['$rootScope', 'SalesTransaction', 'userSessionService', '$q', 'gmapServices', 'MARKER_BASE_URL', 'Sellout', salesTransactionService]);
 
-    function salesTransactionService($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL) {
+    function salesTransactionService($rootScope, SalesTransaction, userSessionService, $q, gmapServices, MARKER_BASE_URL, Sellout) {
         var service = {};
 
         var transactionTypes = {
@@ -86,6 +86,7 @@
         service.resetMarkers = resetMarkers;
         service.resetTransactionVisuals = resetTransactionVisuals;
         service.saveTransactionRemarks = saveTransactionRemarks;
+        service.getSelloutDistinctDates = getSelloutDistinctDates;
 
         function saveTransactionRemarks(transactionId, remarks) {
             var dfd = $q.defer();
@@ -653,6 +654,19 @@
                 // show infowindow
                 gmapServices.triggerEvent(found.marker, 'click');
             }
+        }
+
+        function getSelloutDistinctDates () {
+            var dfd = $q.defer();
+
+            Sellout.getList({'distinct': 'dates'})
+                .then(function(response){
+                    dfd.resolve(_.pluck(response.plain(), 'sellout_date'));
+                }, function(error){
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
         }
 
         return service;

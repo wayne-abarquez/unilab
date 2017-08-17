@@ -38,8 +38,8 @@ angular.module('demoApp.home')
                     .getList(param);
             },
 
-            getSelloutsByProduct: function (semester, product) {
-                var param = {'semester': semester, 'product': product};
+            getSelloutsByProduct: function (date, product) {
+                var param = {'date': date, 'product': product};
 
                 return myModel
                     .all('sellouts')

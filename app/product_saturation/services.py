@@ -3,7 +3,7 @@ from app.sales.models import Product
 
 
 def get_product_distinct_types():
-    return Product.query.distinct(Product.type).all()
+    return Product.query.distinct(Product.type).order_by(Product.name).all()
 
 
 def create_product(data):
@@ -18,4 +18,4 @@ def create_product(data):
 
 
 def get_products():
-    return Product.query.all()
+    return Product.query.order_by(Product.name).all()
