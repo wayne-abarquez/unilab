@@ -33,7 +33,7 @@
                 <md-select placeholder="Select Product" ng-model="vm.filter.selectedProduct"
                            ng-change="vm.filterProductChanged()"
                            flex="100">
-                    <md-option ng-repeat="item in vm.productList" ng-value="item">{{ item }}</md-option>
+                    <md-option ng-repeat="item in vm.productList" ng-value="item.name">{{ item.name }} - {{ item.material_code }}</md-option>
                 </md-select>
 
             </div>
@@ -41,7 +41,7 @@
             <div id="product-saturation-slider-container" class="md-whiteframe-2dp" layout="row"
                  layout-align="start center"
                  ng-if="showProductSaturationSlider"
-                 layout-wrap
+                 flex
                  layout-margin>
 
                 <md-switch ng-model="vm.toggleSaturationOrSalesModel"
@@ -60,11 +60,17 @@
                     </md-switch>
                 </div>
 
-                <div layout="row" layout-align="start center" layout-wrap ng-if="vm.toggleSaturationOrSalesModel">
-                    <md-select placeholder="Year and Semester" ng-model="vm.filter.semester"
+                <div layout="row" layout-align="start center" flex ng-if="vm.toggleSaturationOrSalesModel">
+                    <!--<md-select placeholder="Year and Semester" ng-model="vm.filter.semester"
                                ng-change="vm.semesterChanged(vm.filter.semester)">
                         <md-option ng-value="sem.value" ng-repeat="sem in vm.semesters">{{sem.display}}</md-option>
-                    </md-select>
+                    </md-select>-->
+                        <md-slider-container flex layout-margin>
+                            <md-slider class="md-primary" md-discrete min="0" step="1" max="{{vm.selloutDates.length-1}}"
+                                       ng-model="vm.sliderSellout.currentVal"
+                                       ng-change="vm.sliderSelloutChanged()" flex></md-slider>
+                        </md-slider-container>
+                        <span class="slider-value-info" layout-wrap layout-margin><b>{{ vm.selectedSelloutDate }}</b></span>
                 </div>
             </div>
 

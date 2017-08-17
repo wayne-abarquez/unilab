@@ -505,7 +505,7 @@ def upload_branch_sellouts_data(file):
             print "MATERIAL : {0} ON INDEX: {1}".format(data_dict, idx)
 
         # product = Product.query.filter(Product.name.ilike('%' + data_dict['subbrand'] + '%')).first()
-        product = Product.query.filter(func.lower(Product.name) == func.lower(data_dict['subbrand'])).first()
+        product = Product.query.filter(and_(func.lower(Product.name) == func.lower(data_dict['subbrand']), Product.material_code == data_dict['materialid'])).first()
 
         if product is None:
             product_dict = {
@@ -576,3 +576,7 @@ def get_branch_sellouts_by_product(semester, product):
 def find_merchant(name, address=''):
     return Merchant.query.filter(
         and_(Merchant.name.ilike('%' + name + '%'), Merchant.address.ilike('%' + address + '%'))).first()
+
+
+def get_sellout_distinct_dates():
+    return Sellout.query.distinct(Sellout.sellout_date).all()

@@ -10,7 +10,8 @@ from .services import get_branches_by_boundary, get_branch_within_boundary, get_
     get_branches_within_date_range_by_product, get_sales_transactions_by_date, get_transaction_count_with_dates, \
     get_all_branches_count, delete_branch_wihin_boundary, update_sales_transaction_remarks, \
     update_sales_transaction_status, upload_branch_data, upload_branch_sellouts_data, get_branch_sellouts, \
-    get_branch_sellouts_by_product, get_cleared_transaction_count_with_dates, get_investigated_transaction_count_with_dates
+    get_branch_sellouts_by_product, get_cleared_transaction_count_with_dates, get_investigated_transaction_count_with_dates, \
+    get_sellout_distinct_dates
 from flask import request
 from flask_login import current_user
 from app.resources import UploadResource
@@ -296,8 +297,25 @@ class BranchSelloutsResource(Resource):
 
         if 'semester' in request.args and 'product' in request.args:
             return get_branch_sellouts_by_product(request.args['semester'], request.args['product'])
+        elif 'date' in request.args and 'product' in request.args:
+            return get_branch_sellouts_by_product(request.args['date'], request.args['product'])
         elif 'semester' in request.args and 'branch_ids' in request.args:
             return get_branch_sellouts(request.args['semester'], request.args['branch_ids'])
+
+        return []
+
+
+class SelloutsResource(Resource):
+    """
+    Resource for getting all Sellouts
+    """
+
+    @marshal_with(branch_sellout_fields)
+    def get(self):
+        """ GET /sellouts """
+
+        if 'distinct' in request.args and request.args['distinct'] == 'dates':
+            return get_sellout_distinct_dates()
 
         return []
 
@@ -313,4 +331,5 @@ rest_api.add_resource(UserSalesTransactionResource, '/api/users/<int:userid>/sal
 rest_api.add_resource(BranchUploadResource, '/api/branches/upload')
 rest_api.add_resource(BranchSelloutsUploadResource, '/api/branches/sellouts/upload')
 rest_api.add_resource(BranchSelloutsResource, '/api/branches/sellouts')
+rest_api.add_resource(SelloutsResource, '/api/sellouts')
 

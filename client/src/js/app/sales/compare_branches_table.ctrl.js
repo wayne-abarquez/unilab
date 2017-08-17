@@ -102,7 +102,8 @@ angular.module('demoApp.sales')
 
             obj.products.forEach(function(prod){
                result[prod.product.name] = {
-                   name: prod.product.name
+                   name: prod.product.name,
+                   material_code: prod.product.material_code
                };
             });
 
@@ -145,9 +146,10 @@ angular.module('demoApp.sales')
                             : {'value': item};
                         result[key].push(resObj);
                     } else {
+                        console.log('item: ',item);
                         if (products.indexOf(key) > -1) {
                             resObj = item.hasOwnProperty('name')
-                                ? {'value': item.name}
+                                ? {'value': item.name + ' - ' + item.material_code}
                                 : {'value': item};
 
                             if (item.hasOwnProperty('sellout')) resObj['sellout'] = item.sellout;
@@ -164,6 +166,7 @@ angular.module('demoApp.sales')
         }
 
         function compileList () {
+            //console.log('compile list: ', vm.branchCompareList);
             vm.list = indexByAttribute(vm.branchCompareList);
         }
 
@@ -206,7 +209,7 @@ angular.module('demoApp.sales')
         }
 
         function assignSellout(selloutData) {
-            console.log('assign sellout : ',selloutData);
+            //console.log('assign sellout : ',selloutData);
 
             var foundSellout;
 
@@ -247,7 +250,7 @@ angular.module('demoApp.sales')
         }
 
         function semesterChanged (semester) {
-            console.log('semesterChanged: ',semester);
+            //console.log('semesterChanged: ',semester);
 
             resetSellouts();
 

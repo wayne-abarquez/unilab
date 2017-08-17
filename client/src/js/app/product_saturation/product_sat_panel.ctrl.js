@@ -2,9 +2,9 @@
 'use strict';
 
 angular.module('demoApp.productSaturation')
-    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', 'productSatService', 'SEMESTERS', productSatPanelController]);
+    .controller('productSatPanelController', ['$rootScope', 'Branch', 'branchService', '$q', 'Product', 'productSatService', 'SEMESTERS', 'salesTransactionService', productSatPanelController]);
 
-    function productSatPanelController ($rootScope, Branch, branchService, $q, Product, productSatService, SEMESTERS) {
+    function productSatPanelController ($rootScope, Branch, branchService, $q, Product, productSatService, SEMESTERS, salesTransactionService) {
         var vm = this;
 
         var aborts;
@@ -18,7 +18,7 @@ angular.module('demoApp.productSaturation')
         vm.filter = {
             q: '',
             selectedType: 'name',
-            selectedProduct: '',
+            selectedProduct: null,
             semester: null
         };
 
@@ -27,7 +27,7 @@ angular.module('demoApp.productSaturation')
             percentage: 0
         };
 
-        /* Slider Variables */
+        /* Slider Saturation Variables */
 
         vm.weeks = [];
 
@@ -38,6 +38,14 @@ angular.module('demoApp.productSaturation')
         var firstWeek;
 
         vm.currentSelectedWeek = '';
+
+        /* Slider Sellout Variables */
+
+        vm.selloutDates = [];
+
+        vm.sliderSellout = {
+            currentVal: 0
+        };
 
         vm.toggleDataDisplayMessage = 'Show Heatmap';
         vm.toggleSaturationOrSalesDisplayMessage = 'Sales';
@@ -51,13 +59,17 @@ angular.module('demoApp.productSaturation')
         vm.toggleDataDisplay = toggleDataDisplay;
         vm.toggleSaturationOrSalesChanged = toggleSaturationOrSalesChanged;
         vm.semesterChanged = semesterChanged;
+        vm.sliderSelloutChanged = sliderSelloutChanged;
 
         initialize();
 
         function initialize () {
             Product.getList()
                 .then(function (response) {
-                    vm.productList = vm.productList.concat(_.pluck(response.plain(), 'name'));
+                    //vm.productList = vm.productList.concat(_.pluck(response.plain(), 'name'));
+                    response.plain().forEach(function(item){
+                        if (item.name) vm.productList.push(item);
+                    });
                 });
 
             // get branch total count
@@ -69,6 +81,11 @@ angular.module('demoApp.productSaturation')
             Branch.getList()
                 .then(function (response) {
                     branchService.loadMarkers(response.plain(), true);
+                });
+
+            salesTransactionService.getSelloutDistinctDates()
+                .then(function(distinctDates){
+                    vm.selloutDates = distinctDates;
                 });
 
             vm.weeks = productSatService.getFiveWeeksDuration(new Date());
@@ -179,6 +196,27 @@ angular.module('demoApp.productSaturation')
                     $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
                 });
 
+        }
+
+        var selloutDate;
+
+        function sliderSelloutChanged () {
+            selloutDate = vm.selloutDates[vm.sliderSellout.currentVal];
+
+            vm.selectedSelloutDate = moment(selloutDate).format('MMMM YYYY');;
+
+            branchService.getSelloutsByProduct(selloutDate, vm.filter.selectedProduct)
+                .then(function (sellouts) {
+                    console.log('sellouts by product: ', sellouts);
+                    branchService.displaySellouts(sellouts);
+
+                    vm.hasProduct.count = sellouts.length;
+                    vm.hasProduct.percentage = Math.ceil(sellouts.length / branchTotalCount * 100);
+                    vm.hasProduct.fraction = sellouts.length + ' / ' + branchTotalCount;
+                    $rootScope.$broadcast('product-saturation-numbers-update', {data: vm.hasProduct});
+                });
+
+            vm.currentSelectedSelloutDate = angular.copy(vm.sliderSellout.currentVal);
         }
     }
 }());
