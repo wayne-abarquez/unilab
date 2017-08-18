@@ -15,6 +15,7 @@ from app.utils import forms_helper
 import logging
 import itertools
 import re
+import dateparser
 from random import randint
 
 log = logging.getLogger(__name__)
@@ -35,9 +36,20 @@ def slugify(text, delim=u'_'):
     return unicode(delim.join(result))
 
 
-def clean_date(datestr):
-    dateext = datestr[2:24]
-    return datetime.strptime(dateext, "%m/%d/%Y-%I:%M:%S %p")
+def clean_date(datestr, sheet):
+    if sheet == 'COVERAGE':
+        dateext = datestr[2:24]
+        return datetime.strptime(dateext, "%m/%d/%Y-%I:%M:%S %p")
+    elif sheet == 'C3S':
+        return datestr
+    elif sheet == 'IIDACS':
+        return datestr
+    elif sheet == 'LEAVES':
+        return datetime.strptime(datestr, "%m/%d/%Y")
+    elif sheet == 'FLEET':
+        return datetime.strptime(datestr, "%m/%d/%Y")
+    else:
+        return dateparser.parse(datestr)
 
 
 def create_table_name(name, prefix='transaction'):
@@ -45,12 +57,16 @@ def create_table_name(name, prefix='transaction'):
 
 
 address_columns = ['clinic address', 'address3', 'station address']
+date_columns = ['visit_date', 'cardtransdate', 'date_time', 'leave_date', 'statementdate']
 
 user_id_columns = ['emp id', 'employeeid', 'employee id', 'empid', 'payee id']
 latlng_columns = ['latitude', 'longitude']
 merchant_columns = ['mdname', 'specialty description']
 
 except_columns = user_id_columns + latlng_columns + merchant_columns + address_columns
+
+except_sheets = ['1SS']
+# except_sheets = ['COVERAGE', '1SS', 'C3S', 'IIDACS']
 
 
 def upload_fraud_data(file):
@@ -59,8 +75,21 @@ def upload_fraud_data(file):
     ptolatlng = PointToLatLng()
     result = {}
 
-    for sheet in wb.get_sheet_names():
-        ws = wb.get_sheet_by_name(sheet)
+    # date_dict = {}
+    is_table_non_transaction = False
+
+    for sheetname in wb.get_sheet_names():
+        sheet = sheetname.upper()
+
+        if sheet in except_sheets:
+            print "BYPASSING {0}. PROCEEDING TO NEXT SHEET.".format(sheet)
+            continue
+
+        print "************************"
+        print sheetname
+        print "************************"
+
+        ws = wb.get_sheet_by_name(sheetname)
 
         rows = ws.iter_rows()
 
@@ -72,10 +101,10 @@ def upload_fraud_data(file):
 
         # data_types = {}
 
-        table_name = create_table_name(sheet)
+        table_name = create_table_name(sheetname)
         metadata = MetaData(bind=engine)
 
-        is_table_non_transaction = True if 'leave' in table_name.lower() else False
+        # is_table_non_transaction = True if 'leave' in table_name.lower() else False
 
         for cell in columnrow:
             if cell.value is not None:
@@ -89,16 +118,16 @@ def upload_fraud_data(file):
             tablecolumns.append(col)
 
         # create the table
-        if is_table_non_transaction:
-            table = Table(table_name, metadata,
-                          Column('id', Integer, primary_key=True),
-                          Column('userid', Integer, ForeignKey(User.id), nullable=False),
-                          *(Column(colname, String()) for colname in tablecolumns))
-        else:
-            table = Table(table_name, metadata,
-                          Column('id', Integer, primary_key=True),
-                          Column('transactionid', Integer, ForeignKey(Transaction.id), nullable=False),
-                          *(Column(colname, String()) for colname in tablecolumns))
+        # if is_table_non_transaction:
+        #     table = Table(table_name, metadata,
+        #                   Column('id', Integer, primary_key=True),
+        #                   Column('userid', Integer, ForeignKey(User.id), nullable=False),
+        #                   *(Column(colname, String()) for colname in tablecolumns))
+        # else:
+        table = Table(table_name, metadata,
+                      Column('id', Integer, primary_key=True),
+                      Column('transactionid', Integer, ForeignKey(Transaction.id), nullable=False),
+                      *(Column(colname, String()) for colname in tablecolumns))
 
         if not table.exists():
             table.create()
@@ -114,6 +143,8 @@ def upload_fraud_data(file):
             userid = 2
             merchant_data = {}
             address = None
+            transaction_date = None
+            merchant = None
 
             if len([c for c in row if c.value is not None]) == 0:
                 continue
@@ -121,9 +152,17 @@ def upload_fraud_data(file):
             for cell in row:
                 try:
                     cls = tablecolumns_index[actualcolumns[cell.column - 1]]
+                    # print "cls: {0}".format(cls)
                     if str(cls).lower() not in except_columns:
                         if cell.value is not None or cell.value != '':
                             dct[cls] = cell.value
+
+                            if cls in date_columns:
+                                # date_dict[cls] = cell.value
+                                transaction_date = clean_date(cell.value, sheet)
+                            # elif cls == 'station_name':
+                            #     merchant_data['name'] = cell.value
+
                             # data_types[cls] = cell.data_type
                             # app.logger.info("{0} : {1}".format(cls, cell.value))
                         else:
@@ -131,13 +170,13 @@ def upload_fraud_data(file):
                 except KeyError as e:
                     key = str(e).strip().lower()
 
-                    if len([s for s in user_id_columns if s in key]) > 0:
-                        pass
+                    # if len([s for s in user_id_columns if s in key]) > 0:
+                    #     pass
                         # if is_table_non_transaction:
                         #     dct['userid'] = cell.value
                         # else:
                         #     userid = cell.value
-                    elif len([s for s in address_columns if s in key]) > 0:
+                    if len([s for s in address_columns if s in key]) > 0:
                         address = cell.value.encode('utf-8')
                         merchant_data['address'] = address
                         # print "ADDRESS: {0}".format(address)
@@ -155,59 +194,63 @@ def upload_fraud_data(file):
                     print "ERROR: {0}".format(error)
 
             # print "DATA TYPES: {0}".format(data_types)
+            dct['userid'] = userid
 
-            try:
-                # if userid is not None and latlng['lat'] is not None \
-                #         and latlng['lng'] is not None and not is_table_non_transaction:
-                if userid is not None and not is_table_non_transaction:
-                    # save merchant
-                    merchantid = None
+            if userid is not None and not is_table_non_transaction:
+                # save merchant
+                merchantid = None
 
-                    if not bool(latlng) and 'address' in merchant_data:
-                        geocode_result = geocode(merchant_data['address'])
-                        latlng = geocode_result['geometry']['location']
+                if bool(merchant_data):
+                    if 'name' in merchant_data and address is not None:
+                        merchant = find_merchant(merchant_data['name'], address)
 
-                    if bool(merchant_data):
-                        if 'name' in merchant_data and address is not None:
-                            merchant = find_merchant(merchant_data['name'], address)
-
+                    try:
                         if merchant is None:
+                            if not bool(latlng):
+                                geocode_result = geocode(merchant_data['address'])
+                                latlng = geocode_result['geometry']['location']
                             merchant_data['latlng'] = latlng
-                            app.logger.info("CREATE MERCHANT: {0}".format(merchant_data))
                             merchant = create_merchant(merchant_data)
                             merchantid = merchant.id
+                            app.logger.info("SHEET: {0} MERCHANT CREATED: {1}".format(sheet, merchant_data))
                         else:
                             merchantid = merchant.id
-                            merchant.latlng = forms_helper.parse_coordinates(latlng) if latlng is not None else merchant.latlng
-                            db.session.commit()
                             latlng = ptolatlng.format(merchant.latlng)
+                            # merchant.latlng = forms_helper.parse_coordinates(latlng) if latlng is not None else merchant.latlng
+                            # db.session.commit()
+                    except Exception as e:
+                        print "ERROR: {0}".format(e)
+                        db.session.rollback()
 
-                    # address = merchant_data['address'] if 'address' in merchant_data else None
-                    transaction_date = clean_date(dct['visit_date']) if 'visit_date' in dct else None
-
-                    if merchantid is not None and latlng is not None:
-                        transaction = create_transaction(userid, latlng, sheet.upper(), merchantid, address,
-                                                         transaction_date)
+                print "CREATING TRANSACTION: userid={0} sheet={1} latlng={2} address={3} transaction_date={4} merchantid={5}".format(
+                    userid, sheet, latlng, address, transaction_date, merchantid)
+                try:
+                    transaction = create_transaction(userid, sheet, latlng, address, transaction_date, merchantid)
+                    app.logger.info("SHEET: {0} TRANSACTION CREATED: {1}".format(sheet, transaction.to_dict()))
 
                     if transaction is not None and transaction.id is not None:
                         dct['transactionid'] = transaction.id
                         values.append(dct)
                         transaction_ids.append(transaction.id)
+                except Exception as e:
+                    print "ERROR: {0}".format(e)
+                    db.session.rollback()
+                    continue
 
-                elif is_table_non_transaction:
-                    values.append(dct)
-            except:
-                pass
+            # elif is_table_non_transaction:
+            #     values.append(dct)
 
-        # try:
-        #     app.logger.info("INSERTING DATA TO {0}".format(table_name))
-        #     returning_column = table.c.id if is_table_non_transaction else table.c.transactionid
-        #     res = engine.execute(table.insert().values(values).returning(returning_column))
-        #     result[sheet.lower()] = map(lambda itm: itm[0], res)
-        #     app.logger.info("FINISH!")
-        # except Exception as err:
-        #     app.logger.info("ERROR INSERTING: {0}".format(err))
+        try:
+            app.logger.info("INSERTING DATA TO {0}".format(table_name))
+            # returning_column = table.c.id if is_table_non_transaction else table.c.transactionid
+            returning_column = table.c.transactionid
+            res = engine.execute(table.insert().values(values).returning(returning_column))
+            result[sheetname.lower()] = map(lambda itm: itm[0], res)
+            app.logger.info("FINISH!")
+        except Exception as err:
+            app.logger.info("ERROR INSERTING: {0}".format(err))
 
+        app.logger.info("PROCEEDING NEXT SHEET")
     return result
 
 
@@ -372,6 +415,6 @@ def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, 
 
     if actual_travel_time_in_minutes < (average_travel_time_in_minutes - (average_travel_time_in_minutes * 0.5)) \
             or actual_travel_time_in_minutes > (
-                average_travel_time_in_minutes * 3):  # less than 50% or greater than 200% of the average travel time
+                        average_travel_time_in_minutes * 3):  # less than 50% or greater than 200% of the average travel time
         transaction_obj.status = TransactionStatus.FRAUD
         transaction_obj.remarks = 'suspicious travel time'

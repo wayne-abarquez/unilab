@@ -43,12 +43,19 @@ angular.module('demoApp')
             //measurePaths.push(startLatLng);
 
             if (!measurePolyline) measurePolyline = gmapServices.createDashedPolyline([startLatLng], '#3498db');
-            else measurePolyline.setPath([startLatLng]);
+            else {
+                if (measurePolyline) measurePolyline.setMap(gmapServices.map);
+                measurePolyline.setPath([startLatLng]);
+            }
 
             if (!measureInviMarker) measureInviMarker = gmapServices.initMarker(startLatLng, null, {visible: false});
-            else measureInviMarker.setPosition(startLatLng);
+            else {
+                if (measureInviMarker) measureInviMarker.setMap(gmapServices.map);
+                measureInviMarker.setPosition(startLatLng);
+            }
 
             if (!measureLabel) measureLabel = new Label({map: gmapServices.map, text: ''});
+            else measureLabel.setMap(gmapServices.map);
 
             measureLabel.bindTo('position', measureInviMarker, 'position');
 
@@ -90,8 +97,9 @@ angular.module('demoApp')
         }
 
         function clearMeasurementLines () {
-            measureMapObjects.forEach(function(obj){
-                obj.setMap(null);
+            measureMapObjects.forEach(function(obj, idx){
+                measureMapObjects[idx].setMap(null);
+                measureMapObjects[idx] = null;
             });
             measureMapObjects = [];
         }

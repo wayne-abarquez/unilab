@@ -541,10 +541,14 @@ angular.module('demoApp.home')
         function displaySellouts (selloutData) {
             console.log('displaySellouts: ',selloutData);
 
-            var heatMapData = selloutData.map(function(item){
-               return {
-                   location: new google.maps.LatLng(item.branch.latlng),
-                   weight: getHeatmapWeight(item.grossup_amount)
+            var heatMapData = [];
+
+            selloutData.forEach(function(item, idx){
+               if (item.branch && item.branch.latlng) {
+                   heatMapData.push({
+                       location: new google.maps.LatLng(item.branch.latlng),
+                       weight: getHeatmapWeight(item.grossup_amount)
+                   });
                }
             });
 

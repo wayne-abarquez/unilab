@@ -153,6 +153,8 @@ angular.module('demoApp.sales')
                                 : {'value': item};
 
                             if (item.hasOwnProperty('sellout')) resObj['sellout'] = item.sellout;
+                            else resObj['sellout'] = 0;
+
                         } else {
                             resObj = {'value': null};
                         }

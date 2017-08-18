@@ -48,7 +48,7 @@ def get_transaction_count_with_dates(dates, user_id):
         if idx < len(date_list) - 1:
             datestr += ","
 
-    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND type != 'LEAVES' AND status = 'FRAUD' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
         user_id, datestr)
 
     result = db.engine.execute(query).fetchall()
@@ -65,7 +65,7 @@ def get_cleared_transaction_count_with_dates(dates, user_id):
         if idx < len(date_list) - 1:
             datestr += ","
 
-    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND (status IS NULL OR status = '' OR status = 'CLEARED') AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND type != 'LEAVES' AND (status IS NULL OR status = '' OR status = 'CLEARED') AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
         user_id, datestr)
 
     result = db.engine.execute(query).fetchall()
@@ -82,7 +82,7 @@ def get_investigated_transaction_count_with_dates(dates, user_id):
         if idx < len(date_list) - 1:
             datestr += ","
 
-    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND status = 'INVESTIGATING' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
+    query = "SELECT TO_CHAR(transaction_date, 'YYYY-MM-DD') AS transdate, COUNT(*) as ctr FROM transaction WHERE userid = {0} AND type != 'LEAVES' AND status = 'INVESTIGATING' AND TO_CHAR(transaction_date, 'YYYY-MM-DD') IN ({1}) GROUP BY transdate".format(
         user_id, datestr)
 
     result = db.engine.execute(query).fetchall()
@@ -167,6 +167,7 @@ def create_merchant(data):
 
     # Prepare Data
     merchant = Merchant.from_dict(data)
+
     merchant.latlng = forms_helper.parse_coordinates(data['latlng'])
 
     if 'specialty' not in data:
@@ -183,9 +184,11 @@ def get_sales_transactions():
     return Transaction.query.all()
 
 
-def create_transaction(userid, endpoint_latlng, type, merchantid=None, address=None, transaction_date=datetime.now()):
+def create_transaction(userid, type, endpoint_latlng=None, address=None, transaction_date=datetime.now(), merchantid=None):
     transaction = Transaction(userid=userid, type=type, transaction_date=transaction_date)
-    transaction.end_point_latlng = forms_helper.parse_coordinates(endpoint_latlng)
+
+    if endpoint_latlng is not None:
+        transaction.end_point_latlng = forms_helper.parse_coordinates(endpoint_latlng)
 
     if address is not None:
         transaction.address = address
@@ -286,20 +289,22 @@ def get_products_for_branches(branch_ids):
 
 
 def get_branches_within_date_range(start_date, end_date):
-    limit_ctr = 1000
-    return Branch.query.filter(Branch.operation_started_date.between(start_date, end_date)).limit(limit_ctr).all()
+    # limit_ctr = 1000
+    return Branch.query.filter(Branch.operation_started_date.between(start_date, end_date)).all()
 
 
 def get_sales_transactions_within_date_range(start_date, end_date, user_id):
     # limit_ctr = 500
-    return Transaction.query.filter(Transaction.transaction_date.between(start_date, end_date)).filter(
-        Transaction.userid == user_id).order_by(Transaction.transaction_date).all()
+    return Transaction.query.filter(and_(Transaction.transaction_date.between(start_date, end_date),
+                                         Transaction.userid == user_id,
+                                         Transaction.type != "LEAVES")).order_by(Transaction.transaction_date).all()
 
 
 def get_sales_transactions_by_date(start_date, user_id):
-    limit_ctr = 500
-    return Transaction.query.filter(cast_data(Transaction.transaction_date, DATE) == start_date).filter(
-        Transaction.userid == user_id).order_by(Transaction.transaction_date).limit(limit_ctr).all()
+    # limit_ctr = 500
+    return Transaction.query.filter(and_(cast_data(Transaction.transaction_date, DATE) == start_date,
+                                         Transaction.userid == user_id,
+                                         Transaction.type != "LEAVES")).order_by(Transaction.transaction_date).all()
 
 
 def get_branches_within_date_range_by_product(start_date, end_date, product):
@@ -505,7 +510,7 @@ def upload_branch_sellouts_data(file):
             print "MATERIAL : {0} ON INDEX: {1}".format(data_dict, idx)
 
         # product = Product.query.filter(Product.name.ilike('%' + data_dict['subbrand'] + '%')).first()
-        product = Product.query.filter(and_(func.lower(Product.name) == func.lower(data_dict['subbrand']), Product.material_code == data_dict['materialid'])).first()
+        product = Product.query.filter(and_(func.lower(Product.name) == func.lower(data_dict['subbrand']), Product.material_code == data_dict['materialidp'''])).first()
 
         if product is None:
             product_dict = {
