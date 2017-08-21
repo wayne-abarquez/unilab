@@ -7,7 +7,7 @@ from app.authentication.models import Role, User
 from app.home.models import BoundaryType, Boundary, Territory, UserTerritory
 from app.sales.models import Branch, Product, BranchProduct, Merchant, Transaction, Sellout
 from app.seeds.seeder import BaseSeeder
-from app.fraud.services import compute_transaction_travel_details
+from app.fraud.services import compute_transaction_travel_details, scan_out_of_territory_fraud, scan_on_leave_fraud
 
 manager = Manager(app)
 migrate = Migrate(app, db)
@@ -96,6 +96,12 @@ def compute_travel_times(start_date, end_date, user_id):
 @manager.command
 def generate_branch_product_dates():
     BaseSeeder.generate_branch_product_dates()
+
+
+@manager.option('-u', '--userid', dest='userid', default=2)
+def scan_fraud(userid):
+    scan_out_of_territory_fraud(userid)
+    scan_on_leave_fraud(userid)
 
 if __name__ == '__main__':
     manager.run()

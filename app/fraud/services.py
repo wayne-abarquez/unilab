@@ -1,8 +1,8 @@
 from app import app, db
 from openpyxl import load_workbook
 from sqlalchemy import Column, String, Integer, MetaData, Table, ForeignKey
+from sqlalchemy.sql import text
 from app.sales.models import Transaction, TransactionStatus
-from app.authentication.models import User
 from unicodedata import normalize
 from app.sales.services import create_transaction, create_merchant, get_sales_transactions_within_date_range, \
     find_merchant
@@ -11,7 +11,6 @@ import json
 import requests
 from app.utils.gis_json_fields import PointToLatLngParam, PointToLatLng
 from app.utils.google_api import geocode
-from app.utils import forms_helper
 import logging
 import itertools
 import re
@@ -418,3 +417,17 @@ def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, 
                         average_travel_time_in_minutes * 3):  # less than 50% or greater than 200% of the average travel time
         transaction_obj.status = TransactionStatus.FRAUD
         transaction_obj.remarks = 'suspicious travel time'
+
+
+def scan_out_of_territory_fraud(userid):
+    query = text("SELECT scan_out_of_territory_fraud({0})".format(userid)).execution_options(autocommit=True)
+    print "scan out of territory fraud: userid={0}".format(userid)
+    print query
+    db.engine.execute(query)
+
+
+def scan_on_leave_fraud(userid):
+    query = text("SELECT scan_on_leave_fraud({0})".format(userid)).execution_options(autocommit=True)
+    print "scan_on_leave_fraud: userid={0}".format(userid)
+    print query
+    db.engine.execute(query)
