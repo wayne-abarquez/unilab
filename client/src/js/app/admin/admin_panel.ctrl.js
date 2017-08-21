@@ -76,8 +76,8 @@ angular.module('demoApp.admin')
                 if (newValue) {
                     vm.showPoiPanel = true;
                 } else {
-                    vm.loadPois = false;
-                    vm.showPoiPanel = false;
+                    //vm.loadPois = false;
+                    //vm.showPoiPanel = false;
                 }
 
                 clear();
