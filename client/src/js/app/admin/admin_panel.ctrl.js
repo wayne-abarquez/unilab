@@ -75,10 +75,11 @@ angular.module('demoApp.admin')
 
                 if (newValue) {
                     vm.showPoiPanel = true;
-                } else {
+                }
+                //else {
                     //vm.loadPois = false;
                     //vm.showPoiPanel = false;
-                }
+                //}
 
                 clear();
 
@@ -164,6 +165,8 @@ angular.module('demoApp.admin')
         }
 
         function showBoundary(boundary, isParent) {
+            console.log('showBoundary: ',boundary,isParent);
+
             clear();
 
             currentSelected = {
@@ -189,11 +192,13 @@ angular.module('demoApp.admin')
 
             // show poi selection for city and barangay
             if (boundary.typeid >= 6) {
-                $timeout(function () {
+                //$timeout(function () {
                     vm.showPoiPanel = true;
-                    vm.loadPois = true;
-                }, 500);
+                    //vm.loadPois = true;
+                //}, 100);
             }
+
+            console.log('continuing to show polygon');
 
             promises.push(
                 item.withHttpConfig({timeout: aborts.detail.promise})
@@ -204,6 +209,8 @@ angular.module('demoApp.admin')
                         gmapServices.fitToBoundsByPolygon(polygonObj);
                     })
             );
+
+            console.log('continuing to show branches');
 
             // load branches
             promises.push(
@@ -229,8 +236,13 @@ angular.module('demoApp.admin')
                     })
             );
 
+            console.log('continuing to show pois');
+
+            console.log('loadPois: ',vm.loadPois);
+            console.log('isParent: ',isParent);
+            console.log('typeid: ',boundary.typeid);
             // load places
-            if (vm.loadPois && !isParent) {
+            if (vm.loadPois && (!isParent || boundary.typeid >= 6)) {
                 promises.push(
                     placesService.loadPOIsWithinBoundary(boundary.id, selectedTypes)
                         .then(function (response) {
@@ -261,8 +273,10 @@ angular.module('demoApp.admin')
 
             if (item.isExpanded === false) return;
 
-            vm.showPoiPanel = false;
-            vm.loadPois = false;
+            if (item.typeid < 6) {
+                vm.showPoiPanel = false;
+                vm.loadPois = false;
+            }
 
             //if (item.typeid < 7) {
             if (item.typeid < 7) {
@@ -296,7 +310,7 @@ angular.module('demoApp.admin')
         function clear () {
             $rootScope.$broadcast('clear-compare-branches');
             branchService.hideMarkers();
-            placesService.hidePOIs();
+            placesService.clearPOIs();
             if (polygonObj) {
                 polygonObj.setMap(null);
                 polygonObj = null;
