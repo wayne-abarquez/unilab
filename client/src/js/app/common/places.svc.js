@@ -49,6 +49,7 @@ angular.module('demoApp')
         service.showPOIByType = showPOIByType;
         service.showVisiblePOIs = showVisiblePOIs;
         service.hidePOIs = hidePOIs;
+        service.clearPOIs = clearPOIs;
         service.getPlaceTypes = getPlaceTypes;
         service.dismissInfowindow = dismissInfowindow;
 
@@ -71,6 +72,7 @@ angular.module('demoApp')
         }
 
         function loadPOIsWithinBoundary(boundaryId, typesArray) {
+            console.log('loadPOIsWithinBoundary: ',boundaryId,typesArray);
             var dfd = $q.defer();
 
             if (abort2) abort2.resolve();
@@ -96,7 +98,7 @@ angular.module('demoApp')
             if (infowindow) poiInfowindow = infowindow;
             else if (!infowindow && !poiInfowindow) poiInfowindow = gmapServices.createInfoWindow('');
 
-            hidePOIs();
+            clearPOIs();
 
             poiMarkers = [];
 
@@ -159,6 +161,13 @@ angular.module('demoApp')
             poiMarkers.forEach(function (marker) {
                 if (marker && marker.getMap()) marker.setMap(null);
             });
+        }
+
+        function clearPOIs() {
+            poiMarkers.forEach(function (marker) {
+                if (marker && marker.getMap()) marker.setMap(null);
+            });
+            poiMarkers = [];
         }
 
         function getPlaceTypes() {
