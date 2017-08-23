@@ -263,14 +263,20 @@ def get_distance(origin_list, destination_list):
 
     response = requests.get(url, verify=False)
 
-    if response.content:
-        content = json.loads(response.content)
-        if content['status'] == 'OK' and len(content['rows']) > 0 and len(content['rows'][0]):
-            result = content['rows'][0]['elements'].pop()
-            return {
-                'distance': float((result['distance']['text']).split()[0]),
-                'duration': float((result['duration']['text']).split()[0])
-            }
+    result = {}
+
+    try:
+        if response.content:
+            content = json.loads(response.content)
+            if content['status'] == 'OK' and len(content['rows']) > 0 and len(content['rows'][0]) and len(content['rows'][0]['elements']):
+                result = content['rows'][0]['elements'].pop()
+                return {
+                    'distance': float((result['distance']['text']).split()[0]),
+                    'duration': float((result['duration']['text']).split()[0])
+                }
+    except:
+        print "ERROR ON DISTANCE MATRIX result: {0}".format(result)
+        return None
 
     return None
 
