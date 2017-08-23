@@ -15,6 +15,7 @@ import logging
 import itertools
 import re
 import dateparser
+import time
 from random import randint
 
 log = logging.getLogger(__name__)
@@ -365,6 +366,7 @@ def compute_transaction_travel_details(start_date, end_date, user_id):
                 l1 = [latlngs['previous']]
                 l2 = [latlngs['current']]
 
+                time.sleep(0.005)
                 response = get_distance(l1, l2)
 
                 if response is not None:
@@ -381,6 +383,7 @@ def compute_transaction_travel_details(start_date, end_date, user_id):
                 l1 = [latlngs['current']]
                 l2 = [latlngs['next']]
 
+                time.sleep(0.005)
                 response = get_distance(l1, l2)
 
                 if response is not None:
@@ -410,13 +413,17 @@ def compute_transaction_travel_details(start_date, end_date, user_id):
             if transitm.travel_time_in_minutes is not None:
                 transitm.travel_time_difference = transitm.travel_time_in_minutes
 
-    db.session.commit()
+            db.session.commit()
 
 
 def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, average_travel_time_in_minutes,
                            transaction_obj):
+
     actual_travel_time_result = current_transaction_date - previous_transaction_date
     actual_travel_time_in_minutes = round(actual_travel_time_result.total_seconds() / 60, 2)
+
+    if actual_travel_time_in_minutes is None or actual_travel_time_in_minutes == 0:
+        return
 
     if actual_travel_time_in_minutes < (average_travel_time_in_minutes - (average_travel_time_in_minutes * 0.5)) \
             or actual_travel_time_in_minutes > (
@@ -427,13 +434,9 @@ def scan_for_fraud_by_date(current_transaction_date, previous_transaction_date, 
 
 def scan_out_of_territory_fraud(userid):
     query = text("SELECT scan_out_of_territory_fraud({0})".format(userid)).execution_options(autocommit=True)
-    print "scan out of territory fraud: userid={0}".format(userid)
-    print query
     db.engine.execute(query)
 
 
 def scan_on_leave_fraud(userid):
     query = text("SELECT scan_on_leave_fraud({0})".format(userid)).execution_options(autocommit=True)
-    print "scan_on_leave_fraud: userid={0}".format(userid)
-    print query
     db.engine.execute(query)
