@@ -51,7 +51,7 @@ tzlocal==1.4
 uritemplate==3.0.0
 urllib3==1.21.1
 validators==0.9
-Werkzeug==0.11.2
+Werkzeug==0.15.3
 WTForms==2.1
 WTForms-Alchemy==0.13.1
 WTForms-Components==0.9.8
